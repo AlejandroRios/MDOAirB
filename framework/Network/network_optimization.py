@@ -9,14 +9,15 @@ Aeronautical Institute of Technology - Airbus Brazil
 
 Description:
     - This function performs the network optimization using linear programming
-    algorithm
+    algorithm (1-stop model)
 Inputs:
     - Distance matrix
     - Demand matrix
     - DOC matrix
     - Pax capacity
 Outputs:
-    - Profir [USD]
+    - Network Profit [USD]
+    - Route frequencies 
 TODO's:
     -
 """
@@ -66,7 +67,8 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
     # Define minimization problem
     prob = LpProblem("Network", LpMaximize)
 
-    pax_number = int(0.9*pax_capacity)
+    LF=0.85
+    pax_number = int(LF*pax_capacity)
     revenue_ik = defaultdict(dict)
     for i in departure_airport:
         for k in first_stop_airport:
