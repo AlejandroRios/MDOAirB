@@ -7,7 +7,7 @@ xlimits = np.array([[70, 130], [75, 100],[25, 50],[15,35],[-5,-2],[32,40],[45,65
 sampling = LHS(xlimits=xlimits)
 
 num = 10
-x = int(sampling(num))
+x = int(sampling(num)
 
 
 print(int(x))

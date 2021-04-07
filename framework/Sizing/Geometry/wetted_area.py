@@ -59,9 +59,9 @@ def wetted_area(vehicle):
     pylon = vehicle['pylon']
     winglet = vehicle['winglet']
 
-    fileToRead1 = 'proot'
-    fileToRead2 = 'pkink'
-    fileToRead3 = 'ptip'
+    fileToRead1 = 'PR1'
+    fileToRead2 = 'PQ1'
+    fileToRead3 = 'PT4'
 
     engine_thrust, _ , vehicle = turbofan(
         0, 0, 1, vehicle)  # force [N], fuel flow [kg/hr]

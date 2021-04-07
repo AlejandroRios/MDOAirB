@@ -31,7 +31,7 @@ import os
 from scipy import interpolate
 from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
 from framework.Sizing.Geometry.airfoil_preprocessing import airfoil_preprocessing
-import matplotlib.pyplot as plt
+
 
 def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
 
@@ -132,8 +132,6 @@ def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
     yproot = np.array([np.flip(yupp_root), ylow_root])
     yproot = yproot.ravel()
     esspraiz = max(yupp_root)-min(ylow_root)
-
-
     # plt.figure()
     # plt.plot(xproot,yproot,'bo')
 
@@ -199,7 +197,7 @@ def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
     ypkink = ypkink.ravel()
 
     # plt.plot(xpkink,ypkink,'ro')
-    # plt.show()
+
     ########################################################################################
     # Load airfoil coordinates
     df = pd.read_csv(
@@ -338,11 +336,10 @@ def calcareawet(xistosXper, xistosYper, xistosZper):
     # Calcula área exposta da asa (m2)
     [m, n] = (xistosXper.shape)
 
-    areas_aux1 = []
-    areas_aux2 = []
-    areawet1 = [0]
-    areawet2 = [0]
-
+    areas1 = []
+    areas2 = []
+    areawet1 = []
+    areawet2 = []
     # for j=2:(m-1):
     for j in range(1, m-1):
         # for i=1:(n-1):
@@ -378,13 +375,10 @@ def calcareawet(xistosXper, xistosYper, xistosZper):
             Stri2 = tri3darea(x1, y1, z1, x2, y2, z2, x3, y3, z3)
 
             areawet2 = abs(Stri2)
-            areas_aux1.append(areawet1)
-            areas_aux2.append(areawet2)
-    
-    areas1 = sum(areas_aux1)
-    areas2 = sum(areas_aux2)
+            areas1.append(areawet1)
+            areas2.append(areawet2)
 
-    total_area = areas1+areas2
+    total_area = sum(areas1+areas2)
     total_area = total_area*2
     return(total_area)
 

@@ -63,7 +63,7 @@ aircraft['maximum_zero_fuel_weight'] = 31700
 aircraft['maximum_fuel_capacity'] = 9428
 aircraft['number_of_engines'] = 2
 aircraft['neutral_point_xposition'] = 0
-aircraft['operational_empty_weight'] = 0
+aircraft['operational_empty_weight'] = 21800
 aircraft['payload_weight'] = 5000
 aircraft['passenger_capacity'] = 78
 aircraft['power_plant_weight'] = 0
@@ -383,13 +383,9 @@ aircraft['average_thrust'] = 0.75*aircraft['maximum_engine_thrust'] * \
 results = {}
 results['profit'] = 0
 results['nodes_number'] = 10
-results['arcs_number'] = 0
-results['avg_degree_nodes'] = 0
-results['network_density'] = 0
-results['average_clustering'] = 0
 results['covered_demand'] = 0
 results['aircrafts_used'] = 0
-results['number_of_frequencies'] = 0
+
 
 vehicle = {}
 vehicle['aircraft'] = aircraft

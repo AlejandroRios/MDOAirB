@@ -96,17 +96,8 @@ def noise_engine(noise_parameters,aircraft_geometry,altitude,delta_ISA,theta,fi,
     roBJ                = 1.210
     plug                = 1.0
     coaxial             = 1.0
-
-
     # (altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,plug,coaxial,ACJ,ABJ,h,DCJ,VCJ,VBJ,TCJ,TBJ,roCJ,roBJ)
-
-    try:
-        if VCJ > 0:
-            _, ruidoJatot     = nozzle(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,plug,coaxial,ACJ,ABJ,h,DCJ,VCJ,VBJ,TCJ,TBJ,roCJ,roBJ)
-        else:
-            raise ValueError('VCJ is 0.')
-    except:
-        exit('Error related to engine model')
+    _, ruidoJatot     = nozzle(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,plug,coaxial,ACJ,ABJ,h,DCJ,VCJ,VBJ,TCJ,TBJ,roCJ,roBJ)
     
     
     ## Ruido total ##

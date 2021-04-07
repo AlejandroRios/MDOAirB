@@ -64,7 +64,6 @@ friction_coefficient = 0.003
 m2_to_ft2 = 10.7639
 lb_to_kg = 0.453592
 deg_to_rad = np.pi/180
-ft_to_m = 0.3048
 
 
 def airplane_sizing(x, vehicle):
@@ -97,11 +96,11 @@ def airplane_sizing(x, vehicle):
     aircraft['passenger_capacity'] = x[11]
     fuselage['seat_abreast_number'] = x[12]
     performance['range'] = x[13]
-    aircraft['winglet_presence'] = 1
+    aircraft['winglet_presence'] = x[17]
     # aircraft['winglet_presence'] = 1
-    aircraft['slat_presence'] = 1
+    aircraft['slat_presence'] = x[18]
     # aircraft['slat_presence'] = 1
-    horizontal_tail['position'] = 1
+    horizontal_tail['position'] = x[19]
     # horizontal_tail['position'] = 1
 
 
@@ -110,12 +109,12 @@ def airplane_sizing(x, vehicle):
     engine['compressor_pressure_ratio'] = x[8]
     engine['turbine_inlet_temperature'] = x[9]
     engine['fan_pressure_ratio'] = x[10]/10
-    engine['design_point_pressure'] = 41000
-    engine['design_point_mach'] = 0.78
-    engine['position'] = 1
+    engine['design_point_pressure'] = x[14]
+    engine['design_point_mach'] = x[15]/100
+    engine['position'] = x[16]
+    # engine['position'] = 1
 
 
-    ceiling =  41000
     # Aerodynamics parameters
     Cl_max = 1.9
     wing['tip_incidence'] = wing['root_incidence'] + wing['twist']
@@ -283,7 +282,7 @@ def airplane_sizing(x, vehicle):
         mach = mach + 0.01
         switch_neural_network = 0
         CD_wing, _ = aerodynamic_coefficients_ANN(
-            vehicle, ceiling*ft_to_m, mach, CL_1, alpha_deg, switch_neural_network)
+            vehicle, altitude, mach, CL_1, alpha_deg, switch_neural_network)
         CD_ubrige = friction_coefficient * \
             (aircraft['wetted_area'] - wing['wetted_area']) / \
             wing['area']
@@ -419,9 +418,6 @@ def airplane_sizing(x, vehicle):
 
 # x = [85, 8.3, 0.32, 21.9, -3.1, 0.35, 5.5, 1.35, 26.2,
 #      1444, 1.46, 100, 6, 1600, 41000, 0.78, 1, 1, 1, 1]
-# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
-# x = [70, 80, 50, 20, -1.1232, 25, 45, 13, 28,
-#      1400, 13, 44, 4, 1500, 41000, 0.78, 1, 1, 1, 1]
 
 
 # status = airplane_sizing(x, vehicle)

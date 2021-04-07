@@ -565,15 +565,10 @@ def wing_structural_layout(vehicle, xutip, yutip,
     def PolyArea(x, y):
         return 0.5*np.abs(np.dot(x, np.roll(y, 1))-np.dot(y, np.roll(x, 1)))
 
-    areae = PolyArea(xpolye, ypolye)
-    areae = areae*Cext*Cext
-    areai = PolyArea(xpolyi, ypolyi)
-    areai = areai*wing['kink_chord']*wing['kink_chord']
-
-    arearootsup = PolyArea(xpolyroot, ypolyroot)
-    arearootsup = arearootsup*Csupint*Csupint
-    arearootinf = PolyArea(xpolyroot1, ypolyroot1)
-    arearootinf = arearootinf*Cinter*Cinter
+    areae = PolyArea(xpolye, ypolye)*Cext*Cext
+    areai = PolyArea(xpolyi, ypolyi)*wing['kink_chord']*wing['kink_chord']
+    arearootsup = PolyArea(xpolyroot, ypolyroot)*Csupint*Csupint
+    arearootinf = PolyArea(xpolyroot1, ypolyroot1)*Cinter*Cinter
     # Calculo dos volumes
     # 2# de perdas devido a nervuras, revestimento e outros equip
     voltanqueext = 0.98*(heighte/3)*(areai + areae + np.sqrt(areai*areae))
@@ -581,7 +576,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
     voltanqueint = 0.98*(deltay/3)*(arearootinf +
                                     arearootsup + np.sqrt(arearootinf*arearootsup))
 
-    capacidadete = 2*voltanqueext*denquerosene
+    capacidadete = 2.*voltanqueext*denquerosene
 
     # Capacidade dos tanques da asa interna
     xcombi = []
