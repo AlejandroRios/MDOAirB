@@ -43,6 +43,7 @@ def write_optimal_results(profit, DOC_ik, vehicle):
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
     fuselage = vehicle['fuselage']
+    cabine = vehicle['cabine']
     horizontal_tail = vehicle['horizontal_tail']
     vertical_tail = vehicle['vertical_tail']
     winglet = vehicle['winglet']
@@ -58,6 +59,42 @@ def write_optimal_results(profit, DOC_ik, vehicle):
     airport_departure = vehicle['airport_departure']
     airport_destination = vehicle['airport_destination']
 
+<<<<<<< HEAD
+=======
+    # Creating data for output
+    active_arcs = kpi_df2['active_arcs'].sum()
+    number_aircraft = kpi_df2['aircraft_number'].sum()
+    average_cruise_mach = kpi_df2['mach_tot_aircraft'].sum()/number_aircraft
+    total_fuel = kpi_df2['total_fuel'].sum()
+    total_CO2 = total_fuel*3.15
+    total_distance = kpi_df2['total_distance'].sum()
+    total_pax = results['covered_demand']
+    CO2_efficiency = 3.15*total_fuel/(total_pax*total_distance*1.852)
+    total_cost = kpi_df2['total_cost'].sum()
+    total_revenue = kpi_df2['revenue'].sum()
+    total_profit = results['profit']
+    margin_percent = 100*(total_profit/total_cost)
+    average_DOC = kpi_df2['DOC_nd']
+    average_DOC = average_DOC[average_DOC > 0].mean()
+    average_distance = kpi_df2['active_arcs']*kpi_df2['distances']
+    average_distance = average_distance[average_distance > 0].mean()
+
+    average_CEMV = kpi_df2['total_CEMV']
+    average_CEMV = average_CEMV[average_CEMV > 0].mean()
+    
+    number_aircraft2 = np.round(((kpi_df2['total_time'].sum())+4)/(13*60))
+    
+    REV = 1.1*total_pax*120
+    COST = 1.2*total_cost
+    RASK = REV/(total_pax*total_distance)
+    CASK = COST/(total_pax*total_distance)
+    NP = RASK-CASK
+
+
+
+
+
+>>>>>>> dev-alejandro
     # write string one by one adding newline
     with open(r'Database/Results/Aircrafts/acft_' + str(profit) + '_' + str(start_time) +'.txt','w') as output:
     # with open('Database/Results/Aircrafts/acft_' + str(profit) +'.txt','a') as output:
@@ -90,7 +127,7 @@ def write_optimal_results(profit, DOC_ik, vehicle):
         output.write('Seats number: ' +
                      str("{:.2f}".format(fuselage['seat_abreast_number'])) + '\n')
         output.write('Seat width: ' +
-                     str("{:.2f}".format(fuselage['seat_width'])) + ' [m] \n')
+                     str("{:.2f}".format(cabine['seat_width'])) + ' [m] \n')
         output.write('Seat pitch: ' +
                      str("{:.2f}".format(fuselage['seat_pitch'])) + ' [m] \n')
         output.write('Cabine height: ' +
@@ -271,7 +308,7 @@ def write_optimal_results(profit, DOC_ik, vehicle):
 
         output.write('Airports array: ' + str(airport_departure['array']) + "\n")
 
-        market_share = 0.1
+        market_share = operations['market_share']
 
         demand_db = pd.read_csv('Database/Demand/demand.csv')
         demand_db = round(market_share*(demand_db.T))
@@ -313,15 +350,42 @@ def write_optimal_results(profit, DOC_ik, vehicle):
         output.write(
             'Average degree of nodes: ' + str("{:.2f}".format(0)) + ' \n')
         output.write(
+<<<<<<< HEAD
             'Average path length: ' + str("{:.2f}".format(0)) + ' \n')
+=======
+            'CO2 efficiency [kg/PAX]: ' + str("{:.8f}".format(CO2_efficiency)) + ' \n')
+        output.write(
+            'Average CEMV [kg/nm]: ' + str("{:.8f}".format(average_CEMV)) + ' \n')
+>>>>>>> dev-alejandro
         output.write(
             'Network density: ' + str("{:.2f}".format(0)) + ' \n')
         output.write(
+<<<<<<< HEAD
             'Average clustering: ' + str("{:.2f}".format(0)) + '\n')
 
 
         output.write(
             'Total cost: ' + str("{:.2f}".format(0)) + ' [$] \n')
+=======
+            'Total pax: ' + str("{:.2f}".format(total_pax)) + ' \n')
+        output.write(
+            'Total cost [$]: ' + str("{:.2f}".format(total_cost)) + ' \n')
+        output.write(
+            'Total revenue [$]: ' + str("{:.2f}".format(total_revenue)) + ' \n')
+        output.write(
+            'Total profit [$]: ' + str("{:.2f}".format(total_profit)) + ' \n')
+        output.write(
+            'Margin percent [%]: ' + str("{:.2f}".format(margin_percent)) + ' \n')
+        output.write(
+            'Average DOC [$]: ' + str("{:.2f}".format(average_DOC)) + ' \n')
+        output.write(
+            'NRASK [$/pax.nm]x1E-4: ' + str("{:.2f}".format(RASK*1E4)) + ' \n')
+        output.write(
+            'NCASK [$/pax.nm]x1E-4: ' + str("{:.2f}".format(CASK*1E4)) + ' \n')
+        output.write(
+            'NP [$/pax.nm]x1E-4: ' + str("{:.2f}".format(NP*1E4)) + ' \n')
+        
+>>>>>>> dev-alejandro
         output.write(
             'Total revenue: ' + str("{:.2f}".format(0)) + ' [$] \n')
         output.write(

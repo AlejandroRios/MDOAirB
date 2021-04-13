@@ -6,7 +6,6 @@ Date      : November/2020
 Last edit : November/2020
 Language  : Python 3.8 or >
 Aeronautical Institute of Technology - Airbus Brazil
-
 Description:
     - This module calculates the cruise performance using the Breguet equations
 Inputs:
@@ -21,7 +20,6 @@ Outputs:
     - Mass at top of descent [kg]
 TODO's:
     - Rename variables 
-
 """
 # =============================================================================
 # IMPORTS

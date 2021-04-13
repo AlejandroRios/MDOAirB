@@ -48,15 +48,16 @@ def maximum_range_mach(mass, cruise_altitude, delta_ISA, vehicle):
     wing  = vehicle['wing']
     wing_surface = wing['area']
     aircraft = vehicle['aircraft']
+    operations = vehicle['operations']
 
-    VMO = 340
+    VMO = operations['max_operating_speed'] 
     altitude = cruise_altitude
 
     VMO = V_cas_to_V_tas(VMO-10, altitude, delta_ISA)
 
     initial_mach = 0.2
 
-    mach = np.linspace(initial_mach, 0.82, 100)
+    mach = np.linspace(initial_mach, operations['mach_maximum_operating'] , 100)
 
     V_tas = mach_to_V_tas(mach, altitude, delta_ISA)
 
@@ -75,7 +76,7 @@ def maximum_range_mach(mass, cruise_altitude, delta_ISA, vehicle):
         CD_wing, _ = aerodynamic_coefficients_ANN(
             vehicle, altitude, mach[i], float(CL_required[i]),alpha_deg,switch_neural_network)
 
-        friction_coefficient = 0.003
+        friction_coefficient = wing['friction_coefficient']
         CD_ubrige = friction_coefficient * \
             (aircraft['wetted_area'] - wing['wetted_area']) / \
             wing['area']

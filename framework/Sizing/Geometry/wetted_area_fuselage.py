@@ -96,8 +96,8 @@ def wetted_area_tailcone_fuselage(vehicle):
     ai = fuselage['width']/2
     bi = 0.90*fuselage['height']/2
     # Ellipse do final da fuselagem
-    af = 0.250  # m
-    bf = 0.30  # m
+    af = fuselage['af_ellipse']  # m
+    bf = fuselage['bf_ellipse']   # m
     z0f = bi-bf
     #
     n_points = 20

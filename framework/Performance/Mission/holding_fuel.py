@@ -82,7 +82,7 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
         CD_wing, _ = aerodynamic_coefficients_ANN(
             vehicle, h, mach, CL, alpha_deg, switch_neural_network)
 
-        friction_coefficient = 0.003
+        friction_coefficient = wing['friction_coefficient']
         CD_ubrige = friction_coefficient * \
             (aircraft['wetted_area'] - wing['wetted_area']) / \
             wing['area']

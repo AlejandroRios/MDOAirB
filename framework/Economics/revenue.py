@@ -29,8 +29,13 @@ import pandas as pd
 # =============================================================================
 
 
+<<<<<<< HEAD
 def revenue(demand, distance, pax_capacity, pax_number):
     average_ticket_price = 110
+=======
+def revenue(demand, distance, pax_capacity, pax_number, average_ticket_price):
+    
+>>>>>>> dev-alejandro
     RPM = pax_number*distance
     passenger_revenue = pax_number*average_ticket_price
     yield_ij = passenger_revenue/RPM

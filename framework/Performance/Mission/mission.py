@@ -92,48 +92,51 @@ def mission(mission_range,vehicle):
     engines_number = aircraft['number_of_engines']
     max_engine_thrust = engine['maximum_thrust']
     
-    reference_load_factor = 0.85
+    reference_load_factor = operations['reference_load_factor']
 
     heading = 0
 
     # Operations and certification parameters:
-    buffet_margin = 1.3  # [g]
-    residual_rate_of_climb = 300  # [ft/min]
-    ceiling = 41000  # [ft] UPDATE INPUT!!!!!!!!!
-    descent_altitude = 1500
+    buffet_margin = operations['buffet_margin']  # [g]
+    residual_rate_of_climb = performance['residual_rate_of_climb'] # [ft/min]
+    ceiling = operations['max_ceiling']  # [ft] UPDATE INPUT!!!!!!!!!
+    descent_altitude = operations['descent_altitude']
     # Network and mission parameters
-    holding_time = 30  # [min]
-    fuel_density = 0.81  # [kg/l]
-    fuel_price_per_kg = 1.0  # [per kg]
+    holding_time = operations['holding_time']  # [min]
+    fuel_density = operations['fuel_density']  # [kg/l]
+    fuel_price_per_kg = operations['fuel_price_per_kg']  # [per kg]
     fuel_price = (fuel_price_per_kg/fuel_density)*gallon_to_liter
-    time_between_overhaul = 2500  # [hr]
-    taxi_fuel_flow_reference = 5  # [kg/min]
-    contingency_fuel_percent = 0.1 
-    min_cruise_time = 3  # [min]
-    go_around_allowance = 300
+    time_between_overhaul = operations['time_between_overhaul']  # [hr]
+    taxi_fuel_flow_reference = operations['taxi_fuel_flow_reference']  # [kg/min]
+    contingency_fuel_percent = operations['contingency_fuel_percent']
+    min_cruise_time = operations['min_cruise_time']  # [min]
+    go_around_allowance = operations['go_around_allowance']
 
     # Initial flight speed schedule
-    climb_V_cas = 280
-    mach_climb = 0.78
-    cruise_V_cas = 310
-    descent_V_cas = 310
-    mach_descent = 0.78
+    climb_V_cas = operations['climb_V_cas']
+    mach_climb = operations['mach_climb']
+    cruise_V_cas = operations['cruise_V_cas']
+    descent_V_cas = operations['descent_V_cas']
+    mach_descent = operations['mach_descent']
 
-    delta_ISA = 0
-
-    captain_salary, first_officer_salary, flight_attendant_salary = crew_salary(
-        1000)
+    delta_ISA = airport_departure['delta_ISA']
 
     regulated_takeoff_mass = regulated_takeoff_weight(vehicle)
     regulated_landing_mass = regulated_landing_weight(vehicle)
 
-    max_takeoff_mass = aircraft['maximum_takeoff_weight'] 
-    max_landing_mass = aircraft['maximum_landing_weight']
+    max_takeoff_mass = regulated_takeoff_mass
+    max_landing_mass = regulated_landing_mass
 
-    takeoff_allowance_mass = 200*max_takeoff_mass/22000
-    approach_allowance_mass = 100*max_takeoff_mass/22000
-    average_taxi_in_time = 5
-    average_taxi_out_time = 10
+
+    captain_salary, first_officer_salary, flight_attendant_salary = crew_salary(
+        max_takeoff_mass)
+
+    # takeoff_allowance_mass = 200*max_takeoff_mass/22000
+    # approach_allowance_mass = 100*max_takeoff_mass/22000
+    takeoff_allowance_mass = operations['takeoff_allowance'] 
+    approach_allowance_mass =operations['approach_allowance_mass']
+    average_taxi_in_time = operations['average_taxi_in_time']
+    average_taxi_out_time = operations['average_taxi_out_time']
 
     payload = round(
         aircraft['passenger_capacity']
@@ -413,14 +416,22 @@ def mission(mission_range,vehicle):
         max_engine_thrust,
         engines_number,
         0.35*operational_empty_weight,
-        max_takeoff_mass)
+        max_takeoff_mass,
+        vehicle)
+    
+    # Cruise average specific air range
+    SAR = fuel_mass/mission_range
 
 
     log.info('---- End DOC mission function ----')
     end_time = datetime.now()
     log.info('DOC mission execution time: {}'.format(end_time - start_time))
 
+<<<<<<< HEAD
     return fuel_mass, total_mission_flight_time,DOC,mach,passenger_capacity
+=======
+    return float(fuel_mass), float(total_mission_flight_time),float(DOC),float(mach),float(passenger_capacity), float(SAR)
+>>>>>>> dev-alejandro
 
 
 # =============================================================================
@@ -431,6 +442,31 @@ def mission(mission_range,vehicle):
 # TEST
 # =============================================================================
 
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
 
-# DOC = mission(400)
-# print(DOC)
+# performance = vehicle['performance']
+
+# tolerance = 100
+
+# aircraft = vehicle['aircraft']
+# engine = vehicle['engine']
+# wing = vehicle['wing']
+
+# airport_departure = vehicle['airport_departure']
+# airport_destination = vehicle['airport_destination']
+
+# operations = vehicle['operations']
+# performance = vehicle['performance']
+
+# mission_range = 300
+# aircraft['maximum_zero_fuel_weight'] = 31700
+# aircraft['operational_empty_weight'] = 21800
+# aircraft['passenger_capacity'] = 77
+# aircraft['number_of_engines'] = 2
+# engine['maximum_thrust'] = 63173
+# operations['reference_load_factor'] = 0.85
+# aircraft['maximum_takeoff_weight'] = 38790
+# aircraft['maximum_landing_weight'] = 34100
+# print(mission(mission_range,vehicle))
+
+

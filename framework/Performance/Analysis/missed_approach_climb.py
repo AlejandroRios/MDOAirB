@@ -65,7 +65,7 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     CD_wing, _ = aerodynamic_coefficients_ANN(
         vehicle, airfield_elevation, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
 
-    friction_coefficient = 0.003
+    friction_coefficient = wing['friction_coefficient']
     CD_ubrige = friction_coefficient * \
         (aircraft['wetted_area'] - wing['wetted_area']) / \
         wing['area']
@@ -115,7 +115,7 @@ def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
     alpha_deg = 1
     CD_wing, _ = aerodynamic_coefficients_ANN(
         vehicle, airfield_elevation, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
-    friction_coefficient = 0.003
+    friction_coefficient = wing['friction_coefficient']
     CD_ubrige = friction_coefficient * \
         (aircraft['wetted_area'] - wing['wetted_area']) / \
         wing['area']

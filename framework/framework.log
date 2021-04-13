@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2021-03-31 09:33:25,887 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module --2021-03-31 09:34:36,569 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
 2021-03-31 09:34:36,570 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing a2021-03-31 09:34:36,963 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
 ofit excecution time: 0:05:22.602284
@@ -17,3 +18,8 @@ ion sizing function ----
 2021-03-31 09:34:09,884 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
 2021-03-31 09:34:09,924 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:51.774092
 2021-03-31 09:34:09,937 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+=======
+2021-04-13 03:24:21,889 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+---
+2021-04-13 03:24:21,299 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 86, 36, 29, -3, 35, 46, 24, 27, 1492, 23, 108, 6, 3125, 41600, 81, 1, 1, 1, 1]
+>>>>>>> dev-alejandro

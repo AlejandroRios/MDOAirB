@@ -52,10 +52,13 @@ arrivals_2 = ['CD1', 'CD2', 'CD3', 'CD4',
 # arrivals =  ['CD1', 'CD2', 'CD3', 'CD4']
 # arrivals_2 =  ['CD1', 'CD2', 'CD3', 'CD4']
 
+# departures =  ["FRA", "LHR", "CDG", "AMS"]
+# arrivals =  ["FRA", "LHR", "CDG", "AMS"]
+# arrivals_2 =  ["FRA", "LHR", "CDG", "AMS"]
 # Define minimization problem
 prob = LpProblem("Network", LpMaximize)
 
-df1 = pd.read_csv('Database/Distance/distance.csv')
+df1 = pd.read_csv('Database/Distance/distance_test.csv')
 df1 = (df1.T)
 print('=============================================================================')
 print('Distance matrix:')
@@ -71,7 +74,7 @@ print('-------------------------------------------------------------------------
 print(df2)
 print('demand:', np.sum(np.sum(df2)))
 df2 = np.round(df2)
-demand = df2.to_dict()
+demand0 = df2.to_dict()
 
 df3 = pd.read_csv('Database/DOC/DOC_test.csv')
 df3 = (df3.T)
@@ -80,6 +83,24 @@ print('DOC matrix:')
 print('-----------------------------------------------------------------------------')
 print(df3)
 doc0 = df3.to_dict()
+
+df4 = pd.read_csv('Database/Demand/active_airports.csv')
+df4 = (df4.T)
+print('=============================================================================')
+print('active airports matrix:')
+print('-----------------------------------------------------------------------------')
+print(df4)
+active_airports = df4.to_dict()
+
+
+demand = {}
+for i in departures:
+    for k in arrivals:
+        if i != k:
+            demand[(i, k)] = np.round(demand0[i][k]*active_airports[i][k])
+        else:
+            demand[(i, k)] = np.round(demand0[i][k])
+
 
 doc = {}
 for i in departures:
@@ -92,6 +113,7 @@ for i in departures:
 print(doc)
 pax_number = 78
 pax_capacity = 78
+average_ticket_price = operations['average_ticket_price']
 load_factor = pax_number/pax_capacity
 revenue_ik = defaultdict(dict)
 
@@ -99,7 +121,7 @@ for i in departures:
     for k in arrivals:
         if i != k:
             revenue_ik[(i, k)] = round(
-                revenue(demand[i][k], distances[i][k], pax_capacity, pax_number))
+                revenue(demand[i][k], distances[i][k], pax_capacity, pax_number, average_ticket_price))
         else:
             revenue_ik[(i, k)] = 0
 
@@ -253,8 +275,62 @@ opt_df2['distances'] = distance_df['distances'].values
 opt_df2['doc'] = doc_df['doc'].values
 opt_df2['demand'] = demand_df['demand'].values
 opt_df2['revenue'] = revenue_df ['revenue'].values
+opt_df2['active_arcs'] = np.where(opt_df2["aircraft_number"] > 0, 1, 0)
 
+
+<<<<<<< HEAD
 
 
 
 opt_df2.to_csv("optimization_solution2.csv")
+=======
+average_distance = opt_df2['active_arcs']*opt_df2['distances']
+average_distance = average_distance[average_distance > 0].mean()
+print(average_distance)
+# opt_df2.to_csv("Test/optimization_solution02.csv")
+
+n = len(arrivals)
+X = opt_df2["aircraft_number"].to_numpy()
+D = opt_df2['distances'].to_numpy()
+X = np.reshape(X, (n,n))
+D = np.reshape(D, (n,n))
+
+N = 0
+for i,j in np.ndindex(X.shape):
+    if X[i,j] == 1:
+        N = N+1
+
+print(N)
+
+DON = np.zeros(n)
+print(DON)
+for i in range(n):
+    DON[i] = 0
+    # if i != n:
+    for j in range(n):
+        if X[i,j] == 1:
+            DON[i] = DON[i]+1
+
+print(DON)
+
+R = 500
+C = np.zeros(n)
+for i in range(n):
+    CON =0
+    MAXCON = 0
+    for j in range(n):
+        if i != j:
+            if D[i,j] <= R:
+                MAXCON = MAXCON + 1
+                if X[i,j] == 1:
+                    CON = CON+1
+    if MAXCON>0:
+        C[i] = CON/MAXCON
+    else:
+        C[i] = 0
+
+AVG_C = np.mean(C)
+
+print(AVG_C)
+
+>>>>>>> dev-alejandro

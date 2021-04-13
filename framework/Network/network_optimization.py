@@ -47,9 +47,8 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
     departure_airport = departures
     first_stop_airport = arrivals
     final_airport = departures
-
     operations = vehicle['operations']
-
+    results = vehicle['results']
     # doc0 = np.load('Database/DOC/DOC.npy',allow_pickle=True)
     # doc0 = doc0.tolist() 
 
@@ -69,13 +68,14 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
     # Define minimization problem
     prob = LpProblem("Network", LpMaximize)
 
-    pax_number = int(operations['load_factor']*pax_capacity)
+    pax_number = int(operations['reference_load_factor']*pax_capacity)
+    average_ticket_price = operations['average_ticket_price']
     revenue_ik = defaultdict(dict)
     for i in departure_airport:
         for k in first_stop_airport:
             if i != k:
                 revenue_ik[(i, k)] = round(
-                    revenue(demand[i][k], distances[i][k], pax_capacity, pax_number))
+                    revenue(demand[i][k], distances[i][k], pax_capacity, pax_number, average_ticket_price))
             else:
                 revenue_ik[(i, k)] = 0
 
@@ -143,7 +143,7 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
     # Solve linear programming problem (Network optimization)
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
-    prob.solve(GLPK(timeLimit=60*3, msg = 0))
+    prob.solve(GLPK(timeLimit=60*5, msg = 0))
     log.info('Network optimization status: {}'.format(LpStatus[prob.status]))
     try:
         condition = LpStatus[prob.status]
@@ -186,11 +186,127 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
     list_of_pax_db = pd.DataFrame(list_of_pax)
     list_of_pax_db.to_csv('Database/Network/pax.csv')
 
-    results = vehicle['results']
+    
     profit = value(prob.objective)
     
     results['profit'] = profit
 
+<<<<<<< HEAD
+=======
+    kpi_df1 = pd.DataFrame.from_dict(xijk, orient="index", 
+                                columns = ["variable_object"])
+    kpi_df1.index =  pd.MultiIndex.from_tuples(kpi_df1.index, 
+                                names=["column_i", "column_j", "column_k"])
+    kpi_df1.reset_index(inplace=True)
+
+    kpi_df1["pax_number"] =  kpi_df1["variable_object"].apply(lambda item: item.varValue)
+
+    kpi_df1.drop(columns=["variable_object"], inplace=True)
+    kpi_df1.to_csv("Test/optimization_solution01.csv")
+
+    ############################################################################################
+    kpi_df2 = pd.DataFrame.from_dict(nika, orient="index", 
+                                    columns = ["variable_object"])
+    kpi_df2.index =  pd.MultiIndex.from_tuples(kpi_df2.index, 
+                                names=["origin", "destination"])
+    kpi_df2.reset_index(inplace=True)
+
+    kpi_df2["aircraft_number"] =  kpi_df2["variable_object"].apply(lambda item: item.varValue)
+
+    kpi_df2.drop(columns=["variable_object"], inplace=True)
+
+    def flatten_dict(dd, separator ='_', prefix =''):
+        return { prefix + separator + k if prefix else k : v
+                for kk, vv in dd.items()
+                for k, v in flatten_dict(vv, separator, kk).items()
+                } if isinstance(dd, dict) else { prefix : dd }
+
+    
+    # print(distances)
+
+    distances_flatt = flatten_dict(distances)
+    doc_flatt = flatten_dict(DOC)
+    demand_flatt = flatten_dict(demand)
+    revenue_flatt = flatten_dict(revenue_ik)
+
+    distance_df =  pd.DataFrame.from_dict(distances_flatt,orient="index",columns=['distances'])
+    doc_df =  pd.DataFrame.from_dict(doc_flatt,orient="index",columns=['doc'])
+    demand_df =  pd.DataFrame.from_dict(demand_flatt,orient="index",columns=['demand'])
+    revenue_df =  pd.DataFrame.from_dict(revenue_flatt,orient="index",columns=['revenue'])
+
+    kpi_df2['distances'] = distance_df['distances'].values
+    kpi_df2['doc'] = doc_df['doc'].values
+    kpi_df2['demand'] = demand_df['demand'].values
+    kpi_df2['revenue'] = revenue_df ['revenue'].values
+
+    n = len(arrivals)
+
+    kpi_df2['active_arcs'] = np.where(kpi_df2["aircraft_number"] > 0, 1, 0)
+    X = kpi_df2['active_arcs'].to_numpy()
+    X = np.reshape(X, (n,n))
+
+    Distances = kpi_df2['distances'].to_numpy()
+    Distances = np.reshape(Distances, (n,n))
+
+    Demand = kpi_df2['demand'].to_numpy()
+    Demand = np.reshape(Demand, (n,n))
+
+
+    N = 0
+    for i,j in np.ndindex(X.shape):
+        if X[i,j] == 1:
+            N = N+1
+
+    DON = np.zeros(n)
+    for i in range(n):
+        DON[i] = 0
+        for j in range(n):
+            if i != n:
+                if X[i,j] == 1:
+                    DON[i] = DON[i]+1
+    
+    results['avg_degree_nodes'] = np.mean(DON)
+
+    R = 500
+    C = np.zeros(n)
+    for i in range(n):
+        CON =0
+        MAXCON = 0
+        for j in range(n):
+            if i != j:
+                if Distances[i,j] <= R:
+                    MAXCON = MAXCON + 1
+                    if X[i,j] == 1:
+                        CON = CON+1
+        if MAXCON>0:
+            C[i] = CON/MAXCON
+        else:
+            C[i] = 0
+
+    results['average_clustering'] = np.mean(C)
+
+
+    LF = np.ones((n,n))
+    FREQ = X
+
+    NPAX = np.zeros((n,n))
+    for i in range(n):
+        for j in range(n):
+            if (i==j or X[i,j]==0):
+                f = 0
+                NPAX[i,j] = 0
+                FREQ[i,j] = 0
+            else:
+                NPAX[i,j] = np.round(pax_number)
+                f = round(Demand[i,j]/NPAX[i,j])
+                FREQ[i,j] = f
+
+    results['number_of_frequencies'] = np.sum(FREQ)
+
+
+    
+
+>>>>>>> dev-alejandro
 
     log.info('==== End network optimization module ====')
     return profit, vehicle
@@ -224,7 +340,7 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
 # distances_db = (distances_db.T)
 # distances = distances_db.to_dict()  # Convert to dictionaty
 
-# market_share = 0.1
+# market_share = operations['market_share']
 # # Load dai
 # demand_db= pd.read_csv('Database/Demand/demand.csv')
 # demand_db= round(market_share*(demand_db.T))

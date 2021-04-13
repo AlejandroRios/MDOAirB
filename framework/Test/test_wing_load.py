@@ -5,7 +5,7 @@ import numpy as np
 
 g = 9.81
 gamma = 1.4
-delta_ISA = 0
+delta_ISA = airport_departure['delta_ISA'
 load_factor = 1.3
 weight = 43112
 

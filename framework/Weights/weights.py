@@ -553,7 +553,6 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
     systems['handling_gear'] = 3.0E-4 * maximum_takeoff_weight*kg_to_lb
 
     # Slats
-    aircraft['slat_presence'] = 1
     if aircraft['slat_presence'] == 1:
         if engine['position'] == 2:
             slats_span = 0.8

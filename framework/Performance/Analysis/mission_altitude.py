@@ -51,11 +51,12 @@ def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
                      climb_V_cas, mach_climb, delta_ISA):
 
     aircraft = vehicle['aircraft']
+    performance = vehicle['performance']
 
     transition_altitude = crossover_altitude(
         mach_climb, climb_V_cas, delta_ISA)
     altitude_step = 100
-    residual_rate_of_climb = 300
+    residual_rate_of_climb = performance['residual_rate_of_climb']
 
     time = 0
     distance = 0
@@ -153,11 +154,12 @@ def optimum_altitude(vehicle, initial_altitude, limit_altitude, mass,
                      climb_V_cas, mach_climb, delta_ISA):
 
     aircraft = vehicle['aircraft']
+    performance = vehicle['performance']
 
     transition_altitude = crossover_altitude(
         mach_climb, climb_V_cas, delta_ISA)
     altitude_step = 100
-    residual_rate_of_climb = 300
+    residual_rate_of_climb = performance['residual_rate_of_climb']
 
     time = 0
     distance = 0
