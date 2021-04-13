@@ -49,6 +49,7 @@ from framework.utilities.output import write_optimal_results, write_kml_results,
 # =============================================================================
 log = get_logger(__file__.split('.')[0])
 
+
 def objective_function(x, vehicle):
     
     log.info('==== Start network profit module ====')
