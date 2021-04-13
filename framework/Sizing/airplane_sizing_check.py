@@ -58,7 +58,7 @@ global GRAVITY, m2_to_ft2, lb_to_kg, friction_coefficient
 
 # Constants
 GRAVITY = 9.80665
-friction_coefficient = 0.003
+
 
 # Convertion factors
 m2_to_ft2 = 10.7639
@@ -87,6 +87,8 @@ def airplane_sizing(x, vehicle):
     airport_departure = vehicle['airport_departure']
     airport_destination = vehicle['airport_destination']
 
+    friction_coefficient = wing['friction_coefficient']
+
     # Upload dictionary variables with optimization variables input vector x
     wing['area'] = x[0]
     wing['aspect_ratio'] = x[1]/10
@@ -97,27 +99,26 @@ def airplane_sizing(x, vehicle):
     aircraft['passenger_capacity'] = x[11]
     fuselage['seat_abreast_number'] = x[12]
     performance['range'] = x[13]
-    aircraft['winglet_presence'] = 1
+    aircraft['winglet_presence'] = x[17]
     # aircraft['winglet_presence'] = 1
-    aircraft['slat_presence'] = 1
+    aircraft['slat_presence'] = x[18]
     # aircraft['slat_presence'] = 1
-    horizontal_tail['position'] = 1
+    horizontal_tail['position'] = x[19]
     # horizontal_tail['position'] = 1
-
 
     engine['bypass'] = x[6]/10
     engine['fan_diameter'] = x[7]/10
     engine['compressor_pressure_ratio'] = x[8]
     engine['turbine_inlet_temperature'] = x[9]
     engine['fan_pressure_ratio'] = x[10]/10
-    engine['design_point_pressure'] = 41000
-    engine['design_point_mach'] = 0.78
-    engine['position'] = engine['position']
+    engine['design_point_pressure'] = x[14]
+    engine['design_point_mach'] = x[15]/100
+    engine['position'] = x[16]
 
 
     ceiling =  operations['max_ceiling']
     # Aerodynamics parameters
-    Cl_max = 1.9
+    Cl_max = wing['max_2D_lift_coefficient']
     wing['tip_incidence'] = wing['root_incidence'] + wing['twist']
 
     # Operations parameters
@@ -126,7 +127,6 @@ def airplane_sizing(x, vehicle):
     proceed = 0
 
     # Airframe parameters
-    wing['trunnion_xposition'] = 0.75
     wing['span'] = np.sqrt(
         wing['aspect_ratio']*wing['area'])
     CL_max = 0.9*Cl_max*np.cos(wing['sweep_c_4']*np.pi/180)
@@ -163,35 +163,49 @@ def airplane_sizing(x, vehicle):
 
     # start_time =datetime.now()
     # Fuselage cross section sizing
-    vehicle = fuselage_cross_section(vehicle)
+    try:
+        vehicle = fuselage_cross_section(vehicle)
+    except Exception:
+        log.error("Error at fuselage_cross_section", exc_info = True)
+    
     # end_time = datetime.now()
     # print('Fuselage sizing time: {}'.format(end_time - start_time))
     
     # start_time =datetime.now()
     # Airfoil geometry coefficients
-    vehicle = airfoil_parameters(vehicle)
+    try:
+        vehicle = airfoil_parameters(vehicle)
+    except Exception:
+        log.error("Error at airfoil_parameters", exc_info = True)
+
+    
     # end_time = datetime.now()
     # print('airfoil coefficients time: {}'.format(end_time - start_time))
 
 
     # Wetted area calculation
+
     wing['mean_thickness'] = np.mean(wing['thickness_ratio'])
     
 
     # start_time =datetime.now()
-    (vehicle,
-        xutip,
-        yutip,
-        xltip,
-        yltip,
-        xukink,
-        yukink,
-        xlkink,
-        ylkink,
-        xuroot,
-        yuroot,
-        xlroot,
-        ylroot) = wetted_area(vehicle)
+    try:
+        (vehicle,
+            xutip,
+            yutip,
+            xltip,
+            yltip,
+            xukink,
+            yukink,
+            xlkink,
+            ylkink,
+            xuroot,
+            yuroot,
+            xlroot,
+            ylroot) = wetted_area(vehicle)
+    
+    except Exception:
+        log.error("Error at wetted_area", exc_info = True)
 
     # end_time = datetime.now()
     # print('wetted area time: {}'.format(end_time - start_time))
@@ -200,19 +214,22 @@ def airplane_sizing(x, vehicle):
 
     # start_time =datetime.now()
     # Wing structural layout sizing
-    (vehicle) = wing_structural_layout(
-        vehicle,
-        xutip,
-        yutip,
-        yltip,
-        xukink,
-        xlkink,
-        yukink,
-        ylkink,
-        xuroot,
-        xlroot,
-        yuroot,
-        ylroot)
+    try:
+        vehicle = wing_structural_layout(
+            vehicle,
+            xutip,
+            yutip,
+            yltip,
+            xukink,
+            xlkink,
+            yukink,
+            ylkink,
+            xuroot,
+            xlroot,
+            yuroot,
+            ylroot)
+    except Exception:
+        log.error("Error at wing_structural_layout", exc_info = True)
 
     # end_time = datetime.now()
     # print('wing structural time: {}'.format(end_time - start_time))
@@ -312,13 +329,14 @@ def airplane_sizing(x, vehicle):
     while (delta_MTOW > 100) and (MTOW_count < max_MTOW_count):
         # start_time =datetime.now()
         # Mission evaluation and tail sizing
-        vehicle, MTOW_calculated, fuel_mass, landing_weight = mission_sizing(
-            vehicle)
+        try:
+            vehicle, MTOW_calculated, fuel_mass, landing_weight = mission_sizing(
+                vehicle)
+        except Exception:
+            log.error("Error at mission_sizing", exc_info = True)
         # end_time = datetime.now()
         # print('mission evaluation tail sizing call time: {}'.format(end_time - start_time))
         
-        
-
         delta_MTOW = np.abs(
             MTOW_calculated - aircraft['maximum_takeoff_weight'])
 
@@ -344,7 +362,11 @@ def airplane_sizing(x, vehicle):
         status = 1
     else:
         aircraft['zCG'] = -0.80
-        vehicle = sizing_landing_gear(vehicle)
+
+        try:
+            vehicle = sizing_landing_gear(vehicle)
+        except Exception:
+            log.error("Error at sizing_landing_gear", exc_info = True)
         # fuel deficit
         delta_fuel = wing['fuel_capacity'] - 1.005*fuel_mass
 
@@ -382,7 +404,10 @@ def airplane_sizing(x, vehicle):
 
     aircraft['CD0_landing'] = CD0_landing
 
-    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle)
+    try:
+        takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle)
+    except Exception:
+            log.error("Error at noise_calculation", exc_info = True)
 
     total_noise = takeoff_noise + sideline_noise + landing_noise
 

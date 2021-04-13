@@ -47,7 +47,6 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
     departure_airport = departures
     first_stop_airport = arrivals
     final_airport = departures
-
     operations = vehicle['operations']
     results = vehicle['results']
     # doc0 = np.load('Database/DOC/DOC.npy',allow_pickle=True)
@@ -69,13 +68,14 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
     # Define minimization problem
     prob = LpProblem("Network", LpMaximize)
 
-    pax_number = int(operations['load_factor']*pax_capacity)
+    pax_number = int(operations['reference_load_factor']*pax_capacity)
+    average_ticket_price = operations['average_ticket_price']
     revenue_ik = defaultdict(dict)
     for i in departure_airport:
         for k in first_stop_airport:
             if i != k:
                 revenue_ik[(i, k)] = round(
-                    revenue(demand[i][k], distances[i][k], pax_capacity, pax_number))
+                    revenue(demand[i][k], distances[i][k], pax_capacity, pax_number, average_ticket_price))
             else:
                 revenue_ik[(i, k)] = 0
 

@@ -89,32 +89,32 @@ def mission_alternative(vehicle,landing_weight):
 
     # Operations and certification parameters:
     ceiling = operations['max_ceiling']  # [ft] UPDATE INPUT!!!!!!!!!
-    descent_altitude = 1500
+    descent_altitude = operations['descent_altitude']
     # Network and mission parameters
     holding_time = operations['holding_time']  # [min]
     fuel_density = operations['fuel_density']  # [kg/l]
-    time_between_overhaul = 2500  # [hr]
-    taxi_fuel_flow_reference = 8  # [kg/min]
+    time_between_overhaul = operations['time_between_overhaul'] # [hr]
+    taxi_fuel_flow_reference = operations['taxi_fuel_flow_reference']  # [kg/min]
     contingency_fuel_percent = operations['contingency_fuel_percent']
     min_cruise_time = operations['min_cruise_time']  # [min]
     go_around_allowance = operations['go_around_allowance']
 
     # Initial flight speed schedule
-    climb_V_cas = 280
-    mach_climb = 0.78
-    cruise_V_cas = 310
-    descent_V_cas = 310
-    mach_descent = 0.78
+    climb_V_cas = operations['climb_V_cas']
+    mach_climb = operations['mach_climb']
+    cruise_V_cas = operations['cruise_V_cas']
+    descent_V_cas = operations['descent_V_cas']
+    mach_descent = operations['mach_descent']
 
-    delta_ISA = airport_departure['delta_ISA'
+    delta_ISA = airport_departure['delta_ISA']
 
     # regulated_takeoff_mass = regulated_takeoff_weight(vehicle)
     # regulated_landing_mass = regulated_landing_weight(vehicle)
 
     max_takeoff_mass = landing_weight - go_around_allowance
 
-    takeoff_allowance_mass = 200*max_takeoff_mass/22000
-    approach_allowance_mass = 100*max_takeoff_mass/22000
+    takeoff_allowance_mass = operations['takeoff_allowance']
+    approach_allowance_mass = operations['approach_allowance_mass']
     average_taxi_in_time = operations['average_taxi_in_time']
     average_taxi_out_time = operations['average_taxi_out_time']
 

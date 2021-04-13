@@ -67,12 +67,13 @@ def second_segment_climb_check(vehicle, weight_takeoff):
     engine = vehicle['engine']
     # weight_takeoff = aircraft['maximum_takeoff_weight']
     thrust_takeoff = engine['maximum_thrust']
+    engines_number = aircraft['number_of_engines']
 
     flag = 0
     while flag == 0:
         thrust_to_weight_takeoff_required = second_segment_climb(
             vehicle, weight_takeoff)
-        thrust_to_weight_takeoff = thrust_takeoff/weight_takeoff
+        thrust_to_weight_takeoff =engines_number*thrust_takeoff/weight_takeoff  # Second segment climb shouldnt use only one engine?
 
         if thrust_to_weight_takeoff < thrust_to_weight_takeoff_required:
             weight_takeoff = weight_takeoff-(10*GRAVITY)

@@ -60,7 +60,7 @@ def sizing_tail(vehicle, mach, altitude):
     margin = aircraft['static_margin']*wing['mean_aerodynamic_chord']
 
     while (delta_horizontal_tail > 0.025) or (delta_vertical_tail > 0.025):
-        airfoil_aerodynamic_center_reference = 0.25
+        airfoil_aerodynamic_center_reference = wing['aerodynamic_center_ref']
 
         aircraft['neutral_point_xposition'] = wing['leading_edge_xposition'] + wing['mean_aerodynamic_chord_yposition'] * \
             np.tan(wing['sweep_leading_edge']*deg_to_rad) + \

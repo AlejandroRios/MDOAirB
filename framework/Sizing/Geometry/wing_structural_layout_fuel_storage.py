@@ -63,14 +63,16 @@ def wing_structural_layout(vehicle, xutip, yutip,
     wing = vehicle['wing']
     fuselage = vehicle['fuselage']
     engine = vehicle['engine']
+    operations = vehicle['operations']
+    nose_landing_gear = vehicle['nose_landing_gear']
 
     rad = np.pi/180
     wing['fuel_capacity'] = 0
     nukink = len(yukink)
     #
-    nervspacing = 22  # (pol) Roskam Vol III pg 220 suggests 24
-    nervspacm = nervspacing * 0.0254  # cm)
-    denquerosene = 803  # jet A1 density
+    ribs_spacing = wing['ribs_spacing']   # (pol) Roskam Vol III pg 220 suggests 24
+    nervspacm = ribs_spacing * 0.0254  # cm)
+    querosene_density = operations['querosene_density']  # jet A1 density
 
     angquebralongtras = 0
     #
@@ -92,9 +94,9 @@ def wing_structural_layout(vehicle, xutip, yutip,
     limited = fraclongdi
 
     # Dados do trem de pouso:
-    pneu_diam = 0.80  # diam do pneu em metros
-    pneu_height = 0.25  # largura do pneu (m)
-    lmunhao = 1.3  # Comprimento do munhao (m)
+    pneu_diam = nose_landing_gear['tyre_diameter'] # diam do pneu em metros
+    pneu_height = nose_landing_gear['tyre_height']  # largura do pneu (m)
+    lmunhao = nose_landing_gear['trunnion_length']  # Comprimento do munhao (m)
 
     # Intersecao asa-fuselagem
     yfusjunc = diamfus/2
@@ -219,6 +221,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
 
     nervkinknormal = 0  # a principio esta nervura nao existe
     nnervext = 1  # Por enquanto, apenas a nervura padrao da quebra eh levada em conta
+    angnev = 0
     if x2aux == x1aux:
         anglte = np.pi/2
         angnev = 0
@@ -581,7 +584,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
     voltanqueint = 0.98*(deltay/3)*(arearootinf +
                                     arearootsup + np.sqrt(arearootinf*arearootsup))
 
-    capacidadete = 2*voltanqueext*denquerosene
+    capacidadete = 2*voltanqueext*querosene_density
 
     # Capacidade dos tanques da asa interna
     xcombi = []
@@ -609,7 +612,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
     xcgtqi = sum(xcombi)/4  # CG do tanque interno
     ycgtqi = sum(ycombi)/4
 
-    capacidadeti = 2*voltanqueint*denquerosene
+    capacidadeti = 2*voltanqueint*querosene_density
 
     # Capacidade total dos tanques
     # Considera perdas devido a nervuras, longarinas, revestimento, bombas
@@ -716,4 +719,4 @@ def wing_structural_layout(vehicle, xutip, yutip,
     else:
         checkconsistency = 0  # ok
 
-    return(vehicle)
+    return vehicle

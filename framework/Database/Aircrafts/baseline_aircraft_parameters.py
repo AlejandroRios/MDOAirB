@@ -103,7 +103,7 @@ wing['maximum_camber'] = [-0.0004, 0.0185, 0.0104]
 wing['camber_at_maximum_thickness_chordwise_position'] = [-0.0006, 0.0028, 0.0109]
 wing['maximum_camber_chordwise_position'] = [0.6188, 0.7870, 0.5567]
 wing['thickness_to_chord_average_ratio'] = 0.11
-wing['trunnion_xposition'] = 0
+wing['trunnion_xposition'] = 0.75
 wing['trunnion_length'] = 0
 wing['rear_spar_ref'] = 0.75
 # yc_trunnion
@@ -150,6 +150,12 @@ wing['aileron_chord'] = 0
 wing['aileron_surface'] = 0
 wing['aileron_position'] = 0
 
+wing['max_2D_lift_coefficient'] = 1.9
+wing['ribs_spacing'] = 22
+
+wing['friction_coefficient'] = 0.003
+
+
 horizontal_tail = {}
 horizontal_tail['position'] = 1
 horizontal_tail['area'] = 23.35  # [m2]
@@ -166,6 +172,8 @@ horizontal_tail['aerodynamic_center_xposition'] = 0
 horizontal_tail['mean_chord'] = 1
 horizontal_tail['tip_chord'] = 1
 horizontal_tail['root_chord'] = 1
+horizontal_tail['thickness_ratio'] = [0.1, 0.1]
+horizontal_tail['mean_chord_thickness']  = 0.1
 horizontal_tail['center_chord'] = 1
 horizontal_tail['tail_to_wing_area_ratio'] = 0
 horizontal_tail['twist'] = 0
@@ -189,7 +197,7 @@ vertical_tail['volume'] = 0.09
 vertical_tail['aerodynamic_center'] = 0.25
 vertical_tail['aerodynamic_center_ref'] = 0.25
 vertical_tail['aerodynamic_center_xposition'] = 0
-vertical_tail['dorsalfin_wetted_area'] = 0
+vertical_tail['dorsalfin_wetted_area'] = 0.1
 vertical_tail['twist'] = 0
 vertical_tail['dihedral'] = 90
 vertical_tail['center_chord'] = 1
@@ -227,7 +235,6 @@ fuselage = {}
 fuselage['aisles_number'] = 1
 fuselage['seat_abreast_number'] = 2
 fuselage['cabine_height'] = 2
-fuselage['seat_width'] = 0.46
 fuselage['aisle_width'] = 0.5
 fuselage['seat_pitch'] = 0.8128
 fuselage['height_to_width_ratio'] = 1.1
@@ -238,7 +245,7 @@ fuselage['height'] = 4
 fuselage['length'] = 0
 fuselage['cabine_length'] = 0
 fuselage['nose_length'] = 1.64
-fuselage['cockpit_length'] = 0
+fuselage['cockpit_length'] = 3.7  # [m]
 fuselage['tail_length'] = 0
 fuselage['Dz_floor'] = 4
 fuselage['minimum_width'] = 3
@@ -247,8 +254,29 @@ fuselage['wetted_area'] = 0
 fuselage['diameter'] = 0
 fuselage['weight'] = 0
 fuselage['center_of_gravity_xposition'] = 0
-fuselage['armrest_top'] = 22
+fuselage['af_ellipse'] = 0.25  # [m]
+fuselage['bf_ellipse'] = 0.30  # [m]
 
+
+cabine = {}
+cabine['armrest_top'] = 22  # [inch]
+cabine['armrest_bottom'] = 7  # [inch]
+cabine['armrest_width'] = 2  # [inch]
+cabine['seat_cushion_thickness_YC'] = 0.14  # [m]
+cabine['seat_width'] = 0.46  # [m]
+cabine['backrest_height'] = 0.59  # [m]
+cabine['floor_thickness'] = 0.117  # [m]
+cabine['pax_distance_head_wall'] = 0.06  # [m]
+cabine['pax_distance_shoulder_wall'] = 0.04  # [m]
+cabine['pax_shoulder_breadth'] = 0.53  # [m]
+cabine['pax_eye_height'] = 0.87  # [m]
+cabine['pax_midshoulder_height'] = 0.70  # [m]
+cabine['delta_z_symmetry_inferior'] = -1
+cabine['delta_z_symmetry_superior'] = 2
+cabine['seat_delta_width_floor'] = 0.025
+cabine['seat_prof'] = 0.48
+cabine['toillet_prof'] = 1.5
+cabine['galley_prof'] = 1.1
 
 engine = {}
 engine['diameter'] = 1
@@ -309,8 +337,10 @@ nose_landing_gear = {}
 nose_landing_gear['pressure'] = 190
 nose_landing_gear['xpostion'] = 0
 nose_landing_gear['weight'] = 0
-nose_landing_gear['tyre_diameter'] = 0
+nose_landing_gear['tyre_diameter'] = 0.80
 nose_landing_gear['tyre_width'] = 0
+nose_landing_gear['tyre_height'] = 0.25
+nose_landing_gear['trunnion_length'] = 1.3  # [m]
 nose_landing_gear['piston_length'] = 0
 nose_landing_gear['piston_diameter'] = 0
 nose_landing_gear['center_of_gravity_xposition'] = 0
@@ -351,35 +381,103 @@ performance['residual_rate_of_climb'] = 300
 operations = {}
 operations['takeoff_field_length'] = 2000
 operations['landing_field_length'] = 1500
+operations['descent_altitude'] = 1500
+operations['time_between_overhaul'] = 2500
+operations['taxi_fuel_flow_reference'] = 5
+
+operations['climb_V_cas'] = 280
+operations['mach_climb'] = 0.78
+operations['cruise_V_cas'] = 310
+operations['descent_V_cas'] = 310
+operations['mach_descent'] = 0.78
+operations['mach_cruise_alternative'] = 0.78
+
 operations['mach_maximum_operating'] = 0.82
 operations['mach_cruise'] = operations['mach_maximum_operating'] - 0.02
 operations['max_operating_speed'] = 340
 operations['holding_time'] = 30  # [min]
 operations['alternative_airport_distance'] = 100  # [nm]
 operations['max_ceiling'] = 41000
-operations['passenger_mass'] = 100  # [kg]
+operations['passenger_mass'] = 110  # [kg]
 operations['reference_load_factor'] = 0.85
 operations['buffet_margin'] = 1.3
 operations['fuel_density'] = 0.81
+operations['fuel_density_lbgall'] = 6.74
+operations['querosene_density'] = 803
 operations['contingency_fuel_percent'] = 0.1
 operations['min_cruise_time'] = 3
-operations['fuel_price_per_kg'] = 1.0
+operations['fuel_price_per_kg'] = 2.8039
 operations['average_ticket_price'] = 120
 operations['market_share'] = 0.1
 operations['go_around_allowance'] = 300
+operations['takeoff_allowance'] = 300
+operations['approach_allowance_mass'] = 150
 operations['average_taxi_in_time'] = 5
 operations['average_taxi_out_time'] = 10
 
+noise = {}
+noise['takeoff_lambda'] = 0
+noise['takeoff_k1'] = 1.1
+noise['takeoff_k2'] = 1.2
+noise['takeoff_time_1'] = 3.0
+noise['takeoff_obstacle_altitude'] = 35
+noise['takeoff_time_step'] = 0.5
+noise['takeoff_time_2'] = 3.0
+noise['takeoff_trajectory_max_distance'] = 10000
 
+noise['landing_gamma'] = -3
+noise['landing_CL_3P'] = 0.3
+noise['landing_CD_3P'] = 0.08
+noise['landing_mu_roll'] = 0.03
+noise['landing_mu_brake'] = 0.3
+noise['landing_transition_time'] = 1.0
+noise['landing_load_factor_flare'] = 1.1
 
+noise['aircraft_parameters_CL_3P'] = 0.3
+noise['aircraft_parameters_CL_air'] = 1.65
+noise['aircraft_parameters_CD_3P'] = 0.08
+noise['aircraft_parameters_CD_air_LG_down'] = 0.11
+noise['aircraft_parameters_CD_air_LG_up'] = 0.081
 
+noise['aircraft_geometry_fuselage_surface'] = 21.1
+noise['aircraft_geometry_fuselage_length'] = 22.28
+noise['aircraft_geometry_main_landing_gear_number'] = 2 
+noise['aircraft_geometry_nose_landing_gear_number'] = 1
+
+noise['aircraft_geometry_main_landig_gear_length'] = 1.88
+noise['aircraft_geometry_nose_landig_gear_length'] = 1.21
+noise['aircraft_geometry_main_landig_gear_wheels'] = 2
+noise['aircraft_geometry_nose_landig_gear_wheels'] = 2
+noise['aircraft_geometry_wing_flap_type1_position'] = 1
+noise['aircraft_geometry_wing_flap_type2_position'] = 0
+noise['aircraft_geometry_slats_position'] = 1
+noise['aircraft_geometry_slots_number'] = 2
+noise['aircraft_geometry_main_landing_gear_position'] = 1
+noise['aircraft_geometry_nose_landing_gear_position'] = 1
+noise['aircraft_geometry_altitude_retracted'] = 0
+noise['aircraft_geometry_delta_ISA_retracted'] = 0
+
+noise['engine_parameters_throttle_position'] = 1
+noise['engine_parameters_fan_rotation'] = 4952
+noise['engine_parameters_compressor_rotation'] = 14950
+
+noise['runaway_parameters_mu_roll'] = 0.03
+noise['runaway_parameters_mu_brake'] = 0.3
+
+noise['relative_humidity'] = 70
+noise['landing_lateral_distance_mic'] = 1
+noise['sideline_lateral_distance_mic'] = 450
+noise['takeoff_lateral_distance_mic'] = 1
+noise['landing_longitudinal_distance_mic'] = 2000
+noise['sideline_longitudinal_distance_mic'] = 0
+noise['takeoff_longitudinal_distance_mic'] = 6500
 
 
 airport_departure = {}
 airport_departure['takeoff_field_length'] = 2500  # [m]
 airport_departure['landing_field_length'] = 2000  # [m]
 airport_departure['elevation'] = 0*3.28084  # [m]
-airport_departure['delta_ISA'] = 19.95  # [deg C]
+airport_departure['delta_ISA'] = 0  # [deg C]
 airport_departure['array'] = ["FRA", "LHR", "CDG", "AMS",
                       "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
 
@@ -387,7 +485,7 @@ airport_destination = {}
 airport_destination['takeoff_field_length'] = 2500  # [m]
 airport_destination['landing_field_length'] = 2000  # [m]
 airport_destination['elevation'] = 0*3.28084  # [m]
-airport_destination['delta_ISA'] = 19.95  # [deg C]
+airport_destination['delta_ISA'] = 0  # [deg C]
 
 aircraft['maximum_engine_thrust'] = aircraft['number_of_engines'] * \
     0.95 * 16206 * (1**0.8) * lbf_to_N  # Rolls-Royce Tay 650 Thrust[N]
@@ -414,6 +512,7 @@ vehicle['horizontal_tail'] = horizontal_tail
 vehicle['vertical_tail'] = vertical_tail
 vehicle['winglet'] = winglet
 vehicle['fuselage'] = fuselage
+vehicle['cabine'] = cabine
 vehicle['engine'] = engine
 vehicle['pylon'] = pylon
 vehicle['nacelle'] = nacelle
@@ -422,6 +521,7 @@ vehicle['main_landing_gear'] = main_landing_gear
 vehicle['systems'] = systems
 vehicle['performance'] = performance
 vehicle['operations'] = operations
+vehicle['noise'] = noise
 vehicle['airport_departure'] = airport_departure
 vehicle['airport_destination'] = airport_destination
 vehicle['results'] = results

@@ -43,6 +43,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
     fuselage = vehicle['fuselage']
+    cabine = vehicle['cabine']
     horizontal_tail = vehicle['horizontal_tail']
     vertical_tail = vehicle['vertical_tail']
     winglet = vehicle['winglet']
@@ -75,6 +76,9 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     average_DOC = average_DOC[average_DOC > 0].mean()
     average_distance = kpi_df2['active_arcs']*kpi_df2['distances']
     average_distance = average_distance[average_distance > 0].mean()
+
+    average_CEMV = kpi_df2['total_CEMV']
+    average_CEMV = average_CEMV[average_CEMV > 0].mean()
     
     number_aircraft2 = np.round(((kpi_df2['total_time'].sum())+4)/(13*60))
     
@@ -131,7 +135,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
         output.write('Seats number: ' +
                      str("{:.2f}".format(fuselage['seat_abreast_number'])) + '\n')
         output.write('Seat width: ' +
-                     str("{:.2f}".format(fuselage['seat_width'])) + ' [m] \n')
+                     str("{:.2f}".format(cabine['seat_width'])) + ' [m] \n')
         output.write('Seat pitch: ' +
                      str("{:.2f}".format(fuselage['seat_pitch'])) + ' [m] \n')
         output.write('Cabine height: ' +
@@ -369,6 +373,8 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
             'Total CO2 [kg]: ' + str("{:.2f}".format(total_CO2)) + ' \n')
         output.write(
             'CO2 efficiency [kg/PAX]: ' + str("{:.8f}".format(CO2_efficiency)) + ' \n')
+        output.write(
+            'Average CEMV [kg/nm]: ' + str("{:.8f}".format(average_CEMV)) + ' \n')
         output.write(
             'Total distance [nm]: ' + str("{:.2f}".format(total_distance)) + ' \n')
         output.write(

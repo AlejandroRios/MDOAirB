@@ -92,8 +92,6 @@ def wetted_area(vehicle):
     fuselage['tail_length'] = tailcone_sizing(
         aircraft['passenger_capacity'], engine['position'], fuselage['height'], fuselage['width'])
 
-    fuselage['cockpit_length'] = 3.7
-
     fuselage['length'] = fuselage['cabine_length'] + fuselage['tail_length'] + \
         fuselage['cockpit_length']  # comprimento fuselagem [m]
     fuselage['cabine_length'] = fuselage['length'] - \
@@ -262,8 +260,6 @@ def wetted_area(vehicle):
     # initial guess for VT area
     vertical_tail_surface_to_wing_area = vertical_tail['area'] / \
         wing['area']  # rela�ao de areas
-    vertical_tail['twist'] = 0  # torcao EV
-    vertical_tail['dihedral'] = 90  # diedro RV
     vertical_tail['span'] = np.sqrt(
         vertical_tail['aspect_ratio']*vertical_tail['area'])  # Envergadura EV (m)
     vertical_tail['center_chord'] = 2*vertical_tail['area'] / \
@@ -291,18 +287,14 @@ def wetted_area(vehicle):
     # vt.v=vertical_tail['area']*lv/(wingref.S*wing['span']) # volume de cauda
 
     ############################# VT wetted area ######################################
-    vertical_tail['thickness_ratio'][0] = 0.11  # [#]espessura relativa raiz
-    vertical_tail['thickness_ratio'][1] = 0.11  # [#]espessura relativa ponta
     vertical_tail_mean_chord_thickness = (
         vertical_tail['thickness_ratio'][0]+3*vertical_tail['thickness_ratio'][1])/4  # [#]espessura media
     vertical_tail_tau = vertical_tail['thickness_ratio'][1] / \
         vertical_tail['thickness_ratio'][0]
     # additional area due to the dorsal fin [m2]
-    vertical_tail['dorsalfin_wetted_area'] = 0.1
     vertical_tail['wetted_area'] = 2*vertical_tail['area']*(1+0.25*vertical_tail['thickness_ratio'][0] *
                                                             ((1+vertical_tail_tau*vertical_tail['taper_ratio'])/(1+vertical_tail['taper_ratio'])))  # [m2]
     # Read geometry of VT airfoil
-
     panel_number = 201
     airfoil_name = 'pvt'
     # airfoil_preprocessing(airfoil_name, panel_number)
@@ -484,8 +476,6 @@ def wetted_area(vehicle):
              (pylon_out_aspect_ratio*(1-pylon_out_taper_ratio)))
 
     #############################WETTED AREA###################################
-    pylon['thickness_ratio'][0] = 0.10  # [#]espessura relativa raiz
-    pylon['thickness_ratio'][1] = 0.10  # [#]espessura relativa ponta
     pylon_mean_thickness = (pylon['thickness_ratio'][0] +
                             pylon['thickness_ratio'][1])/2  # [#]espessura media
     if engine['position'] == 1 or engine['position'] == 2 or engine['position'] == 3:
@@ -502,7 +492,6 @@ def wetted_area(vehicle):
     #  *************** Definicoes adicionais **********************************
     # cg dos tanques de combust�vel da asa e posicao do trem d pouso principal
     # winglaywei2013
-    vertical_tail['dorsalfin_wetted_area'] = 0.1
     ################################TOTAL######################################
     aircraft['wetted_area'] = fuselage['wetted_area'] + wing['wetted_area'] + horizontal_tail['wetted_area'] + vertical_tail['wetted_area'] + \
         2*engine['wetted_area']+pylon['wetted_area'] + \

@@ -52,7 +52,7 @@ def sizing_landing_gear(vehicle):
     main_landing_gear['piston_length'] = 1
 
     # Dont know the meaning of these variables:
-    nose_landing_gear['tyre_diameter'] = 0.8
+    # nose_landing_gear['tyre_diameter'] = 0.8
     nose_landing_gear['piston_length'] = 0.8*main_landing_gear['piston_length']
 
     while (np.abs(main_landing_gear['tyre_diameter'] - main_landing_gear_tyre_diameter_new) > 0.01 or np.abs(nose_landing_gear['tyre_diameter'] - nose_landing_gear_tyre_diameter_new) > 0.01):

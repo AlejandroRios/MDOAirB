@@ -6,6 +6,7 @@ Date      : November/2020
 Last edit : November/2020
 Language  : Python 3.8 or >
 Aeronautical Institute of Technology - Airbus Brazil
+
 Description:
     - This module calculates the cruise performance using the Breguet equations
 Inputs:
@@ -20,6 +21,7 @@ Outputs:
     - Mass at top of descent [kg]
 TODO's:
     - Rename variables 
+
 """
 # =============================================================================
 # IMPORTS
@@ -27,7 +29,7 @@ TODO's:
 from inspect import isfunction
 import numpy as np
 # from scipy.optimize import fsolve
-# from scipy.optimize import minimize
+from scipy.optimize import minimize
 from scipy import optimize
 from framework.Performance.Engine.engine_performance import turbofan
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
@@ -52,6 +54,8 @@ def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle
     distance = 0
     time_cruise = 0
     mass_fuel_cruise = 0
+    d = 0
+    
 
     V_tas = mach_to_V_tas(mach, altitude, delta_ISA)
 
@@ -60,12 +64,13 @@ def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle
         TSFC, L_over_D, fuel_flow, throttle_position = specific_fuel_consumption(
             vehicle, mach, altitude, delta_ISA, mass)
 
-        mass_fuel, time = mission_segment(
-            mass, step_cruise, L_over_D, TSFC, V_tas)
+        mass_fuel, time = breguet(altitude, delta_ISA, mach, L_over_D, TSFC,step_cruise,mass)
 
         time_cruise = time_cruise + time
 
         mass_fuel_cruise = mass_fuel_cruise + mass_fuel
+
+        d = d+step_cruise
         # print(mass_fuel)
 
     final_mass = mass - mass_fuel_cruise
@@ -97,7 +102,7 @@ def specific_fuel_consumption(vehicle, mach, altitude, delta_ISA, mass):
     CD_wing, _ = aerodynamic_coefficients_ANN(
         vehicle, altitude, mach, CL_required, alpha_deg, switch_neural_network)
 
-    friction_coefficient = 0.003
+    friction_coefficient = wing['friction_coefficient']
     CD_ubrige = friction_coefficient * \
         (aircraft['wetted_area'] - wing['wetted_area']) / \
         wing['area']
@@ -153,32 +158,21 @@ def mission_segment(mass_0, step_cruise, L_over_D, TSFC, V_tas):
     return mass_fuel, time*second_to_miniute
 
 
-def breguet(type, task, E_R_or_frac, LD, SFC, V, eta_p):
+def breguet(altitude, delta_ISA, mach, LD, SFC,step_cruise,W0):
+    second_to_miniute = 0.01667
+    _, _, _, _, _, _, _, a = atmosphere_ISA_deviation(altitude, delta_ISA)
+    V=mach*a
+    a1=SFC*(1/LD)
+    a2=step_cruise*a1/V;
+    f=np.exp(a2)
+    Wf=W0/f
+    mass_fuel=W0-Wf
+    t=(1/a1)*np.log(W0/Wf)*60
+    R = step_cruise*1852
+    time = 1/SFC * LD * np.log(1/(np.exp(-R*SFC/(V*LD))))
 
-    if V == "False":
-        V = 'NaN'
-
-    varargout = [0]*2
-
-    if type == 'jet' and task == 'loiter':
-        varargout = np.exp(-E_R_or_frac*SFC/(LD))
-    elif type == 'jet' and task == 'cruise':
-        varargout = np.exp(-E_R_or_frac*SFC/(V*LD))
-    elif type == 'prop' and task == 'loiter':
-        varargout = np.exp(-E_R_or_frac*SFC*V/(LD*eta_p))
-    elif type == 'prop' and task == 'cruise':
-        varargout = np.exp(-E_R_or_frac*SFC/(LD*eta_p))
-    elif type == 'jet' and task == 'range':
-        varargout[0] = -LD*np.log(E_R_or_frac)/SFC
-        varargout[1] = varargout[0]*V
-    elif type == 'prop' and task == 'range':
-        varargout[0] = -LD*eta_p*np.log(E_R_or_frac)/SFC
-        varargout[1] = varargout[0]/V
-    else:
-        print('Unknown mission segment type and/or task string')
-    
     # print(varargout)
-    return(varargout)
+    return mass_fuel, time*second_to_miniute
 
 
 def fuelfractionsizing(sf, fixedW, FF, tol, maxW):
@@ -217,7 +211,7 @@ def fuelfractionsizing(sf, fixedW, FF, tol, maxW):
         return
     
 
-    bnds = ((minW,maxW))
+    # bnds = ((minW,maxW))
     # res = minimize(f, W0_init, bounds=((minW,maxW),), tol=tol, options={'disp': False})
     # W0 = res.x[0]
     W0 =  optimize.newton(f, W0_init,tol=tol)

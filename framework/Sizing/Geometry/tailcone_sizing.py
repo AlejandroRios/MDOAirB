@@ -48,4 +48,4 @@ def tailcone_sizing(NPax, PEng, fuse_height, fuse_width):
 
     ltail = ltail_df*fuse_width+fusext
 
-    return(ltail)
+    return ltail

@@ -98,6 +98,7 @@ def noise_calculation(vehicle):
     airport_departure = vehicle['airport_departure']
     engine = vehicle['engine']
     wing = vehicle['wing']
+    noise = vehicle['noise']
 
 
     maximum_takeoff_weight = aircraft['maximum_takeoff_weight']*GRAVITY
@@ -106,69 +107,69 @@ def noise_calculation(vehicle):
     takeoff_parameters = {}
 
     takeoff_parameters['takeoff_weight'] = maximum_takeoff_weight  # [N]
-    takeoff_parameters['lambda'] = 0
-    takeoff_parameters['k1'] = 1.1
-    takeoff_parameters['k2'] = 1.2
-    takeoff_parameters['time_1'] = 3.0  # [s]
-    takeoff_parameters['obstacle_altitude'] = 35  # [ft]
-    takeoff_parameters['time_step'] = 0.5  # [s]
-    takeoff_parameters['time_2'] = 3.0  # [s]
-    takeoff_parameters['trajectory_max_distance'] = 10000  # [m]
+    takeoff_parameters['lambda'] = noise['takeoff_lambda']
+    takeoff_parameters['k1'] = noise['takeoff_k1'] 
+    takeoff_parameters['k2'] = noise['takeoff_k2']
+    takeoff_parameters['time_1'] = noise['takeoff_time_1']  # [s]
+    takeoff_parameters['obstacle_altitude'] = noise['takeoff_obstacle_altitude']  # [ft]
+    takeoff_parameters['time_step'] = noise['takeoff_time_step']  # [s]
+    takeoff_parameters['time_2'] = noise['takeoff_time_2']  # [s]
+    takeoff_parameters['trajectory_max_distance'] = noise['takeoff_trajectory_max_distance']  # [m]
 
     landing_parameters = {}
-    landing_parameters['gamma'] = -3
-    landing_parameters['CL_3P'] = 0.3
-    landing_parameters['CD_3P'] = 0.08
-    landing_parameters['mu_roll'] = 0.03
-    landing_parameters['mu_brake'] = 0.3
-    landing_parameters['transition_time'] = 1.0
-    landing_parameters['load_factor_flare'] = 1.1
+    landing_parameters['gamma'] = noise['landing_gamma']
+    landing_parameters['CL_3P'] = noise['landing_CL_3P']
+    landing_parameters['CD_3P'] = noise['landing_CD_3P']
+    landing_parameters['mu_roll'] = noise['landing_mu_roll']
+    landing_parameters['mu_brake'] = noise['landing_mu_brake']
+    landing_parameters['transition_time'] = noise['landing_transition_time']
+    landing_parameters['load_factor_flare'] = noise['landing_load_factor_flare']
 
     aircraft_parameters = {}
-    aircraft_parameters['CL_3P'] = 0.3
-    aircraft_parameters['CL_air'] = 1.65
-    aircraft_parameters['CD_3P'] = 0.08
-    aircraft_parameters['CD_air_LG_down'] = 0.111
-    aircraft_parameters['CD_air_LG_up'] = 0.081
+    aircraft_parameters['CL_3P'] = noise['aircraft_parameters_CL_3P']
+    aircraft_parameters['CL_air'] = noise['aircraft_parameters_CL_air']
+    aircraft_parameters['CD_3P'] = noise['aircraft_parameters_CD_3P']
+    aircraft_parameters['CD_air_LG_down'] = noise['aircraft_parameters_CD_air_LG_down']
+    aircraft_parameters['CD_air_LG_up'] = noise['aircraft_parameters_CD_air_LG_up']
 
     aircraft_geometry = {}
-    aircraft_geometry['fuselage_surface'] = 21.1
-    aircraft_geometry['fuselage_length'] = 22.28
+    aircraft_geometry['fuselage_surface'] = noise['aircraft_geometry_fuselage_surface']
+    aircraft_geometry['fuselage_length'] = noise['aircraft_geometry_fuselage_length']
     aircraft_geometry['flap_deflection_TO'] = wing['flap_deflection_takeoff']
     aircraft_geometry['flap_deflection_LD'] = wing['flap_deflection_landing']
-    aircraft_geometry['main_landing_gear_number'] = 2
-    aircraft_geometry['nose_landig_gear_number'] = 1
+    aircraft_geometry['main_landing_gear_number'] = noise['aircraft_geometry_main_landing_gear_number']
+    aircraft_geometry['nose_landig_gear_number'] = noise['aircraft_geometry_nose_landing_gear_number']
 
-    aircraft_geometry['main_landing_gear_length'] = 1.88 
-    aircraft_geometry['nose_landing_gear_length'] = 1.21
-    aircraft_geometry['main_landing_gear_wheels'] = 2
-    aircraft_geometry['nose_landing_gear_wheels'] = 2
-    aircraft_geometry['wing_flap_type1_position'] = 1 
-    aircraft_geometry['wing_flap_type2_position'] = 0
-    aircraft_geometry['slats_position'] = 1
-    aircraft_geometry['slots_number'] = 2
-    aircraft_geometry['main_landing_gear_position'] = 1 
-    aircraft_geometry['nose_landing_gear_position'] = 1
-    aircraft_geometry['altitude_retracted'] = 0
-    aircraft_geometry['delta_ISA_retracted'] = 0
+    aircraft_geometry['main_landing_gear_length'] = noise['aircraft_geometry_main_landig_gear_length']
+    aircraft_geometry['nose_landing_gear_length'] = noise['aircraft_geometry_nose_landig_gear_length']
+    aircraft_geometry['main_landing_gear_wheels'] = noise['aircraft_geometry_main_landig_gear_wheels']
+    aircraft_geometry['nose_landing_gear_wheels'] = noise['aircraft_geometry_nose_landig_gear_wheels']
+    aircraft_geometry['wing_flap_type1_position'] = noise['aircraft_geometry_wing_flap_type1_position']
+    aircraft_geometry['wing_flap_type2_position'] = noise['aircraft_geometry_wing_flap_type2_position']
+    aircraft_geometry['slats_position'] = noise['aircraft_geometry_slats_position']
+    aircraft_geometry['slots_number'] = noise['aircraft_geometry_slots_number']
+    aircraft_geometry['main_landing_gear_position'] = noise['aircraft_geometry_main_landing_gear_position']
+    aircraft_geometry['nose_landing_gear_position'] = noise['aircraft_geometry_nose_landing_gear_position']
+    aircraft_geometry['altitude_retracted'] = noise['aircraft_geometry_altitude_retracted']
+    aircraft_geometry['delta_ISA_retracted'] = noise['aircraft_geometry_delta_ISA_retracted']
 
     engine_parameters = {}
-    engine_parameters['throttle_position'] = 1
-    engine['fan_rotation'] = 4952
-    engine['compressor_rotation'] = 14950
+    engine_parameters['throttle_position'] = noise['engine_parameters_throttle_position']
+    engine['fan_rotation'] = noise['engine_parameters_fan_rotation']
+    engine['compressor_rotation'] = noise['engine_parameters_compressor_rotation']
 
     runaway_parameters = {}
-    runaway_parameters['mu_roll'] = 0.03
-    runaway_parameters['mu_brake'] = 0.3
+    runaway_parameters['mu_roll'] = noise['runaway_parameters_mu_roll']
+    runaway_parameters['mu_brake'] = noise['runaway_parameters_mu_brake']
 
     noise_parameters = {}
-    noise_parameters['relative_humidity'] = 70
-    noise_parameters['landing_lateral_distance_mic'] = 1
-    noise_parameters['sideline_lateral_distance_mic'] = 450
-    noise_parameters['takeoff_lateral_distance_mic'] = 1
-    noise_parameters['landing_longitudinal_distance_mic'] = 2000
-    noise_parameters['sideline_longitudinal_distance_mic'] = 0
-    noise_parameters['takeoff_longitudinal_distance_mic'] = 6500
+    noise_parameters['relative_humidity'] = noise['relative_humidity']
+    noise_parameters['landing_lateral_distance_mic'] = noise['landing_lateral_distance_mic'] 
+    noise_parameters['sideline_lateral_distance_mic'] = noise['sideline_lateral_distance_mic']
+    noise_parameters['takeoff_lateral_distance_mic'] = noise['takeoff_lateral_distance_mic'] 
+    noise_parameters['landing_longitudinal_distance_mic'] = noise['landing_longitudinal_distance_mic']
+    noise_parameters['sideline_longitudinal_distance_mic'] = noise['sideline_longitudinal_distance_mic']
+    noise_parameters['takeoff_longitudinal_distance_mic'] = noise['takeoff_longitudinal_distance_mic']
 
     takeoff_noise, sideline_noise, landing_noise = aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,aircraft_geometry,engine_parameters,runaway_parameters,noise_parameters,vehicle)
    
