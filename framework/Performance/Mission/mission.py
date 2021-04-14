@@ -34,8 +34,7 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import \
 from framework.Economics.crew_salary import crew_salary
 from framework.Economics.direct_operational_cost import direct_operational_cost
 from framework.Performance.Analysis.climb_integration import climb_integration
-from framework.Performance.Analysis.cruise_performance import \
-    cruise_performance
+from framework.Performance.Analysis.cruise_performance import *
 from framework.Performance.Analysis.descent_integration import \
     descent_integration
 from framework.Performance.Analysis.maximum_range_cruise import \
@@ -65,7 +64,7 @@ GRAVITY = 9.80665
 gallon_to_liter = 3.7852
 feet_to_nautical_miles = 0.000164579
 
-def mission(mission_range,vehicle):
+def mission(mission_range, heading, vehicle):
     start_time = datetime.now()
     log.info('---- Start DOC mission function ----')
 
@@ -94,7 +93,7 @@ def mission(mission_range,vehicle):
     
     reference_load_factor = operations['reference_load_factor']
 
-    heading = 0
+    heading = heading
 
     # Operations and certification parameters:
     buffet_margin = operations['buffet_margin']  # [g]
@@ -141,8 +140,12 @@ def mission(mission_range,vehicle):
     payload = round(
         aircraft['passenger_capacity']
         * operations['passenger_mass']
-        * reference_load_factor
     )
+    # payload = round(
+    #     aircraft['passenger_capacity']
+    #     * operations['passenger_mass']
+    #     * reference_load_factor
+    # )
 
 
     initial_altitude = airport_departure['elevation']
@@ -299,7 +302,7 @@ def mission(mission_range,vehicle):
                 mach = operations['mach_cruise']
 
             # Breguet calculation type for cruise performance
-            total_cruise_time, final_cruise_mass = cruise_performance(
+            total_cruise_time, final_cruise_mass = cruise_performance_simple(
                 altitude,
                 delta_ISA,
                 mach,
@@ -307,7 +310,7 @@ def mission(mission_range,vehicle):
                 distance_cruise,
                 vehicle
             )
-
+            
             final_cruise_altitude = altitude
 
             # Type of descent: 1 = full calculation | 2 = no descent computed
@@ -345,12 +348,12 @@ def mission(mission_range,vehicle):
         final_mission_mass = final_cruise_mass - total_burned_fuel
         total_mission_burned_fuel = max_takeoff_mass - final_mission_mass
         total_mission_flight_time = total_climb_time + \
-            total_cruise_time + total_descent_time
+            total_cruise_time + total_descent_time + operations['landing_time_allowance'] + operations['takeoff_time_allowance']
         total_mission_distance = distance_mission
 
         # Reserve fuel
         reserve_fuel_calculation_type = 0  # 0 if simplified computation | 1 if full computation
-        contingency_fuel = contingency_fuel_percent*final_mission_mass
+        contingency_fuel = contingency_fuel_percent*total_mission_burned_fuel
 
         landing_weight = max_takeoff_mass - total_mission_burned_fuel
 
@@ -403,6 +406,7 @@ def mission(mission_range,vehicle):
         passenger_capacity = np.round(payload/operations['passenger_mass'])
         load_factor = passenger_capacity/passenger_capacity_initial*100
 
+    
     # DOC calculation
     fuel_mass = total_mission_burned_fuel + \
         (average_taxi_out_time + average_taxi_in_time)*taxi_fuel_flow
@@ -422,12 +426,14 @@ def mission(mission_range,vehicle):
     # Cruise average specific air range
     SAR = fuel_mass/mission_range
 
+    complete_mission_flight_time = total_mission_flight_time + airport_departure['avg_delay'] + airport_destination['avg_delay'] + operations['turn_around_time'] 
+
 
     log.info('---- End DOC mission function ----')
     end_time = datetime.now()
     log.info('DOC mission execution time: {}'.format(end_time - start_time))
 
-    return float(fuel_mass), float(total_mission_flight_time),float(DOC),float(mach),float(passenger_capacity), float(SAR)
+    return float(fuel_mass), float(complete_mission_flight_time),float(DOC),float(mach),float(passenger_capacity), float(SAR)
 
 
 # =============================================================================
@@ -443,7 +449,7 @@ def mission(mission_range,vehicle):
 # performance = vehicle['performance']
 
 # tolerance = 100
-
+# x =  [130, 90, 30, 22, -2, 35, 50, 12, 22, 1450, 25, 80, 4,1500, 41000, 78, 1, 1, 1, 1]
 # aircraft = vehicle['aircraft']
 # engine = vehicle['engine']
 # wing = vehicle['wing']
@@ -455,14 +461,46 @@ def mission(mission_range,vehicle):
 # performance = vehicle['performance']
 
 # mission_range = 300
-# aircraft['maximum_zero_fuel_weight'] = 31700
-# aircraft['operational_empty_weight'] = 21800
-# aircraft['passenger_capacity'] = 77
+# aircraft['maximum_zero_fuel_weight'] = 31000
+# aircraft['operational_empty_weight'] = 30000
+# # aircraft['passenger_capacity'] = 77
 # aircraft['number_of_engines'] = 2
-# engine['maximum_thrust'] = 63173
+# # engine['maximum_thrust'] = 63173
 # operations['reference_load_factor'] = 0.85
 # aircraft['maximum_takeoff_weight'] = 38790
 # aircraft['maximum_landing_weight'] = 34100
-# print(mission(mission_range,vehicle))
+
+# # Upload dictionary variables with optimization variables input vector x
+# wing['area'] = x[0]
+# wing['aspect_ratio'] = x[1]/10
+# wing['taper_ratio'] = x[2]/100
+# wing['sweep_c_4'] = x[3]
+# wing['twist'] = x[4]
+# wing['semi_span_kink'] = x[5]/100
+# aircraft['passenger_capacity'] = x[11]
+# fuselage['seat_abreast_number'] = x[12]
+# performance['range'] = x[13]
+# aircraft['winglet_presence'] = x[17]
+# # aircraft['winglet_presence'] = 1
+# aircraft['slat_presence'] = x[18]
+# # aircraft['slat_presence'] = 1
+# horizontal_tail['position'] = x[19]
+# # horizontal_tail['position'] = 1
+
+# engine['bypass'] = x[6]/10
+# engine['fan_diameter'] = x[7]/10
+# engine['compressor_pressure_ratio'] = x[8]
+# engine['turbine_inlet_temperature'] = x[9]
+# engine['fan_pressure_ratio'] = x[10]/10
+# engine['design_point_pressure'] = x[14]
+# engine['design_point_mach'] = x[15]/100
+# engine['position'] = x[16]
+
+# vehicle = np.load('Database/Aircrafts/baseline_EMB.npy',allow_pickle = True)
+# vehicle = vehicle.item()
+
+# heading = 180
+# mission_range = 355
+# print(mission(mission_range,heading,vehicle))
 
 

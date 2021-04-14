@@ -31,8 +31,7 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import \
 from framework.Economics.crew_salary import crew_salary
 from framework.Economics.direct_operational_cost import direct_operational_cost
 from framework.Performance.Analysis.climb_integration import climb_integration
-from framework.Performance.Analysis.cruise_performance import \
-    cruise_performance
+from framework.Performance.Analysis.cruise_performance import *
 from framework.Performance.Analysis.descent_integration import \
     descent_integration
 from framework.Performance.Analysis.maximum_range_cruise import \
@@ -275,7 +274,7 @@ def mission_alternative(vehicle,landing_weight):
             mach = operations['mach_cruise']
 
         # Breguet calculation type for cruise performance
-        total_cruise_time, final_cruise_mass = cruise_performance(
+        total_cruise_time, final_cruise_mass = cruise_performance_simple(
             altitude,
             delta_ISA,
             mach,

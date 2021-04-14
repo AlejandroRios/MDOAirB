@@ -414,6 +414,10 @@ operations['takeoff_allowance'] = 300
 operations['approach_allowance_mass'] = 150
 operations['average_taxi_in_time'] = 5
 operations['average_taxi_out_time'] = 10
+operations['landing_time_allowance'] = 3
+operations['takeoff_time_allowance'] = 2
+operations['turn_around_time'] = 45
+operations['maximum_daily_utilization'] = 13
 
 noise = {}
 noise['takeoff_lambda'] = 0
@@ -480,12 +484,14 @@ airport_departure['elevation'] = 0*3.28084  # [m]
 airport_departure['delta_ISA'] = 0  # [deg C]
 airport_departure['array'] = ["FRA", "LHR", "CDG", "AMS",
                       "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+airport_departure['avg_delay'] = 0  # [deg C]
 
 airport_destination = {}
 airport_destination['takeoff_field_length'] = 2500  # [m]
 airport_destination['landing_field_length'] = 2000  # [m]
 airport_destination['elevation'] = 0*3.28084  # [m]
 airport_destination['delta_ISA'] = 0  # [deg C]
+airport_destination['avg_delay'] = 0
 
 aircraft['maximum_engine_thrust'] = aircraft['number_of_engines'] * \
     0.95 * 16206 * (1**0.8) * lbf_to_N  # Rolls-Royce Tay 650 Thrust[N]

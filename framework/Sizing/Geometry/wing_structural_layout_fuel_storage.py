@@ -221,7 +221,8 @@ def wing_structural_layout(vehicle, xutip, yutip,
 
     nervkinknormal = 0  # a principio esta nervura nao existe
     nnervext = 1  # Por enquanto, apenas a nervura padrao da quebra eh levada em conta
-    angnev = 0
+    angnev = 0 # REVIEEEEEEEEEEEEEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+    anglte = 0
     if x2aux == x1aux:
         anglte = np.pi/2
         angnev = 0

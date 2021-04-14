@@ -40,6 +40,8 @@ from datetime import datetime
 
 from framework.utilities.logger import get_logger
 from framework.utilities.output import write_optimal_results, write_kml_results, write_bad_results, write_newtork_results
+
+from framework.Attributes.Geo.bearing import calculate_bearing
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -63,6 +65,10 @@ def objective_function(x, vehicle):
             status, vehicle = airplane_sizing(x, vehicle)
         except Exception:
             log.error("Error at airplane_sizing", exc_info = True)
+
+        # Save
+
+        # np.save('Database/Aircrafts/baseline_EMB.npy', vehicle) 
 
 
         results = vehicle['results']
@@ -124,6 +130,7 @@ def objective_function(x, vehicle):
             SAR = {}
 
             for i in range(len(departures)):
+
                 DOC_ik[departures[i]] = {}
                 DOC_nd[departures[i]] = {}
                 fuel_mass[departures[i]] = {}
@@ -142,8 +149,18 @@ def objective_function(x, vehicle):
                                                                                     == departures[i], 'TORA'].iloc[0]
                         airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                         == arrivals[k], 'TORA'].iloc[0]
+                        airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
+                                                                                        == arrivals[k], 'AVD'].iloc[0]
+                        airport_destination['avg_delay'] = data_airports.loc[data_airports['APT2']
+                                                                                        == arrivals[k], 'AVA'].iloc[0]
+                                                                                        
+                        bearing = calculate_bearing((data_airports['LAT'][i],data_airports['LON'][i]),(data_airports['LAT'][k],data_airports['LON'][k]))
+                        heading = round(bearing - (data_airports['DMG'][i] + data_airports['DMG'][k])/2)
+                        if heading < 0:
+                            heading = heading + 360
+                        
                         mission_range = distances[departures[i]][arrivals[k]]
-                        fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]] = mission(mission_range,vehicle)
+                        fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]] = mission(mission_range,heading,vehicle)
                         DOC_nd[departures[i]][arrivals[k]] = DOC
                         DOC_ik[departures[i]][arrivals[k]] = int(DOC*distances[departures[i]][arrivals[k]])                       
                         # print(DOC_ik[(i, k)])
@@ -324,7 +341,8 @@ def objective_function(x, vehicle):
 
 # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03,41000, 78, 1, 1, 1, 1] # Prifit ok
 # x =  [127, 82, 46, 22, -2, 44, 48, 21, 27, 1358, 22,  92, 5, 2875, 41200, 82, 1, 1, 1, 1]
-# x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1]
+# x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] good one
+# x =  [72, 86, 44, 23, -3, 32, 50, 12, 25, 1405, 20, 78, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
 # x = [int(x) for x in x]
 # print(x)
 # start_time = datetime.now()

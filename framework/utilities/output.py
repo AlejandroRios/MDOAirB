@@ -80,7 +80,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     average_CEMV = kpi_df2['total_CEMV']
     average_CEMV = average_CEMV[average_CEMV > 0].mean()
     
-    number_aircraft2 = np.round(((kpi_df2['total_time'].sum())+4)/(13*60))
+    number_aircraft2 = np.round(((kpi_df2['total_time'].sum()))/(operations['maximum_daily_utilization']*60))
     
     REV = 1.1*total_pax*120
     COST = 1.2*total_cost

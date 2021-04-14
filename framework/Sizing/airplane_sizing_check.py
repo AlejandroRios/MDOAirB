@@ -385,12 +385,12 @@ def airplane_sizing(x, vehicle):
     regulated_takeoff_weight_required = regulated_takeoff_weight(vehicle)
     regulated_landing_weight_required = regulated_landing_weight(vehicle)
 
-    if (maximum_takeoff_weight) > (regulated_takeoff_weight_required*10*GRAVITY):
+    if (maximum_takeoff_weight) > (regulated_takeoff_weight_required+10*GRAVITY):
         flag_takeoff = 1
     else:
         flag_takeoff = 0
 
-    if (maximum_landing_weight) > (regulated_landing_weight_required*10*GRAVITY):
+    if (maximum_landing_weight) > (regulated_landing_weight_required+10*GRAVITY):
         flag_landing = 1
     else:
         flag_landing = 0

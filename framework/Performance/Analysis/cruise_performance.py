@@ -29,6 +29,7 @@ import numpy as np
 # from scipy.optimize import fsolve
 # from scipy.optimize import minimize
 from scipy import optimize
+from scipy.optimize import root
 from framework.Performance.Engine.engine_performance import turbofan
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 from framework.Attributes.Airspeed.airspeed import V_cas_to_mach, mach_to_V_cas, mach_to_V_tas, crossover_altitude
@@ -66,6 +67,36 @@ def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle
         time_cruise = time_cruise + time
 
         mass_fuel_cruise = mass_fuel_cruise + mass_fuel
+        # print(mass_fuel)
+
+    final_mass = mass - mass_fuel_cruise
+    # print(final_mass)
+
+    return time_cruise, final_mass
+
+def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, vehicle):
+    n = 4
+    step_cruise = distance_cruise/n
+    distance = 0
+    time_cruise = 0
+    mass_fuel_cruise = 0
+    d = 0
+    
+
+    V_tas = mach_to_V_tas(mach, altitude, delta_ISA)
+
+    for i in range(n):
+
+        TSFC, L_over_D, fuel_flow, throttle_position = specific_fuel_consumption(
+            vehicle, mach, altitude, delta_ISA, mass)
+
+        mass_fuel, time = breguet_simple(altitude, delta_ISA, mach, L_over_D, TSFC,step_cruise,mass)
+
+        time_cruise = time_cruise + time
+
+        mass_fuel_cruise = mass_fuel_cruise + mass_fuel
+
+        d = d+step_cruise
         # print(mass_fuel)
 
     final_mass = mass - mass_fuel_cruise
@@ -180,6 +211,20 @@ def breguet(type, task, E_R_or_frac, LD, SFC, V, eta_p):
     # print(varargout)
     return(varargout)
 
+def breguet_simple(altitude, delta_ISA, mach, LD, SFC,step_cruise,W0):
+    second_to_miniute = 0.01667
+    _, _, _, _, _, _, _, a = atmosphere_ISA_deviation(altitude, delta_ISA)
+    V=mach*a
+    a1=SFC*(1/LD)
+    a2=step_cruise*a1/V;
+    f=np.exp(a2)
+    Wf=W0/f
+    mass_fuel=W0-Wf
+    # time=(1/a1)*np.log(W0/Wf)*60
+
+    time = LD/SFC *np.log(W0/Wf)
+    R = step_cruise*1852
+    return mass_fuel, time*60
 
 def fuelfractionsizing(sf, fixedW, FF, tol, maxW):
 
@@ -221,6 +266,9 @@ def fuelfractionsizing(sf, fixedW, FF, tol, maxW):
     # res = minimize(f, W0_init, bounds=((minW,maxW),), tol=tol, options={'disp': False})
     # W0 = res.x[0]
     W0 =  optimize.newton(f, W0_init,tol=tol)
+    # W0 = optimize.bisect(f, minW,maxW)
+
+    # W0 = root(f,W0_init)
     # W0 = res
 
     # bounds = np.array([minW, maxW])
@@ -279,3 +327,46 @@ def missionfuelburn(varargin):
 # _,aux = cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise,vehicle)
 # end_time = datetime.now()
 # print('Mission sizing execution time: {}'.format(end_time - start_time))
+
+
+
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
+
+# performance = vehicle['performance']
+
+# tolerance = 100
+
+# aircraft = vehicle['aircraft']
+# engine = vehicle['engine']
+# wing = vehicle['wing']
+
+# airport_departure = vehicle['airport_departure']
+# airport_destination = vehicle['airport_destination']
+
+# operations = vehicle['operations']
+# performance = vehicle['performance']
+
+# mission_range = 300
+# aircraft['maximum_zero_fuel_weight'] = 31700
+# aircraft['operational_empty_weight'] = 21800
+# aircraft['passenger_capacity'] = 77
+# aircraft['number_of_engines'] = 2
+# engine['maximum_thrust'] = 63173
+# operations['reference_load_factor'] = 0.85
+# aircraft['maximum_takeoff_weight'] = 38790
+# aircraft['maximum_landing_weight'] = 34100
+
+
+# altitude = 33000
+# delta_ISA = 0
+# mach = 0.6133
+# mass = 37569
+# distance_cruise = 110
+# from datetime import datetime
+# start_time = datetime.now()
+
+# time_cruise, final_mass = cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, vehicle)
+# end_time = datetime.now()
+# print('objective function time: {}'.format(end_time - start_time))
+# print(time_cruise)
+# print(mass-final_mass)

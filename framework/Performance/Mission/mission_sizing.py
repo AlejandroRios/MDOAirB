@@ -34,8 +34,7 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import \
 from framework.Economics.crew_salary import crew_salary
 from framework.Economics.direct_operational_cost import direct_operational_cost
 from framework.Performance.Analysis.climb_integration import climb_integration
-from framework.Performance.Analysis.cruise_performance import \
-    cruise_performance
+from framework.Performance.Analysis.cruise_performance import *
 from framework.Performance.Analysis.descent_integration import \
     descent_integration
 from framework.Performance.Analysis.maximum_range_cruise import \
@@ -299,7 +298,7 @@ def mission_sizing(vehicle):
         
         # start_time = datetime.now()
         # Breguet calculation type for cruise performance
-        total_cruise_time, final_cruise_mass = cruise_performance(
+        total_cruise_time, final_cruise_mass = cruise_performance_simple(
             altitude,
             delta_ISA,
             mach,
@@ -307,8 +306,8 @@ def mission_sizing(vehicle):
             distance_cruise,
             vehicle
         )
-        print(total_cruise_time)
-        print(final_cruise_mass)
+        # print(total_cruise_time)
+        # print(final_cruise_mass)
         # end_time = datetime.now()
         # print('cruise performance calculation time: {}'.format(end_time - start_time))
 
@@ -479,7 +478,7 @@ def mission_sizing(vehicle):
             mach = operations['mach_cruise']
 
         # Breguet calculation type for cruise performance
-        total_cruise_time, final_cruise_mass = cruise_performance(
+        total_cruise_time, final_cruise_mass = cruise_performance_simple(
             altitude,
             delta_ISA,
             mach,
@@ -518,7 +517,7 @@ def mission_sizing(vehicle):
     # Reserve fuel
     # 0 if simplified computation | 1 if full computation
     reserve_fuel_calculation_type = 0
-    contingency_fuel = contingency_fuel_percent*final_mission_mass
+    contingency_fuel = contingency_fuel_percent*(total_mission_burned_fuel + total_mission_burned_fuel_alternative)
 
     landing_weight = max_takeoff_mass - total_mission_burned_fuel
 
@@ -540,6 +539,7 @@ def mission_sizing(vehicle):
 
         vehicle = aircraft_empty_weight(vehicle, max_takeoff_mass, total_mission_burned_fuel,
                                         engine_static_thrust, operations['mach_maximum_operating']-0.02, max_altitude)
+                                        
         MTOW_new = aircraft['payload_weight'] + aircraft['operational_empty_weight'] + \
             aircraft['crew_number']*100 + total_mission_burned_fuel_complete*1.0025
         MTOW_error = abs(MTOW_calculated - MTOW_new)

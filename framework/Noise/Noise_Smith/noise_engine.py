@@ -25,7 +25,7 @@ from framework.Performance.Engine.engine_performance import turbofan
 from framework.Noise.Noise_Smith.atmospheric_attenuation import atmospheric_attenuation
 import numpy as np
 from scipy import interpolate
-
+from framework.utilities.logger import get_logger
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -35,7 +35,7 @@ from scipy import interpolate
 # =============================================================================
 kt_to_ms = 0.514
 m_to_ft= 3.28084
-
+log = get_logger(__file__.split('.')[0])
 
 def noise_engine(noise_parameters,aircraft_geometry,altitude,delta_ISA,theta,fi,R,manete,N1,N2,vairp,vehicle):
     engine = vehicle['engine']
