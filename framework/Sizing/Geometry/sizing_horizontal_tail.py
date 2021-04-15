@@ -43,7 +43,7 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
     horizontal_tail['sweep_c_4'] = wing['sweep_c_4'] + 4
     horizontal_tail['aspect_ratio'] = horizontal_tail['aspect_ratio']  # alongamento EH
     horizontal_tail['taper_ratio'] = horizontal_tail['taper_ratio']  # Afilamento EH
-    horizontal_tail['mean_chord_thickness'] = (horizontal_tail['thickness_ratio'][0]+horizontal_tail['thickness_ratio'][1])/2  # [#]espessura media
+    horizontal_tail['mean_chord_thickness'] = (horizontal_tail['thickness_root_chord']+horizontal_tail['thickness_tip_chord'])/2  # [#]espessura media
     horizontal_tail['tail_to_wing_area_ratio']  = horizontal_tail['area']/wing['area']  # rela�ao de areas
     horizontal_tail['twist']  = 0  # torcao EH
 

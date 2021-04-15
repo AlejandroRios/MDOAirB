@@ -65,6 +65,7 @@ m2_to_ft2 = 10.7639
 lb_to_kg = 0.453592
 deg_to_rad = np.pi/180
 ft_to_m = 0.3048
+lbf_to_N = 4.448
 
 
 def airplane_sizing(x, vehicle):
@@ -114,6 +115,11 @@ def airplane_sizing(x, vehicle):
     engine['design_point_pressure'] = x[14]
     engine['design_point_mach'] = x[15]/100
     engine['position'] = x[16]
+
+
+    operations['mach_cruise'] = operations['mach_maximum_operating'] - 0.02
+    
+
 
 
     ceiling =  operations['max_ceiling']
@@ -249,8 +255,17 @@ def airplane_sizing(x, vehicle):
     engine['diameter'] = engine['fan_diameter']*1.1
     engine['maximum_thrust'], _ , vehicle = turbofan(
         0, 0, 1, vehicle)
-
+    
     engine_static_trhust = engine['maximum_thrust']*0.95
+
+    # engine['maximum_thrust'] = aircraft['number_of_engines'] * \
+    #     0.95 * 16206 * (1**0.8) * lbf_to_N  # Rolls-Royce Tay 650 Thrust[N]
+
+    aircraft['maximum_engine_thrust'] = aircraft['number_of_engines'] * \
+        0.95 * engine['maximum_thrust'] * (1**0.8)  # Rolls-Royce Tay 650 Thrust[N]
+    aircraft['average_thrust'] = 0.75*aircraft['maximum_engine_thrust'] * \
+        ((5 + engine['bypass']) /
+            (4 + engine['bypass']))  # [N]  
 
     # Estimation of wings CDO and induced drag factor k
     CL_1 = 0.4
@@ -345,8 +360,8 @@ def airplane_sizing(x, vehicle):
             aircraft['maximum_takeoff_weight'] + 0.8*MTOW_calculated
 
         aircraft['maximum_landing_weight'] = landing_weight
-        engine['maximum_thrust'] = (
-            0.3264*aircraft['maximum_takeoff_weight'] + 2134.8)*0.95
+        # engine['maximum_thrust'] = (
+        #     0.3264*aircraft['maximum_takeoff_weight'] + 2134.8)*0.95 # Test this
 
         MTOW_count = MTOW_count + 1  # Counter of number of iterations
 
@@ -381,16 +396,17 @@ def airplane_sizing(x, vehicle):
     aircraft['maximum_zero_fuel_weight'] = maximum_landing_weight*0.98
 
     engine['maximum_thrust'] = (
-        aircraft['number_of_engines']*engine['maximum_thrust']*lb_to_kg)*GRAVITY
+        aircraft['number_of_engines']*engine['maximum_thrust']*lb_to_kg)*GRAVITY  # Test this
+
     regulated_takeoff_weight_required = regulated_takeoff_weight(vehicle)
     regulated_landing_weight_required = regulated_landing_weight(vehicle)
 
-    if (maximum_takeoff_weight) > (regulated_takeoff_weight_required+10*GRAVITY):
+    if (maximum_takeoff_weight) > (regulated_takeoff_weight_required + 10*GRAVITY):
         flag_takeoff = 1
     else:
         flag_takeoff = 0
 
-    if (maximum_landing_weight) > (regulated_landing_weight_required+10*GRAVITY):
+    if (maximum_landing_weight) > (regulated_landing_weight_required + 10*GRAVITY):
         flag_landing = 1
     else:
         flag_landing = 0

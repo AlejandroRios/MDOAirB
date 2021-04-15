@@ -56,7 +56,9 @@ def wing_structural_layout(vehicle, xutip, yutip,
     # PSILE: Leading-edge sweepback angle
     # Aileron basis as semi-span fraction (posaileron)
     # Location of the kink station as semi-span fraction (wing.ybreak)
-  
+    
+    kg_l_to_kg_m3 = 1000
+    rad = np.pi/180
     # Initialization
 
     aircraft = vehicle['aircraft']
@@ -66,13 +68,13 @@ def wing_structural_layout(vehicle, xutip, yutip,
     operations = vehicle['operations']
     nose_landing_gear = vehicle['nose_landing_gear']
 
-    rad = np.pi/180
+    
     wing['fuel_capacity'] = 0
     nukink = len(yukink)
     #
     ribs_spacing = wing['ribs_spacing']   # (pol) Roskam Vol III pg 220 suggests 24
     nervspacm = ribs_spacing * 0.0254  # cm)
-    querosene_density = operations['querosene_density']  # jet A1 density
+    querosene_density = operations['fuel_density']*kg_l_to_kg_m3  # jet A1 density
 
     angquebralongtras = 0
     #
@@ -540,8 +542,8 @@ def wing_structural_layout(vehicle, xutip, yutip,
             icount = icount+1
             xpolyroot.append(xuroot[i])
             ypolyroot.append(yuperfilint[i])
-
-    for i in range(len(xuroot), 0, -1):
+    # CHECKKKKKKKKKK THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    for i in range(len(xuroot)-1, 0, -1):
 
         if xuperfilint[i-1] <= limitepi1 and xuperfilint[i-1] >= limitedr:
             icount = icount+1
@@ -559,8 +561,8 @@ def wing_structural_layout(vehicle, xutip, yutip,
             xpolyroot1.append(xuroot[i])
             ypolyroot1.append(yuroot[i])
 
-
-    for i in range(len(xuroot), 0, -1):
+    # CHECKKKKKKKKKK THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    for i in range(len(xuroot)-1, 0, -1):
         if xuroot[i-1] <= limitepi2 and xuroot[i-1] >= limitedr:
             icount = icount+1
             xpolyroot1.append(xuroot[i])

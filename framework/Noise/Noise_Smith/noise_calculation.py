@@ -140,10 +140,10 @@ def noise_calculation(vehicle):
     aircraft_geometry['main_landing_gear_number'] = noise['aircraft_geometry_main_landing_gear_number']
     aircraft_geometry['nose_landig_gear_number'] = noise['aircraft_geometry_nose_landing_gear_number']
 
-    aircraft_geometry['main_landing_gear_length'] = noise['aircraft_geometry_main_landig_gear_length']
-    aircraft_geometry['nose_landing_gear_length'] = noise['aircraft_geometry_nose_landig_gear_length']
-    aircraft_geometry['main_landing_gear_wheels'] = noise['aircraft_geometry_main_landig_gear_wheels']
-    aircraft_geometry['nose_landing_gear_wheels'] = noise['aircraft_geometry_nose_landig_gear_wheels']
+    aircraft_geometry['main_landing_gear_length'] = noise['aircraft_geometry_main_landing_gear_length']
+    aircraft_geometry['nose_landing_gear_length'] = noise['aircraft_geometry_nose_landing_gear_length']
+    aircraft_geometry['main_landing_gear_wheels'] = noise['aircraft_geometry_main_landing_gear_wheels']
+    aircraft_geometry['nose_landing_gear_wheels'] = noise['aircraft_geometry_nose_landing_gear_wheels']
     aircraft_geometry['wing_flap_type1_position'] = noise['aircraft_geometry_wing_flap_type1_position']
     aircraft_geometry['wing_flap_type2_position'] = noise['aircraft_geometry_wing_flap_type2_position']
     aircraft_geometry['slats_position'] = noise['aircraft_geometry_slats_position']
@@ -151,7 +151,7 @@ def noise_calculation(vehicle):
     aircraft_geometry['main_landing_gear_position'] = noise['aircraft_geometry_main_landing_gear_position']
     aircraft_geometry['nose_landing_gear_position'] = noise['aircraft_geometry_nose_landing_gear_position']
     aircraft_geometry['altitude_retracted'] = noise['aircraft_geometry_altitude_retracted']
-    aircraft_geometry['delta_ISA_retracted'] = noise['aircraft_geometry_delta_ISA_retracted']
+    aircraft_geometry['delta_ISA_retracted'] =airport_departure['delta_ISA']
 
     engine_parameters = {}
     engine_parameters['throttle_position'] = noise['engine_parameters_throttle_position']

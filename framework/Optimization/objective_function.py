@@ -53,7 +53,7 @@ log = get_logger(__file__.split('.')[0])
 
 
 def objective_function(x, vehicle):
-    
+
     log.info('==== Start network profit module ====')
     start_time = datetime.now()
 
@@ -110,8 +110,7 @@ def objective_function(x, vehicle):
             arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
                     'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
 
-            airport_departure['array'] = arrivals
-            results['nodes_number'] = len(departures)
+            results['nodes_number'] = len(data_airports)
             
 
             # departures = ['CD1', 'CD2', 'CD3', 'CD4']
@@ -141,24 +140,38 @@ def objective_function(x, vehicle):
 
                 for k in range(len(arrivals)):
                     if (i != k) and (distances[departures[i]][arrivals[k]] <= x[13]):
+
+                        # Update information about orign-destination pair airports:
+
+                        # Elevation:
                         airport_departure['elevation'] = data_airports.loc[data_airports['APT2']
                                                                         == departures[i], 'ELEV'].iloc[0]
                         airport_destination['elevation'] = data_airports.loc[data_airports['APT2']
                                                                             == arrivals[k], 'ELEV'].iloc[0]
+                        # Field length:
                         airport_departure['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                     == departures[i], 'TORA'].iloc[0]
                         airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                         == arrivals[k], 'TORA'].iloc[0]
+                        # Average delay:
                         airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
-                                                                                        == arrivals[k], 'AVD'].iloc[0]
+                                                                                        == arrivals[i], 'AVD'].iloc[0]
                         airport_destination['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                         == arrivals[k], 'AVA'].iloc[0]
-                                                                                        
+                        
+                        # Delta ISA
+                        airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT2']
+                                                                                        == arrivals[i], 'TREF'].iloc[0]
+                        airport_destination['delta_ISA'] = data_airports.loc[data_airports['APT2']
+                                                                                        == arrivals[k], 'TREF'].iloc[0]
+
+                        # Heading                                                          
                         bearing = calculate_bearing((data_airports['LAT'][i],data_airports['LON'][i]),(data_airports['LAT'][k],data_airports['LON'][k]))
                         heading = round(bearing - (data_airports['DMG'][i] + data_airports['DMG'][k])/2)
                         if heading < 0:
                             heading = heading + 360
-                        
+
+                        # Calculate DOC and mission parameters for origin-destination airports pair:                        
                         mission_range = distances[departures[i]][arrivals[k]]
                         fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]] = mission(mission_range,heading,vehicle)
                         DOC_nd[departures[i]][arrivals[k]] = DOC
@@ -179,8 +192,6 @@ def objective_function(x, vehicle):
 
                     city_matrix_size = city_matrix_size - 1
                     print('INFO >>>> city pairs remaining to finish DOC matrix fill: ',city_matrix_size)
-
-            # np.save('Database/DOC/DOC.npy',DOC_ik)
 
             with open('Database/DOC/DOC.csv', 'w') as f:
                 for key in DOC_ik.keys():
@@ -341,7 +352,7 @@ def objective_function(x, vehicle):
 
 # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03,41000, 78, 1, 1, 1, 1] # Prifit ok
 # x =  [127, 82, 46, 22, -2, 44, 48, 21, 27, 1358, 22,  92, 5, 2875, 41200, 82, 1, 1, 1, 1]
-# x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] good one
+# x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] #good one
 # x =  [72, 86, 44, 23, -3, 32, 50, 12, 25, 1405, 20, 78, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
 # x = [int(x) for x in x]
 # print(x)

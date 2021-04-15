@@ -118,7 +118,7 @@ def mission(mission_range, heading, vehicle):
     descent_V_cas = operations['descent_V_cas']
     mach_descent = operations['mach_descent']
 
-    delta_ISA = airport_departure['delta_ISA']
+    delta_ISA = operations['flight_planning_delta_ISA']
 
     regulated_takeoff_mass = regulated_takeoff_weight(vehicle)
     regulated_landing_mass = regulated_landing_weight(vehicle)

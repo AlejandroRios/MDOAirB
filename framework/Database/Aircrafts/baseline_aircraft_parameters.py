@@ -27,8 +27,7 @@ import numpy as np
 # FUNCTIONS
 # =============================================================================
 
-lbf_to_N = 4.448
-kg_to_N = 9.80665
+
 
 aircraft = {}
 
@@ -172,7 +171,8 @@ horizontal_tail['aerodynamic_center_xposition'] = 0
 horizontal_tail['mean_chord'] = 1
 horizontal_tail['tip_chord'] = 1
 horizontal_tail['root_chord'] = 1
-horizontal_tail['thickness_ratio'] = [0.1, 0.1]
+horizontal_tail['thickness_root_chord'] = 0.1
+horizontal_tail['thickness_tip_chord'] = 0.1
 horizontal_tail['mean_chord_thickness']  = 0.1
 horizontal_tail['center_chord'] = 1
 horizontal_tail['tail_to_wing_area_ratio'] = 0
@@ -259,7 +259,7 @@ fuselage['bf_ellipse'] = 0.30  # [m]
 
 
 cabine = {}
-cabine['armrest_top'] = 22  # [inch]
+cabine['armrest_top'] = 32  # [inch]
 cabine['armrest_bottom'] = 7  # [inch]
 cabine['armrest_width'] = 2  # [inch]
 cabine['seat_cushion_thickness_YC'] = 0.14  # [m]
@@ -280,7 +280,7 @@ cabine['galley_prof'] = 1.1
 
 engine = {}
 engine['diameter'] = 1
-engine['fan_diameter'] = engine['diameter']*0.98
+engine['fan_diameter'] = 1
 
 engine['bypass'] = 5.0
 engine['fan_pressure_ratio'] = 1.46
@@ -290,8 +290,7 @@ engine['design_point_pressure'] = 33000
 engine['design_point_mach'] = 0.82
 engine['position'] = 1
 engine['yposition'] = 1
-engine['maximum_thrust'] = aircraft['number_of_engines'] * \
-        0.95 * 16206 * (1**0.8) * lbf_to_N  # Rolls-Royce Tay 650 Thrust[N]
+engine['maximum_thrust'] = 0
 engine['wetted_area'] = 0
 engine['length'] = 0
 engine['weight'] = 0
@@ -393,7 +392,7 @@ operations['mach_descent'] = 0.78
 operations['mach_cruise_alternative'] = 0.78
 
 operations['mach_maximum_operating'] = 0.82
-operations['mach_cruise'] = operations['mach_maximum_operating'] - 0.02
+operations['mach_cruise'] = 0.72
 operations['max_operating_speed'] = 340
 operations['holding_time'] = 30  # [min]
 operations['alternative_airport_distance'] = 100  # [nm]
@@ -402,8 +401,6 @@ operations['passenger_mass'] = 110  # [kg]
 operations['reference_load_factor'] = 0.85
 operations['buffet_margin'] = 1.3
 operations['fuel_density'] = 0.81
-operations['fuel_density_lbgall'] = 6.74
-operations['querosene_density'] = 803
 operations['contingency_fuel_percent'] = 0.1
 operations['min_cruise_time'] = 3
 operations['fuel_price_per_kg'] = 2.8039
@@ -418,6 +415,8 @@ operations['landing_time_allowance'] = 3
 operations['takeoff_time_allowance'] = 2
 operations['turn_around_time'] = 45
 operations['maximum_daily_utilization'] = 13
+operations['flight_planning_delta_ISA'] = 0  # [deg C]
+
 
 noise = {}
 noise['takeoff_lambda'] = 0
@@ -448,10 +447,10 @@ noise['aircraft_geometry_fuselage_length'] = 22.28
 noise['aircraft_geometry_main_landing_gear_number'] = 2 
 noise['aircraft_geometry_nose_landing_gear_number'] = 1
 
-noise['aircraft_geometry_main_landig_gear_length'] = 1.88
-noise['aircraft_geometry_nose_landig_gear_length'] = 1.21
-noise['aircraft_geometry_main_landig_gear_wheels'] = 2
-noise['aircraft_geometry_nose_landig_gear_wheels'] = 2
+noise['aircraft_geometry_main_landing_gear_length'] = 1.88
+noise['aircraft_geometry_nose_landing_gear_length'] = 1.21
+noise['aircraft_geometry_main_landing_gear_wheels'] = 2
+noise['aircraft_geometry_nose_landing_gear_wheels'] = 2
 noise['aircraft_geometry_wing_flap_type1_position'] = 1
 noise['aircraft_geometry_wing_flap_type2_position'] = 0
 noise['aircraft_geometry_slats_position'] = 1
@@ -482,8 +481,6 @@ airport_departure['takeoff_field_length'] = 2500  # [m]
 airport_departure['landing_field_length'] = 2000  # [m]
 airport_departure['elevation'] = 0*3.28084  # [m]
 airport_departure['delta_ISA'] = 0  # [deg C]
-airport_departure['array'] = ["FRA", "LHR", "CDG", "AMS",
-                      "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
 airport_departure['avg_delay'] = 0  # [deg C]
 
 airport_destination = {}
@@ -493,16 +490,12 @@ airport_destination['elevation'] = 0*3.28084  # [m]
 airport_destination['delta_ISA'] = 0  # [deg C]
 airport_destination['avg_delay'] = 0
 
-aircraft['maximum_engine_thrust'] = aircraft['number_of_engines'] * \
-    0.95 * 16206 * (1**0.8) * lbf_to_N  # Rolls-Royce Tay 650 Thrust[N]
-aircraft['average_thrust'] = 0.75*aircraft['maximum_engine_thrust'] * \
-    ((5 + engine['bypass']) /
-        (4 + engine['bypass']))  # [N]
+aircraft['maximum_engine_thrust'] = 67189  # Rolls-Royce Tay 650 Thrust[N]
+aircraft['average_thrust'] = 67189
 
 results = {}
 results['profit'] = 0
 results['nodes_number'] = 10
-results['nodes_number']
 results['arcs_number'] = 0
 results['avg_degree_nodes'] = 0
 results['network_density'] = 0

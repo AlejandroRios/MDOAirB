@@ -1,39 +1,441 @@
-2021-04-14 01:03:24,842 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
--04-14 01:03:08,345 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
-2021-04-14 01:03:08,346 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:04:44.390041
-2021-04-14 01:03:08,347 - c:\users\aarc8\documents\g2021-04-14 01:03:24,461 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-04-14 01:03:08,337 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 0, 1, 0]
-2021-04-14 01:03:08,337 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-04-14 01:03:08,338 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-efore assignment
-2021-04-14 01:00:57,939 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-04-14 01:00:57,939 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-04-14 01:00:57,941 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network prof2021-04-14 01:00:59,061 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-202021-04-14 01:01:02,969 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:01:02,970 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:29.752939
-2021-04-14 01:01:26,347 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-202021-04-14 01:01:27,505 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:01:27,505 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time:2021-04-14 01:02:16,233 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-ing function ----
-202021-04-14 01:01:50,996 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:01:50,997 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:23.489530
-2021-04-14 01:02:13,903 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-202021-04-14 01:02:16,233 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:02:16,233 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:25.236068
-2021-04-14 01:01:51,638 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:01:51,638 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:18.210555
-2021-04-14 01:01:51,639 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-14 01:02:10,212 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:02:10,213 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:18.573891
-2021-04-14 01:02:10,214 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-14 01:02:31,185 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:02:31,186 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:20.971975
-2021-04-14 01:02:31,186 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-14 01:02:49,917 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:02:49,918 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:18.732258
-2021-04-14 01:02:49,918 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-14 01:03:07,521 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:03:07,522 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:17.603225
-2021-04-14 01:03:07,522 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-14 01:03:24,460 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-14 01:03:24,460 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.938287
+2021-04-15 00:58:20,883 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-04-15 00:582021-04-15 00:59:56,955 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+rc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+- Network optimization status: Optimal
+2021-04-15 00:58:20,8582021-04-15 00:59:21,319 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+rc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: [757.0653483]
+2021-04-15 00:45:55,088 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+22021-04-15 00:58:22,679 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----22022021-04-15 00:58:31,534 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: [788.16973736]
+2021-04-15 00:58:31,540 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area 22021-04-2021-04-15 00:58:47,974 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-04-15 00:58:57,259 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: [795.70946207]
+2021-04-15 00:58:57,260 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+--
+2021-04-15 00:58:48,065 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wet22021-04-15 00:58:51,62021-04-15 00:58:57,104 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: [871.94770589]
+2021-04-15 00:58:57,108 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+sers\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----22021-04-15 00:59:02,067 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: [nan]
+2021-04-15 00:59:02,085 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+ective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTO2021-04-15 00:59:05,925 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-04-15 00:59:05,933 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at sizing_landing_gear
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framewor2021-04-15 00:59:20,988 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-15 00:59:20,989 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:23.708402
+- c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+rc8\documents\github\mdoairb\framework\Sizing\Geometry\tire_selection.py", line 112, in tire_selection
+    tire_diameter = float(tire_selected['diameter'])*in_to_m
+  File "C:\Users\aarc8\.con2021-04-15 00:59:11,450 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-15 00:59:11,451 - c:\users\aa2021-04-15 00:59:21,159 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objectiv2021-04-15 00:59:23,281 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- E2021-04-15 00:59:56,713 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+ion sizing execution time: 0:00:11.830231
+2021-04-15 00:59:23,282 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-15 00:59:31,891 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-15 00:59:31,892 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:08.609454
+2021-04-15 00:59:31,892 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-15 00:59:40,254 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-15 00:59:40,255 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:08.362981
+2021-04-15 00:59:40,255 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-15 00:59:48,510 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-15 00:59:48,511 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:08.255897
+2021-04-15 00:59:48,511 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-15 00:59:56,712 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-15 00:59:56,713 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:08.202481
+n
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:59:21,365 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:59:21,366 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:59:21,368 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:33.766624
+2021-04-15 00:59:21,370 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+ File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 60, in aircraft_noise
+    time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec = takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,runaway_parameters,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_profile.py", line 133, in takeoff_profile
+    phase
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_integration.py", line 130, in takeoff_integration
+    final_block_time = time_vec[-1]
+IndexError: index -1 is out of bounds for axis 0 with size 0
+nt
+2021-04-15 00:59:02,351 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:59:02,357 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:59:02,358 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:59:02,363 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:09.982280
+2021-04-15 00:59:02,367 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+ area [m2]: [nan]
+2021-04-15 00:59:01,366 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+2021-04-15 00:59:02,277 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-04-15 00:59:08,443 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: [nan]
+2021-04-15 00:59:08,444 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+0:58:52,491 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-04-15 00:59:01,762 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: [nan]
+2021-04-15 00:59:01,773 - c:\users\aarc8\do2021-04-15 00:59:02,180 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTOW_calculated' referenced before assignment
+2021-04-15 00:59:02,194 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:59:02,200 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:59:02,207 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:59:02,208 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:10.293087
+2021-04-15 00:59:02,213 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+ormance\Analysis\climb_integration.py", line 189, in climb_integrator
+    solver.integrate(t[k])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 435, in integrate
+    self.f_params, self.jac_params)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 1007, in run
+    y1, t, istate = self.runner(*args)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 216, in climb
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Attributes\Atmosphere\atmosphere_ISA_deviation.py", line 70, in atmosphere_ISA_deviation
+    sigma = sigma = delta/theta  # desity ratio
+UnboundLocalError: local variable 'delta' referenced before assignment
+vidual vairables: [103, 82, 38, 26, -5, 34, 50, 14, 27, 1484, 24, 134, 5, 1425, 42400, 80, 1, 1, 1, 1]
+2021-04-15 00:59:02,256 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-04-15 00:59:02,331 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at mission_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 349, in airplane_sizing
+    vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing.py", line 227, in mission_sizing
+    vehicle
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 107, in climb_integration
+    initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 189, in climb_integrator
+    solver.integrate(t[k])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 435, in integrate
+    self.f_params, self.jac_params)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 1007, in run
+    y1, t, istate = self.runner(*args)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 216, in climb
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Attributes\Atmosphere\atmosphere_ISA_deviation.py", line 70, in atmosphere_ISA_deviation
+    sigma = sigma = delta/theta  # desity ratio
+UnboundLocalError: local variable 'delta' referenced before assignment
+ework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.805956
+2021-04-15 00:27:56,598 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:28:26,634 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:28:26,635 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:30.036497
+2021-04-15 00:28:26,639 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:28:56,424 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:28:56,424 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:29.785285
+2021-04-15 00:28:56,428 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:29:24,303 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:29:24,304 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.876177
+2021-04-15 00:29:24,310 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:29:50,859 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:29:50,859 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.548493
+2021-04-15 00:29:50,863 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:30:18,843 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:30:18,843 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.980567
+2021-04-15 00:30:18,847 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:30:50,100 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:30:50,101 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:31.253698
+2021-04-15 00:30:50,106 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:31:16,790 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:31:16,791 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.685177
+2021-04-15 00:31:16,797 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:31:43,922 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:31:43,923 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.125672
+2021-04-15 00:31:43,927 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:32:10,003 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:32:10,003 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.076400
+2021-04-15 00:32:10,007 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:32:36,269 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:32:36,270 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.263037
+2021-04-15 00:32:36,274 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:33:03,357 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:33:03,358 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.083399
+2021-04-15 00:33:03,363 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:33:32,645 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:33:32,645 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:29.282203
+2021-04-15 00:33:32,651 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:34:01,994 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:34:01,995 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:29.343930
+2021-04-15 00:34:01,998 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:34:28,455 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:34:28,456 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.457868
+2021-04-15 00:34:28,460 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:34:59,220 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:34:59,221 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:30.761209
+2021-04-15 00:34:59,225 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:35:29,908 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:35:29,908 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:30.683374
+2021-04-15 00:35:29,913 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:36:01,205 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:36:01,206 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:31.292749
+2021-04-15 00:36:01,215 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:36:36,747 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:36:36,747 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:35.532069
+2021-04-15 00:36:36,751 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:37:04,061 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:37:04,062 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.310564
+2021-04-15 00:37:04,067 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:37:32,801 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:37:32,802 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:28.735203
+2021-04-15 00:37:32,805 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:38:02,422 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:38:02,423 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:29.617625
+2021-04-15 00:38:02,427 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:38:30,254 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:38:30,255 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.827987
+2021-04-15 00:38:30,262 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:38:58,013 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:38:58,013 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.751346
+2021-04-15 00:38:58,019 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:39:22,644 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:39:22,644 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.625150
+2021-04-15 00:39:22,648 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:39:48,961 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:39:48,962 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.314193
+2021-04-15 00:39:48,969 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:40:14,163 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:40:14,163 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:25.193490
+2021-04-15 00:40:14,171 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:40:38,389 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:40:38,389 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.219064
+2021-04-15 00:40:38,395 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:41:05,470 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:41:05,471 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.075219
+2021-04-15 00:41:05,474 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:41:40,331 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:41:40,333 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:34.858688
+2021-04-15 00:41:40,340 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:42:12,176 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:42:12,177 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:31.837554
+2021-04-15 00:42:12,180 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:42:36,217 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:42:36,217 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.036508
+2021-04-15 00:42:36,221 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:42:58,715 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:42:58,716 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:22.495413
+2021-04-15 00:42:58,721 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:43:26,894 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:43:26,895 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:28.174250
+2021-04-15 00:43:26,900 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:43:53,108 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:43:53,108 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.207884
+2021-04-15 00:43:53,111 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:44:19,647 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:44:19,647 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.535766
+2021-04-15 00:44:19,651 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:44:44,686 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:44:44,687 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:25.035544
+2021-04-15 00:44:44,691 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:45:09,223 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:45:09,224 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.533114
+2021-04-15 00:45:09,227 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-15 00:45:33,259 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-15 00:45:33,260 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.033810
+2021-04-15 00:45:33,264 2021-04-15 00:58:21,346 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-04-15 00:58:31,202 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTOW_calculated' referenced before assignment
+2021-04-15 00:58:31,231 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:58:31,235 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:58:31,236 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:58:31,244 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:09.871112
+2021-04-15 00:58:31,247 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-04-15 00:58:31,270 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-04-15 00:58:41,230 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTOW_calculated' referenced before assignment
+2021-04-15 00:58:41,252 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:58:41,254 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:58:41,254 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:58:41,256 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:09.982274
+2021-04-15 00:58:41,257 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-04-15 00:58:41,258 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-04-15 00:58:51,394 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTOW_calculated' referenced before assignment
+2021-04-15 00:58:51,428 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:58:51,449 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:58:51,454 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:58:51,461 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:10.202151
+2021-04-15 00:58:51,463 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-04-15 00:58:51,474 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-04-15 00:59:01,599 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTOW_calculated' referenced before assignment
+2021-04-15 00:59:01,630 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:59:01,648 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:59:01,656 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:59:01,661 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:10.173155
+2021-04-15 00:59:01,663 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-04-15 00:59:01,683 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-04-15 00:59:08,593 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTOW_calculated' referenced before assignment
+2021-04-15 00:59:08,605 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:59:08,611 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:59:08,611 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:59:08,612 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:06.916034
+2021-04-15 00:59:08,613 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-04-15 00:58:51,779 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-04-15 00:59:02,081 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 64, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 356, in airplane_sizing
+    MTOW_calculated - aircraft['maximum_takeoff_weight'])
+UnboundLocalError: local variable 'MTOW_calculated' referenced before assignment
+2021-04-15 00:59:02,120 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - Error at objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 82, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-04-15 00:59:02,136 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-15 00:59:02,143 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-15 00:59:02,152 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:10.364056
+2021-04-15 00:59:02,155 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+3, 14, 27, 1442, 15, 198, 5, 2875, 39680, 81, 1, 1, 1, 1]
+2021-04-15 00:58:51,037 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-04-15 00:58:51,382 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at mission_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 349, in airplane_sizing
+    vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing.py", line 227, in mission_sizing
+    vehicle
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 107, in climb_integration
+    initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 189, in climb_integrator
+    solver.integrate(t[k])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 435, in integrate
+    self.f_params, self.jac_params)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 1007, in run
+    y1, t, istate = self.runner(*args)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 216, in climb
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Attributes\Atmosphere\atmosphere_ISA_deviation.py", line 70, in atmosphere_ISA_deviation
+    sigma = sigma = delta/theta  # desity ratio
+UnboundLocalError: local variable 'delta' referenced before assignment
+2021-04-15 00:58:51,488 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-04-15 00:58:51,491 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [126, 98, 45, 18, -4, 44, 55, 16, 28, 1406, 14, 138, 5, 3225, 40320, 79, 1, 1, 1, 1]
+2021-04-15 00:59:01,528 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-04-15 00:59:01,591 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at mission_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 349, in airplane_sizing
+    vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing.py", line 227, in mission_sizing
+    vehicle
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 107, in climb_integration
+    initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 189, in climb_integrator
+    solver.integrate(t[k])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 435, in integrate
+    self.f_params, self.jac_params)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 1007, in run
+    y1, t, istate = self.runner(*args)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 216, in climb
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Attributes\Atmosphere\atmosphere_ISA_deviation.py", line 70, in atmosphere_ISA_deviation
+    sigma = sigma = delta/theta  # desity ratio
+UnboundLocalError: local variable 'delta' referenced before assignment
+2021-04-15 00:59:01,696 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-04-15 00:59:01,709 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [75, 106, 35, 24, -4, 41, 46, 11, 29, 1438, 16, 84, 4, 1625, 42720, 81, 1, 1, 1, 1]
+2021-04-15 00:59:08,548 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-04-15 00:59:08,585 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at mission_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 349, in airplane_sizing
+    vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing.py", line 227, in mission_sizing
+    vehicle
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 107, in climb_integration
+    initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 189, in climb_integrator
+    solver.integrate(t[k])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 435, in integrate
+    self.f_params, self.jac_params)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 1007, in run
+    y1, t, istate = self.runner(*args)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 216, in climb
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Attributes\Atmosphere\atmosphere_ISA_deviation.py", line 70, in atmosphere_ISA_deviation
+    sigma = sigma = delta/theta  # desity ratio
+UnboundLocalError: local variable 'delta' referenced before assignment
+-packages\scipy\integrate\_ode.py", line 435, in integrate
+    self.f_params, self.jac_params)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 1007, in run
+    y1, t, istate = self.runner(*args)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 216, in climb
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Attributes\Atmosphere\atmosphere_ISA_deviation.py", line 70, in atmosphere_ISA_deviation
+    sigma = sigma = delta/theta  # desity ratio
+UnboundLocalError: local variable 'delta' referenced before assignment
+2021-04-15 00:58:51,788 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-04-15 00:58:51,793 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 114, 36, 17, -3, 42, 59, 15, 30, 1412, 18, 128, 5, 1125, 39280, 79, 1, 1, 1, 1]
+2021-04-15 00:59:01,964 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-04-15 00:59:02,076 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at mission_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 349, in airplane_sizing
+    vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing.py", line 227, in mission_sizing
+    vehicle
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 107, in climb_integration
+    initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 189, in climb_integrator
+    solver.integrate(t[k])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 435, in integrate
+    self.f_params, self.jac_params)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\integrate\_ode.py", line 1007, in run
+    y1, t, istate = self.runner(*args)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 216, in climb
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Attributes\Atmosphere\atmosphere_ISA_deviation.py", line 70, in atmosphere_ISA_deviation
+    sigma = sigma = delta/theta  # desity ratio
+UnboundLocalError: local variable 'delta' referenced before assignment

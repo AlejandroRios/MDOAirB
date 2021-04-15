@@ -259,7 +259,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
 
         output.write('\n Engine: \n')
         output.write('Maximum thrust: ' +
-                     str(engine['maximum_thrust']) + ' [kg] \n')
+                     str(engine['maximum_thrust']*aircraft['number_of_engines']) + ' [kg] \n')
         output.write('Bypass ratio: ' +
                      str("{:.2f}".format(engine['bypass'])) + '\n')
         output.write('Fan diameter: ' +
@@ -294,7 +294,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
         output.write('\n ----- Network parameters ----- \n')
 
         output.write(
-            'Number of nodes: ' + str("{:.2f}".format(len(airport_departure['array']))) + ' \n')
+            'Number of nodes: ' + str("{:.2f}".format(results['nodes_number'])) + ' \n')
         output.write(
             'Number of arcs: ' + str("{:.2f}".format(float(active_arcs))) + ' \n')
         output.write(

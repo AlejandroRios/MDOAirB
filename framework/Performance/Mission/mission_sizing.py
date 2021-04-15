@@ -115,7 +115,7 @@ def mission_sizing(vehicle):
     descent_V_cas = operations['descent_V_cas']
     mach_descent = operations['mach_descent']
 
-    delta_ISA = airport_departure['delta_ISA']
+    delta_ISA = operations['flight_planning_delta_ISA']
 
     takeoff_fuel = aircraft['maximum_takeoff_weight']*0.005
 

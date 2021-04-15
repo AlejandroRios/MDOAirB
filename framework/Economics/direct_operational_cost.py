@@ -71,6 +71,7 @@ def direct_operational_cost(
     # Constants
     operations = vehicle['operations']
     kg2lb = 2.20462262
+    kg_l_to_lb_gal = 8.3454
     var.Range = total_mission_distance
     salary.Captain, salary.FO, _ = crew_salary(max_takeoff_mass)
     Fuel_price = operations['fuel_price_per_kg']
@@ -109,7 +110,7 @@ def direct_operational_cost(
 
     # 2) FUEL AND OIL COST -> Cpol (PAG 148)
     pfuel = Fuel_price  # PRICE [USD/GALLON]
-    dfuel = operations['fuel_density_lbgall']  # DENSITY [LBS/GALLON]
+    dfuel = operations['fuel_density']*kg_l_to_lb_gal  # DENSITY [LBS/GALLON]
     Wfbl = fuel_mass*kg2lb  # [LBS] OPERATIONAL MISSION FUEL
     Cpol = 1.05*(Wfbl/Block_Range)*(pfuel/dfuel)  # EQ 5.30 PAG 116 5# DO DOC
 

@@ -43,6 +43,7 @@ log = get_logger(__file__.split('.')[0])
 
 global deg_to_rad
 deg_to_rad = np.pi/180
+N_to_lbf = 0.2248089431
 
 
 def wetted_area(vehicle):
@@ -66,7 +67,7 @@ def wetted_area(vehicle):
     engine_thrust, _ , vehicle = turbofan(
         0, 0, 1, vehicle)  # force [N], fuel flow [kg/hr]
 
-    engine['maximum_thrust'] = engine_thrust*0.2248089431
+    engine_thrust_lbf= engine_thrust*N_to_lbf
 
     # Sizing
     fuselage['diameter'] = np.sqrt(fuselage['width']*fuselage['height'])
@@ -320,7 +321,7 @@ def wetted_area(vehicle):
     ###################################ENGINE##################################
     ###########################################################################
 
-    engine['length'] = 2.22*((engine['maximum_thrust'])**0.4) * \
+    engine['length'] = 2.22*((engine_thrust_lbf)**0.4) * \
         (operations['mach_maximum_operating']**0.2) * \
         2.54/100  # [m] Raymer pg 19
 

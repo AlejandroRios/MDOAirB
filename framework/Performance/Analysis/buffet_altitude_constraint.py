@@ -40,11 +40,13 @@ GRAVITY = 9.80665
 def buffet_altitude(vehicle, mass, altitude, limit_altitude, mach_climb):
     airport_departure = vehicle['airport_departure']
     wing = vehicle['wing']
+    operations = vehicle['operations']
+    
     wing_surface = wing['area']
     step = 100
     load_factor = 1.3
     gamma = 1.4
-    delta_ISA = airport_departure['delta_ISA']
+    delta_ISA = operations['flight_planning_delta_ISA']
 
     # Typical values of wing loading for jet airplanes around 5749 [Pascal]
     wing_loading_constraint = 6000
