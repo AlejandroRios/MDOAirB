@@ -29,11 +29,7 @@ Outputs:
 """Function definition"""
 ########################################################################################
 
-
-
-
 import numpy as np
-import os
 def tailcone_sizing(NPax, PEng, fuse_height, fuse_width):
     #  Provide a sizing of the tailcone
     fusext = 0

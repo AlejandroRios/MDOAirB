@@ -34,6 +34,7 @@ from framework.Performance.Engine.engine_performance import turbofan
 global GRAVITY
 GRAVITY = 9.8067
 ms_to_knot = 1.9438
+kt_to_ms = 0.514444
 
 def takeoff_noise(vehicle):
     
@@ -46,7 +47,7 @@ def takeoff_noise(vehicle):
     V_2 = V_2_over_V_stall * np.sqrt((2*aircraft['maximum_takeoff_weight']*GRAVITY)/(rho_ISA*wing['area']*CL_max))  # [m/s]
     V_climb = V_2 + 10/ms_to_knot
     V_vector = np.array([0, (V_2 + 20)/2, (V_2+20)])
-    thrust_vector = V_vector/a
+    thrust_vector = V_vector/a*kt_to_ms
 
     thrust_force, fuel_flow , vehicle = turbofan(altitude, mach, 1.0, vehicle)
 

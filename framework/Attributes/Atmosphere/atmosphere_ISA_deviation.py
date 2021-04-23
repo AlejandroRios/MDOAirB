@@ -39,6 +39,8 @@ import numpy as np
 
 
 def atmosphere_ISA_deviation(h, delta_ISA):
+
+    h = h  # ft
     h1 = 11  # Troposphere max altitude[km]
     L0 = -6.5e-3
     T0 = 288.15  # Reference altitude at sea level [K]
@@ -56,7 +58,8 @@ def atmosphere_ISA_deviation(h, delta_ISA):
     C4 = 20805.7
 
     # Troposphere altitude correction considering delta ISA
-    tropopause = (71.5 + delta_ISA)/lambda_rate
+    tropopause = 36089.24
+
 
     if h <= tropopause:
         # at or below Troposphere:
@@ -67,13 +70,13 @@ def atmosphere_ISA_deviation(h, delta_ISA):
         theta = (T1 + delta_ISA)/T0  # Temperature ratio
         delta = C2*np.exp((C3 - h)/C4)  # Pressure ratio
 
-    sigma = sigma = delta/theta  # desity ratio
+    sigma = delta/theta  # desity ratio
 
     a = 661.4786*np.sqrt(theta)  # [kts]
 
-    T_ISA = theta*T0  # Temperature ISA
-    P_ISA = delta*p0  # Pressure ISA
-    rho_ISA = sigma*rho0  # Desnsity ISA
+    T_ISA = theta*T0  # Temperature ISA [K]
+    P_ISA = delta*p0  # Pressure ISA [Pa]
+    rho_ISA = sigma*rho0  # Desnsity ISA [Kg/m^3]
 
     viscosity_ISA = mi0*((T_ISA+Ceh)/(Tzero+Ceh))*((T_ISA/Tzero)**1.5)
 
@@ -85,6 +88,7 @@ def atmosphere_ISA_deviation(h, delta_ISA):
 # =============================================================================
 # TEST
 # =============================================================================
-# h = 2500
-# delta_ISA = airport_departure['delta_ISA'
+# h = 32808.4
+# delta_ISA = 0
+# # delta_ISA = airport_departure['delta_ISA']
 # print(atmosphere_ISA_deviation(h, delta_ISA))

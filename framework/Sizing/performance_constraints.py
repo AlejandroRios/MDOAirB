@@ -28,6 +28,7 @@ from framework.Performance.Analysis.second_segment_climb import second_segment_c
 from framework.Performance.Analysis.missed_approach_climb import missed_approach_climb_AEO, missed_approach_climb_OEI
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 from framework.Performance.Analysis.cruise_performance import cruise_performance
+from framework.Performance.Analysis.residual_rate_of_climb import residual_rate_of_climb
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -40,7 +41,7 @@ GRAVITY = 9.80665
 lb_to_kg = 0.453592
 
 
-def takeoff_field_length_check(vehicle, weight_takeoff):
+def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
 
     aircraft = vehicle['aircraft']
     airport_departure = vehicle['airport_departure']
@@ -52,7 +53,7 @@ def takeoff_field_length_check(vehicle, weight_takeoff):
     while flag == 0:
 
         takeoff_field_length_computed = balanced_field_length(
-            vehicle, weight_takeoff)
+            vehicle, weight_takeoff,gamma_2)
 
         if takeoff_field_length_computed > takeoff_field_length_required:
             weight_takeoff = weight_takeoff - (10*GRAVITY)
@@ -66,20 +67,20 @@ def second_segment_climb_check(vehicle, weight_takeoff):
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
     # weight_takeoff = aircraft['maximum_takeoff_weight']
-    thrust_takeoff = engine['maximum_thrust']
+    thrust_takeoff = engine['maximum_thrust']*0.98
     engines_number = aircraft['number_of_engines']
 
     flag = 0
     while flag == 0:
         thrust_to_weight_takeoff_required = second_segment_climb(
             vehicle, weight_takeoff)
-        thrust_to_weight_takeoff =engines_number*thrust_takeoff/weight_takeoff  # Second segment climb shouldnt use only one engine?
+        thrust_to_weight_takeoff =(engines_number*thrust_takeoff)/weight_takeoff  # Second segment climb shouldnt use only one engine?
 
         if thrust_to_weight_takeoff < thrust_to_weight_takeoff_required:
             weight_takeoff = weight_takeoff-(10*GRAVITY)
         else:
             flag = 2
-    return weight_takeoff
+    return weight_takeoff, thrust_to_weight_takeoff
 
 
 def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
@@ -118,12 +119,13 @@ def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
     engine = vehicle['engine']
 
     thrust_landing = engine['maximum_thrust'] * 0.98
+    engines_number = aircraft['number_of_engines']
 
     flag = 0
     while flag == 0:
         thrust_to_weight_landing_required = missed_approach_climb_AEO(
             vehicle, maximum_takeoff_weight, weight_landing)
-        thrust_to_weight_landing = thrust_landing/weight_landing
+        thrust_to_weight_landing = (thrust_landing*engines_number)/weight_landing
 
         if thrust_to_weight_landing < thrust_to_weight_landing_required:
             weight_landing = weight_landing-(10*GRAVITY)
@@ -138,12 +140,13 @@ def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing)
     engine = vehicle['engine']
 
     thrust_landing = engine['maximum_thrust'] * 0.98
+    engines_number = aircraft['number_of_engines']
 
     flag = 0
     while flag == 0:
         thrust_to_weight_landing_required = missed_approach_climb_OEI(
             vehicle, maximum_takeoff_weight, weight_landing)
-        thrust_to_weight_landing = thrust_landing/weight_landing
+        thrust_to_weight_landing = (thrust_landing*engines_number)/weight_landing
 
         if thrust_to_weight_landing < thrust_to_weight_landing_required:
             weight_landing = weight_landing-(10*GRAVITY)
@@ -151,11 +154,30 @@ def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing)
         else:
             flag = 2
     return weight_landing
+    
 
 
-def residual_rate_of_climb_check():
+def residual_rate_of_climb_check(vehicle, weight_takeoff,engine_cruise_thrust):
 
-    return
+    aircraft = vehicle['aircraft']
+    engine = vehicle['engine']
+    # weight_takeoff = aircraft['maximum_takeoff_weight']
+    thrust_takeoff = engine['maximum_thrust']*0.98
+    engines_number = aircraft['number_of_engines']
+
+    flag = 0
+    while flag == 0:
+        thrust_to_weight_takeoff_required = residual_rate_of_climb(
+            vehicle, weight_takeoff,engine_cruise_thrust)
+        thrust_to_weight_takeoff =(engines_number*thrust_takeoff)/weight_takeoff  # Second segment climb shouldnt use only one engine?
+
+        if thrust_to_weight_takeoff < thrust_to_weight_takeoff_required:
+            weight_takeoff = weight_takeoff-(10*GRAVITY)
+        else:
+            flag = 2
+    return weight_takeoff, thrust_to_weight_takeoff
+
+
 
 
 def maximum_cruise_speed_check():
@@ -175,11 +197,14 @@ def regulated_takeoff_weight(vehicle):
 
     weight_takeoff = aircraft['maximum_takeoff_weight']*GRAVITY
 
-    takeoff_field_length_weight = takeoff_field_length_check(
+
+    second_segment_climb_weight,gamma_2 = second_segment_climb_check(
         vehicle, weight_takeoff)
 
-    second_segment_climb_weight = second_segment_climb_check(
-        vehicle, weight_takeoff)
+    takeoff_field_length_weight = takeoff_field_length_check(
+        vehicle, weight_takeoff,gamma_2)
+
+
 
     maximum_takeoff_weight = min(
         takeoff_field_length_weight, second_segment_climb_weight)

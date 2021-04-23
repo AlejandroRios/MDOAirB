@@ -40,6 +40,8 @@ import numpy as np
 def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     '''
     '''
+    ft_to_m = 0.3048
+    kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
     airport_destination = vehicle['airport_destination']
@@ -56,14 +58,14 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
 
     V = 1.3*np.sqrt(2*maximum_landing_weight /
                     (CL_maximum_landing*wing_surface*rho))
-    mach = V/a
+    mach = V/a*kt_to_ms
 
     # Input for neural network: 0 for CL | 1 for alpha
     switch_neural_network = 0
     alpha_deg = 1
 
     CD_wing, _ = aerodynamic_coefficients_ANN(
-        vehicle, airfield_elevation, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
+        vehicle, airfield_elevation*ft_to_m, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
 
     friction_coefficient = wing['friction_coefficient']
     CD_ubrige = friction_coefficient * \
@@ -91,6 +93,8 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
 def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
     '''
     '''
+    ft_to_m = 0.3048
+    kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
     airport_destination = vehicle['airport_destination']
@@ -108,13 +112,13 @@ def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
         airfield_elevation, airfield_delta_ISA)  # [kg/m3]
     V = 1.3*np.sqrt(2*maximum_landing_weight /
                     (CL_maximum_landing*wing_surface*rho))
-    mach = V/a
+    mach = V/a*kt_to_ms
 
     # Input for neural network: 0 for CL | 1 for alpha
     switch_neural_network = 0
     alpha_deg = 1
     CD_wing, _ = aerodynamic_coefficients_ANN(
-        vehicle, airfield_elevation, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
+        vehicle, airfield_elevation*ft_to_m, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
     friction_coefficient = wing['friction_coefficient']
     CD_ubrige = friction_coefficient * \
         (aircraft['wetted_area'] - wing['wetted_area']) / \

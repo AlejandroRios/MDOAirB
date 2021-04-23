@@ -1,0 +1,167 @@
+2021-04-20 15:27:21,368 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-04-20 15:27:46,333 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-04-20 15:27:53,812 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+e = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 281, in airplane_sizing
+    vehicle, altitude*ft_to_m, mach, CL_1, alpha_deg, switch_neural_network)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\aerodynamic_coefficients_ANN.py", line 146, in aerodynamic_coefficients_ANN
+    allow_pickle=True).item()
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\numpy\lib\npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Neural_Network/NN_induced.npy'
+2021-04-20 15:27:21,409 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "<ipython-input-2-2736c72f5f80>", line 50, in objective_function
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 2010, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Airports/airports.csv'
+2021-04-20 15:27:21,416 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-20 15:27:21,418 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-20 15:27:21,419 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results
+Traceback (most recent call last):
+  File "<ipython-input-2-2736c72f5f80>", line 50, in objective_function
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.eng2021-04-20 15:27:46,317 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-04-20 15:27:46,318 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1]
+2021-04-20 15:27:46,331 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at airfoil_parameters
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 184, in airplane_sizing
+    vehicle = airfoil_parameters(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\airfoil_parameters.py", line 233, in airfoil_parameters
+    r0_aux, t_c_aux, phi_aux, X_tcmax_aux, theta_aux, epsilon_aux, Ycmax_aux, YCtcmax_aux, X_Ycmax_aux, _, _,_ = airfoil_sobieski_coefficients(i)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\airfoil_parameters.py", line 118, in airfoil_sobieski_coefficients
+    airfoil_names[0] + '.dat', sep=',', delimiter=None, header=None, skiprows=[0])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._mak2021-04-20 15:27:46,338 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+Traceback (most recent call last):
+  File "<ipython-input-3-2736c72f5f80>", line 35, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 281, in airplane_sizing
+    vehicle, altitude*ft_to_m, mach, CL_1, alpha_deg, switch_neural_network)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\aerodynamic_coefficients_ANN.py", line 146, in aerodynamic_coefficients_ANN
+    allow_pickle=True).item()
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\numpy\lib\npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Neural_Network/NN_induced.npy'
+2021-04-20 15:27:46,342 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "<ipython-input-3-2736c72f5f80>", line 50, in objective_function
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pan2021-04-20 15:27:53,794 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-04-20 15:27:53,796 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1]
+2021-04-20 15:27:53,807 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at airfoil_parameters
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 184, in airplane_sizing
+    vehicle = airfoil_parameters(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\airfoil_parameters.py", line 233, in airfoil_parameters
+    r0_aux, t_c_aux, phi_aux, X_tcmax_aux, theta_aux, epsilon_aux, Ycmax_aux, YCtcmax_aux, X_Ycmax_aux, _, _,_ = airfoil_sobieski_coefficients(i)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\airfoil_parameters.py", line 118, in airfoil_sobieski_coefficients
+    airfoil_names[0] + '.dat', sep=',', delimiter=None, header=None, skiprows=[0])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 2010, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Airfoils/PR1.dat'
+2021-04-20 15:27:53,815 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - ERROR - Error at wetted_area
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 212, in airplane_sizing
+    ylroot) = wetted_area(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area.py", line 102, in wetted_area
+    fuselage_wetted_area_forward = wetted_area_forward_fuselage(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area_fuselage.py", line 41, in wetted_area_forward_fuselage
+    mesh = mesh.Mesh.from_file('Database/Fuselage/forwardfus_short.stl')
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\stl\stl.py", line 373, in from_file
+    with open(filename, 'rb'2021-04-20 15:27:53,819 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+Traceback (most recent call last):
+  File "<ipython-input-4-2736c72f5f80>", line 35, in objective_function
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 281, in airplane_sizing
+    vehicle, altitude*ft_to_m, mach, CL_1, alpha_deg, switch_neural_network)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\aerodynamic_coefficients_ANN.py", line 146, in aerodynamic_coefficients_ANN
+    allow_pickle=True).item()
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\numpy\lib\npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Neural_Network/NN_induced.npy'
+2021-04-20 15:27:53,823 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "<ipython-input-4-2736c72f5f80>", line 50, in objective_function
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 2010, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Airports/airports.csv'
+2021-04-20 15:27:53,827 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-20 15:27:53,830 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-20 15:27:53,831 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results
+Traceback (most recent call last):
+  File "<ipython-input-4-2736c72f5f80>", line 50, in objective_function
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 2010, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Airports/airports.csv'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<ipython-input-4-2736c72f5f80>", line 272, in objective_function
+    write_bad_results(x,error)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\utilities\output.py", line 474, in write_bad_results
+    with open(r'Database/Results/Aircrafts_unfeasible/acft_' + str(start_time) +'.txt','w') as output:
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Results/Aircrafts_unfeasible/acft_2021-04-20-1527.txt'
+2021-04-20 15:27:53,833 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.038976
+2021-04-20 15:27:53,833 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====

@@ -27,10 +27,9 @@ FO_Sal
 
 import numpy as np
 import pandas as pd
-import os
 from scipy import interpolate
 from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
-from framework.Sizing.Geometry.airfoil_preprocessing import airfoil_preprocessing
+# from framework.Sizing.Geometry.airfoil_preprocessing import airfoil_preprocessing
 import matplotlib.pyplot as plt
 
 def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):

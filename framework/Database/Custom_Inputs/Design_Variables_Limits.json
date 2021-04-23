@@ -1,0 +1,82 @@
+{
+	"wing_surface": {
+		"lower_band": 72,
+		"upper_band": 130
+	},
+	"aspect_ratio": {
+		"lower_band": 75,
+		"upper_band": 120
+	},
+	"taper_ratio": {
+		"lower_band": 25,
+		"upper_band": 50
+	},
+	"wing_sweep": {
+		"lower_band": 15,
+		"upper_band": 30
+	},
+	"twist_angle": {
+		"lower_band": -5,
+		"upper_band": -2
+	},
+	"kink_position": {
+		"lower_band": 32,
+		"upper_band": 45
+	},
+	"engine_bypass_ratio": {
+		"lower_band": 45,
+		"upper_band": 65
+	},
+	"engine_fan_diameter": {
+		"lower_band": 10,
+		"upper_band": 15
+	},
+	"engine_overall_pressure_ratio": {
+		"lower_band": 27,
+		"upper_band": 30
+	},
+	"engine_inlet_turbine_temperature": {
+		"lower_band": 1350,
+		"upper_band": 1500
+	},
+	"engine_fan_pressure_ratio": {
+		"lower_band": 14,
+		"upper_band": 25
+	},
+	"pax_number": {
+		"lower_band": 70,
+		"upper_band": 220
+	},
+	"number_of_seat_abreast": {
+		"lower_band": 4,
+		"upper_band": 6
+	},
+	"aircraft_range": {
+		"lower_band": 1000,
+		"upper_band": 3500
+	},
+	"engine_design_point_pressure": {
+		"lower_band": 39000,
+		"upper_band": 43000
+	},
+	"engine_design_point_mach": {
+		"lower_band": 78,
+		"upper_band": 82
+	},
+	"engine_position": {
+		"lower_band": 1,
+		"upper_band": 1
+	},
+	"winglet_presence": {
+		"lower_band": 1,
+		"upper_band": 1
+	},
+	"slat_presence": {
+		"lower_band": 1,
+		"upper_band": 1
+	},
+	"horizontal_tail_position": {
+		"lower_band": 1,
+		"upper_band": 1
+	}
+}

@@ -72,6 +72,7 @@ def direct_operational_cost(
     operations = vehicle['operations']
     kg2lb = 2.20462262
     kg_l_to_lb_gal = 8.3454
+    N_to_lbf = 0.224809
     var.Range = total_mission_distance
     salary.Captain, salary.FO, _ = crew_salary(max_takeoff_mass)
     Fuel_price = operations['fuel_price_per_kg']
@@ -137,7 +138,7 @@ def direct_operational_cost(
 
     # 2) MAINTENANCE LABOR COST FOR ENGINES -> Clab_eng  (PAG 149)
     # BPR = razao de passagem
-    Tto = engines_number*max_engine_thrust  # lbf
+    Tto = engines_number*max_engine_thrust*N_to_lbf  # lbf
     Tto_Ne = Tto / engines_number  # [LBS] TAKE-OFF THRUST PER ENGINE
     Hem = time_between_overhaul  # [HRS] OVERHAUL PERIOD
     Rleng = Rlap
@@ -280,3 +281,40 @@ def direct_operational_cost(
 # =============================================================================
 # TEST
 # =============================================================================
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
+# print(direct_operational_cost(
+#     2500,
+#     62,
+#     1403,
+#     29105,
+#     358,
+#     69350,
+#     2,
+#     6789,
+#     34022,
+#     vehicle))
+
+# print(direct_operational_cost(
+#     2500,
+#     62,
+#     1403,
+#     29105,
+#     358,
+#     169350,
+#     2,
+#     10186,
+#     51552,
+#     vehicle))
+
+#     def direct_operational_cost(
+#     time_between_overhaul,
+#     total_mission_flight_time,
+#     fuel_mass,
+#     operational_empty_weight,
+#     total_mission_distance,
+#     max_engine_thrust,
+#     engines_number,
+#     engines_weight,
+#     max_takeoff_mass,
+#     vehicle
+# ):

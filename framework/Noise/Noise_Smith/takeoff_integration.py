@@ -24,6 +24,7 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_
 from framework.Performance.Engine.engine_performance import turbofan
 
 from scipy.integrate import ode
+from scipy.integrate import solve_ivp
 import numpy as np
 import math
 # =============================================================================
@@ -59,72 +60,44 @@ def takeoff_integration(
     aircraft = vehicle['aircraft']
 
     if phase == 'ground':
-        t0 = initial_block_time
-        z0 = [initial_block_distance, initial_block_velocity]
-        solver = ode(ground)
-        solver.set_integrator('vode', nsteps=1000)
-        solver.set_f_params(takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle)
-        solver.set_initial_value(z0, t0)
-        t1 = initial_block_time + 200
-        # N = 50
-        t = np.linspace(t0, t1,100)
-        N = len(t)
-        sol = np.empty((N,2))
-        sol_var = np.empty((N,6))
-        sol[0] = z0
-        times = np.empty((N, 1))
-
+        Tsim = initial_block_time + 200
+        stop_condition_ground.terminal = True
+        sol = solve_ivp(ground, [initial_block_time, Tsim], [initial_block_distance, initial_block_velocity],
+                events = stop_condition_ground,rtol = 1e-10, method='LSODA',args = (takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria), dense_output=True)
+    
 
     if phase == 'flare':
-        t0 = initial_block_time
-        z0 = [initial_block_distance, initial_block_velocity, initial_block_altitude, initial_block_vertical_velocity, initial_block_trajectory_angle]
-        solver = ode(flare)
-        solver.set_integrator('vode', nsteps=1000)
-        solver.set_f_params(aircraft_parameters, takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle)
-        solver.set_initial_value(z0, t0)
-        t1 = initial_block_time + 200
-        # N = 50
-        t = np.linspace(t0, t1,100)
-        N = len(t)
-        sol = np.empty((N,5))
-        sol_var = np.empty((N,3))
-        sol[0] = z0
-        times = np.empty((N, 1))
-
-
-    k = 1
+        Tsim = initial_block_time + 200
+        stop_condition_flare.terminal = True
+        sol = solve_ivp(flare, [initial_block_time, Tsim], [initial_block_distance, initial_block_velocity, initial_block_altitude, initial_block_vertical_velocity, initial_block_trajectory_angle],
+                events = stop_condition_flare,rtol = 1e-10, method='LSODA',args = (aircraft_parameters,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria), dense_output=True)
 
     if phase == 'ground':
-        while solver.successful() and solver.y[1] <= stop_criteria:
-            solver.integrate(t[k])
-            sol[k] = solver.y
-            times[k] = solver.t
-            
+
+        time_vec = sol.t
+        N = len(time_vec)
+        # sol_var = np.zeros((N,6))
+
+        distance_vec = sol.y[0]
+        velocity_vec = sol.y[1]
+        velocity_horizontal_vec = sol.y[1]
+        altitude_vec = np.zeros(N)
+        velocity_vertical_vec = np.zeros(N)
+        trajectory_angle_vec = np.zeros(N)
+
+        fan_rotation = np.zeros(N)
+        compressor_rotation = np.zeros(N)
+        for i in range(N):
             _, _, _, _, _, rho_ISA, _, a = atmosphere_ISA_deviation(0, 0)
-            mach = solver.y[1]/(a)
+            mach_aux = velocity_vec[i]/a*kt_to_ms
             thrust_force, fuel_flow, vehicle = turbofan(
-                0, mach, 1, vehicle)
-
+                0, mach_aux, 1, vehicle)
             engine = vehicle['engine']
+            fan_rotation[i] = engine['fan_rotation']
+            compressor_rotation[i] = engine['compressor_rotation']
 
-            sol_var[k,0] = sol[k,1]
-            sol_var[k,1] = 0
-            sol_var[k,2] = 0
-            sol_var[k,3] = 0
-            sol_var[k,4] = engine['fan_rotation']
-            sol_var[k,5] = engine['compressor_rotation']
-
-            k += 1
-
-        time_vec = times[1:k]
-        velocity_vec = sol[1:k, 1]
-        distance_vec = sol[1:k, 0]
-        velocity_horizontal_vec = sol_var[1:k,0]
-        altitude_vec = sol_var[1:k,1]
-        velocity_vertical_vec = sol_var[1:k,2]
-        trajectory_angle_vec = sol_var[1:k,3]
-        fan_rotation_vec = sol_var[1:k,4]
-        compressor_rotation_vec = sol_var[1:k,5]
+        fan_rotation_vec = fan_rotation
+        compressor_rotation_vec = compressor_rotation
 
 
         final_block_time = time_vec[-1]
@@ -138,32 +111,31 @@ def takeoff_integration(
         final_compressor_rotation = compressor_rotation_vec[-1]
     
     elif phase == 'flare':
-        while solver.successful() and solver.y[2] <= stop_criteria:
-            solver.integrate(t[k])
-            sol[k] = solver.y
-            times[k] = solver.t
+        
+        time_vec = sol.t
+        N = len(time_vec)
 
+        velocity_vec = np.sqrt(sol.y[1]**2 + sol.y[3]**2)
+        distance_vec = sol.y[0]
+        velocity_horizontal_vec = sol.y[1]
+        altitude_vec = sol.y[2]
+        velocity_vertical_vec = sol.y[3]
+        trajectory_angle_vec = sol.y[4]
+
+        fan_rotation = np.zeros(N)
+        compressor_rotation = np.zeros(N)
+        for i in range(N):
             _, _, _, _, _, rho_ISA, _, a = atmosphere_ISA_deviation(0, 0)
-            mach = solver.y[1]/(a*kt_to_ms)
+            mach_aux = velocity_vec[i]/a*kt_to_ms
             thrust_force, fuel_flow, vehicle = turbofan(
-                0, mach, 1, vehicle)
+                0, mach_aux, 1, vehicle)
             engine = vehicle['engine']
+            fan_rotation[i] = engine['fan_rotation']
+            compressor_rotation[i] = engine['compressor_rotation']
 
-            sol_var[k,0] = np.sqrt(sol[k,1]**2 + sol[k,3]**2)
-            sol_var[k,1] = engine['fan_rotation']
-            sol_var[k,2] = engine['compressor_rotation']
+        fan_rotation_vec = fan_rotation
+        compressor_rotation_vec = compressor_rotation
 
-            k += 1
-
-        time_vec = times[1:k]
-        velocity_vec = sol_var[1:k,0]
-        distance_vec = sol[1:k, 0]
-        velocity_horizontal_vec = sol[1:k, 1]
-        altitude_vec = sol[1:k, 2]
-        velocity_vertical_vec = sol[1:k, 3]
-        trajectory_angle_vec = sol[1:k, 4]
-        fan_rotation_vec = sol_var[1:k,1]
-        compressor_rotation_vec = sol_var[1:k,2]
 
 
         final_block_time = time_vec[-1]
@@ -260,7 +232,7 @@ def takeoff_integration(
             if distance_vec[-1] >= 10000:
                 break
         
-        time_vec = np.asarray([time_vec]).T
+        time_vec = time_vec
 
         final_block_time = time_vec[-1]
         final_block_velocity = velocity_vec[-1]
@@ -292,7 +264,7 @@ def takeoff_integration(
     fan_rotation_vec,
     compressor_rotation_vec)
     
-def ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle):
+def ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria):
     wing = vehicle['wing']
     engine = vehicle['engine']
 
@@ -313,7 +285,10 @@ def ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,r
     dout = dout.reshape(2, )
     return dout
 
-def flare(time,state,aircraft_parameters,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle):
+def stop_condition_ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria):
+    V = state[1]
+    return 0 if V>stop_criteria else 1
+def flare(time,state,aircraft_parameters,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria):
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
 
@@ -348,6 +323,9 @@ def flare(time,state,aircraft_parameters,takeoff_parameters,runaway_parameters,l
     dout = np.asarray([velocity_horizontal, parameter2_dot, velocity_vertical,  parameter4_dot, gamma_dot])
     dout = dout.reshape(5, )
     return dout
+def stop_condition_flare(time,state,aircraft_parameters,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria):
+    H = state[2]
+    return 0 if H>stop_criteria else 1
 
 def climb(time, state, climb_V_cas, mach_climb, delta_ISA, final_block_altitude, vehicle):
     aircraft = vehicle['aircraft']
@@ -382,7 +360,7 @@ def climb(time, state, climb_V_cas, mach_climb, delta_ISA, final_block_altitude,
     rate_of_climb = rate_of_climb*0.0166667
 
     x_dot = (V_tas*101.269)*np.cos(climb_path_angle)  # ft/min
-    h_dot = rate_of_climb  # ft/min
+    h_dot = (V_tas*101.269)*np.sin(climb_path_angle)  # ft/min
     # W_dot = -2*fuel_flow*kghr_to_kgmin  # kg/min
     time_dot = h_dot*0.0166667
     # dout = np.asarray([x_dot, h_dot, W_dot])

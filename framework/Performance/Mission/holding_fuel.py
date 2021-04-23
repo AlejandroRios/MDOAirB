@@ -53,6 +53,8 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
     - Specify reference for this module
     - Change variable naming
     """
+    kt_to_ms = 0.514444
+    ft_to_m = 0.3048
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
 
@@ -80,7 +82,7 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
         switch_neural_network = 0
         alpha_deg = 1
         CD_wing, _ = aerodynamic_coefficients_ANN(
-            vehicle, h, mach, CL, alpha_deg, switch_neural_network)
+            vehicle, h*ft_to_m, mach, CL, alpha_deg, switch_neural_network)
 
         friction_coefficient = wing['friction_coefficient']
         CD_ubrige = friction_coefficient * \

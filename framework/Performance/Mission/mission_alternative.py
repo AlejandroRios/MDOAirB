@@ -251,8 +251,8 @@ def mission_alternative(vehicle,landing_weight):
 
     altitude = initial_cruise_altitude
 
-    flag = 1
-    while flag == 1:
+    iteration = 0
+    while flag == 1 and iteration <100:
 
         transition_altitude = crossover_altitude(
             operations['mach_cruise'],
@@ -303,11 +303,18 @@ def mission_alternative(vehicle,landing_weight):
             distance_descent = final_distance*feet_to_nautical_miles
             distance_mission = distance_climb + distance_cruise + distance_descent
             distance_error = np.abs(operations['alternative_airport_distance'] -distance_mission)
-
-            if distance_error <= 1.0:
+            
+            iteration = iteration + 1
+            if distance_error <= 10:
                 flag = 0
             else:
-                distance_cruise = distance_cruise - distance_error
+                if distance_mission > operations['alternative_airport_distance']:
+                    distance_cruise = distance_cruise - distance_error*0.95
+                else:
+                    distance_cruise = distance_cruise + distance_error*0.95
+
+    if iteration >= 200:
+        raise ValueError
 
         if type_of_descent == 2:
             flag = 0

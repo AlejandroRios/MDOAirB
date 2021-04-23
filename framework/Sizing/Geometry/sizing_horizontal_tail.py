@@ -87,10 +87,10 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
     horizontal_tail['mean_aerodynamic_chord_yposition']  = horizontal_tail['span']/6*(1+2*horizontal_tail['taper_ratio'])/(1+horizontal_tail['taper_ratio'])
     #
     ######################### HT Wetted area ######################################
-    horizontal_tail['tau'] = horizontal_tail['root_chord']/horizontal_tail['tip_chord'] 
+    horizontal_tail['tau'] = horizontal_tail['center_chord']/horizontal_tail['tip_chord'] 
     #ht.thicknessavg = horizontal_tail['mean_chord']*0.50*(horizontal_tail['center_chord']+horizontal_tail['tip_chord'])
     horizontal_tail['wetted_area'] = 2.*horizontal_tail['area'] * \
-        (1+0.25*horizontal_tail['root_chord']*(1+(horizontal_tail['tau'] * horizontal_tail['taper_ratio']))/(1+horizontal_tail['taper_ratio']))  # [m2]
+        (1+0.25*horizontal_tail['thickness_root_chord']*(1+(horizontal_tail['tau'] * horizontal_tail['taper_ratio']))/(1+horizontal_tail['taper_ratio']))  # [m2]
     # HT aerodynamic center
     if horizontal_tail['position']  == 1:
         horizontal_tail['aerodynamic_center'] = (0.92*fuselage['length'] - horizontal_tail['center_chord'] + horizontal_tail['mean_aerodynamic_chord_yposition'] *np.tan(deg_to_rad*horizontal_tail['sweep_leading_edge']) +

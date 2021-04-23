@@ -119,16 +119,13 @@ def mission(mission_range, heading, vehicle):
     mach_descent = operations['mach_descent']
 
     delta_ISA = operations['flight_planning_delta_ISA']
-
+    captain_salary, first_officer_salary, flight_attendant_salary = crew_salary(aircraft['maximum_takeoff_weight'])
+    
     regulated_takeoff_mass = regulated_takeoff_weight(vehicle)
     regulated_landing_mass = regulated_landing_weight(vehicle)
 
     max_takeoff_mass = regulated_takeoff_mass
     max_landing_mass = regulated_landing_mass
-
-
-    captain_salary, first_officer_salary, flight_attendant_salary = crew_salary(
-        max_takeoff_mass)
 
     # takeoff_allowance_mass = 200*max_takeoff_mass/22000
     # approach_allowance_mass = 100*max_takeoff_mass/22000
@@ -278,9 +275,10 @@ def mission(mission_range, heading, vehicle):
         distance_cruise = mission_range  - distance_climb
 
         altitude = initial_cruise_altitude
-        flag = 1
 
-        while flag == 1:
+        flag = 1
+        iteration = 0
+        while flag == 1 and iteration <100:
 
             transition_altitude = crossover_altitude(
                 operations['mach_cruise'],
@@ -332,10 +330,19 @@ def mission(mission_range, heading, vehicle):
                 distance_mission = distance_climb + distance_cruise + distance_descent
                 distance_error = np.abs(mission_range -distance_mission)
 
-                if distance_error <= 1.0:
+                iteration = iteration + 1
+
+                if distance_error <= 5:
                     flag = 0
                 else:
-                    distance_cruise = distance_cruise - distance_error
+                    if distance_mission > mission_range:
+                        distance_cruise = distance_cruise - distance_error*0.95
+                    else:
+                        distance_cruise = distance_cruise + distance_error*0.95
+                        
+        if iteration >= 200:
+            raise ValueError 
+
 
             if type_of_descent == 2:
                 flag = 0
@@ -385,7 +392,7 @@ def mission(mission_range, heading, vehicle):
         delta_3 = max_takeoff_mass - MTOW_LW
 
         extra = (max_takeoff_mass - operational_empty_weight -
-                 payload) - takeoff_fuel[0]
+                 payload) - takeoff_fuel
         delta = max([delta_1, delta_2, delta_3, extra])
 
         if delta > tolerance:
@@ -420,7 +427,7 @@ def mission(mission_range, heading, vehicle):
         max_engine_thrust,
         engines_number,
         0.35*operational_empty_weight,
-        max_takeoff_mass,
+        regulated_takeoff_mass,
         vehicle)
     
     # Cruise average specific air range

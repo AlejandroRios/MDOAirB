@@ -30,7 +30,6 @@ import pandas as pd
 
 
 def revenue(demand, distance, pax_capacity, pax_number, average_ticket_price):
-    
     RPM = pax_number*distance
     passenger_revenue = pax_number*average_ticket_price
     yield_ij = passenger_revenue/RPM

@@ -41,7 +41,7 @@ from framework.utilities.logger import get_logger
 # =============================================================================
 log = get_logger(__file__.split('.')[0])
 
-def network_optimization(arrivals, departures, distances, demand, doc0, pax_capacity, vehicle):
+def network_optimization(arrivals, departures, distances, demand,active_airports, doc0, pax_capacity, vehicle):
     log.info('==== Start network optimization module ====')
     # Definition of cities to be considered as departure_airport, first stop, final airport
     departure_airport = departures
@@ -58,7 +58,7 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
             if i != k:
                 DOC[(i, k)] = np.round(doc0[i][k])
             else:
-                DOC[(i, k)] = np.round(doc0[i][k])
+                DOC[(i, k)] = np.round(doc0[i][k])    
 
     # DOC = doc0
 
@@ -70,14 +70,16 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
 
     pax_number = int(operations['reference_load_factor']*pax_capacity)
     average_ticket_price = operations['average_ticket_price']
-    revenue_ik = defaultdict(dict)
-    for i in departure_airport:
-        for k in first_stop_airport:
-            if i != k:
-                revenue_ik[(i, k)] = round(
-                    revenue(demand[i][k], distances[i][k], pax_capacity, pax_number, average_ticket_price))
+
+    revenue_ik = {}
+    for i in range(len(departure_airport)):
+        revenue_ik[departure_airport[i]] = {}
+        for k in range(len(first_stop_airport)):
+            if (i != k) and (active_airports[departure_airport[i]][first_stop_airport[k]] == 1):
+                revenue_ik[departure_airport[i]][first_stop_airport[k]] = round(
+                    revenue(demand[departure_airport[i]][first_stop_airport[k]], distances[departure_airport[i]][first_stop_airport[k]], pax_capacity, pax_number, average_ticket_price))
             else:
-                revenue_ik[(i, k)] = 0
+                revenue_ik[departure_airport[i]][first_stop_airport[k]] = 0
 
     #print(revenue_ik)
 
@@ -325,27 +327,33 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
 # demand_db = pd.read_csv('Database//Demand/demand.csv')
 # demand_db = round(market_share*(demand_db.T))
 # demand = demand_db.to_dict()
-# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 
+# vehicle = initialize_aircraft_parameters()
+# operations = vehicle['operations']
 # departures = ['CD1', 'CD2', 'CD3', 'CD4',
 #                 'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
 # arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
 #             'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
 
-# Load origin-destination distance matrix [nm]
+# # Load origin-destination distance matrix [nm]
 # distances_db = pd.read_csv('Database/Distance/distance.csv')
 # distances_db = (distances_db.T)
 # distances = distances_db.to_dict()  # Convert to dictionaty
 
 # market_share = operations['market_share']
-# # Load dai
+# # # Load dai
 # demand_db= pd.read_csv('Database/Demand/demand.csv')
 # demand_db= round(market_share*(demand_db.T))
 # demand = demand_db.to_dict()
 
-# df3 = pd.read_csv('Database/DOC/doc2.csv')
+# df3 = pd.read_csv('Database/DOC/DOC_test.csv')
 # df3 = (df3.T)
 # doc0 = df3.to_dict()
+
+# active_airports_db = pd.read_csv('Database/Demand/switch_matrix.csv')
+# active_airports_db = active_airports_db.T
+# active_airports = active_airports_db .to_dict()
 
 # DOC = {}
 # for i in departures:
@@ -355,11 +363,23 @@ def network_optimization(arrivals, departures, distances, demand, doc0, pax_capa
 #         else:
 #             DOC[(i, k)] = np.round(doc0[i][k])
 
-# DOC = np.load('Database/DOC/DOC.npy',allow_pickle=True)
-# DOC = DOC.tolist() 
-# print(DOC)
+
+# Demand = {}
+
+# for i in departures:
+#     for k in arrivals:
+#         if i != k:
+#             Demand[(i, k)] = np.round(demand[i][k])
+#         else:
+#             Demand[(i, k)] = 100000000
+
+# # DOC = np.load('Database/DOC/DOC.npy',allow_pickle=True)
+# # DOC = DOC.tolist() 
+# # print(DOC)
 # pax_capacity = 101
 
-# network_optimization(arrivals, departures, distances, demand, DOC, pax_capacity,vehicle)
+# network_optimization(arrivals, departures, distances, demand,active_airports, doc0, pax_capacity, vehicle)
+
+# print(Demand)
 
 

@@ -271,8 +271,8 @@ def mission_sizing(vehicle):
     altitude = initial_cruise_altitude
 
     flag = 1
-
-    while flag == 1:
+    iteration = 0
+    while flag == 1 and iteration <100:
 
         # start_time = datetime.now()
         transition_altitude = crossover_altitude(
@@ -295,6 +295,9 @@ def mission_sizing(vehicle):
 
         if altitude > transition_altitude:
             mach = operations['mach_cruise']
+
+        # if distance_cruise < 0:
+        #     print('duh')
         
         # start_time = datetime.now()
         # Breguet calculation type for cruise performance
@@ -327,14 +330,27 @@ def mission_sizing(vehicle):
         # print('descent integration calculation time: {}'.format(end_time - start_time))
         
         distance_descent = final_distance*feet_to_nautical_miles
+
+        # print('dclimb',distance_climb)
+        # print('dcruiz',distance_cruise)
+        # print('ddesc',distance_descent)
         distance_mission = distance_climb + distance_cruise + distance_descent
+        # print('distance_mission',distance_mission)
         distance_error = np.abs(performance['range'] - distance_mission)
 
-        if distance_error <= 0.5:
+        iteration = iteration + 1
+
+        if distance_error <= 5:
             flag = 0
             # print('Mission distance:', distance_mission)
         else:
-            distance_cruise = distance_cruise - distance_error
+            if distance_mission > performance['range']:
+                distance_cruise = distance_cruise - distance_error*0.95
+            else:
+                distance_cruise = distance_cruise + distance_error*0.95
+
+    if iteration >= 200:
+        raise ValueError
 
     final_mission_mass = final_cruise_mass - total_burned_fuel
     total_mission_burned_fuel = max_takeoff_mass - final_mission_mass
@@ -344,7 +360,7 @@ def mission_sizing(vehicle):
 
 
     # Alternative airport climb
-    initial_altitude = final_altitude
+    initial_altitude = airport_destination['elevation'] + 1500
     max_alternative_mass = final_mission_mass
 
     max_altitude, rate_of_climb = maximum_altitude(
@@ -411,7 +427,7 @@ def mission_sizing(vehicle):
         final_altitude = flight_level*100
 
     # Initial climb fuel estimation
-    initial_altitude = initial_altitude + 1500
+    # initial_altitude = initial_altitude
     _, _, total_burned_fuel0, _ = climb_integration(
         max_alternative_mass,
         mach_climb,
@@ -452,11 +468,15 @@ def mission_sizing(vehicle):
 
     distance_cruise = operations['alternative_airport_distance'] - distance_climb
 
+    # if distance_cruise < 0:
+    #     print('duh')
+
     altitude = initial_cruise_altitude
 
     flag = 1
+    iteration = 0
 
-    while flag == 1:
+    while flag == 1 and iteration <100:
 
         transition_altitude = crossover_altitude(
             operations['mach_cruise'],
@@ -489,24 +509,35 @@ def mission_sizing(vehicle):
 
         final_cruise_altitude = altitude
 
-        final_distance, total_descent_time, total_burned_fuel, final_altitude = descent_integration(
-            final_cruise_mass,
-            mach_descent,
-            descent_V_cas,
-            delta_ISA,
-            descent_altitude,
-            final_cruise_altitude,
-            vehicle
-        )
-        distance_descent = final_distance*feet_to_nautical_miles
-        distance_mission = distance_climb + distance_cruise + distance_descent
+        # final_distance, total_descent_time, total_burned_fuel, final_altitude = descent_integration(
+        #     final_cruise_mass,
+        #     mach_descent,
+        #     descent_V_cas,
+        #     delta_ISA,
+        #     descent_altitude,
+        #     final_cruise_altitude,
+        #     vehicle
+        # )
+
+        # distance_descent = final_distance*feet_to_nautical_miles
+        # distance_mission = distance_climb + distance_cruise + distance_descent
+
+        distance_mission = distance_climb + distance_cruise 
         distance_error = np.abs(operations['alternative_airport_distance'] - distance_mission)
 
-        if distance_error <= 0.5:
+        iteration = iteration + 1
+
+        if distance_error <= 5:
             flag = 0
-            # print('Mission distance alternative:', distance_mission)
+            # print('Mission distance:', distance_mission)
         else:
-            distance_cruise = distance_cruise - distance_error
+            if distance_mission > operations['alternative_airport_distance'] :
+                distance_cruise = distance_cruise - distance_error*0.95
+            else:
+                distance_cruise = distance_cruise + distance_error*0.95
+    
+    if iteration >= 200:
+        raise ValueError
 
     final_mission_mass_alternative = final_cruise_mass - total_burned_fuel
     total_mission_burned_fuel_alternative = max_alternative_mass - final_mission_mass_alternative
@@ -526,7 +557,7 @@ def mission_sizing(vehicle):
 
     total_mission_burned_fuel_complete = total_mission_burned_fuel + total_mission_burned_fuel_alternative + taxi_fuel
     total_mission_time_complete = total_mission_flight_time + total_mission_flight_time_alternative + taxi_time
-    total_mission_distance_complete = total_mission_distance + total_mission_distance_alternative
+    total_mission_distance_complete = total_mission_distance
 
 
     engine_static_thrust, fuel_flow , vehicle = turbofan(

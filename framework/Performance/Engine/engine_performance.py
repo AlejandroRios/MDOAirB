@@ -29,7 +29,8 @@ import numpy as np
 from scipy import optimize
 import math
 
-from framework.Attributes.Atmosphere.atmosphere import atmosphere
+# from framework.Attributes.Atmosphere.atmosphere import atmosphere
+from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 from framework.Attributes.Atmosphere.fair import FAIR
 # =============================================================================
 # CLASSES
@@ -94,7 +95,9 @@ def turbofan(altitude, mach, throttle_position, vehicle):
     # ------ FREE STREAM ------------------------------------------------------
     gamma = 1.4                             # gamma do programa
     R = 287.2933                           # R do programa
-    T_0, P_0, _, _ = atmosphere(design_altitude)
+
+    _,_,_, T_0, P_0,_, _,_= atmosphere_ISA_deviation(design_altitude, 0)
+
     T0_0 = (1 + (gamma-1)/2*design_mach**2)*T_0     # temperatura total
     P0_0 = P_0*(T0_0/T_0)**(gamma/(gamma-1))  # pressão total
     a0 = np.sqrt(gamma*R*T_0)                  # velocidade do som
@@ -205,8 +208,8 @@ def turbofan(altitude, mach, throttle_position, vehicle):
         # ------ FREE STREAM ------------------------------------------------------
         gamma = 1.4                             # gamma do programa
         R = 287.2933                           # R do programa
-        T_0, P_0, rho_0, a_0 = atmosphere(altitude)
 
+        _,_,_, T_0, P_0,rho_0, _,a0= atmosphere_ISA_deviation(altitude, 0)
         T0_0 = (1 + (gamma-1)/2*Mach**2)*T_0     # temperatura total
         P0_0 = P_0*(T0_0/T_0)**(gamma/(gamma-1))  # pressão total
         a0 = np.sqrt(gamma*R*T_0)                  # velocidade do som

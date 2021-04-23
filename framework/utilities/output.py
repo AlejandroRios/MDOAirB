@@ -328,7 +328,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
         # output.write(
         #     'Average market share: ' + str("{:.2f}".format(0)) + ' [%] \n')
 
-        output.write('Airports array: ' + str(airport_departure['array']) + "\n")
+        # output.write('Airports array: ' + str(airport_departure['array']) + "\n")
 
         market_share = operations['market_share']
 

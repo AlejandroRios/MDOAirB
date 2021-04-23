@@ -34,6 +34,7 @@ import numpy as np
 def approach_profile(takeoff_parameters,landing_parameters,aircraft_parameters,vehicle):
 
     GRAVITY = 9.81
+    m_to_ft = 3.28084
 
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
@@ -42,7 +43,7 @@ def approach_profile(takeoff_parameters,landing_parameters,aircraft_parameters,v
     DD                  = 4000                                                 # distância inicial da cabeceira da pista [m]
     DH                  = DD*np.tan(-landing_parameters['gamma']*np.pi/180)+50*0.3048                # altura inicial da cabeceira da pista [m]
     ## Velocidades ##
-    _, _, sigma, _, _, rho_ISA, _, a = atmosphere_ISA_deviation(DH, 0)     # propriedades da atmosfera
+    _, _, sigma, _, _, rho_ISA, _, a = atmosphere_ISA_deviation(DH*m_to_ft, 0)     # propriedades da atmosfera
 
     VSE                 = (sigma)**0.5 * np.sqrt((2*aircraft['maximum_landing_weight']*GRAVITY)/(rho_ISA*aircraft['CL_maximum_landing']*wing['area']))         
                                                                                 # velocidade de estol - equivalente [m/s]
@@ -70,7 +71,7 @@ def approach_profile(takeoff_parameters,landing_parameters,aircraft_parameters,v
 
 
     while h[i1]>(50*0.3048):
-        _, _, sigma, _, _, rho_ISA, _, a = atmosphere_ISA_deviation(DH, 0)     # propriedades da atmosfera
+        _, _, sigma, _, _, rho_ISA, _, a = atmosphere_ISA_deviation(DH*m_to_ft, 0)     # propriedades da atmosfera
         VT= np.append(VT,VREFE/(sigma**0.5))                                    # velocidade verdadeira [m/s]
         CL= np.append(CL,aircraft['maximum_landing_weight']/(0.5*(VT[i1])**2*wing['area']*rho_ISA))               # coeficiente de sustentação  
         CD = np.append(CD,aircraft_parameters['CD_air_LG_down'])                                         # coeficiente de arrasto

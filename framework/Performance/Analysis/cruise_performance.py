@@ -45,7 +45,7 @@ from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coef
 # =============================================================================
 global GRAVITY
 GRAVITY = 9.80665
-
+ft_to_m = 0.3048
 
 def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle):
     n = 10
@@ -78,9 +78,12 @@ def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, 
     n = 4
     step_cruise = distance_cruise/n
     distance = 0
-    time_cruise = 0
-    mass_fuel_cruise = 0
+    time_cruise = []
+    mass_fuel_cruise = []
     d = 0
+
+    # if distance_cruise < 0:
+    #     print('duhh')
     
 
     V_tas = mach_to_V_tas(mach, altitude, delta_ISA)
@@ -91,16 +94,15 @@ def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, 
             vehicle, mach, altitude, delta_ISA, mass)
 
         mass_fuel, time = breguet_simple(altitude, delta_ISA, mach, L_over_D, TSFC,step_cruise,mass)
-
-        time_cruise = time_cruise + time
-
-        mass_fuel_cruise = mass_fuel_cruise + mass_fuel
-
+        # if time <0 or mass_fuel < 0:
+        #     print(mass_fuel)
+        #     print(time)
+        mass_fuel_cruise.append(mass_fuel)
+        time_cruise.append(time)
         d = d+step_cruise
-        # print(mass_fuel)
 
-    final_mass = mass - mass_fuel_cruise
-    # print(final_mass)
+    final_mass = mass - sum(mass_fuel_cruise)
+    time_cruise = sum(time_cruise)
 
     return time_cruise, final_mass
 
@@ -126,7 +128,7 @@ def specific_fuel_consumption(vehicle, mach, altitude, delta_ISA, mass):
     switch_neural_network = 0
     alpha_deg = 1
     CD_wing, _ = aerodynamic_coefficients_ANN(
-        vehicle, altitude, mach, CL_required, alpha_deg, switch_neural_network)
+        vehicle, altitude*ft_to_m, mach, CL_required, alpha_deg, switch_neural_network)
 
     friction_coefficient = 0.003
     CD_ubrige = friction_coefficient * \
@@ -220,11 +222,11 @@ def breguet_simple(altitude, delta_ISA, mach, LD, SFC,step_cruise,W0):
     f=np.exp(a2)
     Wf=W0/f
     mass_fuel=W0-Wf
-    # time=(1/a1)*np.log(W0/Wf)*60
+    time=(1/a1)*np.log(W0/Wf)*60
 
-    time = LD/SFC *np.log(W0/Wf)
-    R = step_cruise*1852
-    return mass_fuel, time*60
+    # time = LD/SFC *np.log(W0/Wf)
+    # R = step_cruise*1852
+    return float(mass_fuel), float(time)
 
 def fuelfractionsizing(sf, fixedW, FF, tol, maxW):
 

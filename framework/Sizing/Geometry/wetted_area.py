@@ -220,7 +220,7 @@ def wetted_area(vehicle):
     ############################# WING WETTED AREA ############################
     wing['semi_span'] = wing['span']/2
 
-    engine['diameter'] = engine['fan_diameter']/0.98  # [m]
+    # engine['diameter'] = engine['fan_diameter']/0.98  # [m]
     engine['yposition'] = wing['semi_span_kink']
 
     (vehicle, xutip, yutip, xltip, yltip,

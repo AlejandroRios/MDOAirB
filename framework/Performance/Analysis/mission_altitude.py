@@ -147,7 +147,7 @@ def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
     if buffet_altitude_limit < final_altitude:
         final_altitude = buffet_altitude_limit
 
-    return final_altitude, rate_of_climb
+    return float(final_altitude), float(rate_of_climb)
 
 
 def optimum_altitude(vehicle, initial_altitude, limit_altitude, mass,
@@ -273,7 +273,7 @@ def optimum_altitude(vehicle, initial_altitude, limit_altitude, mass,
         final_altitude = buffet_altitude_limit
 
     optimum_altitude = final_altitude
-    return optimum_altitude, rate_of_climb, optimum_specific_rate
+    return float(optimum_altitude), float(rate_of_climb), float(optimum_specific_rate)
 
 
 # =============================================================================

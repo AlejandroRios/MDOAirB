@@ -26,7 +26,6 @@ TODO's:
 # IMPORTS
 # =============================================================================
 import numpy as np
-import os
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -55,7 +54,7 @@ def pax_cabine_length(vehicle):
 
     x0 = 1.7  # entrance area
     for j in range(Nrow):
-        seattop_fileira(x0, fuselage, SeatProf,vehicle)
+        # seattop_fileira(x0, fuselage, SeatProf,vehicle)
         x0 = x0+SeatProf+DeltaSeats
     # **** Desenha Toillet
     # Descobre lado de maior largura

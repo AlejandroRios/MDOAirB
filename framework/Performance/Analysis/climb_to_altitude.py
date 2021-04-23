@@ -40,7 +40,7 @@ from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coef
 # =============================================================================
 global GRAVITY
 GRAVITY = 9.80665
-
+ft_to_m = 0.3048
 
 def rate_of_climb_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehicle):
     aircraft = vehicle['aircraft']  
@@ -49,6 +49,7 @@ def rate_of_climb_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehicl
 
     knots_to_feet_minute = 101.268
     knots_to_meters_second = 0.514444
+    ft_to_m = 0.3048
 
     phase = "climb"
 
@@ -64,7 +65,7 @@ def rate_of_climb_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehicl
     # Input for neural network: 0 for CL | 1 for alpha
     switch_neural_network = 0
     alpha_deg = 1
-    CD_wing, _ = aerodynamic_coefficients_ANN(vehicle, h, mach, CL,alpha_deg,switch_neural_network)
+    CD_wing, _ = aerodynamic_coefficients_ANN(vehicle, h*ft_to_m, mach, CL,alpha_deg,switch_neural_network)
     
     friction_coefficient = wing['friction_coefficient']
     CD_ubrige = friction_coefficient * \

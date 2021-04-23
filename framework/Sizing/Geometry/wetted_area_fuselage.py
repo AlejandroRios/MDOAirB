@@ -24,8 +24,6 @@ Outputs:
 """Importing Modules"""
 ########################################################################################
 import numpy as np
-import os
-
 from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
 ########################################################################################
 """Function definition"""
