@@ -1,0 +1,35 @@
+{
+    "aircraft":{
+        "passenger_capacity":100,
+        "slat_presence":1,
+        "winglet_presence":1
+    },
+    "engine":{
+        "bypass": 45,
+        "diameter": 10,
+        "compressor_pressure_ratio": 27,
+        "turbine_inlet_temperature": 1350,
+        "fan_pressure_ratio": 15,
+        "design_point_pressure": 41000,
+        "design_point_mach": 78,
+        "psition": 1
+    },
+    "fuselage":{
+        "seat_abreast_number":4
+    },
+    "horizontal_tail":{
+        "position":1
+    },
+    "performance":{
+        "range":1500
+    },
+    "wing": {
+        "area": 72,
+        "aspect_ratio": 85,
+        "taper_ratio": 25,
+        "sweep_c_4": 25,
+        "twist": -5,
+        "semi_span_kink": 35
+    }
+
+}

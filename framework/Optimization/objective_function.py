@@ -1,6 +1,6 @@
 """
 File name : Network profit function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : July 2020
 Last edit : February 2021
@@ -52,7 +52,7 @@ from framework.Attributes.Geo.bearing import calculate_bearing
 # =============================================================================
 log = get_logger(__file__.split('.')[0])
 
-def objective_function_0(x, vehicle):
+def objective_function_0(vehicle,x=None):
 
     log.info('==== Start network profit module ====')
     start_time = datetime.now()
@@ -62,7 +62,9 @@ def objective_function_0(x, vehicle):
         # =============================================================================
         # Airplane sizing and checks
     # try:
-        status, vehicle = airplane_sizing(x, vehicle)
+        status, vehicle = airplane_sizing(vehicle,x)
+
+
     # except:
     #     log.error(">>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing", exc_info = True)
 
@@ -100,7 +102,7 @@ def objective_function_0(x, vehicle):
             active_airports_db = active_airports_db.T
             active_airports = active_airports_db .to_dict()
 
-            pax_capacity = x[11]  # Passenger capacity
+            pax_capacity = aircraft['passenger_capacity']  # Passenger capacity
 
             # Airports:
             # ["FRA", "LHR", "CDG", "AMS",
@@ -148,7 +150,7 @@ def objective_function_0(x, vehicle):
                 SAR[departures[i]] = {}
 
                 for k in range(len(arrivals)):
-                    if (i != k) and (distances[departures[i]][arrivals[k]] <= x[13]):
+                    if (i != k) and (distances[departures[i]][arrivals[k]] <= performance['range']):
 
                         # Update information about orign-destination pair airports:
 
@@ -308,7 +310,7 @@ def objective_function_0(x, vehicle):
         log.info('Aircraft not passed sizing and checks, profit: {}'.format(profit))
         
     # try:
-        write_bad_results(x,error)
+        write_bad_results(error,x)
     # except:
         log.error(">>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results", exc_info = True)
     
@@ -327,7 +329,7 @@ def objective_function_0(x, vehicle):
 
 
 
-def objective_function_1(x, vehicle):
+def objective_function_1(vehicle,x=None):
 
     log.info('==== Start network profit module ====')
     start_time = datetime.now()
@@ -375,7 +377,7 @@ def objective_function_1(x, vehicle):
             active_airports_db = active_airports_db.T
             active_airports = active_airports_db .to_dict()
 
-            pax_capacity = x[11]  # Passenger capacity
+            pax_capacity = aircraft['passenger_capacity']  # Passenger capacity
 
 
  
@@ -426,7 +428,7 @@ def objective_function_1(x, vehicle):
                 SAR[departures[i]] = {}
 
                 for k in range(len(arrivals)):
-                    if (i != k) and (distances[departures[i]][arrivals[k]] <= x[13]) and (active_airports[departures[i]][arrivals[k]] == 1):
+                    if (i != k) and (distances[departures[i]][arrivals[k]] <= performance['range']) and (active_airports[departures[i]][arrivals[k]] == 1):
 
                         # Update information about orign-destination pair airports:
 
@@ -586,7 +588,7 @@ def objective_function_1(x, vehicle):
         log.info('Aircraft not passed sizing and checks, profit: {}'.format(profit))
         
     # try:
-        write_bad_results(x,error)
+        write_bad_results(error,x)
     # except:
         log.error(">>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results", exc_info = True)
     
@@ -602,14 +604,14 @@ def objective_function_1(x, vehicle):
 
     return profit
 
-def objective_function(x, vehicle):
+def objective_function(vehicle,x=None):
     operations = vehicle['operations']
     # operations['computation_mode'] = 0
 
     if operations['computation_mode'] == 0:
-        profit = objective_function_0(x, vehicle)
+        profit = objective_function_0(vehicle,x)
     elif operations['computation_mode'] == 1:
-        profit = objective_function_1(x, vehicle)
+        profit = objective_function_1(vehicle,x)
 
     return profit
 

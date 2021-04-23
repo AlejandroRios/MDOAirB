@@ -1,6 +1,6 @@
 """
 File name : Network profit function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : July 2020
 Last edit : February 2021

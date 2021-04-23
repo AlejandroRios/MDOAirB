@@ -1,6 +1,7 @@
 """
 File name : Optimization function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
+            Lionel Guerin
 Email     : aarc.88@gmail.com
 Date      : Dezember 2020
 Last edit : February 2021
@@ -109,6 +110,7 @@ def UpdateVehicle(vehicle, fixed_parameters):
         if (key in vehicle):
             vehicle[key].update(fixed_parameters[key])
     return vehicle
+	
 def RegisterVariable(toolbox, lower_bounds, upper_bounds, design_variables, attr_name, key, min, max):
 	if (key in design_variables):
 		min = design_variables[key]["lower_band"]
@@ -160,7 +162,7 @@ def obj_function(individual):
     # a predefined dictionary with pre-stored information of the vehicle (aircraft)
     vehicle = initialize_aircraft_parameters()
     vehicle = UpdateVehicle(vehicle, fixed_parameters)
-    net_profit = objective_function(individual, vehicle)
+    net_profit = objective_function(vehicle,individual)
     vehicle.clear()
     return net_profit,
 

@@ -1,6 +1,6 @@
 """
 File name : Network optimization
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : March/2020
 Last edit : November/2020

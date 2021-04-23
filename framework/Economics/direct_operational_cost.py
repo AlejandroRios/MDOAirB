@@ -1,6 +1,6 @@
 """
 File name : Direct Operational Cost
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : October/2019
 Last edit : September/2020

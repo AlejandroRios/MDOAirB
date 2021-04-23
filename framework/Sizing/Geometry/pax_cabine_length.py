@@ -1,7 +1,7 @@
 """
 File name : Pax cabine length
 Written by: Alejandro Rios
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : Octobe 2019
 Last edit : February 2021

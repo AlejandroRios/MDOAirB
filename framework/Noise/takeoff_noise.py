@@ -1,6 +1,6 @@
 """
 File name : takeoff noise function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : February 2021
 Last edit : 

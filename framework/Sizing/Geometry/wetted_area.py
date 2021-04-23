@@ -1,6 +1,6 @@
 """
 File name : Wetted area function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : Dezember 2019
 Last edit : January 2021

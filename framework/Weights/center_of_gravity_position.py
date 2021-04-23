@@ -1,6 +1,6 @@
 """
 File name : Center of gravity position function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : January/2021
 Last edit : January/2021

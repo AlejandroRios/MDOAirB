@@ -1,6 +1,6 @@
 """
 File name : Optimization function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : Dezember 2020
 Last edit : February 2021

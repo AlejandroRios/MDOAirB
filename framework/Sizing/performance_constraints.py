@@ -1,6 +1,6 @@
 """
 File name : Performance constraints
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : September/2020
 Last edit : September/2020

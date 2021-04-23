@@ -1,6 +1,6 @@
 """
 File name : Airplane sizing check function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : January 2021
 Last edit : February 2021
@@ -71,9 +71,9 @@ ft_to_m = 0.3048
 lbf_to_N = 4.448
 
 
-def airplane_sizing(x, vehicle):
+def airplane_sizing(vehicle,x=None):
     log.info('---- Start aircraft sizing module ----')
-    log.info('Current individual vairables: {}'.format(x))
+    
 
     # Load nested dictionary vehicle
     aircraft = vehicle['aircraft']
@@ -94,30 +94,58 @@ def airplane_sizing(x, vehicle):
     friction_coefficient = wing['friction_coefficient']
 
     # Upload dictionary variables with optimization variables input vector x
-    wing['area'] = x[0]
-    wing['aspect_ratio'] = x[1]/10
-    wing['taper_ratio'] = x[2]/100
-    wing['sweep_c_4'] = x[3]
-    wing['twist'] = x[4]
-    wing['semi_span_kink'] = x[5]/100
-    aircraft['passenger_capacity'] = x[11]
-    fuselage['seat_abreast_number'] = x[12]
-    performance['range'] = x[13]
-    aircraft['winglet_presence'] = x[17]
-    # aircraft['winglet_presence'] = 1
-    aircraft['slat_presence'] = x[18]
-    # aircraft['slat_presence'] = 1
-    horizontal_tail['position'] = x[19]
-    # horizontal_tail['position'] = 1
+    if x != None:
+        log.info('Current individual vairables: {}'.format(x))
+        wing['area'] = x[0]
+        wing['aspect_ratio'] = x[1]/10
+        wing['taper_ratio'] = x[2]/100
+        wing['sweep_c_4'] = x[3]
+        wing['twist'] = x[4]
+        wing['semi_span_kink'] = x[5]/100
+        aircraft['passenger_capacity'] = x[11]
+        fuselage['seat_abreast_number'] = x[12]
+        performance['range'] = x[13]
+        aircraft['winglet_presence'] = x[17]
+        # aircraft['winglet_presence'] = 1
+        aircraft['slat_presence'] = x[18]
+        # aircraft['slat_presence'] = 1
+        horizontal_tail['position'] = x[19]
+        # horizontal_tail['position'] = 1
 
-    engine['bypass'] = x[6]/10
-    engine['diameter'] = x[7]/10
-    engine['compressor_pressure_ratio'] = x[8]
-    engine['turbine_inlet_temperature'] = x[9]
-    engine['fan_pressure_ratio'] = x[10]/10
-    engine['design_point_pressure'] = x[14]
-    engine['design_point_mach'] = x[15]/100
-    engine['position'] = x[16]
+        engine['bypass'] = x[6]/10
+        engine['diameter'] = x[7]/10
+        engine['compressor_pressure_ratio'] = x[8]
+        engine['turbine_inlet_temperature'] = x[9]
+        engine['fan_pressure_ratio'] = x[10]/10
+        engine['design_point_pressure'] = x[14]
+        engine['design_point_mach'] = x[15]/100
+        engine['position'] = x[16]
+    else:
+        wing['area'] = wing['area']
+        wing['aspect_ratio'] = wing['aspect_ratio']/10
+        wing['taper_ratio'] = wing['taper_ratio']/100
+        wing['sweep_c_4'] = wing['sweep_c_4']
+        wing['twist'] = wing['twist']
+        wing['semi_span_kink'] = wing['semi_span_kink']/100
+        aircraft['passenger_capacity'] = aircraft['passenger_capacity']
+        fuselage['seat_abreast_number'] = fuselage['seat_abreast_number']
+        performance['range'] = performance['range'] 
+        aircraft['winglet_presence'] = aircraft['winglet_presence']
+        # aircraft['winglet_presence'] = 1
+        aircraft['slat_presence'] = aircraft['slat_presence']
+        # aircraft['slat_presence'] = 1
+        horizontal_tail['position'] =horizontal_tail['position']
+        # horizontal_tail['position'] = 1
+
+        engine['bypass'] = engine['bypass']/10
+        engine['diameter'] = engine['diameter']/10
+        engine['compressor_pressure_ratio'] = engine['compressor_pressure_ratio']
+        engine['turbine_inlet_temperature'] = engine['turbine_inlet_temperature'] 
+        engine['fan_pressure_ratio'] = engine['fan_pressure_ratio']/10
+        engine['design_point_pressure'] = engine['design_point_pressure']
+        engine['design_point_mach'] = engine['design_point_mach']/100
+        engine['position'] = engine['position']
+
     
 
 

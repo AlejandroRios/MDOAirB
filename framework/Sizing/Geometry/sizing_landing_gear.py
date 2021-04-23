@@ -1,6 +1,6 @@
 """
 File name : Sizing landing gear
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : January 2021
 Last edit : February 2021

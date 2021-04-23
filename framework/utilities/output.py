@@ -1,6 +1,6 @@
 """
 File name :
-Author    : 
+Authors   : 
 Email     : aarc.88@gmail.com
 Date      : 
 Last edit :
@@ -468,7 +468,7 @@ def write_newtork_results(profit,dataframe01,dataframe02):
 
     return
 
-def write_bad_results(x,error):
+def write_bad_results(error,x=None):
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     with open(r'Database/Results/Aircrafts_unfeasible/acft_' + str(start_time) +'.txt','w') as output:
