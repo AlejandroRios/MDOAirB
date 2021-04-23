@@ -1,19 +1,16 @@
-2021-04-23 00:14:57,404 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module --2021-04-23 00:17:09,568 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
-2021-04-23 00:17:09,588 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
-Traceback (most recent call last):
-  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 120, in objective_function_0
-    demand[departures[i]][arrivals[k]] = demand0[departures[i]][arrivals[k]]
-NameError: name 'demand0' is not defined
-2021-04-23 00:17:09,589 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-04-23 00:17:09,589 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-04-23 00:17:09,590 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results
-Traceback (most recent call last):
-  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 120, in objective_function_0
-    demand[departures[i]][arrivals[k]] = demand0[departures[i]][arrivals[k]]
-NameError: name 'demand0' is not defined
-2021-04-23 00:17:09,591 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:03:19.929494
-2021-04-23 00:17:09,591 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-ormance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.256665
-2021-04-23 00:14:45,862 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-23 00:14:57,327 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-23 00:14:57,328 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.465699
+2021-04-23 00:25:26,394 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+
+2021-04-23 00:24:39,409 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-23 00:24:39,410 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.568866
+2021-04-23 00:24:39,411 - c:\users\aarc8\documents\git2021-04-23 00:25:26,332 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-23 00:24:51,161 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.750771
+2021-04-23 00:24:51,162 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-23 00:25:03,230 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-23 00:25:03,230 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.067671
+2021-04-23 00:25:03,231 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-23 00:25:14,964 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-23 00:25:14,964 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.733291
+2021-04-23 00:25:14,965 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-23 00:25:26,331 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-23 00:25:26,332 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.366924
