@@ -1,365 +1,302 @@
-2021-04-22 21:02:48,071 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
-2021-04-22 21:02:48,128 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
-2021-04-22 21:02:48,129 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
-2021-04-22 21:02:48,197 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
-   - INFO - ==== End network optimization module ====
-2 20:45:14,462 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 20:45:14,462 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:22.6098702021-04-22 20:53:47,475 - c:\users\aarc8\documents\gi2021-04-22 20:55:09,526 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 20:58:38,691 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:03:29.165605
-2021-04-22 20:58:38,692 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\N2021-04-22 20:58:39,057 - c:\users\aarc8\documents\github\mdoairb\framework\Siz2021-04-22 21:01:21,463 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 21:03:24,417 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:02:02.953661
-2021-04-22 21:03:24,418 - c:\users\aarc8\documents\gith2021-04-22 21:10:24,058 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area    2021-04-22 21:12:23,851 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 21:16:21,551 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:03:57.699907
-2021-04-22 21:16:21,552 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
-2021-04-22 21:11:51,737 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 21:13:48,223 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:01:56.486408
-2021-04-22 21:13:48,224 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
-2021-04-22 21:15:38,013 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 21:18:27,594 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:02:49.580486
-2021-04-22 21:18:27,595 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
-2021-04-22 21:20:14,294 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 21:23:31,056 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:03:16.762553
-2021-04-22 21:23:31,057 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
-ub\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 596.104237271955
-2021-04-22 21:18:33,850 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
-i2021-04-22 21:14:39,902 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
-2021-04-22 21:14:46,175 - c:\users\aarc8\documents\github\mdoairb\framework\Sizin2021-04-22 21:16:48,631 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 21:20:10,297 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:03:21.666198
-2021-04-22 21:20:10,297 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
-ers\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [92, 91, 29, 23, -4, 33, 60, 11, 30, 1498, 15, 82, 5, 1458, 42933, 81, 1, 1, 1, 1]
-2021-04-22 21:10:30,304 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start2021-04-22 21:16:21,560 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
-2021-04-22 21:16:21,599 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC calculation ----
-ft flags: [0, 0, 0, 0, 0, 0, 0]
-2021-04-22 21:16:21,553 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
-2021-04-22 21:16:21,553 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-2 21:12:14,678 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise modu2021-04-22 21:15:26,248 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
-2021-04-22 21:15:32,746 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 809.0797070327407
-2021-04-22 21:15:32,742021-04-22 21:16:56,855 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ----2021-04-22 21:19:46,722 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
-2021-04-22 21:19:52,658 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 629.4638014672831
-2021-04-22 21:19:52,658 - c:\users\aarc8\documen2021-04-22 21:21:31,362 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-04-22 21:24:21,931 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:02:50.569721
-2021-04-22 21:24:21,931 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
-ts\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 1, 1, 1, 1, 1, 0]
-2021-04-22 21:13:48,225 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-04-22 21:13:48,225 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-2021-04-22 21:13:48,241 - c:\users\aarc8\documents\github\mdoairb\fr2021-04-22 21:14:39,573 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks,2021-04-22 21:15:25,957 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
-2021-04-22 21:15:25,958 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time:2021-04-22 21:15:37,912 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-04-22 212021-04-22 21:20:10,307 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
-2021-04-22 21:20:10,309 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:05:30.729684
-2021-04-22 21:20:10,309 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-9
-2021-04-22 21:19:46,456 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-04-22 21:19:46,458 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-04-22 21:24:21,941 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
-2021-04-22 21:24:21,942 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:04:35.481547
-2021-04-22 21:24:21,942 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-, 0, 0, 0]
-2021-04-22 21:23:31,057 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
-2021-04-22 21:23:31,058 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-21-04-22 21:18:27,607 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:04:39.365239
-2021-04-22 21:18:27,609 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-04-22 21:18:27,610 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-04-22 21:23:31,063 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
-2021-04-22 21:23:31,087 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC calculation ----
- -4, 44, 63, 11, 29, 1472, 15, 128, 5, 1208, 41600, 79, 1, 1, 1, 1]
-2021-04-22 21:14:46,267 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-04-22 21:16:48,557 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-04-22 21:20:10,298 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 1, 0, 1, 1, 0, 0]
-2021-04-22 21:20:10,298 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-04-22 21:20:10,299 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-1-04-22 21:01:41,502 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-04-22 21:01:41,502 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [100, 107, 37, 20, -3, 45, 47, 11, 29, 1392, 17, 168, 6, 2792, 42667, 82, 1, 1, 1, 1]
-2021-04-22 21:01:48,006 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-04-22 21:04:10,325 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-04-22 21:06:14,655 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 1, 1, 1, 1, 1, 0]
-2021-04-22 21:06:14,655 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-04-22 21:06:14,656 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-2021-04-22 21:06:14,664 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-04-22 21:06:14,665 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [94, 97, 34, 22, -5, 36, 65, 12, 28, 1398, 16, 118, 5, 1375, 41333, 79, 1, 1, 1, 1]
-2021-04-22 21:06:20,414 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-04-22 21:07:54,887 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-04-22 21:10:23,743 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 1, 0, 0]
-2021-04-22 21:10:23,743 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-04-22 21:10:23,744 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-2021-04-22 21:10:23,761 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-04-22 21:10:23,761 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [83, 86, 43, 18, -5, 37, 45, 15, 28, 1462, 23, 148, 6, 2042, 40667, 79, 1, 1, 1, 1]
-2021-04-22 21:10:30,216 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-04-22 21:12:14,583 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-04-22 21:15:25,950 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 0, 0, 0, 0, 1, 0]
-2021-04-22 21:15:25,950 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-04-22 21:15:25,951 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-2021-04-22 21:15:25,961 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-04-22 21:15:25,962 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [119, 85, 47, 26, -2, 35, 47, 13, 28, 1458, 20, 182, 5, 2125, 40267, 78, 1, 1, 1, 1]
-2021-04-22 21:15:32,840 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airp2021-04-22 21:23:31,092 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:23:59,843 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:23:59,843 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:28.750642
-2021-04-22 21:23:59,847 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:25:34,370 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:25:34,371 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:01:34.523915
-2021-04-22 21:25:34,376 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:25:52,549 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:25:52,549 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:18.172669
-2021-04-22 21:25:52,559 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-, 0, 0, 0, 1, 0, 0]
-2021-04-22 21:24:21,932 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-04-22 21:24:21,933 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-- c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:18:51,007 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:18:51,008 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:25.465208
-2021-04-22 21:18:51,012 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:19:15,571 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:19:15,572 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.559318
-2021-04-22 21:19:15,576 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:19:39,784 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:19:39,784 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:24.208626
-2021-04-22 21:19:39,791 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:20:13,772 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:20:13,772 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:33.980896
-2021-04-22 21:20:13,779 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:20:43,465 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:20:43,465 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:29.685466
-2021-04-22 21:20:43,472 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:21:06,967 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:21:06,968 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:23.494863
-2021-04-22 21:21:06,974 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:21:41,033 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:21:41,034 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:34.060725
-2021-04-22 21:21:41,041 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:22:04,250 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:22:04,250 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:23.208913
-2021-04-22 21:22:04,256 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:22:27,270 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:22:27,271 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:23.014755
-2021-04-22 21:22:27,277 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:22:48,671 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:22:48,672 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:21.394580
-2021-04-22 21:22:48,676 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:23:18,379 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:23:18,379 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:29.702726
-2021-04-22 21:23:18,384 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:23:40,416 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:23:40,417 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:22.032969
-2021-04-22 21:23:40,423 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:24:08,153 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:24:08,153 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:27.730309
-2021-04-22 21:24:08,158 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:24:35,092 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:24:35,092 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:26.933897
-2021-04-22 21:24:35,098 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:25:00,102 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:25:00,103 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:25.004566
-2021-04-22 21:25:00,108 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:25:25,391 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:25:25,391 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:25.283381
-2021-04-22 21:25:25,396 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:25:50,479 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:25:50,479 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:25.083320
-2021-04-22 21:25:50,484 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:26:06,918 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:26:06,918 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:16.433724
-2021-04-22 21:26:06,923 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-2021-04-22 21:26:26,513 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
-2021-04-22 21:26:26,513 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:19.589874
-2021-04-22 21:26:26,517 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
-  - INFO - Mission sizing execution time: 0:00:16.046992
-2021-04-22 21:11:19,716 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:35,768 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:35,769 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.053790
-2021-04-22 21:11:35,769 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:51,904 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:51,905 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.135548
-2021-04-22 21:11:51,905 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:12:07,428 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:12:07,429 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:15.523854
-2021-04-22 21:12:07,429 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:12:23,758 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:12:23,759 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.330035
-2021-04-22 21:11:42,266 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:51,630 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:51,631 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:09.365415
-2021-04-22 21:13:54,727 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:14:08,814 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:14:08,814 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.086633
-2021-04-22 21:14:08,814 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:14:23,193 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:14:23,193 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.378992
-2021-04-22 21:14:23,194 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:14:41,693 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:14:41,693 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:18.498674
-2021-04-22 21:14:41,694 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:14:55,924 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:14:55,925 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.231110
-2021-04-22 21:14:55,925 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:10,215 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:10,216 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.291181
-2021-04-22 21:15:10,216 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:24,085 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:24,085 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.869627
-2021-04-22 21:15:24,086 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:37,911 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:37,912 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.825715
-2021-04-22 21:18:33,933 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:18:50,822 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:18:50,823 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.889366
-2021-04-22 21:18:50,823 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:19:07,495 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:19:07,495 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.672791
-2021-04-22 21:19:07,496 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:19:24,074 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:19:24,075 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.580083
-2021-04-22 21:19:24,075 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:19:40,968 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:19:40,968 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.892787
-2021-04-22 21:19:40,969 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:19:57,755 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:19:57,756 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.786266
-2021-04-22 21:19:57,756 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:20:14,229 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:20:14,230 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.474063
-2021-04-22 21:06:57,174 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:07:10,991 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:07:10,992 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.818240
-2021-04-22 21:07:10,992 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:07:24,653 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:07:24,655 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.663109
-2021-04-22 21:10:29,958 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:10:42,656 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:10:42,656 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.697400
-2021-04-22 21:10:42,657 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:10:57,285 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:10:57,285 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.628218
-2021-04-22 21:10:57,286 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:12,475 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:12,476 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:15.188577
-2021-04-22 21:11:12,476 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:25,653 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:25,654 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.178837
-2021-04-22 21:11:25,654 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:38,851 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:38,852 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.197083
-2021-04-22 21:14:46,267 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:14:57,543 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:14:57,544 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.276201
-2021-04-22 21:14:57,544 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:10,024 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:10,025 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.481880
-2021-04-22 21:15:10,025 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:22,508 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:22,509 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.483143
-2021-04-22 21:15:22,509 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:35,297 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:35,297 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.788324
-2021-04-22 21:15:35,298 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:47,295 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:47,296 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.998039
-2021-04-22 21:15:47,296 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:59,645 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:59,645 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.349002
-2021-04-22 21:15:59,646 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:12,141 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:12,142 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.494135
-2021-04-22 21:16:12,142 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:24,407 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:24,408 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.266590
-2021-04-22 21:16:24,408 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:36,647 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:36,648 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.239417
-2021-04-22 21:16:36,648 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:48,556 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:48,556 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.908657
-2021-04-22 21:02:59,001 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:03:11,143 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:03:11,144 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.143974
-2021-04-22 21:03:11,144 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:03:23,820 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:03:23,821 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.676911
-2021-04-22 21:03:23,821 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:03:40,799 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:03:40,800 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.978616
-2021-04-22 21:03:40,800 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:03:50,902 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:03:50,902 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:10.101757
-2021-04-22 21:03:50,903 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:04:00,667 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:04:00,667 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:09.764170
-2021-04-22 21:04:00,668 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:04:10,324 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:04:10,325 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:09.657274
-2021-04-22 21:06:20,414 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:06:34,146 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:06:34,147 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.733470
-2021-04-22 21:06:34,147 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:06:47,443 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:06:47,444 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.296548
-2021-04-22 21:06:47,444 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:07:01,197 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:07:01,198 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.754189
-2021-04-22 21:07:01,199 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:07:14,989 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:07:14,990 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.791413
-2021-04-22 21:07:14,990 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:07:27,690 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:07:27,690 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.699625
-2021-04-22 21:07:27,691 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:07:41,127 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:07:41,127 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.436085
-2021-04-22 21:07:41,128 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:07:54,886 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:07:54,886 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.758192
-2021-04-22 21:10:30,216 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:10:48,184 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:10:48,184 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:17.968128
-2021-04-22 21:10:48,185 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:07,642 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:07,643 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:19.458484
-2021-04-22 21:11:07,643 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:24,361 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:24,361 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.717428
-2021-04-22 21:11:24,362 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:40,939 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:40,939 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.577670
-2021-04-22 21:11:40,939 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:11:57,768 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:11:57,768 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.828521
-2021-04-22 21:11:57,769 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:12:14,583 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:12:14,583 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.813537
-2021-04-22 21:15:32,840 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:15:47,149 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:15:47,150 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.309346
-2021-04-22 21:15:47,150 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:01,512 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:01,513 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.362997
-2021-04-22 21:16:01,513 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:15,643 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:15,644 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.131407
-2021-04-22 21:16:15,644 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:29,492 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:29,492 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.848194
-2021-04-22 21:16:29,493 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:43,156 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:43,157 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.663359
-2021-04-22 21:16:43,157 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:16:56,747 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:16:56,748 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.591791
-2021-04-22 21:19:52,761 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:20:07,080 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:20:07,080 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.318963
-2021-04-22 21:20:07,081 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:20:20,607 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:20:20,608 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.527166
-2021-04-22 21:20:20,608 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:20:34,259 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:20:34,259 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.651610
-2021-04-22 21:20:34,259 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:20:47,406 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:20:47,406 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:13.146771
-2021-04-22 21:20:47,407 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:21:02,179 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:21:02,180 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.772987
-2021-04-22 21:21:02,180 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:21:16,559 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:21:16,560 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.380249
-2021-04-22 21:21:16,560 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
-2021-04-22 21:21:31,251 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
-2021-04-22 21:21:31,252 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.691195
+2021-04-22 22:31:39,848 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- Start DOC mission function ----
+2021-04-22 22:32:20,223 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - ---- End DOC mission function ----
+2021-04-22 22:32:20,223 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission     - INFO - DOC mission execution time: 0:00:40.374518
+2021-04-22 23:16:16,146 - 2021-04-22 23:18:40,676 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-04-22 23:21:55,737 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:03:15.060719
+2021-04-22 23:21:55,745 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+2021-04-22 23:18:10,024 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-04-22 23:24:21,571 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:06:11.547135
+2021-04-22 23:24:34,880 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+airables: [85, 112, 26, 17, -3, 33, 53, 11, 28, 1392, 15, 172, 6, 1958, 39067, 79, 1, 1, 1, 1]
+2021-04-22 23:16:25,445 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-04-22 23:18:40,530 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-04-22 23:21:55,746 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 1, 1, 1, 1, 1, 0]
+2021-04-22 23:21:55,760 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing2021-04-22 23:24:34,534 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:04:28.628500
+2021-04-22 23:24:34,888 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+2021-04-22 23:21:52,496 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-04-22 23:24:44,204 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:02:51.708185
+2021-04-22 23:24:44,206 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+2021-04-22 23:23:28,654 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - --2021-04-22 23:24:34,894 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 1, 1, 0, 0]
+2021-04-22 23:24:34,902 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-04-22 23:24:34,911 - c:\users\aarc8\docu2021-04-22 23:25:16,599 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 65, in objective_function_0
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 481, in airplane_sizing
+    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 174, in noise_calculation
+    takeoff_noise, sideline_noise, landing_noise = aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,aircraft_geometry,engine_parameters,runaway_parameters,noise_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 74, in aircraft_noise
+    sideline_noise,_ = sideline_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec,throttle_position,takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\sideline_EPNdB.py", line 94, in sideline_EPNdB
+    SLnoise[i]      = takeoff_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_EPNdB.py", line 35, in takeoff_EPNdB
+    f, SPL, tetaout, time_vec, distance_vec, altitude_vec = takeoff_noise(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_noise.py", line 78, in takeoff_noise
+    ft, OASPLENG = noise_engine(noise_parameters,aircraft_geometry,altitude,0,theta,fi,R,1.0,N1,N2,vairp,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_engine.py", line 65, in noise_engine
+    _, ruidoFant      = fan(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,engine['diameter'],ratT,mponto,nfan,MTRd,nrotor,nstat,RSS,IGV)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_engine.py", line 278, in fan
+    F3ddesc             = interpolate.interp1d(tetadsdesc,F3dsdesc,fill_value='extrapolate')(theta)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\interpolate\polyint.py", line 73, in __call__
+    y = self._evaluate(x)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\interpolate\interpolate.py", line 657, in _evaluate
+    y_new = self._call(self, x_new)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\interpolate\interpolate.py", line 587, in _call_linear
+    x_new_indices = searchsorted(self.x, x_new)
+  File "<__array_function__ internals>", line 6, in searchsorted
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\numpy\core\fromnumeric.py", line 1276, in searchsorted
+    @array_function_dispatch(_searchsorted_dispatcher)
+KeyboardInterrupt
+2021-04-22 23:25:16,752 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-22 23:25:16,780 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-04-2021-04-22 23:24:44,231 - c:\u2021-04-22 23:25:16,600 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 65, in objective_function_0
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 481, in airplane_sizing
+    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 174, in noise_calculation
+    takeoff_noise, sideline_noise, landing_noise = aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,aircraft_geometry,engine_parameters,runaway_parameters,noise_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 74, in aircraft_noise
+    sideline_noise,_ = sideline_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec,throttle_position,takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\sideline_EPNdB.py", line 94, in sideline_EPNdB
+    SLnoise[i]      = takeoff_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_EPNdB.py", line 35, in takeoff_EPNdB
+    f, SPL, tetaout, time_vec, distance_vec, altitude_vec = takeoff_noise(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_noise.py", line 78, in takeoff_noise
+    ft, OASPLENG = noise_engine(noise_parameters,aircraft_geometry,altitude,0,theta,fi,R,1.0,N1,N2,vairp,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_engine.py", line 83, in noise_engine
+    _, ruidoTurbinat  = turbine(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,mdot,nturb,Tturbsaida,MTRturb,nrotor,RSSturb)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_engine.py", line 430, in turbine
+    F1                  = interpolate.interp1d(tetatab,F1tab,fill_value='extrapolate')(theta)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\interpolate\interpolate.py", line 421, in __init__
+    _Interpolator1D.__init__(self, x, y, axis=axis)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\scipy\interpolate\polyint.py", line 49, in __init__
+    def __init__(self, xi=None, yi=None, axis=None):
+KeyboardInterrupt
+2021-04-22 23:25:16,743 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-22 23:25:16,780 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+alculation
+    takeoff_noise, sideline_noise, landing_noise = aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,aircraft_geometry,engine_parameters,runaway_parameters,noise_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 74, in aircraft_noise
+    sideline_noise,_ = sideline_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec,throttle_position,takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\sideline_EPNdB.py", line 80, in sideline_EPNdB
+    SLnoise[i]      = takeoff_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_EPNdB.py", line 35, in takeoff_EPNdB
+    f, SPL, tetaout, time_vec, distance_vec, altitude_vec = takeoff_noise(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_noise.py", line 78, in takeoff_noise
+    ft, OASPLENG = noise_engine(noise_parameters,aircraft_geometry,altitude,0,theta,fi,R,1.0,N1,N2,vairp,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_engine.py", line 105, in noise_engine
+    _, ruidoJatot     = nozzle(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,plug,coaxial,ACJ,ABJ,h,DCJ,VCJ,VBJ,TCJ,TBJ,roCJ,roBJ)
+KeyboardInterrupt
+2021-04-22 23:25:16,609 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-04-22 23:25:16,616 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-04-22 23:25:16,620 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 65, in objective_function_0
+    status, vehicle = airplane_sizing(x, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 481, in airplane_sizing
+    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 174, in noise_calculation
+    takeoff_noise, sideline_noise, landing_noise = aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,aircraft_geometry,engine_parameters,runaway_parameters,noise_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation.py", line 74, in aircraft_noise
+    sideline_noise,_ = sideline_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec,throttle_position,takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\sideline_EPNdB.py", line 80, in sideline_EPNdB
+    SLnoise[i]      = takeoff_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_EPNdB.py", line 35, in takeoff_EPNdB
+    f, SPL, tetaout, time_vec, distance_vec, altitude_vec = takeoff_noise(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\takeoff_noise.py", line 78, in takeoff_noise
+    ft, OASPLENG = noise_engine(noise_parameters,aircraft_geometry,altitude,0,theta,fi,R,1.0,N1,N2,vairp,vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_engine.py", line 105, in noise_engine
+    _, ruidoJatot     = nozzle(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,plug,coaxial,ACJ,ABJ,h,DCJ,VCJ,VBJ,TCJ,TBJ,roCJ,roBJ)
+KeyboardInterrupt
+2021-04-22 23:25:16,779 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:03:29.641181
+:00:20.527686
+2021-04-22 23:11:56,015 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:12:16,207 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:12:16,207 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:20.191889
+2021-04-22 23:16:25,760 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:16:44,762 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:16:44,763 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:19.003013
+2021-04-22 23:16:44,768 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:04,205 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:04,206 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:19.437277
+2021-04-22 23:17:04,208 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:23,360 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:23,362 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:19.154808
+2021-04-22 23:17:23,363 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:42,216 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:42,221 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:18.857250
+2021-04-22 23:17:42,227 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:18:00,982 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:18:00,983 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:18.756706
+4-22 23:17:40,565 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.761901
+2021-04-22 23:17:40,566 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:57,623 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:57,628 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:17.060782
+2021-04-22 23:17:57,632 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:18:13,809 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:18:13,811 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.178886
+2021-04-22 23:18:13,813 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:18:31,706 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:18:31,715 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:17.901743
+2021-04-22 23:18:31,720 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:18:52,787 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:18:52,797 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:21.078586
+2021-04-22 23:18:52,801 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:19:07,610 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:19:07,621 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:14.820989
+2021-04-22 23:19:07,631 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:19:19,753 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:19:19,766 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.135368
+2021-04-22 23:19:19,775 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:19:29,958 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:19:29,969 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:10.193523
+2021-04-22 23:19:29,974 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:19:38,044 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:19:38,046 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:08.072134
+2021-04-22 23:19:38,048 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:19:50,831 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:19:50,837 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.789345
+2021-04-22 23:19:50,839 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:20:00,823 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:20:00,825 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:09.985780
+2021-04-22 23:20:00,830 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:20:08,524 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:20:08,555 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.724494
+2021-04-22 23:20:08,578 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:20:21,510 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:20:21,515 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.937331
+2021-04-22 23:20:21,518 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:20:31,577 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:20:31,594 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:10.076276
+2021-04-22 23:20:31,600 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:20:39,342 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:20:39,343 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.742230
+2021-04-22 23:20:39,351 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:20:52,061 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:20:52,073 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.722425
+2021-04-22 23:20:52,103 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:21:02,050 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:02,059 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:09.955782
+2021-04-22 23:21:02,060 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:21:09,789 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:09,805 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.744863
+2021-04-22 23:21:09,843 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:21:22,284 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:22,298 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.455511
+2021-04-22 23:21:31,761 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+202021-04-22 23:21:31,891 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:31,898 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:09.597835
+2021-04-22 23:21:31,903 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:21:39,512 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:39,516 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.613350
+2021-04-22 23:21:39,522 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:21:52,336 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:52,356 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.837804
+2021-04-22 23:13:10,591 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:13:26,104 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:13:26,104 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:15.512988
+2021-04-22 23:16:25,697 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:16:44,642 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:16:44,656 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:18.959155
+2021-04-22 23:16:44,659 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:03,685 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:03,696 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:19.036119
+2021-04-22 23:17:03,699 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:22,763 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:22,764 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:19.065120
+2021-04-22 23:21:57,494 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:19,668 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:19,668 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:22.173555
+2021-04-22 23:22:19,669 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:37,611 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:37,611 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:17.942954
+2021-04-22 23:22:37,613 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:54,755 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:54,756 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:17.143956
+2021-04-22 23:22:54,757 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:23:11,490 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:23:11,491 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:16.734060
+2021-04-22 23:23:11,493 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:23:28,540 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:23:28,541 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:17.047858
+2021-04-22 23:13:14,282 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:13:14,283 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:06.432399
+2021-04-22 23:13:14,284 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:13:19,227 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:13:19,228 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:04.943851
+2021-04-22 23:13:19,233 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:13:25,584 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:13:25,585 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:06.351647
+2021-04-22 23:16:25,537 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:16:54,439 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:16:54,440 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:28.902557
+2021-04-22 23:16:54,443 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:22,483 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:22,485 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:28.041921
+2021-04-22 23:17:22,490 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:50,185 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:50,186 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:27.696276
+2021-04-22 23:17:50,193 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:18:17,554 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:18:17,560 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:27.367087
+2021-04-22 23:18:17,563 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:18:43,100 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:18:43,107 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:25.544924
+2021-04-22 23:18:43,125 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:19:10,308 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:19:10,315 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:27.189623
+2021-04-22 23:19:10,318 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:19:38,537 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:19:38,550 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:28.232135
+2021-04-22 23:19:38,552 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:20:05,739 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:20:05,750 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:27.197852
+2021-04-22 23:17:17,941 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:25,878 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:25,886 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.945862
+2021-04-22 23:17:25,888 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:33,832 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:33,833 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.944838
+2021-04-22 23:17:33,835 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:17:41,628 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:17:41,636 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.800928
+2021-04-22 23:21:28,695 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:21:41,012 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:41,037 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:12.341451
+2021-04-22 23:21:41,050 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:21:52,406 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:21:52,414 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:11.364158
+2021-04-22 23:21:52,425 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:03,370 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:03,371 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:10.946746
+2021-04-22 23:22:03,372 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:13,944 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:13,945 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:10.572711
+2021-04-22 23:22:13,946 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:22,061 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:22,062 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:08.116630
+2021-04-22 23:22:22,063 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:29,840 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:29,841 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.777377
+2021-04-22 23:22:29,842 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:36,776 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:36,776 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:06.934964
+2021-04-22 23:22:36,779 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:43,784 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:43,785 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:07.006085
+2021-04-22 23:22:43,786 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:49,698 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:49,698 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:05.912030
+2021-04-22 23:22:49,699 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:22:55,559 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:22:55,559 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:05.860323
+2021-04-22 23:22:55,560 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:23:01,516 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:23:01,517 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:05.957440
+2021-04-22 23:23:01,518 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- Start mission sizing function ----
+2021-04-22 23:23:07,118 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - ---- End mission sizing function ----
+2021-04-22 23:23:07,119 - c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing     - INFO - Mission sizing execution time: 0:00:05.600643
