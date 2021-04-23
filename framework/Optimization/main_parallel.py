@@ -229,7 +229,7 @@ if __name__ == '__main__':
 
 	# Process Pool of 4 workers
 	multiprocessing.set_start_method('spawn')
-	pool = multiprocessing.Pool(processes=4)
+	pool = multiprocessing.Pool(processes=8)
 	toolbox.register("map", pool.map)
 
 	# pop = toolbox.population(n=10)
