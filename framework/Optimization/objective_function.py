@@ -112,7 +112,6 @@ def objective_function_0(x, vehicle):
 
             results['nodes_number'] = len(data_airports)
 
-
             demand = {}
             for i in range(len(departures)):
                 demand[departures[i]] = {}
@@ -214,7 +213,7 @@ def objective_function_0(x, vehicle):
             # Network optimization that maximizes the network profit
         # try:
             profit, vehicle, kpi_df1, kpi_df2 = network_optimization(
-                    arrivals, departures, distances, demand, DOC_ik, pax_capacity, vehicle)
+                    arrivals, departures, distances, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
         # except:
         #     log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
 
@@ -492,7 +491,7 @@ def objective_function_1(x, vehicle):
             # Network optimization that maximizes the network profit
         # try:
             profit, vehicle, kpi_df1, kpi_df2 = network_optimization(
-                    arrivals, departures, distances, demand, DOC_ik, pax_capacity, vehicle)
+                    arrivals, departures, distances, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
         # except:
         #     log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
 
