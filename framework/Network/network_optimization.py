@@ -351,7 +351,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
 # df3 = (df3.T)
 # doc0 = df3.to_dict()
 
-# active_airports_db = pd.read_csv('Database/Demand/switch_matrix.csv')
+# active_airports_db = pd.read_csv('Database/Demand/switch_matrix_full.csv')
 # active_airports_db = active_airports_db.T
 # active_airports = active_airports_db .to_dict()
 

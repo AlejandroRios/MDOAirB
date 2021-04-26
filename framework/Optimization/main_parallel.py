@@ -40,7 +40,7 @@ from bokeh.io import push_notebook, show, output_notebook
 from bokeh.layouts import row
 from bokeh.plotting import figure
 
-from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+from framework.Database.Aircrafts.baseline_aircraft_parameters import *
 from framework.Optimization.objective_function import objective_function
 
 from jsonschema import validate
