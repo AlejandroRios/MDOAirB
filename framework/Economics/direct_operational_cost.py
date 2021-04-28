@@ -110,7 +110,7 @@ def direct_operational_cost(
                                                             ((1 + kj)/vbl)*(SAL2/AH2) + (TEF2/vbl))  # [USD/NM] EQ 5.21 PAG 109
 
     # 2) FUEL AND OIL COST -> Cpol (PAG 148)
-    pfuel = Fuel_price  # PRICE [USD/GALLON]
+    pfuel = Fuel_price*1.08  # PRICE [USD/GALLON]
     dfuel = operations['fuel_density']*kg_l_to_lb_gal  # DENSITY [LBS/GALLON]
     Wfbl = fuel_mass*kg2lb  # [LBS] OPERATIONAL MISSION FUEL
     Cpol = 1.05*(Wfbl/Block_Range)*(pfuel/dfuel)  # EQ 5.30 PAG 116 5# DO DOC
