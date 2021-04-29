@@ -200,7 +200,7 @@ if os.path.isfile(FIXED_PARAMETERS_PATH):
 	
 # Update vehicle with fixed parameters
 # UpdateVehicle(vehicle, fixed_parameters)
-individuas_number = 30
+individuas_number = 10
 init_Population = first_generation_create(individuas_number,lower_bounds,upper_bounds)
 
 # init_Population = [[72, 91, 30, 33, -4, 31, 45, 13, 28, 1382, 17, 88, 5, 1885, 41000, 78, 1, 1, 1, 1], [73, 94, 42, 16, -4, 34, 63, 14, 28, 1384, 18, 111, 5, 2425, 41000, 78, 1, 1, 1, 1], [98, 78, 31, 16, -4, 40, 61, 20, 28, 1418, 17, 98, 4, 2005, 41000, 78, 1, 1, 1, 1], [90, 90, 49, 33, -2, 34, 48, 16, 29, 1394, 16, 105, 4, 1285, 41000, 78, 1, 1, 1, 1], [75, 92, 41, 23, -4, 30, 53, 18, 29, 1460, 17, 51, 5, 1315, 41000, 78, 1, 1, 1, 1], 
