@@ -71,7 +71,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     total_cost = results['total_cost']
     total_revenue = results['total_revenue']
     total_profit = results['profit']
-    margin_percent = 100*(total_profit/total_cost)
+    margin_percent = 100*(total_profit/total_revenue)
     average_DOC = kpi_df2['DOC_nd']
     average_DOC = average_DOC[average_DOC > 0].mean()
     average_distance = kpi_df2['active_arcs']*kpi_df2['distances']
