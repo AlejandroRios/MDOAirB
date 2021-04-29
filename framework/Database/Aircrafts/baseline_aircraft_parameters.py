@@ -497,6 +497,7 @@ def initialize_aircraft_parameters():
     results = {}
     results['profit'] = 0
     results['total_cost'] = 0
+    results['total_revenue'] = 0
     results['nodes_number'] = 10
     results['arcs_number'] = 0
     results['avg_degree_nodes'] = 0

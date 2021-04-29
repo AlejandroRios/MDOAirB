@@ -68,10 +68,10 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     total_distance = kpi_df2['total_distance'].sum()
     total_pax = results['covered_demand']
     CO2_efficiency = 3.15*total_fuel/(total_pax*total_distance*1.852)
-    total_cost = kpi_df2['total_cost'].sum()
-    total_revenue = kpi_df2['revenue'].sum()
+    total_cost = results['total_cost']
+    total_revenue = results['total_revenue']
     total_profit = results['profit']
-    margin_percent = 100*((total_profit/total_cost)-1)
+    margin_percent = 100*(total_profit/total_cost)
     average_DOC = kpi_df2['DOC_nd']
     average_DOC = average_DOC[average_DOC > 0].mean()
     average_distance = kpi_df2['active_arcs']*kpi_df2['distances']
@@ -87,10 +87,6 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     RASK = REV/(total_pax*total_distance)
     CASK = COST/(total_pax*total_distance)
     NP = RASK-CASK
-
-
-
-
 
     # write string one by one adding newline
     with open(r'Database/Results/Aircrafts/acft_' + str(profit) + '_' + str(start_time) +'.txt','w') as output:

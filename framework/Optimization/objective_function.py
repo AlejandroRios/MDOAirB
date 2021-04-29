@@ -550,7 +550,7 @@ def objective_function_1(vehicle,x=None):
             kpi_df2['total_pax'] = kpi_df2['aircraft_number']*kpi_df2['pax_num']
 
             # Total cost
-            kpi_df2['total_cost'] = 2*kpi_df2['aircraft_number']*kpi_df2['doc']
+            kpi_df2['total_cost'] = kpi_df2['aircraft_number']*kpi_df2['doc']
 
             results['network_density'] = results['arcs_number']/(results['nodes_number']*results['nodes_number']-results['nodes_number'])
 
@@ -624,7 +624,7 @@ def objective_function(vehicle,x=None):
 # global NN_induced, NN_wave, NN_cd0, NN_CL
 
 
-# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 
 # # # # x = [130, 8.204561481970153, 0.3229876327660606, 31, -4, 0.3896951781733875, 4.826332970409506, 1.0650795018081771, 27, 1485, 1.6, 101, 4, 2185, 41000, 0.78, 1, 1, 1, 1]
 # # # # # x = [73, 8.210260198894748, 0.34131954092766925, 28, -5, 0.32042307969643524, 5.000456116634125, 1.337333818504011, 27, 1442, 1.6, 106, 6, 1979, 41000, 0.78, 1, 1, 1, 1]
@@ -652,7 +652,8 @@ def objective_function(vehicle,x=None):
 # # # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03,41000, 78, 1, 1, 1, 1] # Prifit ok
 # # # x =  [127, 82, 46, 22, -2, 44, 48, 21, 27, 1358, 22,  92, 5, 2875, 41200, 82, 1, 1, 1, 1]
 # # # x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] #good one
-# x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
+x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
+# x =  [121, 80, 40, 18, -2, 40, 52, 13, 28, 1358, 15, 108, 4, 1875, 41000, 82, 1, 1, 1, 1] # Baseline2
 # # # # x = [int(x) for x in x]
 # # # # print(x)
 
@@ -661,13 +662,13 @@ def objective_function(vehicle,x=None):
 # # # vehicle = initialize_aircraft_parameters()
 
 # # # # x =[98,78,31,16,-4,40,61,20,28,1418,17,98,4,2005,41000,78,1,1,1,1]
-# vehicle = initialize_aircraft_parameters()
-# start_time = datetime.now()
+vehicle = initialize_aircraft_parameters()
+start_time = datetime.now()
 
-# result = objective_function(vehicle,x)
+result = objective_function(vehicle,x)
 
-# end_time = datetime.now()
-# print(result)
+end_time = datetime.now()
+print(result)
 # print('objective function time: {}'.format(end_
 # time - start_time))
 

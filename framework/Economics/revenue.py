@@ -37,8 +37,6 @@ import pandas as pd
 
 def revenue(demand, distance, pax_capacity, pax_number, average_ticket_price):
     RPM = pax_number*distance
-    
-
     return demand*average_ticket_price
 
 # =============================================================================
