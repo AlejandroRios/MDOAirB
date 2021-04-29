@@ -82,7 +82,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     
     number_aircraft2 = np.round(((kpi_df2['total_time'].sum()))/(operations['maximum_daily_utilization']*60))
     
-    REV = 1.1*total_pax*120
+    REV = 1.1*total_pax*operations['average_ticket_price']
     COST = 1.2*total_cost
     RASK = REV/(total_pax*total_distance)
     CASK = COST/(total_pax*total_distance)
@@ -394,10 +394,10 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
         
         output.write(
             'Number of frequencies: ' + str("{:.2f}".format(results['number_of_frequencies'])) + ' \n')
+        # output.write(
+        #     'Number of used aircraft: ' + str("{:.2f}".format(number_aircraft)) + ' \n')
         output.write(
-            'Number of used aircraft: ' + str("{:.2f}".format(number_aircraft)) + ' \n')
-        output.write(
-            'Number of used aircraft 2: ' + str("{:.2f}".format(number_aircraft2)) + ' \n')
+            'Number of used aircraft: ' + str("{:.2f}".format(number_aircraft2)) + ' \n')
         output.write(
             'Sectors per aircraft: ' + str("{:.2f}".format(results['number_of_frequencies']/number_aircraft2)) + ' \n')    
 

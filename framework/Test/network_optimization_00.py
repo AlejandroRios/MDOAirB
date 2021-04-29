@@ -338,21 +338,21 @@ arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
             'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
 
 # Load origin-destination distance matrix [nm]
-distances_db = pd.read_csv('Database/Distance/distance.csv')
+distances_db = pd.read_csv('framework/Database/Distance/distance.csv')
 distances_db = (distances_db.T)
 distances = distances_db.to_dict()  # Convert to dictionaty
 
 market_share = operations['market_share']
 # # Load dai
-demand_db= pd.read_csv('Database/Demand/demand.csv')
+demand_db= pd.read_csv('framework/Database/Demand/demand.csv')
 demand_db= round(market_share*(demand_db.T))
 demand = demand_db.to_dict()
 
-df3 = pd.read_csv('Database/DOC/DOC_test.csv')
+df3 = pd.read_csv('framework/Database/DOC/DOC_test.csv')
 df3 = (df3.T)
 doc0 = df3.to_dict()
 
-active_airports_db = pd.read_csv('Database/Demand/switch_matrix_full.csv')
+active_airports_db = pd.read_csv('framework/Database/Demand/switch_matrix_full.csv')
 active_airports_db = active_airports_db.T
 active_airports = active_airports_db .to_dict()
 
