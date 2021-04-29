@@ -394,10 +394,10 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
         
         output.write(
             'Number of frequencies: ' + str("{:.2f}".format(results['number_of_frequencies'])) + ' \n')
+        #output.write(
+        #    'Number of used aircraft: ' + str("{:.2f}".format(number_aircraft)) + ' \n')
         output.write(
-            'Number of used aircraft: ' + str("{:.2f}".format(number_aircraft)) + ' \n')
-        output.write(
-            'Number of used aircraft 2: ' + str("{:.2f}".format(number_aircraft2)) + ' \n')
+             'Number of used aircraft : ' + str("{:.2f}".format(number_aircraft2)) + ' \n')
         output.write(
             'Sectors per aircraft: ' + str("{:.2f}".format(results['number_of_frequencies']/number_aircraft2)) + ' \n')    
 
