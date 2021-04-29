@@ -139,6 +139,7 @@ def objective_function_0(vehicle,x=None):
             passenger_capacity = {}
             SAR = {}
 
+
             for i in range(len(departures)):
 
                 DOC_ik[departures[i]] = {}
