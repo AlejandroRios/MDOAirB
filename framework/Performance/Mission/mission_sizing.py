@@ -68,7 +68,7 @@ feet_to_nautical_miles = 0.000164579
 
 def mission_sizing(vehicle):
     start_time = datetime.now()
-    log.info('---- Start mission sizing function ----')
+    # log.info('---- Start mission sizing function ----')
 
     tolerance = 100
 
@@ -587,9 +587,9 @@ def mission_sizing(vehicle):
             vertical_tail['wetted_area'] - \
             (horizontal_tail_wetted_area_old + vertical_tail_wetted_area_old)
 
-    log.info('---- End mission sizing function ----')
-    end_time = datetime.now()
-    log.info('Mission sizing execution time: {}'.format(end_time - start_time))
+    # log.info('---- End mission sizing function ----')
+    # end_time = datetime.now()
+    # log.info('Mission sizing execution time: {}'.format(end_time - start_time))
 
     return vehicle, MTOW_calculated, total_mission_burned_fuel_complete, landing_weight
 

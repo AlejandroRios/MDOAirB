@@ -534,7 +534,7 @@ def airplane_sizing(vehicle,x=None):
     log.info('Aircraft status (pass = 0, no pass =1): {}'.format(status))
     log.info('---- End aircraft sizing module ----')
 
-    return status, vehicle
+    return status, flags, vehicle
 # =============================================================================
 # MAIN
 # =============================================================================

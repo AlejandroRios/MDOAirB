@@ -464,13 +464,40 @@ def write_newtork_results(profit,dataframe01,dataframe02):
 
     return
 
-def write_bad_results(error,x=None):
+def write_newtork_results(profit,dataframe01,dataframe02):
+
+    start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
+
+    dataframe01.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'01.csv')
+    dataframe02.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'02.csv')
+
+    return
+
+def write_unfeasible_results(flags,x=None):
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     with open(r'Database/Results/Aircrafts_unfeasible/acft_' + str(start_time) +'.txt','w') as output:
     # with open('Database/Results/Aircrafts/acft_' + str(profit) +'.txt','a') as output:
         output.write(
-            '======== Aircraft and network optimization results ========')
+            '======== Aircraft parameters ========')
+        output.write('\n\n')
+        # ===============================================================================
+        output.write('\n ----- Aircraft parameters ----- \n')
+        output.write(str(x) + "\n")
+
+        output.write('\n ----- Flags ----- \n')
+        output.write('\n landing, takeoff, climb second segment, missed approach, cruise, fuel, noise \n')
+        output.write(str(flags) + "\n")
+    return
+
+
+def write_bad_results(error,x=None):
+    start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
+
+    with open(r'Database/Results/Aircrafts_with_error/acft_' + str(start_time) +'.txt','w') as output:
+    # with open('Database/Results/Aircrafts/acft_' + str(profit) +'.txt','a') as output:
+        output.write(
+            '======== Aircraft parameters ========')
         output.write('\n\n')
         # ===============================================================================
         output.write('\n ----- Aircraft parameters ----- \n')
