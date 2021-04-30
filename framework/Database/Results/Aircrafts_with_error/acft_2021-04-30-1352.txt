@@ -1,8 +1,0 @@
-======== Aircraft parameters ========
-
-
- ----- Aircraft parameters ----- 
-[98, 78, 31, 16, -4, 40, 61, 20, 28, 1418, 17, 98, 4, 2005, 41000, 78, 1, 1, 1, 1]
-
- ----- Error message ----- 
-<class 'NameError'>
