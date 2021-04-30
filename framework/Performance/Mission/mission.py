@@ -66,7 +66,7 @@ feet_to_nautical_miles = 0.000164579
 
 def mission(mission_range, heading, vehicle):
     start_time = datetime.now()
-    log.info('---- Start DOC mission function ----')
+    # log.info('---- Start DOC mission function ----')
 
     performance = vehicle['performance']
 
@@ -436,9 +436,9 @@ def mission(mission_range, heading, vehicle):
     complete_mission_flight_time = total_mission_flight_time + airport_departure['avg_delay'] + airport_destination['avg_delay'] + operations['turn_around_time'] 
 
 
-    log.info('---- End DOC mission function ----')
-    end_time = datetime.now()
-    log.info('DOC mission execution time: {}'.format(end_time - start_time))
+    # log.info('---- End DOC mission function ----')
+    # end_time = datetime.now()
+    # log.info('DOC mission execution time: {}'.format(end_time - start_time))
 
     return float(fuel_mass), float(complete_mission_flight_time),float(DOC),float(mach),float(passenger_capacity), float(SAR)
 

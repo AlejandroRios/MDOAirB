@@ -22,10 +22,13 @@ TODO's:
 # =============================================================================
 # IMPORTS
 # =============================================================================
+import multiprocessing
+
+
 import json
 import jsonschema
 import linecache
-import multiprocessing
+
 import numpy as np
 import os
 import random
@@ -200,7 +203,7 @@ if os.path.isfile(FIXED_PARAMETERS_PATH):
 	
 # Update vehicle with fixed parameters
 # UpdateVehicle(vehicle, fixed_parameters)
-individuas_number = 10
+individuas_number = 50
 init_Population = first_generation_create(individuas_number,lower_bounds,upper_bounds)
 
 # init_Population = [[72, 91, 30, 33, -4, 31, 45, 13, 28, 1382, 17, 88, 5, 1885, 41000, 78, 1, 1, 1, 1], [73, 94, 42, 16, -4, 34, 63, 14, 28, 1384, 18, 111, 5, 2425, 41000, 78, 1, 1, 1, 1], [98, 78, 31, 16, -4, 40, 61, 20, 28, 1418, 17, 98, 4, 2005, 41000, 78, 1, 1, 1, 1], [90, 90, 49, 33, -2, 34, 48, 16, 29, 1394, 16, 105, 4, 1285, 41000, 78, 1, 1, 1, 1], [75, 92, 41, 23, -4, 30, 53, 18, 29, 1460, 17, 51, 5, 1315, 41000, 78, 1, 1, 1, 1], 
@@ -218,7 +221,7 @@ init_Population = first_generation_create(individuas_number,lower_bounds,upper_b
 # toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("evaluate", obj_function)
 toolbox.register('mate', tools.cxTwoPoint)
-toolbox.register("mutate", tools.mutUniformInt,low =lower_bounds,up=upper_bounds,indpb=0.05)
+toolbox.register("mutate", tools.mutUniformInt,low =lower_bounds,up=upper_bounds,indpb=0.2)
 toolbox.register("select", tools.selNSGA2)
 toolbox.register("population_guess", initPopulation, list, creator.Individual,init_Population)
 # =============================================================================
@@ -230,24 +233,27 @@ if __name__ == '__main__':
 	# toolbox.decorate("evaluate", tools.DeltaPenalty(feaseGeom, [1.0, ]))
 
 	# Process Pool of 4 workers
-	multiprocessing.set_start_method('spawn')
-	pool = multiprocessing.Pool(processes=6)
-	toolbox.register("map", pool.map)
+	# multiprocessing.set_start_method('spawn')
+	# pool = multiprocessing.Pool(processes=6)
+	# toolbox.register("map", pool.map)
+	with multiprocessing.get_context('spawn').Pool(processes=6) as pool:
+		# pool = multiprocessing.Pool(processes=6)
+		toolbox.register("map", pool.map)
 
 	# pop = toolbox.population(n=10)
-	pop = toolbox.population_guess()
-	hof = tools.HallOfFame(2)
-	stats = tools.Statistics(lambda ind: ind.fitness.values)
-	stats.register("avg", np.mean)
-	stats.register("std", np.std)
-	stats.register("min", np.min)
-	stats.register("max", np.max)
+		pop = toolbox.population_guess()
+		hof = tools.HallOfFame(2)
+		stats = tools.Statistics(lambda ind: ind.fitness.values)
+		stats.register("avg", np.mean)
+		stats.register("std", np.std)
+		stats.register("min", np.min)
+		stats.register("max", np.max)
 
-	logbooks = list()
+		logbooks = list()
 
-	pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0.3, mutpb=0.2, ngen=30, stats=stats, halloffame=hof)
+		pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0.3, mutpb=0.2, ngen=30, stats=stats, halloffame=hof)
 
-	pool.close()
+		pool.close()
 
 	# Save results to txt files
 	with open("Database/Results/Optimization/optim_statistics.txt", "w") as file:
