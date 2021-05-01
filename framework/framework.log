@@ -1,2 +1,3 @@
-2021-04-30 19:25:09,535 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start network optimization module ====
-2021-04-30 19:25:09,764 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
+2021-05-01 02:22:33,073 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+---
+2021-05-01 02:22:32,903 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1]
