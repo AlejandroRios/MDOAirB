@@ -359,7 +359,7 @@ def objective_function_1(vehicle,x=None):
 
             # Load origin-destination distance matrix [nm]
             distances_db = pd.read_csv('Database/Distance/distance.csv')
-            distances_db = distances_db.T
+            distances_db = distances_db
             distances = distances_db.to_dict()  # Convert to dictionaty
 
             # Load daily demand matrix and multiply by market share (10%)
@@ -659,11 +659,12 @@ def objective_function(vehicle,x=None):
 
 # # # # # # x = [76, 118, 46, 23, -3, 33, 55, 19, 30, 1357, 18, 86, 6, 2412, 42260, 79, 1, 1, 1, 1]
 # # # # # # x = [91, 108, 50, 29, -3, 34, 52, 12, 27, 1366, 19, 204, 4, 1812, 39260, 80, 1, 1, 1, 1]
+# x = [110, 82, 34, 25, -5, 38, 52, 11, 30, 1462, 19, 92, 4, 1375, 39600, 80, 1, 1, 1, 1]
 # # # # # vehicle = initialize_aircraft_parameters()
 
 # # x =[98,78,31,16,-4,40,61,20,28,1418,17,98,4,2005,41000,78,1,1,1,1]
 # vehicle = initialize_aircraft_parameters()
-# # start_time = datetime.now()
+# # # start_time = datetime.now()
 
 # result = objective_function(vehicle,x)
 
