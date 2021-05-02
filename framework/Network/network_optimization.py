@@ -153,6 +153,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
     prob.solve(GLPK(timeLimit=60*5, msg = 0))
+    # prob.solve(COIN_CMD(timeLimit=60*5, msg = 0))
     # prob.solve(GLPK(timeLimit=60*5))
     log.info('Network optimization status: {}'.format(LpStatus[prob.status]))
     try:
@@ -185,7 +186,6 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
                 for kk, vv in dd.items()
                 for k, v in flatten_dict(vv, separator, kk).items()
                 } if isinstance(dd, dict) else { prefix : dd }
-
 
     idx = 0
     fraction = np.zeros((len(arrivals),len(arrivals)))
@@ -435,15 +435,15 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
 
 # vehicle = initialize_aircraft_parameters()
 # operations = vehicle['operations']
-# departures = ['CD1', 'CD2', 'CD3', 'CD4',
-#                 'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
-# arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
-#             'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
-
 # # departures = ['CD1', 'CD2', 'CD3', 'CD4',
-# #                 'CD5']
+# #                 'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
 # # arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
-# #             'CD5']
+# #             'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
+
+# departures = ['CD1', 'CD2', 'CD3', 'CD4',
+#                 'CD5']
+# arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
+#             'CD5']
 
 # # Load origin-destination distance matrix [nm]
 # distances_db = pd.read_csv('Database/Distance/distance.csv')

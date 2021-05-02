@@ -233,7 +233,7 @@ def initialize_aircraft_parameters():
 
     fuselage = {}
     fuselage['aisles_number'] = 1
-    fuselage['seat_abreast_number'] = 2
+    fuselage['seat_abreast_number'] = 4
     fuselage['cabine_height'] = 2
     fuselage['aisle_width'] = 0.5
     fuselage['seat_pitch'] = 0.8128

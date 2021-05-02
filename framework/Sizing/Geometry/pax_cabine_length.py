@@ -61,9 +61,9 @@ def pax_cabine_length(vehicle):
     Naux1 = round(fuselage['seat_abreast_number']/2)
     Naux2 = fuselage['seat_abreast_number']/2 - Naux1
     if Naux2 > 0:
-        fuselage['seat_abreast_number'] = Naux1 + 1
+        NseatG = Naux1 + 1
     else:
-        fuselage['seat_abreast_number'] = Naux1
+        NseatG= Naux1
 
     x0T = x0 - DeltaSeats + 0.1
     #LenFus = x0T
@@ -74,7 +74,7 @@ def pax_cabine_length(vehicle):
     x.append(x[0] + ToilletProf)
     y.append(y[0])
     x.append(x[1])
-    y.append(y[1] + fuselage['seat_abreast_number']*cabine['seat_width'])
+    y.append(y[1] + NseatG*cabine['seat_width'])
     x.append(x[0])
     y.append(y[2])
 
