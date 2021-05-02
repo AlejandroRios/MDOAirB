@@ -27,6 +27,7 @@ TODO's:
 from collections import defaultdict
 import numpy as np
 from pulp import *
+# from coinor.pulp import *
 import pandas as pd
 import csv
 import sys 
@@ -97,7 +98,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     for i in departure_airport:
         for j in final_airport:
                 if i != j:
-                    print(xijk[(i, j)] == demand[i][j])
+                    # print(xijk[(i, j)] == demand[i][j])
                     prob += xijk[(i, j)] == demand[i][j]
 
 
@@ -113,8 +114,8 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     # Solve linear programming problem (Network optimization)
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
-    # prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    prob.solve()
+    # prob.solve(GLPK(timeLimit=60*1, msg = 0))
+    prob.solve(COIN_CMD())
     log.info('Network optimization status: {}'.format(LpStatus[prob.status]))
     try:
         condition = LpStatus[prob.status]
@@ -166,15 +167,17 @@ from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize
 
 vehicle = initialize_aircraft_parameters()
 operations = vehicle['operations']
-# departures = ['CD1', 'CD2', 'CD3', 'CD4',
-#                 'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
-# arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
-#             'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
+# departures = ['CD0', 'CD1', 'CD2', 'CD3',
+#                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
+# arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+#             'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
+# arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+#             'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
 
-departures = ['CD1', 'CD2', 'CD3', 'CD4',
-                'CD5']
-arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
-            'CD5']
+departures = ['CD0', 'CD1', 'CD2', 'CD3',
+                'CD4']
+arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+            'CD4']
 
 # Load origin-destination distance matrix [nm]
 distances_db = pd.read_csv('Database/Distance/distance.csv')

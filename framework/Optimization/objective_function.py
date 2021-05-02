@@ -100,10 +100,10 @@ def objective_function_0(vehicle,x=None):
             # Airports:
             # ["FRA", "LHR", "CDG", "AMS",
             #          "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-            departures = ['CD1', 'CD2', 'CD3', 'CD4',
-                    'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
-            arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
-                    'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
+            departures = ['CD0', 'CD1', 'CD2', 'CD3',
+                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
+            arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
 
             results['nodes_number'] = len(data_airports)
 
@@ -377,13 +377,12 @@ def objective_function_1(vehicle,x=None):
             # Airports:
             # ["FRA", "LHR", "CDG", "AMS",
             #          "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-            departures = ['CD1', 'CD2', 'CD3', 'CD4',
-                    'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
-            arrivals = ['CD1', 'CD2', 'CD3', 'CD4',
-                    'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10']
+            departures = ['CD0', 'CD1', 'CD2', 'CD3',
+                    'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
+            arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+                    'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
 
             results['nodes_number'] = len(data_airports)
-
             
             demand = {}
             for i in range(len(departures)):

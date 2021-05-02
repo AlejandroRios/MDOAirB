@@ -190,12 +190,12 @@ def fuselage_cross_section(vehicle):
 
     if fuselage['aisles_number'] == 1:
         seats_number = max(fuselage['seat_abreast_number'], 2)  # minor number of rows == 3
-        seats_number = min(fuselage['seat_abreast_number'], 6)  # major number of rows == 9
+        seats_number = min(seats_number, 6)  # major number of rows == 9
     elif fuselage['aisles_number'] == 2:
         seats_number = max(fuselage['seat_abreast_number'], 6)  # minor number of rows == 3
-        seats_number = min(fuselage['seat_abreast_number'], 9)  # major number of rows == 9
+        seats_number = min(seats_number, 9)  # major number of rows == 9
 
-    fuselage['seat_abreast_number'] = seats_number
+    # fuselage['seat_abreast_number'] = seats_number
 
     if fuselage['aisles_number'] == 1:
         left_fuselage_seats = math.ceil(fuselage['seat_abreast_number']/2)
