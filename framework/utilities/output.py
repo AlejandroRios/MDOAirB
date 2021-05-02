@@ -255,7 +255,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
 
         output.write('\n Engine: \n')
         output.write('Maximum thrust: ' +
-                     str(engine['maximum_thrust']*aircraft['number_of_engines']) + ' [kg] \n')
+                     str(engine['maximum_thrust']*aircraft['number_of_engines']) + ' [N] \n')
         output.write('Bypass ratio: ' +
                      str("{:.2f}".format(engine['bypass'])) + '\n')
         output.write('Fan diameter: ' +

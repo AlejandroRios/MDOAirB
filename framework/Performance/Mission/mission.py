@@ -299,6 +299,8 @@ def mission(mission_range, heading, vehicle):
             if altitude > transition_altitude:
                 mach = operations['mach_cruise']
 
+            print(mach)
+
             # Breguet calculation type for cruise performance
             total_cruise_time, final_cruise_mass = cruise_performance_simple(
                 altitude,

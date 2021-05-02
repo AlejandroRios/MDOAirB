@@ -98,7 +98,7 @@ def maximum_range_mach(mass, cruise_altitude, delta_ISA, vehicle):
 
     if V_maximum > VMO:
         V_maximum = VMO
-        mach_maximum_cruise = V_maximum/a*kt_to_ms
+        mach_maximum_cruise = V_maximum/(a*kt_to_ms)
 
     return mach_maximum_cruise
 # =============================================================================
