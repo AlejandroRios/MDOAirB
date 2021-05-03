@@ -1,8 +1,227 @@
-2021-05-02 15:33:02,112 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module --2021-05-02 15:40:15,637 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
-2021-05-02 15:40:15,757 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----
-e ----
-    - INFO - ---- Start sizing loop for tail sizing ----
-2021-05-02 15:33:01,820 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-05-02 15:40:15,594 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
-2021-05-02 15:40:15,594 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
-2021-05-02 15:40:15,595 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 00:46:08,834 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-05-03 00:46:08,894 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
+2021-05-03 00:46:08,896 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
+2021-05-03 00:46:09,146 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+2021-05-03 01:49:20,969 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-05-03 01:49:21,015 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
+2021-05-03 01:49:21,016 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
+2021-05-03 01:49:21,235 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+2021-05-03 02:44:23,198 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-05-03 02:44:23,249 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
+2021-05-03 02:44:23,249 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
+2021-05-03 02:44:23,471 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+2021-05-03 03:31:39,408 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-05-03 03:31:39,437 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
+2021-05-03 03:31:39,438 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
+2021-05-03 03:31:39,574 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+2021-05-03 05:45:20,891 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-05-03 05:45:20,936 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
+2021-05-03 05:45:20,937 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
+2021-05-03 05:45:21,096 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+2021-05-03 07:27:38,473 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-05-03 07:27:38,512 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
+2021-05-03 07:27:38,513 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
+2021-05-03 07:27:38,720 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+2021-05-03 07:44:21,836 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
+2021-05-03 07:44:21,859 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
+2021-05-03 07:44:21,860 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
+2021-05-03 07:44:21,972 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
+etwork_optimization     - INFO - ==== Start network optimization module ====
+2021-05-03 07:44:21,728 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
+2021-05-03 07:44:21,787 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - Network optimization status: Optimal
+2021-05-03 07:44:21,816 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - ==== End network optimization module ====
+
+2021-05-03 07:43:38,788 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - ==== End network optimization module ====
+amework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-05-03 07:01:43,043 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - 2021-05-03 07:03:40,339 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05-03 07:07:45,040 - c:\users\2021-05-03 07:07:45,426 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-05-03 07:07:52,235 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m22021-05-03 07:08:34,420 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05202021-05-03 07:46:25,797 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----202021-05-03 07:46:32,785 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 566.490542134325
+2021-2021-05-03 07:49:53,070 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05-03 07:53:56,609 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:04:03.538355
+2021-05-03 07:53:56,610 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+2021-05-03 07:48:00,071 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05-03 07:51:01,514 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:03:01.443051
+2021-05-03 07:51:01,514 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+2021-05-03 07:52:19,613 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05-03 07:55:08,829 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:02:49.216102
+2021-05-03 07:55:08,830 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+2021-05-03 07:58:06,987 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05-03 08:02:33,293 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:04:26.307081
+2021-05-03 08:02:33,293 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+FO - ---- End wetted area module ----
+8\d2021-05-03 07:52:30,170 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INF2021-05-03 07:53:14,839 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:04:41.117487
+2021-05-03 07:53:14,839 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+wetted ar2021-05-03 07:54:30,446 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05-03 07:58:51,158 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:04:20.712836
+2021-05-03 07:58:51,158 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+ 07:33:25,573 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-05-03 07:33:30,637 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 507.7504059665484
+2021-05-03 07:33:30,638 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+2021-05-03 07:46:25,812 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-05-03 07:46:32,842 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 756.7547506461264
+2021-05-03 07:46:32,842 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+2021-05-03 07:51:36,185 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-05-03 07:51:43,392 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 552.9877367993294
+2021-05-03 07:51:43,393 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+k\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+2021-05-03 07:53:54,596 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+2021-05-03 07:58:13,815 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:04:19.218680
+2021-05-03 07:58:13,816 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- End aircraft noise module ----
+c8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [90, 90, 49, 33, -2, 34, 46, 12, 28, 1456, 15, 74, 5, 1855, 41000, 78, 1, 1, 1, 1]
+2021-05-03 06:05:53,081 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 06:08:12,546 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 06:12:21,357 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
+2021-05-03 06:12:21,357 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
+2021-05-03 06:12:21,358 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:01:35,554 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:01:35,555 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [91, 84, 40, 24, -3, 32, 62, 16, 29, 1494, 16, 74, 6, 2335, 41000, 78, 1, 1, 1, 1]
+2021-05-03 07:01:43,142 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:03:40,239 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:07:45,041 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 1, 0]
+2021-05-03 07:07:45,042 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:07:45,042 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:07:45,065 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:07:45,066 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 95, 37, 16, -4, 36, 63, 14, 28, 1384, 24, 111, 5, 2425, 41000, 78, 1, 1, 1, 1]
+2021-05-03 07:07:52,346 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:08:34,305 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:10:32,366 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 1, 1, 1, 1, 1, 0]
+2021-05-03 07:10:32,367 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:10:32,367 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ---2021-05-03 07:46:25,512 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:46:25,514 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [86, 76, 28, 22, -3, 36, 51, 17, 30, 1376, 18, 63, 6, 1915, 41000, 78, 1, 1, 1, 1]
+20212021-05-03 07:46:32,913 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing --2021-05-03 07:49:52,975 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:53:56,610 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
+2021-05-03 07:53:56,611 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
+2021-05-03 07:53:56,611 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+--
+airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:28:05,064 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:31:46,076 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 1, 0]
+2021-05-03 07:31:46,077 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:31:46,077 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:46:25,512 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:46:25,514 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [96, 105, 43, 30, -4, 31, 48, 16, 28, 1466, 16, 168, 4, 1285, 42774, 78, 1, 1, 1, 1]
+2021-05-03 07:46:32,612 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:47:59,971 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:51:01,514 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 1, 0, 0, 0, 1, 0]
+2021-05-03 07:51:01,515 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:51:01,515 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:51:01,530 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:51:01,531 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [89, 80, 28, 21, -3, 36, 64, 10, 29, 1486, 20, 124, 5, 2155, 40866, 78, 1, 1, 1, 1]
+2021-05-03 07:51:09,193 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:52:19,523 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:55:08,830 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 1, 1, 1, 1, 1, 0]
+2021-05-03 07:55:08,830 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:55:08,831 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:55:08,862 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:55:08,862 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [104, 84, 35, 29, -2, 28, 64, 15, 27, 1474, 14, 56, 5, 1825, 41000, 78, 1, 1, 1, 1]
+2021-05-03 07:55:16,199 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:58:06,896 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 08:02:33,294 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
+2021-05-03 08:02:33,294 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
+2021-05-03 08:02:33,295 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+22021-05-03 07:53:14,840 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
+2021-05-03 07:53:14,841 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
+2021-05-03 07:53:14,842 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+1-05-03 07:52:29,800 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:52:29,801 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [95, 89, 32, 20, -5, 34, 56, 16, 29, 1378, 17, 58, 4, 1135, 41000, 78, 1, 1, 1, 1]
+2021-05-03 07:52:37,612 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:54:30,332 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:58:51,159 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
+2021-05-03 07:58:51,159 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
+2021-05-03 07:58:51,160 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:27:35,882 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:27:35,883 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [99, 98, 35, 34, -3, 39, 58, 13, 30, 1490, 17, 115, 5, 1675, 41000, 78, 1, 1, 1, 1]
+2021-05-03 07:27:43,519 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:29:59,009 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:33:25,301 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 1, 0, 0]
+2021-05-03 07:33:25,301 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:33:25,301 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:33:25,315 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:33:25,316 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [81, 88, 48, 28, -5, 35, 57, 17, 29, 1355, 15, 66, 6, 2215, 41000, 78, 1, 1, 1, 1]
+2021-05-03 07:33:30,721 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:34:39,281 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:37:24,384 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 1, 0]
+2021-05-03 07:37:24,384 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:37:24,385 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:46:25,513 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:46:25,513 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [110, 87, 48, 27, -2, 26, 46, 18, 29, 1496, 24, 163, 6, 1255, 39650, 80, 1, 1, 1, 1]
+2021-05-03 07:46:32,961 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:48:03,050 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:51:35,880 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [1, 0, 0, 0, 0, 0, 0]
+2021-05-03 07:51:35,880 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
+2021-05-03 07:51:35,882 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+2021-05-03 07:51:35,898 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-05-03 07:51:35,899 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [116, 75, 34, 16, -5, 29, 48, 16, 28, 1478, 19, 70, 5, 1945, 41000, 78, 1, 1, 1, 1]
+2021-05-03 07:51:43,480 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-05-03 07:53:54,497 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-05-03 07:58:13,816 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
+2021-05-03 07:58:13,817 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
+2021-05-03 07:58:13,817 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
+19, 'CD8': 3361, 'CD9': 3106}, 'CD7': {'CD0': 4308, 'CD1': 2394, 'CD2': 3367, 'CD3': 3257, 'CD4': 5468, 'CD5': 5575, 'CD6': 6856, 'CD7': 0, 'CD8': 6266, 'CD9': 4788}, 'CD8': {'CD0': 2873, 'CD1': 4944, 'CD2': 4174, 'CD3': 3925, 'CD4': 6653, 'CD5': 5224, 'CD6': 3363, 'CD7': 6316, 'CD82021-05-03 07:28:28,270 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:28:28,275 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:07:40.152904
+2021-05-03 07:28:28,277 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:28:28,278 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:33:16,793 - c:\users\aarc8\documents\git2021-05-03 07:44:21,713 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- End DOC matrix calculation ----
+2021-05-03 07:44:21,717 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft DOC matrix: {'CD0': {'CD0': 0, 'CD1': 3709, 'CD2': 3054, 'CD3': 2747, 'CD4': 6461, 'CD5': 5274, 'CD6': 4746, 'CD7': 5261, 'CD8': 3569, 'CD9': 2465}, 'CD1': {2021-05-03 07:46:25,511 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:52:29,795 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:52:29,798 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:06:04.285676
+2021-05-03 07:52:29,798 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:52:29,799 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:58:51,168 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
+2021-05-03 07:58:51,202 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----
+ers\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:55:08,858 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:04:07.327615
+2021-05-03 07:55:08,860 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:55:08,861 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 08:02:33,308 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
+2021-05-03 08:02:33,348 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----
+\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:46:25,502 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:02:03.515596
+2021-05-03 07:46:25,503 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:46:25,512 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:53:14,854 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
+2021-05-03 07:53:14,883 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----
+rt Network Optimization ----
+2021-05-03 07:43:38,789 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit [$USD]: 1189564
+2021-05-03 07:43:39,024 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:49:04.299163
+2021-05-03 07:43:39,024 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:46:25,512 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:53:56,624 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
+2021-05-03 07:53:56,655 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----
+ive_function     - INFO - Aircraft passed sizing and checks status: 0
+2021-05-03 07:53:34,763 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----
+on.py", line 59, in network_optimization
+    DOC[(i, k)] = np.round(doc0[i][k])
+KeyError: 'CD2'
+2021-05-03 07:12:32,612 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 220, in objective_function_0
+UnboundLocalError: local variable 'profit' referenced before assignment
+2021-05-03 07:12:32,614 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-05-03 07:12:32,614 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-05-03 07:12:32,620 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:07:00.541368
+2021-05-03 07:12:32,621 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:12:32,622 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:21:59,857 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:21:59,862 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:09:27.238752
+2021-05-03 07:21:59,864 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:21:59,865 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:27:35,872 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:27:35,878 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:05:36.010720
+2021-05-03 07:27:35,879 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:27:35,881 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:33:25,310 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:33:25,313 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:05:49.431677
+2021-05-03 07:33:25,313 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:33:25,314 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:37:24,395 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:37:24,396 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:03:59.081253
+2021-05-03 07:37:24,397 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:46:25,511 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:51:35,894 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
+2021-05-03 07:51:35,896 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:05:10.383298
+2021-05-03 07:51:35,896 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-03 07:51:35,898 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-05-03 07:58:13,827 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
+2021-05-03 07:58:13,860 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----

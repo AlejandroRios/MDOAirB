@@ -100,10 +100,10 @@ def objective_function_0(vehicle,x=None):
             # Airports:
             # ["FRA", "LHR", "CDG", "AMS",
             #          "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-            departures = ['CD0', 'CD1', 'CD2', 'CD3',
-                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
-            arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
-                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
+            departures = ['CD0','CD1','CD2','CD3',
+                 'CD4','CD5','CD6','CD7','CD8','CD9']
+            arrivals = ['CD0','CD1','CD2','CD3',
+                 'CD4','CD5','CD6','CD7','CD8','CD9']
 
             results['nodes_number'] = len(data_airports)
 
@@ -216,6 +216,7 @@ def objective_function_0(vehicle,x=None):
                         arrivals, departures, distances, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
+                profit = 0
 
             log.info('Network profit [$USD]: {}'.format(profit))
             # =============================================================================
