@@ -368,7 +368,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
         output.write(
             'Total CO2 [kg]: ' + str("{:.2f}".format(total_CO2)) + ' \n')
         output.write(
-            'CO2 efficiency [kg/PAX]: ' + str("{:.8f}".format(CO2_efficiency)) + ' \n')
+            'CO2 efficiency [kg/pax.nm]: ' + str("{:.8f}".format(CO2_efficiency)) + ' \n')
         output.write(
             'Average CEMV [kg/nm]: ' + str("{:.8f}".format(average_CEMV)) + ' \n')
         output.write(
