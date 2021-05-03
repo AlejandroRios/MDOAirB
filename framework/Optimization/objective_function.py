@@ -339,7 +339,7 @@ def objective_function_1(vehicle,x=None):
         # =============================================================================
         # Airplane sizing and checks
         try:
-            status, flags, vehicle = airplane_sizing(x, vehicle)
+            status, flags, vehicle = airplane_sizing(vehicle,x)
             # status = 0
         except:
             log.error(">>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing", exc_info = True)
