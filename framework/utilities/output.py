@@ -384,7 +384,7 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
         output.write(
             'Margin percent [%]: ' + str("{:.2f}".format(margin_percent)) + ' \n')
         output.write(
-            'Average DOC [$]: ' + str("{:.2f}".format(average_DOC)) + ' \n')
+            'Average DOC [$/nm]: ' + str("{:.2f}".format(average_DOC)) + ' \n')
         output.write(
             'NRASK [$/pax.nm]x1E-4: ' + str("{:.2f}".format(RASK*1E4)) + ' \n')
         output.write(
