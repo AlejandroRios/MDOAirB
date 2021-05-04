@@ -176,7 +176,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
             # print(v.name, "=", v.varValue)
             list_of_pax.append(v.varValue)
 
-    list_of_pax = [i for i in list_of_pax if i != 0]
+    # list_of_pax = [i for i in list_of_pax if i != 0]
 
     # Post processing
     min_capacity = 0.5*planes['P1']['w']
