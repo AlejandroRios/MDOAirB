@@ -41,7 +41,7 @@ from framework.utilities.logger import get_logger
 # =============================================================================
 log = get_logger(__file__.split('.')[0])
 
-def network_optimization(arrivals, departures, distances, demand,active_airports, doc0, pax_capacity, vehicle):
+def network_optimization(arrivals, departures, distances, demand, active_airports, doc0, pax_capacity, vehicle):
     log.info('==== Start network optimization module ====')
     # Definition of cities to be considered as departure_airport, first stop, final airport
     departure_airport = departures
@@ -62,7 +62,6 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
 
     # DOC = doc0
 
-
     results = vehicle['results']
     # print(DOC)
     # Define minimization problem
@@ -72,113 +71,132 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     pax_number = int(operations['reference_load_factor']*pax_capacity)
     average_ticket_price = operations['average_ticket_price']
 
-    revenue_ik = {}
-    for i in range(len(departure_airport)):
-        revenue_ik[departure_airport[i]] = {}
-        for k in range(len(first_stop_airport)):
-            if (i != k) and (active_airports[departure_airport[i]][first_stop_airport[k]] == 1):
-                revenue_ik[departure_airport[i]][first_stop_airport[k]] = round(
-                    revenue(demand[departure_airport[i]][first_stop_airport[k]], distances[departure_airport[i]][first_stop_airport[k]], pax_capacity, pax_number, average_ticket_price))
-            else:
-                revenue_ik[departure_airport[i]][first_stop_airport[k]] = 0
-
-    revenue_ik2 ={}
+    distances_list = []
     for i in departures:
-        for k in arrivals:
-            if i != k:
-                revenue_ik2[(i, k)] = np.round(revenue_ik[i][k])
-            else:
-                revenue_ik2[(i, k)] = np.round(revenue_ik[i][k])    
+        for j in arrivals:
+            if i != j and i < j:
+                distances_list.append(distances[i][j])
+    for i in departures:
+        for j in arrivals:
+            if i != j and i > j:
+                distances_list.append(distances[i][j])
 
+    demand_list = []
+    for i in departures:
+        for j in arrivals:
+            if i != j and i < j:
+                demand_list.append(demand[i][j])
+    for i in departures:
+        for j in arrivals:
+            if i != j and i > j:
+                demand_list.append(demand[i][j])
+
+    switch_list = []
+    for i in departures:
+        for j in arrivals:
+            if i != j and i < j:
+                switch_list.append(active_airports[i][j])
+    for i in departures:
+        for j in arrivals:
+            if i != j and i > j:
+                switch_list.append(active_airports[i][j])
+
+    docs_list = []
+    for i in departures:
+        for j in arrivals:
+            if i != j and i < j:
+                docs_list.append(doc0[i][j])
+    for i in departures:
+        for j in arrivals:
+            if i != j and i > j:
+                docs_list.append(doc0[i][j])
+
+    # docs_list = [4260 ,2916 ,2376 ,9216 ,2256 ,2400 ,8064 ,2580 ,6888 ,9456,4260,2916,2256,2376,2400,2580,9216,8064,6888,9456]
+
+    froms_list = []
+    for i in range(len(departures)):
+        for j in range(len(arrivals)):
+            if i != j and i < j:
+                froms_list.append(i)
+
+    for i in range(len(arrivals)):
+        for j in range(len(departures)):
+            if i != j and i > j:
+                froms_list.append(i)
+    # print(froms_list)
+    tos_list = []
+    for i in range(len(departures)):
+        for j in range(len(arrivals)):
+            if i != j and i < j:
+                tos_list.append(j)
+
+    for i in range(len(arrivals)):
+        for j in range(len(departures)):
+            if i != j and i > j:
+                tos_list.append(j)
+
+    arcs = list(range(len(froms_list)))
     planes = {'P1': {'w': pax_number}}
-    # =============================================================================
-    # Decision variables definition
-    # =============================================================================
-    # Number of airplanes of a given type flying (i, k):
-    nika = LpVariable.dicts('nika', [(i, k) for i in departure_airport
-                                     for k in first_stop_airport],
-                            0, None, LpInteger)
 
-    # Number of passengers transported from route (i, j, k)
-    xijk = LpVariable.dicts('flow',
-                            [(i,j) for i in departure_airport
-                             for j in final_airport],
-                            0, None, LpInteger)
-    
+    avg_capacity = pax_number
+    avg_vel = 400
+    avg_vel = [avg_vel]*len(froms_list)
+    avg_grnd_time = 0.5
+    time_allowed = 13
+    allowed_planes = [round(13/((distances_list[i]/avg_vel[i])+avg_grnd_time)) for i in range(len(arcs))]
 
-    for i in departure_airport:
-        for j in final_airport:
-            if ((i != j) and (departure_airport.index(i) > final_airport.index(j))):
-                print(demand[i][j])
-    
+    nodes = list(range(len(departures)*2))
 
-                
+    demand_aux = []
+    supply_aux = []
+    for i in departures:
+        aux1 = [demand[i][j] for j in arrivals if i != j and i > j ]
+        demand_aux.append(sum(aux1))
+        aux2 = [demand[i][j] for j in arrivals if i != j and i < j ]
+        supply_aux.append(sum(aux2))
+
+    sup_dem_ij = [x - y for x, y in zip(demand_aux, supply_aux)]
+    sup_dem_ji = [x - y for x, y in zip(supply_aux, demand_aux)]
+
+    prob = LpProblem("NetOptMin", LpMinimize)
+    # prob = LpProblem("NetOptMax", LpMaximize)
+
+    flow = LpVariable.dicts("flow",(arcs),0,None,LpInteger)
+    aircrafts = LpVariable.dicts("aircrafts",(arcs),0,None,LpInteger)
+
+    prob += lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])
+    # prob += lpSum([flow[i]*average_ticket_price for i in range(len(arcs))]) - lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])
+    # prob += lpSum([demand_list[i]*distances_list[i]*((flow[i]*average_ticket_price)/(flow[i]*distances_list[i])) for i in range(len(arcs))])  - lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])
+
+    for i in arcs:
+        prob +=  aircrafts[i] <= allowed_planes[i]
+
+    for i in range(0,len(nodes)//2):
+
+            prob += lpSum(flow[j] for j in range(0,len(arcs)//2) if tos_list[j] == i) - lpSum(flow[j] for j in range(0,len(arcs)//2) if froms_list[j] == i) <= sup_dem_ij[i]
+
+    for i in range(0,len(nodes)//2):
+            prob += lpSum(flow[j] for j in range(len(arcs)//2,len(arcs)) if tos_list[j] == i) - lpSum(flow[j] for j in range(len(arcs)//2,len(arcs)) if froms_list[j] == i) <= sup_dem_ji[i]
+            
+    for i in arcs:
+        prob += flow[i] <= aircrafts[i]*avg_capacity
 
 
-    # Route capacity:
-    '''
-    Route capacity (i, k) defined as the sum of the number of aircraft type P flying the route (i,k) by the pax capacity of the aicraft P
-    '''
-    # G = {}
-    # for i in departure_airport:
-    #     for k in first_stop_airport:
-    #         G[(i, k)] = nika[(i, k)]*planes['P1']['w']
 
-    # =============================================================================
-    # Objective function
-    # =============================================================================
-
-    # prob += lpSum(revenue_ik) - lpSum(nika[(i, k)]*DOC[(i, k)]
-    #                                      for i in departure_airport for k in first_stop_airport if i != k)
-
-
-    # prob += lpSum(revenue_ik2[(i, k)] - nika[(i, k)]*DOC[(i, k)]
-    #                                      for i in departure_airport for k in first_stop_airport if i != k)
-
-    # prob += lpSum((planes['P1']['w']*average_ticket_price) - (nika[(i, k)]*DOC[(i, k)])
-    #                                      for i in departure_airport for k in first_stop_airport if i != k)
-
-    prob += lpSum(nika[(i, k)]*DOC[(i, k)] for i in departure_airport for k in first_stop_airport if i != k)
-    # =============================================================================
-    # Constraints
-    # =============================================================================
-    # Demand constraint
-    # for i in departure_airport:
-    #     for j in final_airport:
-    #             if i != j:
-    #                 prob += xijk[(i, j)] == demand[i][j]
-
-    # Capacity constraint I
-    # for i in departure_airport:
-    #     prob += (lpSum(xijk[(i,j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))) 
-    #             <=lpSum( nika[(i, j)]*planes['P1']['w'] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))))
-
-    for i in departure_airport:
-        prob += (lpSum(demand[i][j] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))) -
-        lpSum(demand[i][j] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j))))
-                == lpSum( xijk[(i, j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))))
-
-    print(prob.modifiedConstraints)
-    # Capacity constraint II
-    # for i in departure_airport:
-    #     prob += (lpSum(xijk[(i,j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))) 
-    #             <=lpSum( nika[(i, j)]*planes['P1']['w'] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))))
-
-    for i in departure_airport:
-        prob += (lpSum(xijk[(i,j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))) 
-                <=lpSum( nika[(i, j)]*planes['P1']['w'] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))))
-
-    # for i in departure_airport:
-    #     for j in final_airport:
-    #             if i != j:
-    #                 prob += xijk[(i,j)] <=nika[(i, j)]*planes['P1']['w']
     # =============================================================================
     # Solve linear programming problem (Network optimization)
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
-    # prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    prob.solve(COIN_CMD(timeLimit=60*5))
-    # prob.solve(GLPK(timeLimit=60*5))
+    # prob.solve(GLPK(timeLimit=60*3, msg = 0))
+    prob.solve(COIN_CMD(timeLimit=60*2))
+
+    log.info('==== Start PuLP optimization ====')
+    print('Problem solution:',value(prob.objective))
+
+    for v in prob.variables():
+        print(v.name, "=", v.varValue)
+    print(allowed_planes)
+
     log.info('Network optimization status: {}'.format(LpStatus[prob.status]))
     try:
         condition = LpStatus[prob.status]
@@ -187,23 +205,23 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     except (ValueError, IndexError):
         exit('Could not complete network optimization')
 
-    print(value(prob.objective))
+    # print(value(prob.objective))
 
     list_airplanes = []
     list_of_pax = []
     for v in prob.variables():
         variable_name = v.name
-        if variable_name.find('nika') != -1:
+        if variable_name.find('aircrafts') != -1:
             list_airplanes.append(v.varValue)
             # print(v.name, "=", v.varValue)
-        if variable_name.find('pax_num') != -1:
+        if variable_name.find('flow') != -1:
             # print(v.name, "=", v.varValue)
             list_of_pax.append(v.varValue)
 
-    list_of_pax = [i for i in list_of_pax if i != 0]
+    # list_of_pax = [i for i in list_of_pax if i != 0]
 
     # Post processing
-    min_capacity = 0.5*planes['P1']['w']
+    min_capacity = 0.5
 
     def flatten_dict(dd, separator ='_', prefix =''):
         return { prefix + separator + k if prefix else k : v
@@ -226,12 +244,12 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     fraction_1 = np.floor(fraction)
     fraction_2 = fraction-fraction_1
 
-    revenue_1 = (fraction_1*planes['P1']['w'])*average_ticket_price
+    revenue_1 = (fraction_1*pax_number)*average_ticket_price
     revenue_2 = np.zeros((len(arrivals),len(arrivals)))
     for i in range(len(arrivals)):
         for j in range(len(departures)):
             if fraction_2[i][j] > min_capacity:
-                revenue_2[i][j] = fraction_2[i][j]*planes['P1']['w']*average_ticket_price
+                revenue_2[i][j] = fraction_2[i][j]*pax_number*average_ticket_price
             else:
                 revenue_2[i][j] = 0
 
@@ -309,6 +327,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     results['total_cost'] = np.round(DOC_tot)
 
     print('margin',profit/revenue_tot)
+    print('profit',profit)
 
 
 
@@ -330,24 +349,33 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     kpi_df1.to_csv("Test/optimization_solution01.csv")
 
     ############################################################################################
-    kpi_df2 = pd.DataFrame.from_dict(nika, orient="index", 
+    def restructure_data(aux_mat,n):
+        aux_mat = np.reshape(aux_mat, (n,n-1))
+        new_mat = np.zeros((n,n))
+        for i in range(n):
+            for j in range(n):
+                if i == j:
+                    new_mat[i][j] = 0
+                elif j<=i:
+                    new_mat[i][j] = aux_mat[i][j]
+                else:
+                    new_mat[i][j] = aux_mat[i][j-1]
+        return new_mat
+
+    n = len(arrivals)
+
+    # aircrafts_aux = np.reshape(aircrafts, (n,n-1))
+
+    kpi_df2 = pd.DataFrame.from_dict(aircrafts, orient="index", 
                                     columns = ["variable_object"])
-    kpi_df2.index =  pd.MultiIndex.from_tuples(kpi_df2.index, 
-                                names=["origin", "destination"])
+    # kpi_df2.index =  pd.MultiIndex.from_tuples(kpi_df2.index, 
+    #                             names=["origin", "destination"])
     kpi_df2.reset_index(inplace=True)
 
     kpi_df2["aircraft_number"] =  kpi_df2["variable_object"].apply(lambda item: item.varValue)
 
     kpi_df2.drop(columns=["variable_object"], inplace=True)
 
-
-    
-    # print(distances)
-
-    # distances_flatt = flatten_dict(distances)
-    # doc_flatt = flatten_dict(DOC)
-    # demand_flatt = flatten_dict(demand)
-    # revenue_flatt = flatten_dict(revenue_ik)
 
     distances_flatt = flatten_dict(distances)
     # doc_flatt = flatten_dict(DOC)
@@ -364,22 +392,20 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     demand_df =  pd.DataFrame.from_dict(demand_flatt,orient="index",columns=['demand'])
     # revenue_df =  pd.DataFrame.from_dict(revenue_flatt,orient="index",columns=['revenue'])
 
-    kpi_df2['distances'] = distance_df['distances'].values
-    kpi_df2['doc'] = doc_df['doc'].values
-    kpi_df2['demand'] = demand_df['demand'].values
-    kpi_df2['revenue'] = revenue_df['revenue'].values
-
-    n = len(arrivals)
-
+    kpi_df2['distances'] = distances_list
+    kpi_df2['doc'] = docs_list
+    kpi_df2['demand'] = demand_list
+    # kpi_df2['revenue'] = revenue_df['revenue'].values
+    
     kpi_df2['active_arcs'] = np.where(kpi_df2["aircraft_number"] > 0, 1, 0)
     X = kpi_df2['active_arcs'].to_numpy()
-    X = np.reshape(X, (n,n))
+    X = restructure_data(X,n)
 
     Distances = kpi_df2['distances'].to_numpy()
-    Distances = np.reshape(Distances, (n,n))
+    Distances = restructure_data(Distances,n)
 
     Demand = kpi_df2['demand'].to_numpy()
-    Demand = np.reshape(Demand, (n,n))
+    Demand= restructure_data(Demand,n)
 
 
     N = 0
@@ -457,64 +483,43 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
 # demand_db = pd.read_csv('Database//Demand/demand.csv')
 # demand_db = round(market_share*(demand_db.T))
 # demand = demand_db.to_dict()
-from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 
-vehicle = initialize_aircraft_parameters()
-operations = vehicle['operations']
+# vehicle = initialize_aircraft_parameters()
+# operations = vehicle['operations']
 # departures = ['CD0', 'CD1', 'CD2', 'CD3',
 #                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
 # arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
 #                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
 
-departures = ['CD0', 'CD1', 'CD2', 'CD3',
-                'CD4']
-arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
-            'CD4']
-
-# Load origin-destination distance matrix [nm]
-distances_db = pd.read_csv('Database/Distance/distance.csv')
-distances_db = (distances_db)
-distances = distances_db.to_dict()  # Convert to dictionaty
-
-market_share = operations['market_share']
-# # Load dai
-demand_db= pd.read_csv('Database/Demand/demand.csv')
-demand_db= round(market_share*(demand_db.T))
-demand = demand_db.to_dict()
-
-df3 = pd.read_csv('Database/DOC/DOC_test2.csv')
-df3 = (df3.T)
-doc0 = df3.to_dict()
-
-active_airports_db = pd.read_csv('Database/Demand/switch_matrix_full.csv')
-active_airports_db = active_airports_db
-active_airports = active_airports_db .to_dict()
-
-DOC = {}
-for i in departures:
-    for k in arrivals:
-        if i != k:
-            DOC[(i, k)] = np.round(doc0[i][k])
-        else:
-            DOC[(i, k)] = np.round(doc0[i][k])
+# # departures = ['CD0', 'CD1', 'CD2', 'CD3',
+# #                 'CD4']
+# # arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+# #             'CD4']
 
 
-Demand = {}
+# # Load origin-destination distance matrix [nm]
+# distances_db = pd.read_csv('Database/Distance/distance.csv')
+# distances_db = (distances_db)
+# distances = distances_db.to_dict()  # Convert to dictionaty
 
-for i in departures:
-    for k in arrivals:
-        if i != k:
-            Demand[(i, k)] = np.round(demand[i][k])
-        else:
-            Demand[(i, k)] = 100000000
+# market_share = operations['market_share']
+# # # Load dai
+# demand_db= pd.read_csv('Database/Demand/demand.csv')
+# demand_db= round(market_share*(demand_db.T))
+# demand = demand_db.to_dict()
 
-# DOC = np.load('Database/DOC/DOC.npy',allow_pickle=True)
-# DOC = DOC.tolist() 
-# print(DOC)
-pax_capacity = 130
+# df3 = pd.read_csv('Database/DOC/DOC_test4.csv')
+# df3 = (df3.T)
+# doc0 = df3.to_dict()
 
-network_optimization(arrivals, departures, distances, demand,active_airports, doc0, pax_capacity, vehicle)
-
-# print(Demand)
+# active_airports_db = pd.read_csv('Database/Demand/switch_matrix_full.csv')
+# active_airports_db = active_airports_db
+# active_airports = active_airports_db .to_dict()
 
 
+# pax_capacity = 130
+
+
+
+# network_optimization(arrivals, departures, distances, demand, active_airports, doc0, pax_capacity, vehicle)
