@@ -91,6 +91,8 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
             if i != j and i > j:
                 demand_list.append(demand[i][j])
 
+    demand_sum = sum(demand_list)
+
     switch_list = []
     for i in departures:
         for j in arrivals:
@@ -170,9 +172,9 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
 
     # for i in arcs:
     #     prob +=  aircrafts[i] <= allowed_planes[i]
+    # prob += lpSum([flow[i] for i in range(len(arcs))]) >= demand_sum
 
     for i in range(0,len(nodes)//2):
-
             prob += lpSum(flow[j] for j in range(0,len(arcs)//2) if tos_list[j] == i) - lpSum(flow[j] for j in range(0,len(arcs)//2) if froms_list[j] == i) <= sup_dem_ij[i]
 
     for i in range(0,len(nodes)//2):
@@ -187,8 +189,8 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     # Solve linear programming problem (Network optimization)
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
-    # prob.solve(GLPK(timeLimit=60*3, msg = 0))
-    prob.solve(COIN_CMD(timeLimit=60*2))
+    prob.solve(GLPK(timeLimit=60*5, msg = 0))
+    # prob.solve(COIN_CMD(timeLimit=60*2))
 
     log.info('==== Start PuLP optimization ====')
     # print('Problem solution:',value(prob.objective))
