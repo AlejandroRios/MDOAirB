@@ -189,8 +189,8 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     # Solve linear programming problem (Network optimization)
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
-    # prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    prob.solve(COIN_CMD(timeLimit=60*2))
+    prob.solve(GLPK(timeLimit=60*5, msg = 0))
+    # prob.solve(COIN_CMD(timeLimit=60*2))
 
     log.info('==== Start PuLP optimization ====')
     print('Problem solution:',value(prob.objective))
@@ -259,7 +259,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
                     fraction[i][j] = list_of_pax[idx]
                     idx = idx+1
 
-    print(fraction)
+    print('Flow matrix:',fraction)
 
     
     
@@ -338,7 +338,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
                 fracction_aux = 0
             list_of_airplanes_processed[i][j]= fraction_1[i][j]+fracction_aux
 
-    print(list_of_airplanes_processed)
+    print('Aircraft matrix:'list_of_airplanes_processed)
 
 
     # list_of_airplanes_processed_mat = np.zeros((len(departures),len(departures)))
@@ -870,8 +870,6 @@ def network_optimization_fix(arrivals, departures, distances, demand, active_air
     # kpi_df2.idx =  pd.MultiIndex.from_tuples(kpi_df2.idx, 
     #                             names=["origin", "destination"])
     # kpi_df2.reset_index(inplace=True)
-
-    print(kpi_df2)
 
     # kpi_df2["aircraft_number"] =  kpi_df2["variable_object"].apply(lambda item: item.varValue)
 
