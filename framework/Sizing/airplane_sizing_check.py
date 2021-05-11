@@ -517,7 +517,6 @@ def airplane_sizing(vehicle,x=None):
     else:
         flag_noise = 0
 
-    
 
     flags = [flag_landing, flag_takeoff, flag_climb_second_segment, flag_missed_approach, flag_cruise, flag_fuel, flag_noise]
 

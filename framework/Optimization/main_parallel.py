@@ -80,7 +80,6 @@ def CheckDesignVariables(data):
 
 def ReadJsonFile(schema_path, file_path, design_error_class, custom_check_function = None):
 	try:
-
 		with open(schema_path) as f:
 			schema = json.load(f)
 
@@ -174,7 +173,6 @@ def initPopulation(pcls, ind_init, file):
     return pcls(ind_init(c) for c in file)
 
 def first_generation_create(individuas_number,lower_bounds,upper_bounds):
-
 	xlimits = np.asarray(list(zip(lower_bounds, upper_bounds)))
 	sampling = LHS(xlimits=xlimits)
 	Initial_population = sampling(individuas_number)
@@ -229,13 +227,6 @@ toolbox.register("population_guess", initPopulation, list, creator.Individual,in
 # =============================================================================
 if __name__ == '__main__':
 
-	# random.seed(62)
-	# toolbox.decorate("evaluate", tools.DeltaPenalty(feaseGeom, [1.0, ]))
-
-	# Process Pool of 4 workers
-	# multiprocessing.set_start_method('spawn')
-	# pool = multiprocessing.Pool(processes=6)
-	# toolbox.register("map", pool.map)
 	with multiprocessing.get_context('spawn').Pool(processes=6) as pool:
 		# pool = multiprocessing.Pool(processes=6)
 		toolbox.register("map", pool.map)
