@@ -190,7 +190,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
     prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    # prob.solve(COIN_CMD(timeLimit=60*2))
+    # prob.solve(COIN_CMD(timeLimit=60*2, msg = 0))
 
     log.info('==== Start PuLP optimization ====')
     print('Problem solution:',value(prob.objective))
@@ -338,7 +338,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
                 fracction_aux = 0
             list_of_airplanes_processed[i][j]= fraction_1[i][j]+fracction_aux
 
-    print('Aircraft matrix:'list_of_airplanes_processed)
+    print('Aircraft matrix:',list_of_airplanes_processed)
 
 
     # list_of_airplanes_processed_mat = np.zeros((len(departures),len(departures)))

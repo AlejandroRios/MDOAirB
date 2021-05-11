@@ -1,11 +1,23 @@
-2021-05-11 19:04:48,220 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
-2021-05-11 19:04:48,249 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
-2021-05-11 19:04:48,250 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
-2021-05-11 19:04:48,309 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing klm results ====
-n03     - INFO - Network optimization status: Optimal
-2021-05-11 19:04:48,186 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization03     - INFO - ==== End network optimization module ====
-{'CD0': 0, 'CD1': 5356, 'CD2': 4225, 'CD3': 3822, 'CD4': 9732, 'CD5': 7828, 'CD6': 7026, 'CD7': 7807, 'CD8': 5153, 'CD9': 3381}, 'CD1': {'CD0': 5358, 'CD1': 0, 'CD2': 3723, 'CD3': 3797, 'CD4': 8707, 'CD5': 8117, 'CD6': 9819, 'CD7': 4251, 'CD8': 8842, 'CD9': 6092}, 'CD2': {'CD0': 4217, 'CD1': 3699, 'CD2': 0, 'CD3': 3956, 'CD4': 7662, 'CD5': 6485, 'CD6': 7841, 'CD7': 6087, 'CD8': 7483, 'CD9': 4394}, 'CD3': {'CD0': 3793, 'CD1': 3783, 'CD2': 4018, 'CD3': 0, 'CD4': 9959, 'CD5': 8682, 'CD6': 8953, 'CD7': 5898, 'CD8': 7053, 'CD9': 5058}, 'CD4': {'CD0': 9633, 'CD1': 8618, 'CD2': 7586, 'CD3': 9852, 'CD4': 0, 'CD5': 4390, 'CD6': 9120, 'CD7': 9874, 'CD8': 11870, 'CD9': 8596}, 'CD5': {'CD0': 7810, 'CD1': 8153, 'CD2': 6468, 'CD3': 8636, 'CD4': 4425, 'CD5': 0, 'CD6': 6427, 'CD7': 10100, 'CD8': 9394, 'CD9': 6468}, 'CD6': {'CD0': 7065, 'CD1': 9881, 'CD2': 7880, 'CD3': 9003, 'CD4': 9219, 'CD5': 6451, 'CD6': 0, 'CD7': 12487, 'CD8': 6031, 'CD9': 5574}, 'CD7': {'CD0': 7781, 'CD1': 4247, 'CD2': 6068, 'CD3': 5879, 'CD4': 9849, 'CD5': 10042, 'CD6': 12375, 'CD7': 0, 'CD8': 11312, 'CD9': 8627}, 'CD8': {'CD0': 5162, 'CD1': 8884, 'CD2': 7518, 'CD3': 7071, 'CD4': 11999, 'CD5': 9444, 'CD6': 6039, 'CD7': 11392, 'CD8': 0, 'CD9': 5069}, 'CD9': {'CD0': 3323, 'CD1': 6086, 'CD2': 4361, 'CD3': 5042, 'CD4': 8649, 'CD5': 6460, 'CD6': 5534, 'CD7': 8649, 'CD8': 5042, 'CD9': 0}}
-2021-05-11 19:02:47,797 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ---- Start Network Optimization ----
-2021-05-11 19:04:48,187 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit [$USD]: 1265586
-2021-05-11 19:04:48,317 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:36:44.420551
-2021-05-11 19:04:48,318 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-11 19:26:02,815 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-05-11 19:26:05,079 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+<<<<<<<< airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc822021-05-11 19:26:04,097 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----22021-05-11 19:26:04,101 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 28, -4, 35, 56, 16, 29, 1388, 14, 82, 5, 2275, 41000, 78, 1, 1, 1, 1]
+
+y\wetted_area.py", line 102, in wetted_area
+    fuselage_wetted_area_forward = wetted_area_forward_fuselage(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area_fuselage.py", line 82, in wetted_area_forward_fuselage
+    area = area_triangle_3d(x, y, z)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\area_triangle_3d.py", line 50, in area_triangle_3d
+    T3 = (y2*z1 - y3*z1 - y1*z2 + y3*z2 + y1*z3 - y2*z3)**2
+KeyboardInterrupt
+2021-05-11 19:26:04,074 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 78, in objective_function_0
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-05-11 19:26:04,079 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-05-11 19:26:04,090 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-05-11 19:26:04,101 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:03.830091
+2021-05-11 19:26:04,103 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-05-11 19:26:04,095 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
