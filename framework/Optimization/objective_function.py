@@ -29,7 +29,7 @@ TODO's:
 # =============================================================================
 
 from framework.Performance.Mission.mission import mission
-from framework.Network.network_optimization03 import network_optimization,network_optimization_fix
+from framework.Network.network_optimization import network_optimization,network_optimization_fix
 from framework.Economics.revenue import revenue
 from framework.Sizing.airplane_sizing_check import airplane_sizing
 import pandas as pd
@@ -116,10 +116,6 @@ def objective_function_0(vehicle,x=None):
                     else:
                         demand[departures[i]][arrivals[k]] = 0
             
-
-            # departures = ['CD1', 'CD2', 'CD3', 'CD4']
-            # arrivals = ['CD1', 'CD2', 'CD3', 'CD4']
-
             # =============================================================================
             log.info('---- Start DOC matrix calculation ----')
             # The DOC is estimated for each city pair and stored in the DOC dictionary
@@ -163,7 +159,6 @@ def objective_function_0(vehicle,x=None):
                                                                                             == arrivals[i], 'AVD'].iloc[0]
                             airport_destination['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'AVA'].iloc[0]
-                            
                             # Delta ISA
                             airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[i], 'TREF'].iloc[0]
@@ -181,7 +176,7 @@ def objective_function_0(vehicle,x=None):
                             fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]] = mission(mission_range,heading,vehicle)
                             DOC_nd[departures[i]][arrivals[k]] = DOC
                             DOC_ik[departures[i]][arrivals[k]] = int(DOC*distances[departures[i]][arrivals[k]])                       
-                            # print(DOC_ik[(i, k)])
+
                         else:
                             DOC_nd[departures[i]][arrivals[k]] = 0
                             if (i == k):
@@ -273,32 +268,21 @@ def objective_function_0(vehicle,x=None):
                 # Number of active nodes
                 kpi_df2['active_arcs'] = np.where(kpi_df2["aircraft_number"] > 0, 1, 0)
                 results['arcs_number'] = kpi_df2['active_arcs'].sum()
-
                 # Number of aircraft
                 kpi_df2['aircraft_number'] = kpi_df2['aircraft_number'].fillna(0)
-                
                 # Average cruise mach
                 kpi_df2['mach_tot_aircraft'] = kpi_df2['aircraft_number']*kpi_df2['mach']
-
                 # Total fuel
                 kpi_df2['total_fuel'] = kpi_df2['aircraft_number']*kpi_df2['fuel']
-                
                 # total CEMV
                 kpi_df2['total_CEMV'] =kpi_df2['aircraft_number']*((1/kpi_df2['SAR'])*(1/(aircraft['wetted_area']**0.24)))
-                
-
                 # Total distance
                 kpi_df2['total_distance'] = kpi_df2['aircraft_number']*kpi_df2['distances']
-
                 # Total pax
                 kpi_df2['total_pax'] = kpi_df2['aircraft_number']*kpi_df2['pax_num']
-
                 # Total cost
-
                 kpi_df2['total_cost'] = kpi_df2['aircraft_number']*kpi_df2['doc']
-
                 results['network_density'] = results['arcs_number']/(results['nodes_number']*results['nodes_number']-results['nodes_number'])
-
                 kpi_df2['total_time'] = kpi_df2['aircraft_number']*kpi_df2['time']
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< writting dataframes", exc_info = True)
@@ -346,12 +330,7 @@ def objective_function_0(vehicle,x=None):
     log.info('Network profit excecution time: {}'.format(end_time - start_time))
     log.info('==== End network profit module ====')
 
-    # vehicle.clear()
-
     return profit
-
-
-
 
 def objective_function_1(vehicle,x=None):
 
