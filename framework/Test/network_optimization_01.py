@@ -100,19 +100,10 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
                             0, None, LpInteger)
 
     # Number of passengers transported from route (i, j, k)
-    xijk = LpVariable.dicts('flow',
+    xijk = LpVariable.dicts('pax_num',
                             [(i,j) for i in departure_airport
                              for j in final_airport],
                             0, None, LpInteger)
-    
-
-    for i in departure_airport:
-        for j in final_airport:
-            if ((i != j) and (departure_airport.index(i) > final_airport.index(j))):
-                print(demand[i][j])
-    
-
-                
 
 
     # Route capacity:
@@ -143,41 +134,31 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     # Constraints
     # =============================================================================
     # Demand constraint
-    # for i in departure_airport:
-    #     for j in final_airport:
-    #             if i != j:
-    #                 prob += xijk[(i, j)] == demand[i][j]
+    for i in departure_airport:
+        for j in final_airport:
+                if i != j:
+                    prob += xijk[(i, j)] == demand[i][j]
 
-    # Capacity constraint I
+    # # Capacity constraint I
     # for i in departure_airport:
     #     prob += (lpSum(xijk[(i,j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))) 
     #             <=lpSum( nika[(i, j)]*planes['P1']['w'] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))))
 
-    for i in departure_airport:
-        prob += (lpSum(demand[i][j] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))) -
-        lpSum(demand[i][j] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j))))
-                == lpSum( xijk[(i, j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) < final_airport.index(j)))))
-
-    print(prob.modifiedConstraints)
-    # Capacity constraint II
+    # # Capacity constraint II
     # for i in departure_airport:
     #     prob += (lpSum(xijk[(i,j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))) 
     #             <=lpSum( nika[(i, j)]*planes['P1']['w'] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))))
 
     for i in departure_airport:
-        prob += (lpSum(xijk[(i,j)] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))) 
-                <=lpSum( nika[(i, j)]*planes['P1']['w'] for j in departure_airport if ((i != j) and (departure_airport.index(i) > final_airport.index(j)))))
-
-    # for i in departure_airport:
-    #     for j in final_airport:
-    #             if i != j:
-    #                 prob += xijk[(i,j)] <=nika[(i, j)]*planes['P1']['w']
+        for j in final_airport:
+                if i != j:
+                    prob += xijk[(i,j)] <=nika[(i, j)]*planes['P1']['w']
     # =============================================================================
     # Solve linear programming problem (Network optimization)
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
-    # prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    prob.solve(COIN_CMD(timeLimit=60*5))
+    prob.solve(GLPK(timeLimit=60*5, msg = 0))
+    # prob.solve(COIN_CMD(timeLimit=60*5))
     # prob.solve(GLPK(timeLimit=60*5))
     log.info('Network optimization status: {}'.format(LpStatus[prob.status]))
     try:
@@ -187,7 +168,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     except (ValueError, IndexError):
         exit('Could not complete network optimization')
 
-    print(value(prob.objective))
+    # print(value(prob.objective))
 
     list_airplanes = []
     list_of_pax = []
@@ -200,7 +181,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
             # print(v.name, "=", v.varValue)
             list_of_pax.append(v.varValue)
 
-    list_of_pax = [i for i in list_of_pax if i != 0]
+    # list_of_pax = [i for i in list_of_pax if i != 0]
 
     # Post processing
     min_capacity = 0.5*planes['P1']['w']
@@ -308,7 +289,7 @@ def network_optimization(arrivals, departures, distances, demand,active_airports
     results['profit'] = np.round(profit)
     results['total_cost'] = np.round(DOC_tot)
 
-    print('margin',profit/revenue_tot)
+    # print('margin',profit/revenue_tot)
 
 
 
@@ -461,15 +442,15 @@ from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize
 
 vehicle = initialize_aircraft_parameters()
 operations = vehicle['operations']
-# departures = ['CD0', 'CD1', 'CD2', 'CD3',
-#                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
-# arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
-#                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
-
 departures = ['CD0', 'CD1', 'CD2', 'CD3',
-                'CD4']
+                'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
 arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
-            'CD4']
+                'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
+
+# departures = ['CD0', 'CD1', 'CD2', 'CD3',
+#                 'CD4']
+# arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+#             'CD4']
 
 # Load origin-destination distance matrix [nm]
 distances_db = pd.read_csv('Database/Distance/distance.csv')

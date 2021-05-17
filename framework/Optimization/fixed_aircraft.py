@@ -58,7 +58,6 @@ def UpdateVehicle(vehicle, fixed_parameters):
             vehicle[key].update(fixed_parameters[key])
     return vehicle
 
-
 vehicle = initialize_aircraft_parameters()
 vehicle = UpdateVehicle(vehicle, aircraft_input_data)
 

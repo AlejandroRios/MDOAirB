@@ -29,7 +29,7 @@ TODO's:
 # =============================================================================
 
 from framework.Performance.Mission.mission import mission
-from framework.Network.network_optimization import network_optimization
+from framework.Network.network_optimization import network_optimization,network_optimization_fix
 from framework.Economics.revenue import revenue
 from framework.Sizing.airplane_sizing_check import airplane_sizing
 import pandas as pd
@@ -116,10 +116,6 @@ def objective_function_0(vehicle,x=None):
                     else:
                         demand[departures[i]][arrivals[k]] = 0
             
-
-            # departures = ['CD1', 'CD2', 'CD3', 'CD4']
-            # arrivals = ['CD1', 'CD2', 'CD3', 'CD4']
-
             # =============================================================================
             log.info('---- Start DOC matrix calculation ----')
             # The DOC is estimated for each city pair and stored in the DOC dictionary
@@ -163,7 +159,6 @@ def objective_function_0(vehicle,x=None):
                                                                                             == arrivals[i], 'AVD'].iloc[0]
                             airport_destination['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'AVA'].iloc[0]
-                            
                             # Delta ISA
                             airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[i], 'TREF'].iloc[0]
@@ -181,7 +176,7 @@ def objective_function_0(vehicle,x=None):
                             fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]] = mission(mission_range,heading,vehicle)
                             DOC_nd[departures[i]][arrivals[k]] = DOC
                             DOC_ik[departures[i]][arrivals[k]] = int(DOC*distances[departures[i]][arrivals[k]])                       
-                            # print(DOC_ik[(i, k)])
+
                         else:
                             DOC_nd[departures[i]][arrivals[k]] = 0
                             if (i == k):
@@ -241,40 +236,53 @@ def objective_function_0(vehicle,x=None):
                 SAR_flatt = flatten_dict(SAR)
                 SAR_df =  pd.DataFrame.from_dict(SAR_flatt,orient="index",columns=['SAR'])
 
-                kpi_df2['mach'] = mach_df['mach'].values
-                kpi_df2['pax_num'] = passenger_capacity_df['pax_num'].values
-                kpi_df2['fuel'] = fuel_used_df['fuel'].values
-                kpi_df2['time'] = mission_time_df['time'].values
-                kpi_df2['DOC_nd'] = DOC_nd_df['DOC_nd'].values
-                kpi_df2['SAR'] = SAR_df['SAR'].values
-            
+                distances_flatt = flatten_dict(distances)
+                kpi_df3 =  pd.DataFrame.from_dict(distances_flatt,orient="index",columns=['distances01'])
+
+                mach_flatt = flatten_dict(mach)
+                mach_df =  pd.DataFrame.from_dict(mach_flatt,orient="index",columns=['mach'])
+                passenger_capacity_flatt = flatten_dict(passenger_capacity)
+                passenger_capacity_df =  pd.DataFrame.from_dict(passenger_capacity_flatt,orient="index",columns=['pax_num'])
+                fuel_used_flatt = flatten_dict(fuel_mass)
+                fuel_used_df =  pd.DataFrame.from_dict(fuel_used_flatt,orient="index",columns=['fuel'])
+                mission_time_flatt = flatten_dict(total_mission_flight_time)
+                mission_time_df =  pd.DataFrame.from_dict(mission_time_flatt,orient="index",columns=['time'])
+                DOC_nd_flatt = flatten_dict(DOC_nd)
+                DOC_nd_df =  pd.DataFrame.from_dict(DOC_nd_flatt,orient="index",columns=['DOC_nd'])
+                SAR_flatt = flatten_dict(SAR)
+                SAR_df =  pd.DataFrame.from_dict(SAR_flatt,orient="index",columns=['SAR'])
+
+
+                kpi_df3['mach'] = mach_df['mach'].values
+                kpi_df3['pax_num'] = passenger_capacity_df['pax_num'].values
+                kpi_df3['fuel'] = fuel_used_df['fuel'].values
+                kpi_df3['time'] = mission_time_df['time'].values
+                kpi_df3['DOC_nd'] = DOC_nd_df['DOC_nd'].values
+                kpi_df3['SAR'] = SAR_df['SAR'].values
+
+                kpi_df3= kpi_df3.drop(kpi_df3[kpi_df3.distances01 == 0].index)
+                kpi_df3 = kpi_df3.reset_index(drop=True)
+
+                kpi_df2 = pd.concat([kpi_df2,kpi_df3], axis = 1)
+ 
                 # Number of active nodes
                 kpi_df2['active_arcs'] = np.where(kpi_df2["aircraft_number"] > 0, 1, 0)
                 results['arcs_number'] = kpi_df2['active_arcs'].sum()
-
                 # Number of aircraft
                 kpi_df2['aircraft_number'] = kpi_df2['aircraft_number'].fillna(0)
-                
                 # Average cruise mach
                 kpi_df2['mach_tot_aircraft'] = kpi_df2['aircraft_number']*kpi_df2['mach']
-
                 # Total fuel
                 kpi_df2['total_fuel'] = kpi_df2['aircraft_number']*kpi_df2['fuel']
-                
                 # total CEMV
                 kpi_df2['total_CEMV'] =kpi_df2['aircraft_number']*((1/kpi_df2['SAR'])*(1/(aircraft['wetted_area']**0.24)))
-
                 # Total distance
                 kpi_df2['total_distance'] = kpi_df2['aircraft_number']*kpi_df2['distances']
-
                 # Total pax
                 kpi_df2['total_pax'] = kpi_df2['aircraft_number']*kpi_df2['pax_num']
-
                 # Total cost
                 kpi_df2['total_cost'] = kpi_df2['aircraft_number']*kpi_df2['doc']
-
                 results['network_density'] = results['arcs_number']/(results['nodes_number']*results['nodes_number']-results['nodes_number'])
-
                 kpi_df2['total_time'] = kpi_df2['aircraft_number']*kpi_df2['time']
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< writting dataframes", exc_info = True)
@@ -322,12 +330,7 @@ def objective_function_0(vehicle,x=None):
     log.info('Network profit excecution time: {}'.format(end_time - start_time))
     log.info('==== End network profit module ====')
 
-    # vehicle.clear()
-
     return profit
-
-
-
 
 def objective_function_1(vehicle,x=None):
 
@@ -464,7 +467,7 @@ def objective_function_1(vehicle,x=None):
                             if (i == k):
                                 DOC_ik[departures[i]][arrivals[k]] = 0
                             else:
-                                DOC_ik[departures[i]][arrivals[k]] = 1e10
+                                DOC_ik[departures[i]][arrivals[k]] = 0
 
                             fuel_mass[departures[i]][arrivals[k]]  = 0
                             total_mission_flight_time[departures[i]][arrivals[k]]  = 0
@@ -490,7 +493,7 @@ def objective_function_1(vehicle,x=None):
             log.info('---- Start Network Optimization ----')
             # Network optimization that maximizes the network profit
             try:
-                profit, vehicle, kpi_df1, kpi_df2 = network_optimization(
+                profit, vehicle, kpi_df1, kpi_df2 = network_optimization_fix(
                         arrivals, departures, distances, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
@@ -518,13 +521,35 @@ def objective_function_1(vehicle,x=None):
                 SAR_flatt = flatten_dict(SAR)
                 SAR_df =  pd.DataFrame.from_dict(SAR_flatt,orient="index",columns=['SAR'])
 
-                kpi_df2['mach'] = mach_df['mach'].values
-                kpi_df2['pax_num'] = passenger_capacity_df['pax_num'].values
-                kpi_df2['fuel'] = fuel_used_df['fuel'].values
-                kpi_df2['time'] = mission_time_df['time'].values
-                kpi_df2['DOC_nd'] = DOC_nd_df['DOC_nd'].values
-                kpi_df2['SAR'] = SAR_df['SAR'].values
-            
+                distances_flatt = flatten_dict(distances)
+                kpi_df3 =  pd.DataFrame.from_dict(distances_flatt,orient="index",columns=['distances01'])
+
+                mach_flatt = flatten_dict(mach)
+                mach_df =  pd.DataFrame.from_dict(mach_flatt,orient="index",columns=['mach'])
+                passenger_capacity_flatt = flatten_dict(passenger_capacity)
+                passenger_capacity_df =  pd.DataFrame.from_dict(passenger_capacity_flatt,orient="index",columns=['pax_num'])
+                fuel_used_flatt = flatten_dict(fuel_mass)
+                fuel_used_df =  pd.DataFrame.from_dict(fuel_used_flatt,orient="index",columns=['fuel'])
+                mission_time_flatt = flatten_dict(total_mission_flight_time)
+                mission_time_df =  pd.DataFrame.from_dict(mission_time_flatt,orient="index",columns=['time'])
+                DOC_nd_flatt = flatten_dict(DOC_nd)
+                DOC_nd_df =  pd.DataFrame.from_dict(DOC_nd_flatt,orient="index",columns=['DOC_nd'])
+                SAR_flatt = flatten_dict(SAR)
+                SAR_df =  pd.DataFrame.from_dict(SAR_flatt,orient="index",columns=['SAR'])
+
+
+                kpi_df3['mach'] = mach_df['mach'].values
+                kpi_df3['pax_num'] = passenger_capacity_df['pax_num'].values
+                kpi_df3['fuel'] = fuel_used_df['fuel'].values
+                kpi_df3['time'] = mission_time_df['time'].values
+                kpi_df3['DOC_nd'] = DOC_nd_df['DOC_nd'].values
+                kpi_df3['SAR'] = SAR_df['SAR'].values
+
+                kpi_df3= kpi_df3.drop(kpi_df3[kpi_df3.distances01 == 0].index)
+                kpi_df3 = kpi_df3.reset_index(drop=True)
+
+                kpi_df2 = pd.concat([kpi_df2,kpi_df3], axis = 1)
+ 
                 # Number of active nodes
                 kpi_df2['active_arcs'] = np.where(kpi_df2["aircraft_number"] > 0, 1, 0)
                 results['arcs_number'] = kpi_df2['active_arcs'].sum()
@@ -540,7 +565,7 @@ def objective_function_1(vehicle,x=None):
                 
                 # total CEMV
                 kpi_df2['total_CEMV'] =kpi_df2['aircraft_number']*((1/kpi_df2['SAR'])*(1/(aircraft['wetted_area']**0.24)))
-
+                
                 # Total distance
                 kpi_df2['total_distance'] = kpi_df2['aircraft_number']*kpi_df2['distances']
 
@@ -606,7 +631,7 @@ def objective_function_1(vehicle,x=None):
 
 def objective_function(vehicle,x=None):
     operations = vehicle['operations']
-    # operations['computation_mode'] = 0
+    operations['computation_mode'] = 0
 
     if operations['computation_mode'] == 0:
         profit = objective_function_0(vehicle,x)
@@ -624,7 +649,7 @@ def objective_function(vehicle,x=None):
 # global NN_induced, NN_wave, NN_cd0, NN_CL
 
 
-from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 
 # # # # # x = [130, 8.204561481970153, 0.3229876327660606, 31, -4, 0.3896951781733875, 4.826332970409506, 1.0650795018081771, 27, 1485, 1.6, 101, 4, 2185, 41000, 0.78, 1, 1, 1, 1]
 # # # # # # x = [73, 8.210260198894748, 0.34131954092766925, 28, -5, 0.32042307969643524, 5.000456116634125, 1.337333818504011, 27, 1442, 1.6, 106, 6, 1979, 41000, 0.78, 1, 1, 1, 1]
@@ -652,24 +677,27 @@ from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize
 # # # # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03,41000, 78, 1, 1, 1, 1] # Prifit ok
 # # # # x =  [127, 82, 46, 22, -2, 44, 48, 21, 27, 1358, 22,  92, 5, 2875, 41200, 82, 1, 1, 1, 1]
 # # # # x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] #good one
-x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
-# # # x =  [121, 80, 40, 18, -2, 40, 52, 13, 28, 1358, 15, 108, 4, 1875, 41000, 82, 1, 1, 1, 1] # Baseline2
-# # # # # # x = [int(x) for x in x]
-# # # # # # print(x)
+# # # x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
+
+# x =  [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1] # 144 seat
+# # # # x =  [121, 80, 40, 18, -2, 40, 52, 13, 28, 1358, 15, 108, 4, 1875, 41000, 82, 1, 1, 1, 1] # Baseline2
+# # # # # # # x = [int(x) for x in x]
+# # # # # # # print(x)
+
+# # x =  [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1] # Optim_Jose
 
 # # # # # # x = [76, 118, 46, 23, -3, 33, 55, 19, 30, 1357, 18, 86, 6, 2412, 42260, 79, 1, 1, 1, 1]
 # # # # # # x = [91, 108, 50, 29, -3, 34, 52, 12, 27, 1366, 19, 204, 4, 1812, 39260, 80, 1, 1, 1, 1]
-# x = [110, 82, 34, 25, -5, 38, 52, 11, 30, 1462, 19, 92, 4, 1375, 39600, 80, 1, 1, 1, 1]
+# # # x = [110, 82, 34, 25, -5, 38, 52, 11, 30, 1462, 19, 92, 4, 1375, 39600, 80, 1, 1, 1, 1]
 # # # # # vehicle = initialize_aircraft_parameters()
 
-# # x =[98,78,31,16,-4,40,61,20,28,1418,17,98,4,2005,41000,78,1,1,1,1]
-vehicle = initialize_aircraft_parameters()
-# # # start_time = datetime.now()
+# # # x =[98,78,31,16,-4,40,61,20,28,1418,17,98,4,2005,41000,78,1,1,1,1]
+# vehicle = initialize_aircraft_parameters()
+# # # # start_time = datetime.now()
 
-result = objective_function(vehicle,x)
+# result = objective_function(vehicle,x)
 
-# end_time = datetime.now()
-print(result)
-# print('objective function time: {}'.format(end_
-# time - start_time))
+# # end_time = datetime.now()
+# print(result)
+
 
