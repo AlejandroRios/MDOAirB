@@ -154,6 +154,11 @@ def objective_function_0(vehicle,x=None):
                                                                                         == departures[i], 'TORA'].iloc[0]
                             airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TORA'].iloc[0]
+                            # Landing field length
+                            airport_departure['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[i], 'LDA'].iloc[0]
+                            airport_destination['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[k], 'LDA'].iloc[0]
                             # Average delay:
                             airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[i], 'AVD'].iloc[0]
@@ -438,6 +443,13 @@ def objective_function_1(vehicle,x=None):
                                                                                         == departures[i], 'TORA'].iloc[0]
                             airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TORA'].iloc[0]
+                            
+                            # Landing field length
+                            airport_departure['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[i], 'LDA'].iloc[0]
+                            airport_destination['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[k], 'LDA'].iloc[0]
+                
                             # Average delay:
                             airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[i], 'AVD'].iloc[0]
