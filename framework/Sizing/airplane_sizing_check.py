@@ -73,6 +73,9 @@ lbf_to_N = 4.448
 
 def airplane_sizing(vehicle,x=None):
     log.info('---- Start aircraft sizing module ----')
+
+    if type(x) != 'list':
+        x = x.tolist()
     
 
     # Load nested dictionary vehicle
@@ -107,10 +110,10 @@ def airplane_sizing(vehicle,x=None):
         performance['range'] = x[13]
         aircraft['winglet_presence'] = x[17]
         # aircraft['winglet_presence'] = 1
-        aircraft['slat_presence'] = x[18]
-        # aircraft['slat_presence'] = 1
-        horizontal_tail['position'] = x[19]
-        # horizontal_tail['position'] = 1
+        # aircraft['slat_presence'] = x[18]
+        aircraft['slat_presence'] = 1
+        # horizontal_tail['position'] = x[19]
+        horizontal_tail['position'] = 1
 
         engine['bypass'] = x[6]/10
         engine['diameter'] = x[7]/10
@@ -119,7 +122,8 @@ def airplane_sizing(vehicle,x=None):
         engine['fan_pressure_ratio'] = x[10]/10
         engine['design_point_pressure'] = x[14]
         engine['design_point_mach'] = x[15]/100
-        engine['position'] = x[16]
+        # engine['position'] = x[16]
+        engine['position'] = 1
     else:
         wing['area'] = wing['area']
         wing['aspect_ratio'] = wing['aspect_ratio']/10
@@ -130,12 +134,12 @@ def airplane_sizing(vehicle,x=None):
         aircraft['passenger_capacity'] = aircraft['passenger_capacity']
         fuselage['seat_abreast_number'] = fuselage['seat_abreast_number']
         performance['range'] = performance['range'] 
-        aircraft['winglet_presence'] = aircraft['winglet_presence']
-        # aircraft['winglet_presence'] = 1
+        # aircraft['winglet_presence'] = aircraft['winglet_presence']
+        aircraft['winglet_presence'] = 1
         aircraft['slat_presence'] = aircraft['slat_presence']
         # aircraft['slat_presence'] = 1
-        horizontal_tail['position'] =horizontal_tail['position']
-        # horizontal_tail['position'] = 1
+        # horizontal_tail['position'] =horizontal_tail['position']
+        horizontal_tail['position'] = 1
 
         engine['bypass'] = engine['bypass']/10
         engine['diameter'] = engine['diameter']/10

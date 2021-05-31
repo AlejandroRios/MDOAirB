@@ -172,7 +172,7 @@ def climb_integrator(initial_block_distance, initial_block_altitude, initial_blo
 
     stop_criteria = final_block_altitude
     sol = solve_ivp(climb, [initial_block_time, Tsim], [initial_block_distance, initial_block_altitude, initial_block_mass],
-            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria), dense_output=True)
+            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria))
 
     distance = sol.y[0]
     altitude = sol.y[1]

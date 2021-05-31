@@ -184,14 +184,14 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     # Solve linear programming problem (Network optimization)
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
-    prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    # prob.solve(COIN_CMD(timeLimit=60*2, msg = 0))
+    # prob.solve(GLPK(timeLimit=60*5, msg = 0))
+    prob.solve(COIN_CMD(timeLimit=60*2, msg = 0))
 
     log.info('==== Start PuLP optimization ====')
-    print('Problem solution:',value(prob.objective))
+    # print('Problem solution:',value(prob.objective))
 
-    for v in prob.variables():
-        print(v.name, "=", v.varValue)
+    # for v in prob.variables():
+    #     print(v.name, "=", v.varValue)
 
     log.info('Network optimization status: {}'.format(LpStatus[prob.status]))
     try:
@@ -213,7 +213,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
             # print(v.name, "=", v.varValue)
             list_of_pax.append(v.varValue)
 
-    print('flow',sum(list_of_pax))
+    # print('flow',sum(list_of_pax))
 
     # Post processing
     min_capacity = 0.5

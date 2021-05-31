@@ -643,7 +643,7 @@ def objective_function_1(vehicle,x=None):
 
 def objective_function(vehicle,x=None):
     operations = vehicle['operations']
-    operations['computation_mode'] = 0
+    # operations['computation_mode'] = 0
 
     if operations['computation_mode'] == 0:
         profit = objective_function_0(vehicle,x)
