@@ -295,7 +295,7 @@ if __name__ == "__main__":
 
     bounds = [(72,130), (75, 120), (25, 50), (15, 30), (-5, -2), (32, 45), (45, 65), (10, 15), (27, 30), (1350, 1500), (14, 25), (70, 220), (4, 6), (1000,3500), (39000, 43000), (78, 82), (1,1),(1,1),(1,1),(1,1)]
 
-    result = scipy.optimize.differential_evolution(obj_function, bounds, disp=True, polish=False,callback=cb ,init ='latinhypercube',  updating='deferred', workers=7)
+    result = scipy.optimize.differential_evolution(obj_function, bounds, maxiter = 100, disp=True, polish=False,callback=cb ,init =init_Population,  updating='deferred', workers=8)
     print(result)
 
     progress = np.array(progress)
