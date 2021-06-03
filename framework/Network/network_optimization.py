@@ -185,7 +185,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
     # prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    prob.solve(COIN_CMD(timeLimit=60*2, msg = 0))
+    prob.solve(COIN_CMD(timeLimit=60*2))
 
     log.info('==== Start PuLP optimization ====')
     # print('Problem solution:',value(prob.objective))
