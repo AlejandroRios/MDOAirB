@@ -103,10 +103,10 @@ def objective_function_0(vehicle,x=None):
             # Airports:
             # ["FRA", "LHR", "CDG", "AMS",
             #          "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-            departures = ['CD0','CD1','CD2','CD3',
-                 'CD4','CD5','CD6','CD7','CD8','CD9']
-            arrivals = ['CD0','CD1','CD2','CD3',
-                 'CD4','CD5','CD6','CD7','CD8','CD9']
+            departures = ["FRA", "LHR", "CDG", "AMS",
+                     "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+            arrivals = ["FRA", "LHR", "CDG", "AMS",
+                     "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
 
             results['nodes_number'] = len(data_airports)
 

@@ -92,6 +92,26 @@ def V_cas_to_V_tas(V_cas, h, delta_ISA):
     aux3 = np.sqrt(theta*(aux2 - 1))
     return 1479.1 * aux3
 
+def V_tas_to_V_cas(V_tas, h, delta_ISA):
+    """
+    Description:
+        -  Converts Calibrated Air Speed to True Air Speed
+    Inputs:
+        - Calibrated air speed [knots]
+        - Altitude [ft]
+        - Delta ISA [deg C]
+    Outputs:
+        - True airspeed [knots]
+    """
+    speed_of_sound = 661.4786  # sea level [knots]
+    theta, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+
+    aux1 = (1 + (1/theta)*(V_tas/1479.1)**2)**3.5
+    aux2 = (delta*(aux1-1)+1)**(1/3.5)
+    aux3 = 1479.1*np.sqrt(aux2-1)
+
+    return aux3
+
 
 def V_cas_to_mach(V_cas, h, delta_ISA):
     """
@@ -146,3 +166,5 @@ def crossover_altitude(mach, V_cas, delta_ISA):
 # =============================================================================
 # print(V_cas_to_V_tas(200, 10000, 0))
 # print(crossover_altitude(0.75, 340, 0))
+
+# print(V_tas_to_V_cas(328.19232653, 10900.10822041, 0))
