@@ -1,3 +1,4 @@
-2021-05-12 11:57:18,013 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
-2021-2021-05-12 11:57:22,839 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-1-05-12 11:57:22,759 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+2021-06-02 22:04:50,493 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start network optimization module ====
+2021-06-02 22:04:50,503 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
+2021-06-02 22:04:50,670 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
+2021-06-02 22:04:50,671 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - Network optimization status: Infeasible

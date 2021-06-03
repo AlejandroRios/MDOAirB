@@ -451,7 +451,8 @@ def mission(mission_range, heading, vehicle):
 # TEST
 # =============================================================================
 
-# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+# vehicle = initialize_aircraft_parameters()
 
 # performance = vehicle['performance']
 
@@ -460,6 +461,8 @@ def mission(mission_range, heading, vehicle):
 # aircraft = vehicle['aircraft']
 # engine = vehicle['engine']
 # wing = vehicle['wing']
+# fuselage = vehicle['fuselage']
+# horizontal_tail = vehicle['horizontal_tail']
 
 # airport_departure = vehicle['airport_departure']
 # airport_destination = vehicle['airport_destination']
@@ -505,9 +508,11 @@ def mission(mission_range, heading, vehicle):
 
 # vehicle = np.load('Database/Aircrafts/baseline_EMB.npy',allow_pickle = True)
 # vehicle = vehicle.item()
+# operations = vehicle['operations']
 
+# operations['flight_planning_delta_ISA'] = 0
 # heading = 180
-# mission_range = 355
+# mission_range = 697.40
 # print(mission(mission_range,heading,vehicle))
 
 

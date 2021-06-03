@@ -71,6 +71,8 @@ arrival_airports = ["FRA", "LHR", "CDG", "AMS",
 #                     [2,  5,  2,  3,  1,  1,  0,  0,  1,  1],
 #                     [3,  2,  2,  2,  1,  2,  1,  1,  0,  2],
 #                     [2,  3,  2,  2,  2,  2,  1,  1,  2,  0]])
+frequencias{('CD1', 'CD1'): 0, ('CD1', 'CD2'): 3, ('CD1', 'CD3'): 6, ('CD1', 'CD4'): 4, ('CD1', 'CD5'): 0, ('CD1', 'CD6'): 4, ('CD1', 'CD7'): 0, ('CD1', 'CD8'): 0, ('CD1', 'CD9'): 0, ('CD1', 'CD10'): 4, ('CD2', 'CD1'): 0, ('CD2', 'CD2'): 0, ('CD2', 'CD3'): 6, ('CD2', 'CD4'): 0, ('CD2', 'CD5'): 4, ('CD2', 'CD6'): 0, ('CD2', 'CD7'): 3, ('CD2', 'CD8'): 0, ('CD2', 'CD9'): 0, ('CD2', 'CD10'): 0, ('CD3', 'CD1'): 0, ('CD3', 'CD2'): 0, ('CD3', 'CD3'): 0, ('CD3', 'CD4'): 0, ('CD3', 'CD5'): 0, ('CD3', 'CD6'): 5, ('CD3', 'CD7'): 1, ('CD3', 'CD8'): 3, ('CD3', 'CD9'): 0, ('CD3', 'CD10'): 3, ('CD4', 'CD1'): 0, ('CD4', 'CD2'): 3, ('CD4', 'CD3'): 5, ('CD4', 'CD4'): 0, ('CD4', 'CD5'): 0, ('CD4', 'CD6'): 0, ('CD4', 'CD7'): 0, ('CD4', 'CD8'): 4, ('CD4', 'CD9'): 3, ('CD4', 'CD10'): 3, ('CD5', 'CD1'): 4, ('CD5', 'CD2'): 0, ('CD5', 'CD3'): 7, ('CD5', 'CD4'): 5, ('CD5', 'CD5'): 0, ('CD5', 'CD6'): 0, ('CD5', 'CD7'): 0, ('CD5', 'CD8'): 0, ('CD5', 'CD9'): 1, ('CD5', 'CD10'): 2, ('CD6', 'CD1'): 0, ('CD6', 'CD2'): 2, ('CD6', 'CD3'): 0, ('CD6', 'CD4'): 4, ('CD6', 'CD5'): 4, ('CD6', 'CD6'): 0, ('CD6', 'CD7'): 2, ('CD6', 'CD8'): 3, ('CD6', 'CD9'): 2, ('CD6', 'CD10'): 2, ('CD7', 'CD1'): 4, ('CD7', 'CD2'): 0, ('CD7', 'CD3'): 3, ('CD7', 'CD4'): 5, ('CD7', 'CD5'): 5, ('CD7', 'CD6'): 10, ('CD7', 'CD7'): 0, ('CD7', 'CD8'): 0, ('CD7', 'CD9'): 1, ('CD7', 'CD10'): 0, ('CD8', 'CD1'): 3, ('CD8', 'CD2'): 2, ('CD8', 'CD3'): 1, ('CD8', 'CD4'): 0, ('CD8', 'CD5'): 3, ('CD8', 'CD6'): 1, ('CD8', 'CD7'): 6, ('CD8', 'CD8'): 0, ('CD8', 'CD9'): 1, ('CD8', 'CD10'): 0, ('CD9', 'CD1'): 3, ('CD9', 'CD2'): 0, ('CD9', 'CD3'): 8, ('CD9', 'CD4'): 0, ('CD9', 'CD5'): 4, ('CD9', 'CD6'): 0, ('CD9', 'CD7'): 2, ('CD9', 'CD8'): 0, ('CD9', 'CD9'): 0, ('CD9', 'CD10'): 0, ('CD10', 'CD1'): 1, ('CD10', 'CD2'): 3, ('CD10', 'CD3'): 0, ('CD10', 'CD4'): 1, ('CD10', 'CD5'): 2, ('CD10', 'CD6'): 0, ('CD10', 'CD7'): 3, ('CD10', 'CD8'): 3, ('CD10', 'CD9'): 0, ('CD10', 'CD10'): 0}
+
 
 harvest = np.array([[0,  0,  1,  1,  4,  4,  0],
                     [5,  0,  1,  6,  5,  3,  0],
@@ -102,6 +104,7 @@ ax.set_yticks(np.arange(len(departure_airports)))
 # ... and label them with the respective list entries
 ax.set_xticklabels(arrival_airports)
 ax.set_yticklabels(departure_airports)
+ax.xaxis.set_ticks_position('top')
 
 # Loop over data dimensions and create text annotations.
 for i in range(len(departure_airports)):
