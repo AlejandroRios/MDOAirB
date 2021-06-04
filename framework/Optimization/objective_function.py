@@ -161,12 +161,12 @@ def objective_function_0(vehicle,x=None):
                                                                                         == departures[k], 'LDA'].iloc[0]
                             # Average delay:
                             airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
-                                                                                            == arrivals[i], 'AVD'].iloc[0]
+                                                                                            == departures[i], 'AVD'].iloc[0]
                             airport_destination['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'AVA'].iloc[0]
                             # Delta ISA
                             airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT2']
-                                                                                            == arrivals[i], 'TREF'].iloc[0]
+                                                                                            == departures[i], 'TREF'].iloc[0]
                             airport_destination['delta_ISA'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TREF'].iloc[0]
 

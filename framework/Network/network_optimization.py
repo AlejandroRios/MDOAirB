@@ -185,7 +185,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
     # prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    prob.solve(COIN_CMD(timeLimit=60*2))
+    prob.solve(COIN_CMD(timeLimit=60*5, msg = 0))
 
     log.info('==== Start PuLP optimization ====')
     # print('Problem solution:',value(prob.objective))
@@ -873,15 +873,15 @@ def network_optimization_fix(arrivals, departures, distances, demand, active_air
 
 # vehicle = initialize_aircraft_parameters()
 # operations = vehicle['operations']
-# departures = ['CD0', 'CD1', 'CD2', 'CD3',
-#                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
-# arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
-#                 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9']
+# departures = ["FRA", "LHR", "CDG", "AMS",
+#             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+# arrivals = ["FRA", "LHR", "CDG", "AMS",
+#             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
 
-# # departures = ['CD0', 'CD1', 'CD2', 'CD3',
-# #                 'CD4']
-# # arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
-# #             'CD4']
+# departures = ['CD0', 'CD1', 'CD2', 'CD3',
+#                 'CD4']
+# arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
+#             'CD4']
 
 
 # # Load origin-destination distance matrix [nm]
