@@ -61,6 +61,7 @@ def objective_function_0(vehicle,x=None):
     try:
         # =============================================================================
         # Airplane sizing and checks
+
         try:
             status, flags, vehicle = airplane_sizing(vehicle,x)
 
@@ -103,10 +104,10 @@ def objective_function_0(vehicle,x=None):
             # Airports:
             # ["FRA", "LHR", "CDG", "AMS",
             #          "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-            departures = ["FRA", "LHR", "CDG", "AMS",
-                      "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-            arrivals = ["FRA", "LHR", "CDG", "AMS",
-                      "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+            departures = ['CD0','CD1','CD2','CD3',
+                 'CD4','CD5','CD6','CD7','CD8','CD9']
+            arrivals = ['CD0','CD1','CD2','CD3',
+                 'CD4','CD5','CD6','CD7','CD8','CD9']
 
             results['nodes_number'] = len(data_airports)
 
@@ -124,6 +125,7 @@ def objective_function_0(vehicle,x=None):
             # The DOC is estimated for each city pair and stored in the DOC dictionary
             city_matrix_size = len(departures)*len(arrivals)
             DOC_ik = {}
+            distances_ik = {}
             DOC_nd = {}
             fuel_mass = {}
             total_mission_flight_time = {}
@@ -135,6 +137,7 @@ def objective_function_0(vehicle,x=None):
                 for i in range(len(departures)):
 
                     DOC_ik[departures[i]] = {}
+                    distances_ik[departures[i]] = {}
                     DOC_nd[departures[i]] = {}
                     fuel_mass[departures[i]] = {}
                     total_mission_flight_time[departures[i]] = {}
@@ -148,24 +151,29 @@ def objective_function_0(vehicle,x=None):
                             # Update information about orign-destination pair airports:
 
                             # Elevation:
-                            airport_departure['elevation'] = data_airports.loc[data_airports['APT']
+                            airport_departure['elevation'] = data_airports.loc[data_airports['APT2']
                                                                             == departures[i], 'ELEV'].iloc[0]
-                            airport_destination['elevation'] = data_airports.loc[data_airports['APT']
+                            airport_destination['elevation'] = data_airports.loc[data_airports['APT2']
                                                                                 == arrivals[k], 'ELEV'].iloc[0]
                             # Field length:
-                            airport_departure['takeoff_field_length'] = data_airports.loc[data_airports['APT']
+                            airport_departure['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                         == departures[i], 'TORA'].iloc[0]
-                            airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT']
+                            airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TORA'].iloc[0]
+                            # Landing field length
+                            airport_departure['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[i], 'LDA'].iloc[0]
+                            airport_destination['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[k], 'LDA'].iloc[0]                                                                                            
                             # Average delay:
-                            airport_departure['avg_delay'] = data_airports.loc[data_airports['APT']
-                                                                                            == arrivals[i], 'AVD'].iloc[0]
-                            airport_destination['avg_delay'] = data_airports.loc[data_airports['APT']
+                            airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
+                                                                                            == departures[i], 'AVD'].iloc[0]
+                            airport_destination['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'AVA'].iloc[0]
                             # Delta ISA
-                            airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT']
-                                                                                            == arrivals[i], 'TREF'].iloc[0]
-                            airport_destination['delta_ISA'] = data_airports.loc[data_airports['APT']
+                            airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT2']
+                                                                                            == departures[i], 'TREF'].iloc[0]
+                            airport_destination['delta_ISA'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TREF'].iloc[0]
 
                             # Heading                                                          
@@ -176,10 +184,14 @@ def objective_function_0(vehicle,x=None):
 
                             # Calculate DOC and mission parameters for origin-destination airports pair:                        
 
-                            mission_range = distances[departures[i]][arrivals[k]]
-                            fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]] = mission(departures[i],arrivals[k],heading,vehicle)
+                            # mission_range = distances[departures[i]][arrivals[k]]
+                            departures_in = data_airports.loc[data_airports['APT2'] == departures[i], 'APT'].iloc[0]
+                            arrivals_in = data_airports.loc[data_airports['APT2'] == arrivals[k], 'APT'].iloc[0]
+
+                            fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC ,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]], mission_range= mission(departures_in,arrivals_in,heading,vehicle)
                             DOC_nd[departures[i]][arrivals[k]] = DOC
-                            DOC_ik[departures[i]][arrivals[k]] = int(DOC*distances[departures[i]][arrivals[k]])                       
+                            DOC_ik[departures[i]][arrivals[k]] = int(DOC*distances[departures[i]][arrivals[k]])
+                            distances_ik[departures[i]][arrivals[k]] = int(mission_range)
 
                         else:
                             DOC_nd[departures[i]][arrivals[k]] = 0
@@ -212,7 +224,7 @@ def objective_function_0(vehicle,x=None):
             # Network optimization that maximizes the network profit
             try:
                 profit, vehicle, kpi_df1, kpi_df2 = network_optimization(
-                        arrivals, departures, distances, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
+                        arrivals, departures, distances_ik, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
                 profit = 0
@@ -433,25 +445,25 @@ def objective_function_1(vehicle,x=None):
                             # Update information about orign-destination pair airports:
 
                             # Elevation:
-                            airport_departure['elevation'] = data_airports.loc[data_airports['APT']
+                            airport_departure['elevation'] = data_airports.loc[data_airports['APT2']
                                                                             == departures[i], 'ELEV'].iloc[0]
-                            airport_destination['elevation'] = data_airports.loc[data_airports['APT']
+                            airport_destination['elevation'] = data_airports.loc[data_airports['APT2']
                                                                                 == arrivals[k], 'ELEV'].iloc[0]
                             # Field length:
-                            airport_departure['takeoff_field_length'] = data_airports.loc[data_airports['APT']
+                            airport_departure['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                         == departures[i], 'TORA'].iloc[0]
-                            airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT']
+                            airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TORA'].iloc[0]
                             # Average delay:
-                            airport_departure['avg_delay'] = data_airports.loc[data_airports['APT']
+                            airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[i], 'AVD'].iloc[0]
-                            airport_destination['avg_delay'] = data_airports.loc[data_airports['APT']
+                            airport_destination['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'AVA'].iloc[0]
                             
                             # Delta ISA
-                            airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT']
+                            airport_departure['delta_ISA'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[i], 'TREF'].iloc[0]
-                            airport_destination['delta_ISA'] = data_airports.loc[data_airports['APT']
+                            airport_destination['delta_ISA'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TREF'].iloc[0]
 
                             # Heading                                                          
@@ -681,14 +693,14 @@ from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize
 # # # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03,41000, 78, 1, 1, 1, 1] # Prifit ok
 # # # x =  [127, 82, 46, 22, -2, 44, 48, 21, 27, 1358, 22,  92, 5, 2875, 41200, 82, 1, 1, 1, 1]
 # # # x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] #good one
-# x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
+x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
 
 # x =  [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1] # 144 seat
 # x =  [121, 80, 40, 18, -2, 40, 52, 13, 28, 1358, 15, 108, 4, 1875, 41000, 82, 1, 1, 1, 1] # Baseline2
 # # # # # # x = [int(x) for x in x]
 # # # # # # print(x)
 
-x =  [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1] # Optim_Jose
+# x =  [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1] # Optim_Jose
 
 # # # # # x = [76, 118, 46, 23, -3, 33, 55, 19, 30, 1357, 18, 86, 6, 2412, 42260, 79, 1, 1, 1, 1]
 # # # # # x = [91, 108, 50, 29, -3, 34, 52, 12, 27, 1366, 19, 204, 4, 1812, 39260, 80, 1, 1, 1, 1]

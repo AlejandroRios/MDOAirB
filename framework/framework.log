@@ -1,4 +1,2 @@
-2021-06-02 22:04:50,493 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start network optimization module ====
-2021-06-02 22:04:50,503 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
-2021-06-02 22:04:50,670 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
-2021-06-02 22:04:50,671 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - Network optimization status: Infeasible
+2021-06-08 11:38:25,409 - c:\Users\aarc8\Documents\github\MDOAirB\framework\CPACS2AVL\CPACS2AVL     - INFO - -------- Start Run CPACS2AVL --------
+2021-06-08 11:38:25,654 - c:\Users\aarc8\Documents\github\MDOAirB\framework\CPACS2AVL\CPACS2AVL     - INFO - -------- End Run CPACS2AVL --------

@@ -230,7 +230,7 @@ def total_forces():
 
     wd = os.getcwd()
     os.chdir("/")    
-    p = subprocess.Popen('avl.exe < avl_run.run', shell = True, cwd = MODULE_DIR)
+    p = subprocess.Popen('avl.exe < avl_run.run', shell = True, cwd ='C:/Users/aarc8/Documents/Programas/AVL')
     try:
         p.wait(20)
     except subprocess.TimeoutExpired:

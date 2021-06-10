@@ -48,7 +48,7 @@ dependencies:
   - pulp>=2.0
   - bokeh>=2.0.0
   - numpy-stl>=1.1.0
-  - scikit-glpk>=0.4
+  - glpk >=0.4.1
   - numba>=0.5
   - smt>=1.0.0
   - jsonschema>=3.2.0

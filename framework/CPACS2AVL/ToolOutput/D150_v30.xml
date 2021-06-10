@@ -86,8 +86,8 @@
         <name>DLR's D150 Release Bird for CPACS 2.0</name>
         <description>Conventional medium range public jet transport aircraft</description>
         <reference>
-          <area>122.4</area>
-          <length>4.2</length>
+          <area>53.6927</area>
+          <length>32.0741</length>
           <point uID="D150modelID_point1">
             <x>0.0</x>
             <y>0.0</y>
@@ -3505,7 +3505,7 @@
                 <transformation uID="D150_wing_1Section1ID_transformation1">
                   <scaling uID="D150_wing_1Section1ID_transformation1_scaling1">
                     <x>1</x>
-                    <y>0.997563705801</y>
+                    <y>1</y>
                     <z>1</z>
                   </scaling>
                   <rotation uID="D150_wing_1Section1ID_transformation1_rotation1">
@@ -3525,9 +3525,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section1IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section1IDElement1_transformation1_scaling1">
-                        <x>6.07571980042</x>
-                        <y>6.07571980042</y>
-                        <z>6.07571980042</z>
+                        <x>6</x>
+                        <y>6</y>
+                        <z>6</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section1IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -3548,7 +3548,7 @@
                 <transformation uID="D150_wing_1Section2ID_transformation1">
                   <scaling uID="D150_wing_1Section2ID_transformation1_scaling1">
                     <x>1</x>
-                    <y>0.997563705801</y>
+                    <y>1</y>
                     <z>1</z>
                   </scaling>
                   <rotation uID="D150_wing_1Section2ID_transformation1_rotation1">
@@ -3568,9 +3568,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section2IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section2IDElement1_transformation1_scaling1">
-                        <x>6.07571980042</x>
-                        <y>6.07571980042</y>
-                        <z>6.07571980042</z>
+                        <x>6</x>
+                        <y>6</y>
+                        <z>6</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section2IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -3591,7 +3591,7 @@
                 <transformation uID="D150_wing_1Section3ID_transformation1">
                   <scaling uID="D150_wing_1Section3ID_transformation1_scaling1">
                     <x>1</x>
-                    <y>0.773688022651</y>
+                    <y>1</y>
                     <z>1</z>
                   </scaling>
                   <rotation uID="D150_wing_1Section3ID_transformation1_rotation1">
@@ -3611,9 +3611,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section3IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section3IDElement1_transformation1_scaling1">
-                        <x>3.75844026854</x>
-                        <y>3.75844026854</y>
-                        <z>3.75844026854</z>
+                        <x>3</x>
+                        <y>3</y>
+                        <z>3</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section3IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -3634,7 +3634,7 @@
                 <transformation uID="D150_wing_1Section4ID_transformation1">
                   <scaling uID="D150_wing_1Section4ID_transformation1_scaling1">
                     <x>1</x>
-                    <y>0.713768354514</y>
+                    <y>1</y>
                     <z>1</z>
                   </scaling>
                   <rotation uID="D150_wing_1Section4ID_transformation1_rotation1">
@@ -3654,9 +3654,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section4IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section4IDElement1_transformation1_scaling1">
-                        <x>1.49584221486</x>
-                        <y>1.49584221486</y>
-                        <z>1.49584221486</z>
+                        <x>2</x>
+                        <y>2</y>
+                        <z>2</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section4IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -3691,7 +3691,7 @@
               </positioning>
               <positioning uID="D150_wing_1Positioning3ID">
                 <name>D150_wing_1Positioning3</name>
-                <length>5.0495526583</length>
+                <length>4</length>
                 <sweepAngle>27.418</sweepAngle>
                 <dihedralAngle>5.0</dihedralAngle>
                 <fromSectionUID>D150_wing_1Section2ID</fromSectionUID>

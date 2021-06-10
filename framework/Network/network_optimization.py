@@ -6,6 +6,7 @@ Date      : June 2020
 Last edit : January 2021
 Language  : Python 3.8 or >
 Aeronautical Institute of Technology - Airbus Brazil
+
 Description:
     - This function performs the network optimization using linear programming
     algorithm (1-stop model)
@@ -184,7 +185,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     # =============================================================================
     log.info('==== Start PuLP optimization ====')
     # prob.solve(GLPK(timeLimit=60*5, msg = 0))
-    prob.solve(COIN_CMD(timeLimit=60*5))
+    prob.solve(COIN_CMD(timeLimit=60*5, msg = 0))
 
     log.info('==== Start PuLP optimization ====')
     # print('Problem solution:',value(prob.objective))
@@ -321,6 +322,35 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
             list_of_airplanes_processed[i][j]= fraction_1[i][j]+fracction_aux
 
     print('Aircraft matrix:',list_of_airplanes_processed)
+
+    departure_airports = ["FRA", "LHR", "CDG", "AMS",
+                  "MAD", "BCN", "FCO", "DUB", "VIE", "ZRH"]
+    arrival_airports = ["FRA", "LHR", "CDG", "AMS",
+                  "MAD", "BCN", "FCO", "DUB", "VIE", "ZRH"]
+                  
+    import matplotlib.pyplot as plt
+    harvest = list_of_airplanes_processed
+    fig, ax = plt.subplots()
+    im = ax.imshow(harvest)
+    fig.colorbar(im)
+    # We want to show all ticks...
+    ax.set_xticks(np.arange(len(arrival_airports)))
+    ax.set_yticks(np.arange(len(departure_airports)))
+    # ... and label them with the respective list entries
+    ax.set_xticklabels(arrival_airports)
+    ax.set_yticklabels(departure_airports)
+
+    # Loop over data dimensions and create text annotations.
+    for i in range(len(departure_airports)):
+        for j in range(len(arrival_airports)):
+            text = ax.text(j, i, harvest[i, j],
+                        ha="center", va="center", color="w")
+
+    # ax.set_title("Network frequencies for optimum aircraft (112 seats)")
+    fig.tight_layout()
+    plt.show()
+
+
 
     DOCmat =  np.zeros((len(arrivals),len(arrivals)))
     for i in range(len(departures)):
@@ -872,15 +902,15 @@ from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize
 
 vehicle = initialize_aircraft_parameters()
 operations = vehicle['operations']
-departures = ["FRA", "LHR", "CDG", "AMS",
-                     "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-arrivals = ["FRA", "LHR", "CDG", "AMS",
-                     "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+# departures = ["FRA", "LHR", "CDG", "AMS",
+#             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+# arrivals = ["FRA", "LHR", "CDG", "AMS",
+#             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
 
-# departures = ['CD0', 'CD1', 'CD2', 'CD3',
-#                 'CD4']
-# arrivals = ['CD0', 'CD1', 'CD2', 'CD3',
-#             'CD4']
+departures = ['CD0','CD1','CD2','CD3',
+        'CD4','CD5','CD6','CD7','CD8','CD9']
+arrivals = ['CD0','CD1','CD2','CD3',
+        'CD4','CD5','CD6','CD7','CD8','CD9']
 
 
 # Load origin-destination distance matrix [nm]
