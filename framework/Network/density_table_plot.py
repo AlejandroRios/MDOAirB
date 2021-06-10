@@ -95,6 +95,7 @@ harvest = np.array([[0,  0,  1,  1,  4,  4,  0],
 
 fig, ax = plt.subplots()
 im = ax.imshow(harvest)
+print(im)
 fig.colorbar(im)
 # We want to show all ticks...
 ax.set_xticks(np.arange(len(arrival_airports)))
