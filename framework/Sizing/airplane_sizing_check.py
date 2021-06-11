@@ -555,6 +555,11 @@ def airplane_sizing(vehicle,x=None):
 #      1400, 13, 44, 4, 1500, 41000, 0.78, 1, 1, 1, 1]
 
 
-# status = airplane_sizing(x, vehicle)
+# 
 
+from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+vehicle = initialize_aircraft_parameters()
+x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1]
+# x =  [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1] # 144 seat
+status = airplane_sizing(vehicle,x)
 
