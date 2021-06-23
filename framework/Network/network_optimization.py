@@ -898,51 +898,51 @@ def network_optimization_fix(arrivals, departures, distances, demand, active_air
 # demand_db = pd.read_csv('Database//Demand/demand.csv')
 # demand_db = round(market_share*(demand_db.T))
 # demand = demand_db.to_dict()
-from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 
-vehicle = initialize_aircraft_parameters()
-operations = vehicle['operations']
-# departures = ["FRA", "LHR", "CDG", "AMS",
-#             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
-# arrivals = ["FRA", "LHR", "CDG", "AMS",
-#             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+# vehicle = initialize_aircraft_parameters()
+# operations = vehicle['operations']
+# # departures = ["FRA", "LHR", "CDG", "AMS",
+# #             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
+# # arrivals = ["FRA", "LHR", "CDG", "AMS",
+# #             "MAD", "BCN", "FCO","DUB","VIE","ZRH"]
 
-departures = ['CD0','CD1','CD2','CD3',
-        'CD4','CD5','CD6','CD7','CD8','CD9']
-arrivals = ['CD0','CD1','CD2','CD3',
-        'CD4','CD5','CD6','CD7','CD8','CD9']
-
-
-# Load origin-destination distance matrix [nm]
-distances_db = pd.read_csv('Database/Distance/distance.csv')
-distances_db = (distances_db)
-distances = distances_db.to_dict()  # Convert to dictionaty
-
-market_share = operations['market_share']
-# # Load dai
-demand_db= pd.read_csv('Database/Demand/demand.csv')
-demand_db= round(market_share*(demand_db.T))
-demand = demand_db.to_dict()
-
-df3 = pd.read_csv('Database/DOC/DOC_test5.csv')
-df3 = (df3.T)
-doc0 = df3.to_dict()
-
-active_airports_db = pd.read_csv('Database/Demand/switch_matrix_full.csv')
-active_airports_db = active_airports_db
-active_airports = active_airports_db .to_dict()
+# departures = ['CD0','CD1','CD2','CD3',
+#         'CD4','CD5','CD6','CD7','CD8','CD9']
+# arrivals = ['CD0','CD1','CD2','CD3',
+#         'CD4','CD5','CD6','CD7','CD8','CD9']
 
 
-demand_in = {}
-for i in range(len(departures)):
-    demand_in[departures[i]] = {}
-    for k in range(len(arrivals)):
-        if i != k:
-            demand_in[departures[i]][arrivals[k]] = demand[departures[i]][arrivals[k]]*active_airports[departures[i]][arrivals[k]]
-        else:
-            demand_in[departures[i]][arrivals[k]] =  demand[departures[i]][arrivals[k]]*active_airports[departures[i]][arrivals[k]]
-pax_capacity = 144
+# # Load origin-destination distance matrix [nm]
+# distances_db = pd.read_csv('Database/Distance/distance.csv')
+# distances_db = (distances_db)
+# distances = distances_db.to_dict()  # Convert to dictionaty
+
+# market_share = operations['market_share']
+# # # Load dai
+# demand_db= pd.read_csv('Database/Demand/demand.csv')
+# demand_db= round(market_share*(demand_db.T))
+# demand = demand_db.to_dict()
+
+# df3 = pd.read_csv('Database/DOC/DOC_test5.csv')
+# df3 = (df3.T)
+# doc0 = df3.to_dict()
+
+# active_airports_db = pd.read_csv('Database/Demand/switch_matrix_full.csv')
+# active_airports_db = active_airports_db
+# active_airports = active_airports_db .to_dict()
+
+
+# demand_in = {}
+# for i in range(len(departures)):
+#     demand_in[departures[i]] = {}
+#     for k in range(len(arrivals)):
+#         if i != k:
+#             demand_in[departures[i]][arrivals[k]] = demand[departures[i]][arrivals[k]]*active_airports[departures[i]][arrivals[k]]
+#         else:
+#             demand_in[departures[i]][arrivals[k]] =  demand[departures[i]][arrivals[k]]*active_airports[departures[i]][arrivals[k]]
+# pax_capacity = 144
 
 
 
-network_optimization(arrivals, departures, distances, demand_in, active_airports, doc0, pax_capacity, vehicle)
+# network_optimization(arrivals, departures, distances, demand_in, active_airports, doc0, pax_capacity, vehicle)
