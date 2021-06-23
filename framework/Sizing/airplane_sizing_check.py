@@ -74,8 +74,8 @@ lbf_to_N = 4.448
 def airplane_sizing(vehicle,x=None):
     log.info('---- Start aircraft sizing module ----')
 
-    # if type(x) != 'list':
-    #     x = x.tolist()
+    if type(x) != 'list':
+        x = x.tolist()
     
 
     # Load nested dictionary vehicle

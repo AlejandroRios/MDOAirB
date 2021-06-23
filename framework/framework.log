@@ -1,2 +1,4 @@
-2021-06-08 11:38:25,409 - c:\Users\aarc8\Documents\github\MDOAirB\framework\CPACS2AVL\CPACS2AVL     - INFO - -------- Start Run CPACS2AVL --------
-2021-06-08 11:38:25,654 - c:\Users\aarc8\Documents\github\MDOAirB\framework\CPACS2AVL\CPACS2AVL     - INFO - -------- End Run CPACS2AVL --------
+2021-06-23 10:48:51,951 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-06-23 10:49:03,020 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 493.93967082864896
+2021-06-23 10:49:03,022 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - I2021-06-23 10:49:03,160 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+

@@ -55,7 +55,7 @@ from smt.sampling_methods import LHS
 
 class DesignVariablesError(Exception):
 	def __init__(self, message):
-		self.message = f"Read Design va'123qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq12323qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq123riables issue: {message}"
+		self.message = f"Read Design variables issue: {message}"
 		super().__init__(self.message)
 
 class FixedParametersError(Exception):
@@ -265,21 +265,6 @@ from scipy.optimize import OptimizeResult, minimize
 from scipy.optimize.optimize import _status_message
 from scipy._lib._util import check_random_state, MapWrapper
 import matplotlib.pyplot as plt
-# bounds = [(0,2), (0, 2), (0, 2), (0, 2), (0, 2)]
-# result = differential_evolution(rosen, bounds)
-# result.x, result.fun
-
-# print(result.x)
-
-
-# bounds = [(0,2), (0, 2), (0, 2), (0, 2), (0, 2)]
-# result = differential_evolution(rosen, bounds, updating='deferred',
-#                                 workers=2)
-# result.x, result.fun
-
-# print(result.x)
-
-
 import scipy.optimize
 
 # DO LIKE THIS
