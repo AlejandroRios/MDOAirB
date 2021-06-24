@@ -157,7 +157,7 @@ def initialize_aircraft_parameters():
 
     horizontal_tail = {}
     horizontal_tail['position'] = 1
-    horizontal_tail['area'] = 23.35  # [m2]
+    horizontal_tail['area'] = 35  # [m2]
     horizontal_tail['aspect_ratio'] = 4.35
     horizontal_tail['taper_ratio'] = 0.4
     horizontal_tail['sweep_c_4']  = 1
@@ -189,7 +189,7 @@ def initialize_aircraft_parameters():
 
 
     vertical_tail = {}
-    vertical_tail['area'] = 16.2  # [m2]
+    vertical_tail['area'] = 25  # [m2]
     vertical_tail['aspect_ratio'] = 1.2
     vertical_tail['taper_ratio'] = 0.5
     vertical_tail['sweep_c_4']  = 41
