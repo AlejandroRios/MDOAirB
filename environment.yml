@@ -10,9 +10,7 @@
 name: MDOAirB
 
 channels:
-  - dlr-sc  # See: https://anaconda.org/DLR-SC/repo
-  - conda-forge
-  - defaults
+ - defaults
 
 # List all explicitly imported/used packages
 # ------------------------------------------
@@ -39,7 +37,7 @@ dependencies:
   - tigl3>=2.2.3  # Should be included in cpacscreator
   - tixi3>=2.2.4
   - matplotlib>=3.0.2
-  - scipy>=1.1
+  - scipy>=1.5.3
   - scikit-learn>=0.21.3
   - pandas>=0.25.0
   - vtk>=8.2.0
@@ -48,7 +46,11 @@ dependencies:
   - pulp>=2.0
   - bokeh>=2.0.0
   - numpy-stl>=1.1.0
-
+  - glpk>=0.4
+  - numba>=0.5
+  - smt>=1.0.0
+  - haversine>=2.3.1
+  - jsonschema>=3.2.0
   # Testing
   - flake8
   - pytest>=5.0.1

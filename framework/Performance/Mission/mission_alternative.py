@@ -1,6 +1,6 @@
 """
 File name : Mission function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : September/2020
 Last edit : January/2021
@@ -31,8 +31,7 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import \
 from framework.Economics.crew_salary import crew_salary
 from framework.Economics.direct_operational_cost import direct_operational_cost
 from framework.Performance.Analysis.climb_integration import climb_integration
-from framework.Performance.Analysis.cruise_performance import \
-    cruise_performance
+from framework.Performance.Analysis.cruise_performance import *
 from framework.Performance.Analysis.descent_integration import \
     descent_integration
 from framework.Performance.Analysis.maximum_range_cruise import \
@@ -58,7 +57,7 @@ GRAVITY = 9.80665
 gallon_to_liter = 3.7852
 feet_to_nautical_miles = 0.000164579
 
-def mission_alternative(vehicle,landing_weight):
+def mission_alternative(vehicle, airport_departure, airport_destination, landing_weight):
 
     performance = vehicle['performance']
 
@@ -67,9 +66,6 @@ def mission_alternative(vehicle,landing_weight):
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
     wing = vehicle['wing']
-
-    airport_departure = vehicle['airport_departure']
-    airport_destination = vehicle['airport_destination']
 
     operations = vehicle['operations']
     performance = vehicle['performance']
@@ -83,40 +79,40 @@ def mission_alternative(vehicle,landing_weight):
     engines_number = aircraft['number_of_engines']
     max_engine_thrust = engine['maximum_thrust']
     
-    reference_load_factor = 0.85
+    reference_load_factor = operations['reference_load_factor']
 
     heading = 0
 
     # Operations and certification parameters:
-    ceiling = 41000  # [ft] UPDATE INPUT!!!!!!!!!
-    descent_altitude = 1500
+    ceiling = operations['max_ceiling']  # [ft] UPDATE INPUT!!!!!!!!!
+    descent_altitude = operations['descent_altitude']
     # Network and mission parameters
-    holding_time = 30  # [min]
-    fuel_density = 0.81  # [kg/l]
-    time_between_overhaul = 2500  # [hr]
-    taxi_fuel_flow_reference = 8  # [kg/min]
-    contingency_fuel_percent = 0.1 
-    min_cruise_time = 3  # [min]
-    go_around_allowance = 300
+    holding_time = operations['holding_time']  # [min]
+    fuel_density = operations['fuel_density']  # [kg/l]
+    time_between_overhaul = operations['time_between_overhaul'] # [hr]
+    taxi_fuel_flow_reference = operations['taxi_fuel_flow_reference']  # [kg/min]
+    contingency_fuel_percent = operations['contingency_fuel_percent']
+    min_cruise_time = operations['min_cruise_time']  # [min]
+    go_around_allowance = operations['go_around_allowance']
 
     # Initial flight speed schedule
-    climb_V_cas = 280
-    mach_climb = 0.78
-    cruise_V_cas = 310
-    descent_V_cas = 310
-    mach_descent = 0.78
+    climb_V_cas = operations['climb_V_cas']
+    mach_climb = operations['mach_climb']
+    cruise_V_cas = operations['cruise_V_cas']
+    descent_V_cas = operations['descent_V_cas']
+    mach_descent = operations['mach_descent']
 
-    delta_ISA = 0
+    delta_ISA = operations['flight_planning_delta_ISA']
 
     # regulated_takeoff_mass = regulated_takeoff_weight(vehicle)
     # regulated_landing_mass = regulated_landing_weight(vehicle)
 
     max_takeoff_mass = landing_weight - go_around_allowance
 
-    takeoff_allowance_mass = 200*max_takeoff_mass/22000
-    approach_allowance_mass = 100*max_takeoff_mass/22000
-    average_taxi_in_time = 5
-    average_taxi_out_time = 10
+    takeoff_allowance_mass = operations['takeoff_allowance']
+    approach_allowance_mass = operations['approach_allowance_mass']
+    average_taxi_in_time = operations['average_taxi_in_time']
+    average_taxi_out_time = operations['average_taxi_out_time']
 
     payload = round(
         aircraft['passenger_capacity']
@@ -252,15 +248,15 @@ def mission_alternative(vehicle,landing_weight):
 
     altitude = initial_cruise_altitude
 
-    flag = 1
-    while flag == 1:
+    iteration = 0
+    while flag == 1 and iteration <100:
 
         transition_altitude = crossover_altitude(
             operations['mach_cruise'],
             cruise_V_cas,
             delta_ISA
         )
-        _, _, _, _, _, rho_ISA, _ = atmosphere_ISA_deviation(
+        _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(
             initial_cruise_altitude,
             delta_ISA
         )
@@ -275,7 +271,7 @@ def mission_alternative(vehicle,landing_weight):
             mach = operations['mach_cruise']
 
         # Breguet calculation type for cruise performance
-        total_cruise_time, final_cruise_mass = cruise_performance(
+        total_cruise_time, final_cruise_mass = cruise_performance_simple(
             altitude,
             delta_ISA,
             mach,
@@ -304,11 +300,18 @@ def mission_alternative(vehicle,landing_weight):
             distance_descent = final_distance*feet_to_nautical_miles
             distance_mission = distance_climb + distance_cruise + distance_descent
             distance_error = np.abs(operations['alternative_airport_distance'] -distance_mission)
-
-            if distance_error <= 1.0:
+            
+            iteration = iteration + 1
+            if distance_error <= 10:
                 flag = 0
             else:
-                distance_cruise = distance_cruise - distance_error
+                if distance_mission > operations['alternative_airport_distance']:
+                    distance_cruise = distance_cruise - distance_error*0.95
+                else:
+                    distance_cruise = distance_cruise + distance_error*0.95
+
+    if iteration >= 200:
+        raise ValueError
 
         if type_of_descent == 2:
             flag = 0

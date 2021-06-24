@@ -1,6 +1,6 @@
 """
 File name : Landig field length function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : September/2020
 Last edit : September/2020
@@ -32,23 +32,22 @@ import numpy as np
 # =============================================================================
 
 
-def landing_field_length(vehicle, weight_landing):
+def landing_field_length(vehicle, airport_destination, weight_landing):
     '''
     '''
     # Aircraft data import
 
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
-    airport_destination = vehicle['airport_destination']
     
     CL_max_landing = aircraft['CL_maximum_landing']
     wing_surface = wing['area']  # [m2]
 
     # Airport data import
     airfield_elevation = airport_destination['elevation']  # [ft]
-    delta_ISA = airport_destination['delta_ISA']  # [deg C]
+    delta_ISA = airport_destination['tref']  # [deg C]
 
-    _, _, sigma, _, _, rho, _ = atmosphere_ISA_deviation(
+    _, _, sigma, _, _, rho, _, _ = atmosphere_ISA_deviation(
         airfield_elevation, delta_ISA)  # [kg/m3]
 
     gamma_bar = 0.1  # mean value of (D-T)/W

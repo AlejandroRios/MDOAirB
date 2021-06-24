@@ -37,15 +37,15 @@ import numpy as np
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-
-
-def second_segment_climb(vehicle, airport_departure, weight_takeoff):
+ft_to_m = 0.3048
+kt_to_ms = 0.514444
+def residual_rate_of_climb(vehicle, airport_departure, weight_takeoff,engine_cruise_thrust):
     '''
     '''
-    kt_to_ms = 0.514444
-    ft_to_m = 0.3048
+
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
+    engine = vehicle['engine']
 
     CL_maximum_takeoff = aircraft['CL_maximum_takeoff']
     wing_surface = wing['area']
@@ -53,6 +53,8 @@ def second_segment_climb(vehicle, airport_departure, weight_takeoff):
 
     airfield_elevation = airport_departure['elevation']
     airfield_delta_ISA = airport_departure['tref']
+    
+    thrust_takeoff = engine['maximum_thrust']*0.98
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
         airfield_elevation, airfield_delta_ISA)  # [kg/m3]
@@ -60,7 +62,7 @@ def second_segment_climb(vehicle, airport_departure, weight_takeoff):
     V = 1.2*np.sqrt(2*maximum_takeoff_weight /
                     (CL_maximum_takeoff*wing_surface*rho))
     mach = V/a*kt_to_ms
-    phase = 'takeoff'
+    phase = 'cruise'
 
     # CD_takeoff = zero_fidelity_drag_coefficient(aircraft_data, CL_maximum_takeoff, phase)
     # Input for neural network: 0 for CL | 1 for alpha
@@ -84,11 +86,10 @@ def second_segment_climb(vehicle, airport_departure, weight_takeoff):
     elif aircraft['number_of_engines']  == 4:
         steady_gradient_of_climb = 0.03  # 2.4% for two engines airplane
 
-    aux1 = (aircraft['number_of_engines'] /(aircraft['number_of_engines'] -1))
-    aux2 = (1/L_to_D) + steady_gradient_of_climb
 
-    thrust_to_weight_takeoff = aux1*aux2
-    return thrust_to_weight_takeoff
+    thrust_to_weight_residual = 1/((engine_cruise_thrust/thrust_takeoff)*L_to_D)
+
+    return thrust_to_weight_residual
 # =============================================================================
 # MAIN
 # =============================================================================

@@ -1,6 +1,6 @@
 """
 File name : Missed approach limb function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : September/2020
 Last edit : September/2020
@@ -37,33 +37,41 @@ import numpy as np
 # =============================================================================
 
 
-def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
+def missed_approach_climb_OEI(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
     '''
     '''
+    ft_to_m = 0.3048
+    kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
-    airport_destination = vehicle['airport_destination']
 
     maximum_landing_weight = weight_landing
     CL_maximum_landing = aircraft['CL_maximum_landing']
     wing_surface = wing['area']
     airfield_elevation = airport_destination['elevation']
-    airfield_delta_ISA = airport_destination['delta_ISA']
+    airfield_delta_ISA = airport_destination['tref']
     phase = 'climb'
 
-    _, _, _, _, _, rho, a = atmosphere_ISA_deviation(
+    _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
         airfield_elevation, airfield_delta_ISA)  # [kg/m3]
 
     V = 1.3*np.sqrt(2*maximum_landing_weight /
                     (CL_maximum_landing*wing_surface*rho))
-    mach = V/a
+    mach = V/a*kt_to_ms
 
     # Input for neural network: 0 for CL | 1 for alpha
     switch_neural_network = 0
     alpha_deg = 1
 
-    CD_landing, _ = aerodynamic_coefficients_ANN(
-        vehicle, airfield_elevation, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
+    CD_wing, _ = aerodynamic_coefficients_ANN(
+        vehicle, airfield_elevation*ft_to_m, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
+
+    friction_coefficient = wing['friction_coefficient']
+    CD_ubrige = friction_coefficient * \
+        (aircraft['wetted_area'] - wing['wetted_area']) / \
+        wing['area']
+
+    CD_landing = CD_wing + CD_ubrige
     # CD_landing = zero_fidelity_drag_coefficient(aircraft_data, CL_maximum_landing, phase)
 
     L_to_D = CL_maximum_landing/CD_landing
@@ -81,12 +89,13 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     return thrust_to_weight_landing
 
 
-def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
+def missed_approach_climb_AEO(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
     '''
     '''
+    ft_to_m = 0.3048
+    kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
-    airport_destination = vehicle['airport_destination']
 
     maximum_landing_weight = weight_landing
 
@@ -94,21 +103,26 @@ def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
     wing_surface = wing['area']
 
     airfield_elevation = airport_destination ['elevation']
-    airfield_delta_ISA = airport_destination ['delta_ISA']
+    airfield_delta_ISA = airport_destination ['tref']
     phase = 'descent'
 
-    _, _, _, _, _, rho, a = atmosphere_ISA_deviation(
+    _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
         airfield_elevation, airfield_delta_ISA)  # [kg/m3]
     V = 1.3*np.sqrt(2*maximum_landing_weight /
                     (CL_maximum_landing*wing_surface*rho))
-    mach = V/a
+    mach = V/a*kt_to_ms
 
     # Input for neural network: 0 for CL | 1 for alpha
     switch_neural_network = 0
     alpha_deg = 1
-    CD_landing, _ = aerodynamic_coefficients_ANN(
-        vehicle, airfield_elevation, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
-    # CD_landing = zero_fidelity_drag_coefficient(aircraft_data, CL_maximum_landing, phase)
+    CD_wing, _ = aerodynamic_coefficients_ANN(
+        vehicle, airfield_elevation*ft_to_m, mach, CL_maximum_landing,alpha_deg,switch_neural_network)
+    friction_coefficient = wing['friction_coefficient']
+    CD_ubrige = friction_coefficient * \
+        (aircraft['wetted_area'] - wing['wetted_area']) / \
+        wing['area']
+
+    CD_landing = CD_wing + CD_ubrige
 
     L_to_D = CL_maximum_landing/CD_landing
 
