@@ -362,7 +362,7 @@ def mission(vehicle, airport_departure, takeoff_runway, airport_destination, lan
                         vehicle
                     )
                 else:
-                    final_distance, total_descent_time, total_burned_fuel, final_altitude = descent_integration(
+                    final_distance, total_descent_time, total_burned_fuel, final_altitude = descent_integration_datadriven(
                         final_cruise_mass,
                         mach_descent,
                         descent_V_cas,
