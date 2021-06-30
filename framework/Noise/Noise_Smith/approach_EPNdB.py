@@ -2,10 +2,10 @@
 MDOAirB
 
 Description:
-    - Flap contribution to drag coefficient
+    - This module computes airplane noise during takeoff and landing
 
 Reference:
-    - Drag Force and Drag Coefficient - Sadraey M., Aircraft Performance Analysis, VDM Verlag Dr. Müller, 2009
+    - Smith
 
 TODO's:
     -
@@ -21,7 +21,9 @@ TODO's:
 # =============================================================================
 # IMPORTS
 # =============================================================================
-
+from framework.Noise.Noise_Smith.approach_noise import approach_noise
+from framework.Noise.Noise_Smith.noise_levels import *
+import numpy as np
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -29,31 +31,33 @@ TODO's:
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-def drag_coefficient_flap(vehicle):
-    '''
-    Description:
-        This function estimates the contribution to drag related to flap deflection
-        the options include:
-            - Internal flap: double slotted
-            - External flap: single slotted
-    Inputs:
-        - vehicle
-    Outputs:
-        - cd_flap
-    '''
-    wing = vehicle['wing']
 
-    A_int = 0.0011
-    B_int = 1
-    A_ext = 0.00018
-    B_ext = 2
-    cflap= 1 -(wing['rear_spar_ref'] +0.02)
-    # 
-    cdflap_int = cflap*A_int*(wing['flap_deflection_landing']**B_int)
-    cdflap_ext = cflap*A_ext*(wing['flap_deflection_landing']**B_ext)
-    cd_flap     = cdflap_int + cdflap_ext
+def approach_EPNdB(time_vec,velocity_vec,distance_vec,altitude_vec,landing_parameters,noise_parameters,aircraft_geometry,vehicle):
+    f, SPL, tetaout, time_vec, distance_vec, altitude_vec = approach_noise(time_vec,velocity_vec,distance_vec,altitude_vec,landing_parameters,noise_parameters,aircraft_geometry,vehicle)
 
-    return cd_flap
+    f,NOY = calculate_NOY(f,SPL)
+
+    PNL = calculate_PNL(f,NOY)
+    a2,_ = SPL.shape
+    
+    C = []
+    for i1 in range(a2):
+        C.append(calculate_PNLT(f,SPL[:][i1]))
+
+    ## Cálculo de Perceived Noise Level - tone corrected (PNLT) ##
+    PNLT                =PNL+C
+    # VERIFICAÇÃO EM DEBUG
+    # x                   = tempo
+    # figure()
+    # plot(x,PNL,'-b',x,PNLT,'-r')
+    # grid on
+
+    ## Cálculo de Effective Perceived Noise Level (EPNdB) ##
+    LDEPNdB             = calculate_EPNdB(time_vec,PNLT)
+
+    return LDEPNdB
+
+
 # =============================================================================
 # MAIN
 # =============================================================================

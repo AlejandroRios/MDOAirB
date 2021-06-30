@@ -2,10 +2,9 @@
 MDOAirB
 
 Description:
-    - Flap contribution to drag coefficient
+    - Haversine distance computation
 
 Reference:
-    - Drag Force and Drag Coefficient - Sadraey M., Aircraft Performance Analysis, VDM Verlag Dr. Müller, 2009
 
 TODO's:
     -
@@ -21,7 +20,8 @@ TODO's:
 # =============================================================================
 # IMPORTS
 # =============================================================================
-
+import haversine
+from haversine import haversine, Unit
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -29,31 +29,20 @@ TODO's:
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-def drag_coefficient_flap(vehicle):
-    '''
+def haversine_distance(coordinates_departure,coordinates_arrival):
+    """
     Description:
-        This function estimates the contribution to drag related to flap deflection
-        the options include:
-            - Internal flap: double slotted
-            - External flap: single slotted
+        - Perform haversine distance calculation in nautical miles
     Inputs:
-        - vehicle
+        - coordinates_departure
+        - coordinates_arrival
+
     Outputs:
-        - cd_flap
-    '''
-    wing = vehicle['wing']
-
-    A_int = 0.0011
-    B_int = 1
-    A_ext = 0.00018
-    B_ext = 2
-    cflap= 1 -(wing['rear_spar_ref'] +0.02)
-    # 
-    cdflap_int = cflap*A_int*(wing['flap_deflection_landing']**B_int)
-    cdflap_ext = cflap*A_ext*(wing['flap_deflection_landing']**B_ext)
-    cd_flap     = cdflap_int + cdflap_ext
-
-    return cd_flap
+        - distance
+    """
+    # Perform haversine distance calculation in nautical miles
+    distance = float(haversine(coordinates_departure,coordinates_arrival,unit='nmi'))
+    return distance
 # =============================================================================
 # MAIN
 # =============================================================================
@@ -61,3 +50,17 @@ def drag_coefficient_flap(vehicle):
 # =============================================================================
 # TEST
 # =============================================================================
+
+# # Frankfrt coordinates
+# lon_departure = 8.5705
+# lat_departure = 50.0333
+# # Paris coordinates
+# lon_arrival =2.5477
+# lat_arrival = 49.0097
+
+# # Conversion to tuple
+# coordinates_departure = (lat_departure,lon_departure)
+# coordinates_arrival = (lat_arrival,lon_arrival)
+
+# # Perform distance calculation
+# distance = haversine_distance(coordinates_departure,coordinates_arrival)
