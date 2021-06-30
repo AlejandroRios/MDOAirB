@@ -1,20 +1,21 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module perform a numerical integration to simulate the takeoff phase
+
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -56,7 +57,49 @@ def takeoff_integration(
     stop_criteria,
     phase
     ):
+    """
+    Description:
+        - This function calculates the airplane sideline effective percibed noise during takeoff
 
+    Inputs:
+        - initial_block_altitude
+        - initial_block_distance
+        - initial_block_trajectory_angle
+        - initial_block_time
+        - initial_block_velocity
+        - initial_block_horizontal_velocity
+        - initial_block_vertical_velocity
+        - initial_fan_rotation
+        - initial_compressor_rotation
+        - aircraft_parameters
+        - takeoff_parameters
+        - runaway_parameters
+        - landing_parameters
+        - vehicle
+        - rho_ISA
+        - stop_criteria
+        - phase
+
+    Outputs:
+        - final_block_altitude
+        - final_block_distance
+        - final_block_trajectory_angle
+        - final_block_time
+        - final_block_velocity
+        - final_block_horizontal_velocity
+        - final_block_vertical_velocity
+        - final_fan_rotation
+        - final_compressor_rotation
+        - time_vec
+        - velocity_vec
+        - distance_vec
+        - velocity_horizontal_vec
+        - altitude_vec
+        - velocity_vertical_vec
+        - trajectory_angle_vec
+        - fan_rotation_vec
+        - compressor_rotation_vec
+    """
     aircraft = vehicle['aircraft']
 
     if phase == 'ground':
@@ -265,6 +308,23 @@ def takeoff_integration(
     compressor_rotation_vec)
     
 def ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria):
+    """
+    Description:
+        - This function sets the integration for the ground run
+
+    Inputs:
+        - time
+        - state
+        - takeoff_parameters
+        - runaway_parameters
+        - landing_parameters
+        - rho_ISA
+        - vehicle
+        - stop_criteria
+
+    Outputs:
+        - dout
+    """
     wing = vehicle['wing']
     engine = vehicle['engine']
 
@@ -288,7 +348,26 @@ def ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,r
 def stop_condition_ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria):
     V = state[1]
     return 0 if V>stop_criteria else 1
+
 def flare(time,state,aircraft_parameters,takeoff_parameters,runaway_parameters,landing_parameters,rho_ISA,vehicle,stop_criteria):
+    """
+    Description:
+        - This function sets the integration for the flare
+
+    Inputs:
+        - time
+        - state
+        - aircraft_parameters
+        - takeoff_parameters
+        - runaway_parameters
+        - landing_parameters
+        - rho_ISA
+        - vehicle
+        - stop_criteria
+
+    Outputs:
+        - dout
+    """
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
 
@@ -328,6 +407,22 @@ def stop_condition_flare(time,state,aircraft_parameters,takeoff_parameters,runaw
     return 0 if H>stop_criteria else 1
 
 def climb(time, state, climb_V_cas, mach_climb, delta_ISA, final_block_altitude, vehicle):
+    """
+    Description:
+        - This function sets the integration for the climb phase
+
+    Inputs:
+        - time
+        - state
+        - climb_V_cas
+        - mach_climb
+        - delta_ISA
+        - final_block_altitude
+        - vehicle
+
+    Outputs:
+        - dout
+    """
     aircraft = vehicle['aircraft']
 
     distance = state[0]

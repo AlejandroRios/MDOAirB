@@ -1,20 +1,21 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module computes airplane noise during takeoff
+
+Reference:
+    - Smith
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -31,7 +32,30 @@ import numpy as np
 # FUNCTIONS
 # =============================================================================
 def takeoff_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle):
+    """
+    Description:
+        - This function calculates the airplane effective percibed noise during takeoff
 
+    Inputs:
+        - time_vec
+        - velocity_vec
+        - distance_vec
+        - velocity_horizontal_vec
+        - altitude_vec
+        - velocity_vertical_vec
+        - trajectory_angle_vec
+        - fan_rotation_vec
+        - compressor_rotation_vec
+        - throttle_position
+        - takeoff_parameters
+        - noise_parameters
+        - aircraft_geometry
+        - engine_parameters
+        - vehicle
+
+    Outputs:
+        - TOEPNdB
+    """
     f, SPL, tetaout, time_vec, distance_vec, altitude_vec = takeoff_noise(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
     
     a2,a1 = SPL.shape
