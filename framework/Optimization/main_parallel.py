@@ -45,6 +45,7 @@ from bokeh.plotting import figure
 from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 from framework.Database.Airports.airports_database import AIRPORTS_DATABASE
 from framework.Optimization.objective_function import objective_function
+from framework.Attributes.Mission.mission_parameters import actual_mission_range
 
 from haversine import haversine, Unit
 
@@ -102,21 +103,40 @@ def check_demands(data, fixed_parameters, route_computation_mode):
 	market_share = fixed_parameters['operations']['market_share']
 
 	distances = {}
-	for departure in airport_keys:
-		distances[departure] = {}
-		if (departure not in data):
-			data[departure] = {}
-		for arrival in airport_keys:
-			if (arrival not in data[departure]):
-				data[departure][arrival] = {}
-				data[departure][arrival]['demand'] = 0
-				distances[departure][arrival] = 0
-			else:
-				data[departure][arrival]['demand'] = np.round(market_share * data[departure][arrival]['demand'])
 
-				coordinates_departure = (airports[departure]["latitude"],airports[departure]["longitude"])
-				coordinates_arrival = (airports[arrival]["latitude"],airports[arrival]["longitude"])
-				distances[departure][arrival] = round(haversine_distance(coordinates_departure,coordinates_arrival))
+	if route_computation_mode == 0:
+		for departure in airport_keys:
+			distances[departure] = {}
+			if (departure not in data):
+				data[departure] = {}
+			for arrival in airport_keys:
+				if (arrival not in data[departure]):
+					data[departure][arrival] = {}
+					data[departure][arrival]['demand'] = 0
+					distances[departure][arrival] = 0
+				else:
+					data[departure][arrival]['demand'] = np.round(market_share * data[departure][arrival]['demand'])
+
+					coordinates_departure = (airports[departure]["latitude"],airports[departure]["longitude"])
+					coordinates_arrival = (airports[arrival]["latitude"],airports[arrival]["longitude"])
+					distances[departure][arrival] = round(haversine_distance(coordinates_departure,coordinates_arrival))
+	else:
+		for departure in airport_keys:
+			distances[departure] = {}
+			if (departure not in data):
+				data[departure] = {}
+			for arrival in airport_keys:
+				if (arrival not in data[departure]):
+					data[departure][arrival] = {}
+					data[departure][arrival]['demand'] = 0
+					distances[departure][arrival] = 0
+				else:
+					data[departure][arrival]['demand'] = np.round(market_share * data[departure][arrival]['demand'])
+
+					coordinates_departure = (airports[departure]["latitude"],airports[departure]["longitude"])
+					coordinates_arrival = (airports[arrival]["latitude"],airports[arrival]["longitude"])
+					distances[departure][arrival] = round(actual_mission_range(departure,arrival))
+
 
 	return airports, distances, data
 
@@ -351,6 +371,7 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
 
 # =============================================================================
 # TEST
