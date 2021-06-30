@@ -36,8 +36,8 @@ from framework.Economics.direct_operational_cost import direct_operational_cost
 from framework.Performance.Analysis.climb_integration import (climb_integration, 
                                                               climb_integration_datadriven)
 from framework.Performance.Analysis.cruise_performance import *
-from framework.Performance.Analysis.descent_integration import \
-    descent_integration
+from framework.Performance.Analysis.descent_integration import (descent_integration,
+                                                                descent_integration_datadriven)
 from framework.Performance.Analysis.maximum_range_cruise import \
     maximum_range_mach
 from framework.Performance.Analysis.mission_altitude import (maximum_altitude,
@@ -232,17 +232,33 @@ def mission(vehicle, airport_departure, takeoff_runway, airport_destination, lan
                 )
                 final_altitude = flight_level*100
 
-            # Initial climb fuel estimation
-            initial_altitude = initial_altitude + 1500
-            _, _, total_burned_fuel0, _ = climb_integration(
-                max_takeoff_mass,
-                mach_climb,
-                climb_V_cas,
-                delta_ISA,
-                final_altitude,
-                initial_altitude,
-                vehicle
-            )
+            if route_computation_mode == 0:
+                # Initial climb fuel estimation
+                initial_altitude = initial_altitude + 1500
+                _, _, total_burned_fuel0, _ = climb_integration(
+                    max_takeoff_mass,
+                    mach_climb,
+                    climb_V_cas,
+                    delta_ISA,
+                    final_altitude,
+                    initial_altitude,
+                    vehicle
+                )
+            else:
+                # Initial climb fuel estimation
+                initial_altitude = initial_altitude + 1500
+                _, _, total_burned_fuel0, _ = climb_integration_datadriven(
+                    max_takeoff_mass,
+                    mach_climb,
+                    climb_V_cas,
+                    delta_ISA,
+                    alt_climb,
+                    spds_climb,
+                    machs_climb,
+                    initial_altitude,
+                    vehicle
+                )
+
 
             # Calculate best cruise mach
             mass_at_top_of_climb = max_takeoff_mass - total_burned_fuel0
@@ -255,16 +271,29 @@ def mission(vehicle, airport_departure, takeoff_runway, airport_destination, lan
             mach_climb = operations['mach_cruise']
             mach_descent = operations['mach_cruise']
 
-            # Recalculate climb with new mach
-            final_distance, total_climb_time, total_burned_fuel, final_altitude = climb_integration(
-                max_takeoff_mass,
-                mach_climb,
-                climb_V_cas,
-                delta_ISA,
-                final_altitude,
-                initial_altitude,
-                vehicle
-            )
+            if route_computation_mode == 0:
+                # Recalculate climb with new mach
+                final_distance, total_climb_time, total_burned_fuel, final_altitude = climb_integration(
+                    max_takeoff_mass,
+                    mach_climb,
+                    climb_V_cas,
+                    delta_ISA,
+                    final_altitude,
+                    initial_altitude,
+                    vehicle
+                )
+            else:
+                final_distance, total_climb_time, total_burned_fuel, final_altitude = climb_integration(
+                    max_takeoff_mass,
+                    mach_climb,
+                    climb_V_cas,
+                    delta_ISA,
+                    alt_climb,
+                    spds_climb,
+                    machs_climb,
+                    initial_altitude,
+                    vehicle
+                )
 
             delta = total_burned_fuel0 - total_burned_fuel
 
@@ -304,7 +333,6 @@ def mission(vehicle, airport_departure, takeoff_runway, airport_destination, lan
             if altitude > transition_altitude:
                 mach = operations['mach_cruise']
 
-            print(mach)
 
             # Breguet calculation type for cruise performance
             total_cruise_time, final_cruise_mass = cruise_performance_simple(
@@ -322,17 +350,30 @@ def mission(vehicle, airport_departure, takeoff_runway, airport_destination, lan
             type_of_descent = 1
 
             if type_of_descent == 1:
+                
+                if route_computation_mode == 0:
+                    final_distance, total_descent_time, total_burned_fuel, final_altitude = descent_integration(
+                        final_cruise_mass,
+                        mach_descent,
+                        descent_V_cas,
+                        delta_ISA,
+                        descent_altitude,
+                        final_cruise_altitude,
+                        vehicle
+                    )
+                else:
+                    final_distance, total_descent_time, total_burned_fuel, final_altitude = descent_integration(
+                        final_cruise_mass,
+                        mach_descent,
+                        descent_V_cas,
+                        delta_ISA,
+                        alt_descent,
+                        spds_descent,
+                        machs_descent,
+                        final_cruise_altitude,
+                        vehicle
+                    )
 
-                # Recalculate climb with new mach
-                final_distance, total_descent_time, total_burned_fuel, final_altitude = descent_integration(
-                    final_cruise_mass,
-                    mach_descent,
-                    descent_V_cas,
-                    delta_ISA,
-                    descent_altitude,
-                    final_cruise_altitude,
-                    vehicle
-                )
                 distance_descent = final_distance*feet_to_nautical_miles
                 distance_mission = distance_climb + distance_cruise + distance_descent
                 distance_error = np.abs(mission_range -distance_mission)
