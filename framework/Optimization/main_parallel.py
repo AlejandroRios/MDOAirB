@@ -88,7 +88,7 @@ def haversine_distance(coordinates_departure,coordinates_arrival):
     distance = float(haversine(coordinates_departure,coordinates_arrival,unit='nmi'))
     return distance
 
-def check_demands(data, fixed_parameters):
+def check_demands(data, fixed_parameters, route_computation_mode):
 	airport_keys = list(data.keys())
 	for key in data:
 		if (key in data[key]):
@@ -164,7 +164,7 @@ def read_custom_inputs(schema_path, file_path):
 		if ("fixed_aircraft" in data):
 			fixed_aircraft = data["fixed_aircraft"]
 
-		airports, distances, demands = check_demands(data["demands"], fixed_parameters)
+		airports, distances, demands = check_demands(data["demands"], fixed_parameters, route_computation_mode)
 
 	except OSError as os_error:
 		raise CustomInputsError(f"{os_error.strerror} [{os_error.filename}]")
