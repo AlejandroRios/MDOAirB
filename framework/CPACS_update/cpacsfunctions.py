@@ -1,45 +1,35 @@
 """
-CEASIOMpy: Conceptual Aircraft Design Software
+MDOAirB
 
-Developed for CFS ENGINEERING, 1015 Lausanne, Switzerland
+Description:
+    - Functions to manipulate CPACS file, it uses TIXI and TIGL ceasiompy.aries, 
+    and add some simplified or complementary functions.
 
-Functions to manipulate CPACS file, it uses TIXI and TIGL ceasiompy.aries, 
-and add some simplified or complementary functions.
+Reference: 
+    - CEASIOMpy: Conceptual Aircraft Design Software
+    Developed for CFS ENGINEERING, 1015 Lausanne, Switzerland
 
-Python version: >=3.6
+TODO's:
+    -
 
-| Author : Aidan Jungo
-| Creation: 2018-10-02
-| Last modifiction: 2019-10-21
-
-TODO:
-
-    * 'copy_branch': change all uID of the copied branch? how?
-    *
-
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 """
 
 #==============================================================================
 #   IMPORTS
 #==============================================================================
-
 import os
 import sys
-
-# Depending how/where Tixi and Tigl are installed, it could be:
-# import tixi3wrapper
-# import tigl3wrapper
-# from tixi3wrapper import Tixi3Exception
-# from tigl3wrapper import Tigl3Exception
 
 import tixi3.tixi3wrapper as tixi3wrapper
 import tigl3.tigl3wrapper as tigl3wrapper
 from tixi3.tixi3wrapper import Tixi3Exception
 from tigl3.tigl3wrapper import Tigl3Exception
-
-
-
-
 #==============================================================================
 #   CLASSES
 #==============================================================================
@@ -613,7 +603,7 @@ def aircraft_name(tixi_or_cpacs):
         name = get_value_or_default(tixi_or_cpacs, aircraft_name_xpath, 'Aircraft')
 
     name = name.replace(' ', '_')
-    log.info('The name of the aircraft is : ' + name)
+    # log.info('The name of the aircraft is : ' + name)
 
     return(name)
 

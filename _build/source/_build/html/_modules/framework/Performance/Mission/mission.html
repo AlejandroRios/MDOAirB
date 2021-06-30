@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Performance.Mission.mission &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Performance.Mission.mission</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Performance.Mission.mission</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name : Mission function</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : September/2020</span>
+<span class="sd">Last edit : January/2021</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This function performs the mission analysis of the aircraft and computes the DOC.</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    - Vehicle dictionary</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Direct operational cost (DOC)</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">#  [120, 8.636673441923826, 0.29650319000289793, 18, -4, 0.37975827133924966, 5.65832918409639, 1.6822333661974933, 30, 1465, 1.6, 78, 5, 2162, 41000, 0.78, 1, 1, 1, 1]</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">framework.Attributes.Airspeed.airspeed</span> <span class="kn">import</span> <span class="p">(</span><span class="n">V_cas_to_mach</span><span class="p">,</span>
+                                                    <span class="n">crossover_altitude</span><span class="p">,</span>
+                                                    <span class="n">mach_to_V_cas</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.atmosphere_ISA_deviation</span> <span class="kn">import</span> \
+    <span class="n">atmosphere_ISA_deviation</span>
+<span class="c1"># from framework.baseline_aircraft_parameters import *</span>
+<span class="kn">from</span> <span class="nn">framework.Economics.crew_salary</span> <span class="kn">import</span> <span class="n">crew_salary</span>
+<span class="kn">from</span> <span class="nn">framework.Economics.direct_operational_cost</span> <span class="kn">import</span> <span class="n">direct_operational_cost</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Analysis.climb_integration</span> <span class="kn">import</span> <span class="n">climb_integration</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Analysis.cruise_performance</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Analysis.descent_integration</span> <span class="kn">import</span> \
+    <span class="n">descent_integration</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Analysis.maximum_range_cruise</span> <span class="kn">import</span> \
+    <span class="n">maximum_range_mach</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Analysis.mission_altitude</span> <span class="kn">import</span> <span class="p">(</span><span class="n">maximum_altitude</span><span class="p">,</span>
+                                                             <span class="n">optimum_altitude</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.performance_constraints</span> <span class="kn">import</span> <span class="p">(</span><span class="n">regulated_landing_weight</span><span class="p">,</span>
+                                                      <span class="n">regulated_takeoff_weight</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">framework.Performance.Engine.engine_performance</span> <span class="kn">import</span> <span class="n">turbofan</span>
+
+<span class="kn">from</span> <span class="nn">framework.Weights.weights</span> <span class="kn">import</span> <span class="n">aircraft_empty_weight</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Mission.reserve_fuel</span> <span class="kn">import</span> <span class="n">reserve_fuel</span>
+<span class="kn">from</span> <span class="nn">framework.utilities.logger</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+
+<span class="k">global</span> <span class="n">GRAVITY</span>
+<span class="n">GRAVITY</span> <span class="o">=</span> <span class="mf">9.80665</span>
+<span class="n">gallon_to_liter</span> <span class="o">=</span> <span class="mf">3.7852</span>
+<span class="n">feet_to_nautical_miles</span> <span class="o">=</span> <span class="mf">0.000164579</span>
+
+<div class="viewcode-block" id="mission"><a class="viewcode-back" href="../../../../framework.Performance.Mission.html#framework.Performance.Mission.mission.mission">[docs]</a><span class="k">def</span> <span class="nf">mission</span><span class="p">(</span><span class="n">mission_range</span><span class="p">,</span> <span class="n">heading</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="c1"># log.info(&#39;---- Start DOC mission function ----&#39;)</span>
+
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span>
+
+    <span class="n">tolerance</span> <span class="o">=</span> <span class="mi">100</span>
+
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+
+    <span class="n">airport_departure</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;airport_departure&#39;</span><span class="p">]</span>
+    <span class="n">airport_destination</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;airport_destination&#39;</span><span class="p">]</span>
+
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span>
+
+
+    <span class="c1"># [kg]</span>
+    <span class="n">max_zero_fuel_weight</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_zero_fuel_weight&#39;</span><span class="p">]</span>
+    <span class="c1"># [kg]</span>
+    <span class="n">operational_empty_weight</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;operational_empty_weight&#39;</span><span class="p">]</span>
+    <span class="n">passenger_capacity_initial</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;passenger_capacity&#39;</span><span class="p">]</span>
+    <span class="n">engines_number</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span>
+    <span class="n">max_engine_thrust</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;maximum_thrust&#39;</span><span class="p">]</span>
+    
+    <span class="n">reference_load_factor</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;reference_load_factor&#39;</span><span class="p">]</span>
+
+    <span class="n">heading</span> <span class="o">=</span> <span class="n">heading</span>
+
+    <span class="c1"># Operations and certification parameters:</span>
+    <span class="n">buffet_margin</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;buffet_margin&#39;</span><span class="p">]</span>  <span class="c1"># [g]</span>
+    <span class="n">residual_rate_of_climb</span> <span class="o">=</span> <span class="n">performance</span><span class="p">[</span><span class="s1">&#39;residual_rate_of_climb&#39;</span><span class="p">]</span> <span class="c1"># [ft/min]</span>
+    <span class="n">ceiling</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;max_ceiling&#39;</span><span class="p">]</span>  <span class="c1"># [ft] UPDATE INPUT!!!!!!!!!</span>
+    <span class="n">descent_altitude</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;descent_altitude&#39;</span><span class="p">]</span>
+    <span class="c1"># Network and mission parameters</span>
+    <span class="n">holding_time</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;holding_time&#39;</span><span class="p">]</span>  <span class="c1"># [min]</span>
+    <span class="n">fuel_density</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;fuel_density&#39;</span><span class="p">]</span>  <span class="c1"># [kg/l]</span>
+    <span class="n">fuel_price_per_kg</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;fuel_price_per_kg&#39;</span><span class="p">]</span>  <span class="c1"># [per kg]</span>
+    <span class="n">fuel_price</span> <span class="o">=</span> <span class="p">(</span><span class="n">fuel_price_per_kg</span><span class="o">/</span><span class="n">fuel_density</span><span class="p">)</span><span class="o">*</span><span class="n">gallon_to_liter</span>
+    <span class="n">time_between_overhaul</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;time_between_overhaul&#39;</span><span class="p">]</span>  <span class="c1"># [hr]</span>
+    <span class="n">taxi_fuel_flow_reference</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;taxi_fuel_flow_reference&#39;</span><span class="p">]</span>  <span class="c1"># [kg/min]</span>
+    <span class="n">contingency_fuel_percent</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;contingency_fuel_percent&#39;</span><span class="p">]</span>
+    <span class="n">min_cruise_time</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;min_cruise_time&#39;</span><span class="p">]</span>  <span class="c1"># [min]</span>
+    <span class="n">go_around_allowance</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;go_around_allowance&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Initial flight speed schedule</span>
+    <span class="n">climb_V_cas</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;climb_V_cas&#39;</span><span class="p">]</span>
+    <span class="n">mach_climb</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_climb&#39;</span><span class="p">]</span>
+    <span class="n">cruise_V_cas</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;cruise_V_cas&#39;</span><span class="p">]</span>
+    <span class="n">descent_V_cas</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;descent_V_cas&#39;</span><span class="p">]</span>
+    <span class="n">mach_descent</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_descent&#39;</span><span class="p">]</span>
+
+    <span class="n">delta_ISA</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;flight_planning_delta_ISA&#39;</span><span class="p">]</span>
+    <span class="n">captain_salary</span><span class="p">,</span> <span class="n">first_officer_salary</span><span class="p">,</span> <span class="n">flight_attendant_salary</span> <span class="o">=</span> <span class="n">crew_salary</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">])</span>
+    
+    <span class="n">regulated_takeoff_mass</span> <span class="o">=</span> <span class="n">regulated_takeoff_weight</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+    <span class="n">regulated_landing_mass</span> <span class="o">=</span> <span class="n">regulated_landing_weight</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">max_takeoff_mass</span> <span class="o">=</span> <span class="n">regulated_takeoff_mass</span>
+    <span class="n">max_landing_mass</span> <span class="o">=</span> <span class="n">regulated_landing_mass</span>
+
+    <span class="c1"># takeoff_allowance_mass = 200*max_takeoff_mass/22000</span>
+    <span class="c1"># approach_allowance_mass = 100*max_takeoff_mass/22000</span>
+    <span class="n">takeoff_allowance_mass</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;takeoff_allowance&#39;</span><span class="p">]</span> 
+    <span class="n">approach_allowance_mass</span> <span class="o">=</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;approach_allowance_mass&#39;</span><span class="p">]</span>
+    <span class="n">average_taxi_in_time</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;average_taxi_in_time&#39;</span><span class="p">]</span>
+    <span class="n">average_taxi_out_time</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;average_taxi_out_time&#39;</span><span class="p">]</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
+        <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;passenger_capacity&#39;</span><span class="p">]</span>
+        <span class="o">*</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;passenger_mass&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="c1"># payload = round(</span>
+    <span class="c1">#     aircraft[&#39;passenger_capacity&#39;]</span>
+    <span class="c1">#     * operations[&#39;passenger_mass&#39;]</span>
+    <span class="c1">#     * reference_load_factor</span>
+    <span class="c1"># )</span>
+
+
+    <span class="n">initial_altitude</span> <span class="o">=</span> <span class="n">airport_departure</span><span class="p">[</span><span class="s1">&#39;elevation&#39;</span><span class="p">]</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">f</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="mi">500</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">out</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="c1"># Maximum altitude calculation</span>
+            <span class="n">max_altitude</span><span class="p">,</span> <span class="n">rate_of_climb</span> <span class="o">=</span> <span class="n">maximum_altitude</span><span class="p">(</span>
+                <span class="n">vehicle</span><span class="p">,</span>
+                <span class="n">initial_altitude</span><span class="p">,</span>
+                <span class="n">ceiling</span><span class="p">,</span>
+                <span class="n">max_takeoff_mass</span><span class="p">,</span>
+                <span class="n">climb_V_cas</span><span class="p">,</span>
+                <span class="n">mach_climb</span><span class="p">,</span>
+                <span class="n">delta_ISA</span>
+            <span class="p">)</span>
+            <span class="c1"># Optimal altitude calculation</span>
+            <span class="n">optim_altitude</span><span class="p">,</span> <span class="n">rate_of_climb</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">optimum_altitude</span><span class="p">(</span>
+                <span class="n">vehicle</span><span class="p">,</span>
+                <span class="n">initial_altitude</span><span class="p">,</span>
+                <span class="n">ceiling</span><span class="p">,</span>
+                <span class="n">max_takeoff_mass</span><span class="p">,</span>
+                <span class="n">climb_V_cas</span><span class="p">,</span>
+                <span class="n">mach_climb</span><span class="p">,</span>
+                <span class="n">delta_ISA</span>
+            <span class="p">)</span>
+            <span class="c1"># Maximum altitude with minimum cruise time check</span>
+            <span class="n">g_climb</span> <span class="o">=</span> <span class="mi">4</span><span class="o">/</span><span class="mi">1000</span>
+            <span class="n">g_descent</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mi">1000</span>
+            <span class="n">K1</span> <span class="o">=</span> <span class="n">g_climb</span> <span class="o">+</span> <span class="n">g_descent</span>
+            <span class="c1"># Minimum distance at cruise stage</span>
+            <span class="n">Dmin</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_cruise&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">min_cruise_time</span>
+
+            <span class="n">K2</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">mission_range</span>
+                <span class="o">-</span> <span class="n">Dmin</span>
+                <span class="o">+</span> <span class="n">g_climb</span><span class="o">*</span><span class="p">(</span><span class="n">airport_departure</span><span class="p">[</span><span class="s1">&#39;elevation&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1500</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">g_descent</span><span class="o">*</span><span class="p">(</span><span class="n">airport_destination</span><span class="p">[</span><span class="s1">&#39;elevation&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1500</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">max_altitude_check</span> <span class="o">=</span> <span class="n">K2</span><span class="o">/</span><span class="n">K1</span>
+
+            <span class="k">if</span> <span class="n">max_altitude_check</span> <span class="o">&gt;</span> <span class="n">ceiling</span><span class="p">:</span>
+                <span class="n">max_altitude_check</span> <span class="o">=</span> <span class="n">ceiling</span>
+
+            <span class="k">if</span> <span class="n">max_altitude</span> <span class="o">&gt;</span> <span class="n">max_altitude_check</span><span class="p">:</span>
+                <span class="n">max_altitude</span> <span class="o">=</span> <span class="n">max_altitude_check</span>
+
+            <span class="k">if</span> <span class="n">optim_altitude</span> <span class="o">&lt;</span> <span class="n">max_altitude</span><span class="p">:</span>
+                <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">optim_altitude</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">max_altitude</span>
+
+            <span class="s1">&#39;TODO: this should be replaced for information from ADS-B&#39;</span>
+            <span class="c1"># Check for next lower feasible RVSN FK check according to</span>
+            <span class="c1"># present heading</span>
+            <span class="n">final_altitude</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">final_altitude</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>
+
+            <span class="n">flight_level</span> <span class="o">=</span> <span class="n">final_altitude</span><span class="o">/</span><span class="mi">100</span>
+            <span class="n">odd_flight_level</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="mi">90</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">290</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span>
+                <span class="mi">350</span><span class="p">,</span> <span class="mi">370</span><span class="p">,</span> <span class="mi">390</span><span class="p">,</span> <span class="mi">410</span><span class="p">,</span> <span class="mi">430</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">470</span><span class="p">,</span> <span class="mi">490</span><span class="p">,</span> <span class="mi">510</span>
+            <span class="p">]</span>
+
+            <span class="n">even_flight_level</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="mi">80</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span>
+                <span class="mi">340</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">440</span><span class="p">,</span> <span class="mi">460</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">520</span>
+            <span class="p">]</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">heading</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">heading</span> <span class="o">&lt;=</span> <span class="mi">180</span><span class="p">):</span>
+                <span class="n">flight_level</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                    <span class="n">odd_flight_level</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">flight_level</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">flight_level</span><span class="o">*</span><span class="mi">100</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">heading</span> <span class="o">&gt;</span> <span class="mi">180</span> <span class="ow">and</span> <span class="n">heading</span> <span class="o">&lt;=</span> <span class="mi">360</span><span class="p">):</span>
+                <span class="n">flight_level</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                    <span class="n">even_flight_level</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">flight_level</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">flight_level</span><span class="o">*</span><span class="mi">100</span>
+
+            <span class="c1"># Initial climb fuel estimation</span>
+            <span class="n">initial_altitude</span> <span class="o">=</span> <span class="n">initial_altitude</span> <span class="o">+</span> <span class="mi">1500</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">total_burned_fuel0</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">climb_integration</span><span class="p">(</span>
+                <span class="n">max_takeoff_mass</span><span class="p">,</span>
+                <span class="n">mach_climb</span><span class="p">,</span>
+                <span class="n">climb_V_cas</span><span class="p">,</span>
+                <span class="n">delta_ISA</span><span class="p">,</span>
+                <span class="n">final_altitude</span><span class="p">,</span>
+                <span class="n">initial_altitude</span><span class="p">,</span>
+                <span class="n">vehicle</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Calculate best cruise mach</span>
+            <span class="n">mass_at_top_of_climb</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span> <span class="o">-</span> <span class="n">total_burned_fuel0</span>
+            <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_cruise&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">maximum_range_mach</span><span class="p">(</span>
+                <span class="n">mass_at_top_of_climb</span><span class="p">,</span>
+                <span class="n">final_altitude</span><span class="p">,</span>
+                <span class="n">delta_ISA</span><span class="p">,</span>
+                <span class="n">vehicle</span>
+            <span class="p">)</span>
+            <span class="n">mach_climb</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_cruise&#39;</span><span class="p">]</span>
+            <span class="n">mach_descent</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_cruise&#39;</span><span class="p">]</span>
+
+            <span class="c1"># Recalculate climb with new mach</span>
+            <span class="n">final_distance</span><span class="p">,</span> <span class="n">total_climb_time</span><span class="p">,</span> <span class="n">total_burned_fuel</span><span class="p">,</span> <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">climb_integration</span><span class="p">(</span>
+                <span class="n">max_takeoff_mass</span><span class="p">,</span>
+                <span class="n">mach_climb</span><span class="p">,</span>
+                <span class="n">climb_V_cas</span><span class="p">,</span>
+                <span class="n">delta_ISA</span><span class="p">,</span>
+                <span class="n">final_altitude</span><span class="p">,</span>
+                <span class="n">initial_altitude</span><span class="p">,</span>
+                <span class="n">vehicle</span>
+            <span class="p">)</span>
+
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">total_burned_fuel0</span> <span class="o">-</span> <span class="n">total_burned_fuel</span>
+
+            <span class="k">if</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">mass_at_top_of_climb</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span> <span class="o">-</span> <span class="n">total_burned_fuel</span>
+
+        <span class="n">initial_cruise_altitude</span> <span class="o">=</span> <span class="n">final_altitude</span>
+
+        <span class="n">distance_climb</span> <span class="o">=</span> <span class="n">final_distance</span><span class="o">*</span><span class="n">feet_to_nautical_miles</span>
+
+        <span class="n">distance_cruise</span> <span class="o">=</span> <span class="n">mission_range</span>  <span class="o">-</span> <span class="n">distance_climb</span>
+
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">initial_cruise_altitude</span>
+
+        <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">iteration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">iteration</span> <span class="o">&lt;</span><span class="mi">100</span><span class="p">:</span>
+
+            <span class="n">transition_altitude</span> <span class="o">=</span> <span class="n">crossover_altitude</span><span class="p">(</span>
+                <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_cruise&#39;</span><span class="p">],</span>
+                <span class="n">cruise_V_cas</span><span class="p">,</span>
+                <span class="n">delta_ISA</span>
+            <span class="p">)</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">rho_ISA</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span>
+                <span class="n">initial_cruise_altitude</span><span class="p">,</span>
+                <span class="n">delta_ISA</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">altitude</span> <span class="o">&lt;=</span> <span class="mi">10000</span><span class="p">:</span>
+                <span class="n">mach</span> <span class="o">=</span> <span class="n">V_cas_to_mach</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">altitude</span> <span class="o">&gt;</span> <span class="mi">10000</span> <span class="ow">and</span> <span class="n">altitude</span> <span class="o">&lt;=</span> <span class="n">transition_altitude</span><span class="p">):</span>
+                <span class="n">mach</span> <span class="o">=</span> <span class="n">V_cas_to_mach</span><span class="p">(</span><span class="n">cruise_V_cas</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">altitude</span> <span class="o">&gt;</span> <span class="n">transition_altitude</span><span class="p">:</span>
+                <span class="n">mach</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_cruise&#39;</span><span class="p">]</span>
+
+            <span class="c1"># Breguet calculation type for cruise performance</span>
+            <span class="n">total_cruise_time</span><span class="p">,</span> <span class="n">final_cruise_mass</span> <span class="o">=</span> <span class="n">cruise_performance_simple</span><span class="p">(</span>
+                <span class="n">altitude</span><span class="p">,</span>
+                <span class="n">delta_ISA</span><span class="p">,</span>
+                <span class="n">mach</span><span class="p">,</span>
+                <span class="n">mass_at_top_of_climb</span><span class="p">,</span>
+                <span class="n">distance_cruise</span><span class="p">,</span>
+                <span class="n">vehicle</span>
+            <span class="p">)</span>
+            
+            <span class="n">final_cruise_altitude</span> <span class="o">=</span> <span class="n">altitude</span>
+
+            <span class="c1"># Type of descent: 1 = full calculation | 2 = no descent computed</span>
+            <span class="n">type_of_descent</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">type_of_descent</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+
+                <span class="c1"># Recalculate climb with new mach</span>
+                <span class="n">final_distance</span><span class="p">,</span> <span class="n">total_descent_time</span><span class="p">,</span> <span class="n">total_burned_fuel</span><span class="p">,</span> <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">descent_integration</span><span class="p">(</span>
+                    <span class="n">final_cruise_mass</span><span class="p">,</span>
+                    <span class="n">mach_descent</span><span class="p">,</span>
+                    <span class="n">descent_V_cas</span><span class="p">,</span>
+                    <span class="n">delta_ISA</span><span class="p">,</span>
+                    <span class="n">descent_altitude</span><span class="p">,</span>
+                    <span class="n">final_cruise_altitude</span><span class="p">,</span>
+                    <span class="n">vehicle</span>
+                <span class="p">)</span>
+                <span class="n">distance_descent</span> <span class="o">=</span> <span class="n">final_distance</span><span class="o">*</span><span class="n">feet_to_nautical_miles</span>
+                <span class="n">distance_mission</span> <span class="o">=</span> <span class="n">distance_climb</span> <span class="o">+</span> <span class="n">distance_cruise</span> <span class="o">+</span> <span class="n">distance_descent</span>
+                <span class="n">distance_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mission_range</span> <span class="o">-</span><span class="n">distance_mission</span><span class="p">)</span>
+
+                <span class="n">iteration</span> <span class="o">=</span> <span class="n">iteration</span> <span class="o">+</span> <span class="mi">1</span>
+
+                <span class="k">if</span> <span class="n">distance_error</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+                    <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">distance_mission</span> <span class="o">&gt;</span> <span class="n">mission_range</span><span class="p">:</span>
+                        <span class="n">distance_cruise</span> <span class="o">=</span> <span class="n">distance_cruise</span> <span class="o">-</span> <span class="n">distance_error</span><span class="o">*</span><span class="mf">0.95</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">distance_cruise</span> <span class="o">=</span> <span class="n">distance_cruise</span> <span class="o">+</span> <span class="n">distance_error</span><span class="o">*</span><span class="mf">0.95</span>
+                        
+        <span class="k">if</span> <span class="n">iteration</span> <span class="o">&gt;=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span> 
+
+
+            <span class="k">if</span> <span class="n">type_of_descent</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">total_burned_fuel</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">final_distance</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">total_decent_time</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">total_burned_fuel</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">final_altitude</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">final_mission_mass</span> <span class="o">=</span> <span class="n">final_cruise_mass</span> <span class="o">-</span> <span class="n">total_burned_fuel</span>
+        <span class="n">total_mission_burned_fuel</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span> <span class="o">-</span> <span class="n">final_mission_mass</span>
+        <span class="n">total_mission_flight_time</span> <span class="o">=</span> <span class="n">total_climb_time</span> <span class="o">+</span> \
+            <span class="n">total_cruise_time</span> <span class="o">+</span> <span class="n">total_descent_time</span> <span class="o">+</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;landing_time_allowance&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;takeoff_time_allowance&#39;</span><span class="p">]</span>
+        <span class="n">total_mission_distance</span> <span class="o">=</span> <span class="n">distance_mission</span>
+
+        <span class="c1"># Reserve fuel</span>
+        <span class="n">reserve_fuel_calculation_type</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 0 if simplified computation | 1 if full computation</span>
+        <span class="n">contingency_fuel</span> <span class="o">=</span> <span class="n">contingency_fuel_percent</span><span class="o">*</span><span class="n">total_mission_burned_fuel</span>
+
+        <span class="n">landing_weight</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span> <span class="o">-</span> <span class="n">total_mission_burned_fuel</span>
+
+        <span class="k">if</span> <span class="n">reserve_fuel_calculation_type</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">reserve_fuel_calculated</span> <span class="o">=</span> <span class="n">reserve_fuel</span><span class="p">(</span><span class="n">landing_weight</span><span class="p">,</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;alternative_airport_distance&#39;</span><span class="p">],</span> <span class="n">holding_time</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">,)</span>
+            <span class="n">final_reserve_fuel</span> <span class="o">=</span> <span class="n">reserve_fuel_calculated</span> <span class="o">+</span> <span class="n">contingency_fuel</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fuel_mass_alterative_airport</span> <span class="o">=</span> <span class="n">mission_alternative</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span><span class="n">landing_weight</span><span class="p">)</span>
+            <span class="n">fuel_mass_holding</span> <span class="o">=</span> <span class="n">holding_fuel</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">,</span> <span class="n">holding_time</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+            <span class="n">final_reserve_fuel</span> <span class="o">=</span><span class="n">fuel_mass_alterative_airport</span> <span class="o">+</span> <span class="n">fuel_mass_holding</span> <span class="o">+</span> <span class="n">contingency_fuel</span>
+            
+
+        <span class="c1"># Rule of three to estimate fuel flow during taxi</span>
+        <span class="n">taxi_fuel_flow</span> <span class="o">=</span> <span class="n">taxi_fuel_flow_reference</span><span class="o">*</span><span class="n">max_takeoff_mass</span><span class="o">/</span><span class="mi">22000</span>
+        <span class="n">taxi_in_fuel</span> <span class="o">=</span> <span class="n">average_taxi_in_time</span><span class="o">*</span><span class="n">taxi_fuel_flow</span>
+        <span class="n">takeoff_fuel</span> <span class="o">=</span> <span class="n">total_mission_burned_fuel</span> <span class="o">+</span> <span class="n">final_reserve_fuel</span> <span class="o">+</span> <span class="n">takeoff_allowance_mass</span> <span class="o">+</span> <span class="n">taxi_in_fuel</span>
+        <span class="n">taxi_out_fuel</span> <span class="o">=</span> <span class="n">average_taxi_out_time</span><span class="o">*</span><span class="n">taxi_fuel_flow</span>
+        <span class="n">total_fuel_on_board</span> <span class="o">=</span> <span class="n">takeoff_fuel</span> <span class="o">+</span> <span class="n">taxi_out_fuel</span>
+        <span class="n">remaining_fuel</span> <span class="o">=</span> <span class="n">takeoff_fuel</span> <span class="o">-</span> <span class="n">total_mission_burned_fuel</span> <span class="o">-</span> \
+            <span class="n">approach_allowance_mass</span> <span class="o">-</span> <span class="n">taxi_in_fuel</span>
+
+        <span class="c1"># Payload range envelope check</span>
+
+        <span class="n">MTOW_ZFW</span> <span class="o">=</span> <span class="n">max_zero_fuel_weight</span> <span class="o">+</span> <span class="n">total_fuel_on_board</span>
+        <span class="n">MTOW_LW</span> <span class="o">=</span> <span class="n">max_landing_mass</span> <span class="o">+</span> <span class="n">total_mission_burned_fuel</span>
+
+        <span class="n">delta_1</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span> <span class="o">-</span> <span class="n">MTOW_ZFW</span>
+        <span class="n">delta_2</span> <span class="o">=</span> <span class="n">total_fuel_on_board</span> <span class="o">-</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;fuel_capacity&#39;</span><span class="p">]</span>
+        <span class="n">delta_3</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span> <span class="o">-</span> <span class="n">MTOW_LW</span>
+
+        <span class="n">extra</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_takeoff_mass</span> <span class="o">-</span> <span class="n">operational_empty_weight</span> <span class="o">-</span>
+                 <span class="n">payload</span><span class="p">)</span> <span class="o">-</span> <span class="n">takeoff_fuel</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">delta_1</span><span class="p">,</span> <span class="n">delta_2</span><span class="p">,</span> <span class="n">delta_3</span><span class="p">,</span> <span class="n">extra</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">:</span>
+            <span class="n">max_takeoff_mass</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span><span class="o">-</span><span class="n">delta</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Payload reduction if restricted</span>
+            <span class="n">max_takeoff_mass</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">max_takeoff_mass</span><span class="p">,</span> <span class="n">MTOW_ZFW</span><span class="p">,</span> <span class="n">MTOW_LW</span><span class="p">])</span>
+            <span class="n">payload_calculation</span> <span class="o">=</span> <span class="n">max_takeoff_mass</span> <span class="o">-</span> \
+                <span class="n">takeoff_fuel</span> <span class="o">-</span> <span class="n">operational_empty_weight</span>
+            <span class="k">if</span> <span class="n">payload_calculation</span> <span class="o">&gt;</span> <span class="n">payload</span><span class="p">:</span>
+                <span class="n">payload</span> <span class="o">=</span> <span class="n">payload</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">payload</span> <span class="o">=</span> <span class="n">payload_calculation</span>
+
+            <span class="n">f</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">passenger_capacity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">payload</span><span class="o">/</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;passenger_mass&#39;</span><span class="p">])</span>
+        <span class="n">load_factor</span> <span class="o">=</span> <span class="n">passenger_capacity</span><span class="o">/</span><span class="n">passenger_capacity_initial</span><span class="o">*</span><span class="mi">100</span>
+
+    
+    <span class="c1"># DOC calculation</span>
+    <span class="n">fuel_mass</span> <span class="o">=</span> <span class="n">total_mission_burned_fuel</span> <span class="o">+</span> \
+        <span class="p">(</span><span class="n">average_taxi_out_time</span> <span class="o">+</span> <span class="n">average_taxi_in_time</span><span class="p">)</span><span class="o">*</span><span class="n">taxi_fuel_flow</span>
+        
+    <span class="n">DOC</span> <span class="o">=</span> <span class="n">direct_operational_cost</span><span class="p">(</span>
+        <span class="n">time_between_overhaul</span><span class="p">,</span>
+        <span class="n">total_mission_flight_time</span><span class="p">,</span>
+        <span class="n">fuel_mass</span><span class="p">,</span>
+        <span class="n">operational_empty_weight</span><span class="p">,</span>
+        <span class="n">total_mission_distance</span><span class="p">,</span>
+        <span class="n">max_engine_thrust</span><span class="p">,</span>
+        <span class="n">engines_number</span><span class="p">,</span>
+        <span class="mf">0.35</span><span class="o">*</span><span class="n">operational_empty_weight</span><span class="p">,</span>
+        <span class="n">regulated_takeoff_mass</span><span class="p">,</span>
+        <span class="n">vehicle</span><span class="p">)</span>
+    
+    <span class="c1"># Cruise average specific air range</span>
+    <span class="n">SAR</span> <span class="o">=</span> <span class="n">fuel_mass</span><span class="o">/</span><span class="n">mission_range</span>
+
+    <span class="n">complete_mission_flight_time</span> <span class="o">=</span> <span class="n">total_mission_flight_time</span> <span class="o">+</span> <span class="n">airport_departure</span><span class="p">[</span><span class="s1">&#39;avg_delay&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">airport_destination</span><span class="p">[</span><span class="s1">&#39;avg_delay&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;turn_around_time&#39;</span><span class="p">]</span> 
+
+
+    <span class="c1"># log.info(&#39;---- End DOC mission function ----&#39;)</span>
+    <span class="c1"># end_time = datetime.now()</span>
+    <span class="c1"># log.info(&#39;DOC mission execution time: {}&#39;.format(end_time - start_time))</span>
+
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">fuel_mass</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">complete_mission_flight_time</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">DOC</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">mach</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">passenger_capacity</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">SAR</span><span class="p">)</span></div>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters</span>
+<span class="c1"># vehicle = initialize_aircraft_parameters()</span>
+
+<span class="c1"># performance = vehicle[&#39;performance&#39;]</span>
+
+<span class="c1"># tolerance = 100</span>
+<span class="c1"># x =  [130, 90, 30, 22, -2, 35, 50, 12, 22, 1450, 25, 80, 4,1500, 41000, 78, 1, 1, 1, 1]</span>
+<span class="c1"># aircraft = vehicle[&#39;aircraft&#39;]</span>
+<span class="c1"># engine = vehicle[&#39;engine&#39;]</span>
+<span class="c1"># wing = vehicle[&#39;wing&#39;]</span>
+<span class="c1"># fuselage = vehicle[&#39;fuselage&#39;]</span>
+<span class="c1"># horizontal_tail = vehicle[&#39;horizontal_tail&#39;]</span>
+
+<span class="c1"># airport_departure = vehicle[&#39;airport_departure&#39;]</span>
+<span class="c1"># airport_destination = vehicle[&#39;airport_destination&#39;]</span>
+
+<span class="c1"># operations = vehicle[&#39;operations&#39;]</span>
+<span class="c1"># performance = vehicle[&#39;performance&#39;]</span>
+
+<span class="c1"># mission_range = 300</span>
+<span class="c1"># aircraft[&#39;maximum_zero_fuel_weight&#39;] = 31000</span>
+<span class="c1"># aircraft[&#39;operational_empty_weight&#39;] = 30000</span>
+<span class="c1"># # aircraft[&#39;passenger_capacity&#39;] = 77</span>
+<span class="c1"># aircraft[&#39;number_of_engines&#39;] = 2</span>
+<span class="c1"># # engine[&#39;maximum_thrust&#39;] = 63173</span>
+<span class="c1"># operations[&#39;reference_load_factor&#39;] = 0.85</span>
+<span class="c1"># aircraft[&#39;maximum_takeoff_weight&#39;] = 38790</span>
+<span class="c1"># aircraft[&#39;maximum_landing_weight&#39;] = 34100</span>
+
+<span class="c1"># # Upload dictionary variables with optimization variables input vector x</span>
+<span class="c1"># wing[&#39;area&#39;] = x[0]</span>
+<span class="c1"># wing[&#39;aspect_ratio&#39;] = x[1]/10</span>
+<span class="c1"># wing[&#39;taper_ratio&#39;] = x[2]/100</span>
+<span class="c1"># wing[&#39;sweep_c_4&#39;] = x[3]</span>
+<span class="c1"># wing[&#39;twist&#39;] = x[4]</span>
+<span class="c1"># wing[&#39;semi_span_kink&#39;] = x[5]/100</span>
+<span class="c1"># aircraft[&#39;passenger_capacity&#39;] = x[11]</span>
+<span class="c1"># fuselage[&#39;seat_abreast_number&#39;] = x[12]</span>
+<span class="c1"># performance[&#39;range&#39;] = x[13]</span>
+<span class="c1"># aircraft[&#39;winglet_presence&#39;] = x[17]</span>
+<span class="c1"># # aircraft[&#39;winglet_presence&#39;] = 1</span>
+<span class="c1"># aircraft[&#39;slat_presence&#39;] = x[18]</span>
+<span class="c1"># # aircraft[&#39;slat_presence&#39;] = 1</span>
+<span class="c1"># horizontal_tail[&#39;position&#39;] = x[19]</span>
+<span class="c1"># # horizontal_tail[&#39;position&#39;] = 1</span>
+
+<span class="c1"># engine[&#39;bypass&#39;] = x[6]/10</span>
+<span class="c1"># engine[&#39;fan_diameter&#39;] = x[7]/10</span>
+<span class="c1"># engine[&#39;compressor_pressure_ratio&#39;] = x[8]</span>
+<span class="c1"># engine[&#39;turbine_inlet_temperature&#39;] = x[9]</span>
+<span class="c1"># engine[&#39;fan_pressure_ratio&#39;] = x[10]/10</span>
+<span class="c1"># engine[&#39;design_point_pressure&#39;] = x[14]</span>
+<span class="c1"># engine[&#39;design_point_mach&#39;] = x[15]/100</span>
+<span class="c1"># engine[&#39;position&#39;] = x[16]</span>
+
+<span class="c1"># vehicle = np.load(&#39;Database/Aircrafts/baseline_EMB.npy&#39;,allow_pickle = True)</span>
+<span class="c1"># vehicle = vehicle.item()</span>
+<span class="c1"># operations = vehicle[&#39;operations&#39;]</span>
+
+<span class="c1"># operations[&#39;flight_planning_delta_ISA&#39;] = 0</span>
+<span class="c1"># heading = 180</span>
+<span class="c1"># mission_range = 697.40</span>
+<span class="c1"># print(mission(mission_range,heading,vehicle))</span>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

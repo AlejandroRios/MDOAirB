@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.CPACS_update package &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">framework.CPACS_update package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#framework-cpacs-update-cpacs-updater-module">framework.CPACS_update.CPACS_updater module</a></li>
+<li><a class="reference internal" href="#module-framework.CPACS_update.cpacsfunctions">framework.CPACS_update.cpacsfunctions module</a></li>
+<li><a class="reference internal" href="#module-framework.CPACS_update">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>framework.CPACS_update package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/framework.CPACS_update.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="framework-cpacs-update-package">
+<h1>framework.CPACS_update package<a class="headerlink" href="#framework-cpacs-update-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="framework-cpacs-update-cpacs-updater-module">
+<h2>framework.CPACS_update.CPACS_updater module<a class="headerlink" href="#framework-cpacs-update-cpacs-updater-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-framework.CPACS_update.cpacsfunctions">
+<span id="framework-cpacs-update-cpacsfunctions-module"></span><h2>framework.CPACS_update.cpacsfunctions module<a class="headerlink" href="#module-framework.CPACS_update.cpacsfunctions" title="Permalink to this headline">¶</a></h2>
+<p>CEASIOMpy: Conceptual Aircraft Design Software</p>
+<p>Developed for CFS ENGINEERING, 1015 Lausanne, Switzerland</p>
+<p>Functions to manipulate CPACS file, it uses TIXI and TIGL ceasiompy.aries, 
+and add some simplified or complementary functions.</p>
+<p>Python version: &gt;=3.6</p>
+<div class="line-block">
+<div class="line">Author : Aidan Jungo</div>
+<div class="line">Creation: 2018-10-02</div>
+<div class="line">Last modifiction: 2019-10-21</div>
+</div>
+<p>TODO:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘copy_branch’: change all uID of the copied branch? how?</p></li>
+<li></li>
+</ul>
+</div></blockquote>
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.add_float_vector">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">add_float_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">vector</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#add_float_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.add_float_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a vector (of float) at given CPACS xpath</p>
+<p>Function ‘add_float_vector’ will add a vector (composed by float) at the
+given XPath, if the node does not exist, it will be created. Values will be
+overwritten if paths exists.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to add
+vector (list, tuple): Vector of floats to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.add_string_vector">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">add_string_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">vector</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#add_string_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.add_string_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a vector (of string) at given CPACS xpath</p>
+<p>Function ‘add_string_vector’ will add a vector (composed by stings) at the
+given XPath, if the node does not exist, it will be created. Values will be
+overwritten if paths exists.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to add
+vector (list): Vector of string to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.add_uid">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">add_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#add_uid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.add_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to add UID at a specific XPath.</p>
+<p>Function ‘add_uid’ checks and add UID to a specific path, the function will
+automatically update the chosen UID if it exists already.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the branch to add the uid
+uid (str): uid to add at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.aircraft_name">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">aircraft_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi_or_cpacs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#aircraft_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.aircraft_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>The function get the name of the aircraft from the cpacs file or add a</dt><dd><p>default one if non-existant.</p>
+</dd>
+<dt>Args:</dt><dd><p>cpacs_path (str): Path to the CPACS file</p>
+</dd>
+<dt>Returns:</dt><dd><p>name (str): Name of the aircraft.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.close_tixi">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">close_tixi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi_handle</span></em>, <em class="sig-param"><span class="n">cpacs_out_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#close_tixi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.close_tixi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close TIXI handle and save the CPACS file.</p>
+<p>Function ‘close_tixi’ close the TIXI Handle and save the CPACS file at the
+location given by ‘cpacs_out_path’ after checking if the directory path
+exists</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+cpacs_out_path (str): Path to the CPACS output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.copy_branch">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">copy_branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath_from</span></em>, <em class="sig-param"><span class="n">xpath_to</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#copy_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.copy_branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to copy a CPACS branch.</p>
+<p>Function ‘copy_branch’ copy the branch (with sub-branches) from
+‘xpath_from’ to ‘xpath_to’ by using recursion. The new branch should
+be identical (uiD, attribute, etc). There is no log in this function
+because of its recursivity.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+xpath_from (str): xpath of the branch to copy
+xpath_to (str): Destination xpath</p>
+</dd>
+<dt>Returns:</dt><dd><p>tixi (handles): Modified TIXI Handle (with copied branch)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.create_branch">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">create_branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">add_child</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#create_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.create_branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a CPACS branch.</p>
+<p>Function ‘create_branch’ create a branch in the tixi handle and also all
+the missing parent nodes. Be careful, the xpath must be unique until the
+last element, it means, if several element exist, its index must be precised
+(index start at 1).
+e.g.: ‘/cpacs/vehicles/aircraft/model/wings/wing[2]/name’</p>
+<p>If the entire xpath already exist, the option ‘add_child’ (True/False) lets
+the user decide if a named child should be added next to the existing
+one(s). This only valid for the last element of the xpath.</p>
+<dl>
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the branch to create
+add_child (boolean): Choice of adding a name child if the last element</p>
+<blockquote>
+<div><p>of the xpath if one already exists</p>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>tixi (handles): Modified TIXI Handle (with new branch)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.get_float_vector">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">get_float_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#get_float_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.get_float_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a vector (of float) at given CPACS xpath</p>
+<p>Function ‘get_float_vector’ will get a vector (composed by float) at the
+given XPath, if the node does not exist, an error will be raised.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.get_path">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">get_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#get_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.get_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a path with your os system format</p>
+<p>Function ‘get_path’ will get a get the path in the CPACS file and return
+a path with the format corresponding to your os (‘/’ for Linux and MacOS
+and ‘’ for Windows). All paths to store in the CPACS file could be saved as
+normal strings as long as this function is used to get them back.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the path to get</p>
+</dd>
+<dt>Returns:</dt><dd><p>correct_path (str): Path with the correct separators</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.get_string_vector">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">get_string_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#get_string_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.get_string_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a vector (of string) at given CPACS xpath</p>
+<p>Function ‘get_string_vector’ will get a vector (composed by string) at the
+given XPath, if the node does not exist, an error will be raised.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.get_uid">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">get_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#get_uid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.get_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get uID from a specific XPath.</p>
+<p>Function ‘get_uid’ checks the xpath and get the corresponding uID.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the branch to add the uid</p>
+</dd>
+<dt>Returns:</dt><dd><p>uid (str): uid to add at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.get_value">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">get_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.get_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get value from a CPACS branch if this branch exist.</p>
+<p>Function ‘get_value’ check first if the the xpath exist and a value is store
+at this place. Then, it gets and returns this value. If the value or the
+xpath does not exist it raise an error and return ‘None’.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the value to get</p>
+</dd>
+<dt>Returns:</dt><dd><p>value (float or str): Value found at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.get_value_or_default">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">get_value_or_default</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">default_value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#get_value_or_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.get_value_or_default" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Function to get value from a CPACS branch if this branch exist, if not</dt><dd><p>it returns the default value.</p>
+</dd>
+</dl>
+<p>Function ‘get_value_or_default’ do the same than the function ‘get_value’
+but if no value is found at this place it returns the default value and add
+it at the xpath. If the xpath does not exist, it is created.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the value to get
+default_value (str, float or int): Default value</p>
+</dd>
+<dt>Returns:</dt><dd><p>tixi (handles): Modified TIXI Handle (with added default value)
+value (str, float or int): Value found at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.open_tigl">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">open_tigl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi_handle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#open_tigl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.open_tigl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create TIGL handles for a CPACS file and return this handle.</p>
+<p>Function ‘open_tigl’ return the TIGL Handle from its TIXI Handle.
+If this operation is not possible, it returns ‘None’</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIGL functions <a class="reference external" href="http://tigl.sourceforge.net/Doc/index.html">http://tigl.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file</p>
+</dd>
+<dt>Returns:</dt><dd><p>tigl_handle (handles): TIGL Handle of the CPACS file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.CPACS_update.cpacsfunctions.open_tixi">
+<code class="sig-prename descclassname">framework.CPACS_update.cpacsfunctions.</code><code class="sig-name descname">open_tixi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cpacs_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/CPACS_update/cpacsfunctions.html#open_tixi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.CPACS_update.cpacsfunctions.open_tixi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create TIXI handles for a CPACS file and return this handle.</p>
+<p>Function ‘open_tixi’ return the TIXI Handle of a CPACS file given as input
+by its path. If this operation is not possible, it returns ‘None’</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>cpacs_path (str): Path to the CPACS file</p>
+</dd>
+<dt>Returns::</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.CPACS_update">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-framework.CPACS_update" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

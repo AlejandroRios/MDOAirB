@@ -31,7 +31,7 @@ import math
 
 # from framework.Attributes.Atmosphere.atmosphere import atmosphere
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
-from framework.Attributes.Atmosphere.fair import FAIR
+from framework.Attributes.Atmosphere.temperature_dependent_air_properties import FAIR
 # =============================================================================
 # CLASSES
 # =============================================================================

@@ -1,35 +1,36 @@
 """
-File name : Airspeed conversor function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : January/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module performs speed transformations.
+
+Reference: 
     - Reference: Gudmundsson, General Aviation Aircraft Design: Applied Methods
     and Procedures, 2013
     - pag 770
-    - Reference: Blake, BOEING CO. Flight Operations Engineering -
+    - Blake, BOEING CO. Flight Operations Engineering -
     Jet Transport Performance Methods. 7th ed. Boeing Co., Everett,
     Estados Unidos, 1989
     - Chapter 6, page 6-12
     - Chapter 30, page 30-2
-Inputs:
-    - Altitude [m]
-    - Delta ISA [deg C]
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
-from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 import numpy as np
+
+from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -38,15 +39,14 @@ import numpy as np
 # FUNCTIONS
 # =============================================================================
 
-
 def mach_to_V_cas(mach, h, delta_ISA):
     """
     Description:
-        - Converts mach number to Calibrated Air Speed
+        - Converts mach number to Calibrated AirSpeed
     Inputs:
-        - Mach number
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - mach
+        - h
+        - delta_ISA
     Outputs:
         - Calibated airspeed [knots]
     """
@@ -63,9 +63,9 @@ def mach_to_V_tas(mach, h, delta_ISA):
     Description:
         -  Converts mach number to True Air Speed
     Inputs:
-        - Mach number
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - mach
+        - h
+        - delta_ISA
     Outputs:
         - True airspeed [knots]
     """
@@ -79,9 +79,9 @@ def V_cas_to_V_tas(V_cas, h, delta_ISA):
     Description:
         -  Converts Calibrated Air Speed to True Air Speed
     Inputs:
-        - Calibrated air speed [knots]
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - V_cas
+        - h
+        - delta_ISA
     Outputs:
         - True airspeed [knots]
     """
@@ -95,13 +95,13 @@ def V_cas_to_V_tas(V_cas, h, delta_ISA):
 def V_tas_to_V_cas(V_tas, h, delta_ISA):
     """
     Description:
-        -  Converts Calibrated Air Speed to True Air Speed
+        -  Converts True Air Speed to Calibrated Air Speed
     Inputs:
-        - Calibrated air speed [knots]
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - V_tas
+        - h
+        - delta_ISA
     Outputs:
-        - True airspeed [knots]
+        - Calibrated airspeed [knots]
     """
     speed_of_sound = 661.4786  # sea level [knots]
     theta, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
@@ -118,9 +118,9 @@ def V_cas_to_mach(V_cas, h, delta_ISA):
     Description:
         - Converts calibrated air speed to mach
     Inputs:
-        - Calibrated air speed [knots]
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - V_cas
+        - h
+        - delta_ISA
     Outputs:
         - Mach number
     """
@@ -140,13 +140,11 @@ def crossover_altitude(mach, V_cas, delta_ISA):
         The curves for constant CAS and constant Mach intersect at this
         point. Above this altitude the Mach number is used to reference speeds.
     Inputs:
-        - Mach
-        - Calibrated air speed [knots]
-        - Delta ISA [deg C]
+        - mach
+        - V_cas
+        - delta_ISA
     Outputs:
-        -
-    TODO's:
-        -
+        - crossover_altitude
     """
     flag = 0
     h = 0

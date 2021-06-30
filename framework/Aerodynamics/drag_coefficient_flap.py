@@ -1,20 +1,21 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - Flap contribution to drag coefficient
+
+Reference:
+    - Drag Force and Drag Coefficient - Sadraey M., Aircraft Performance Analysis, VDM Verlag Dr. Müller, 2009
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -29,18 +30,17 @@ TODO's:
 # FUNCTIONS
 # =============================================================================
 def drag_coefficient_flap(vehicle):
-    #
-    # Ref: Drag Force and Drag Coefficient
-    # Sadraey M., Aircraft Performance Analysis, VDM Verlag Dr. Müller, 2009
-    #**************************************************************************
-    # Input:
-    # wing['flap_deflection_landing']: flap deflection [degrees]
-    # wing['rear_spar_ref']: chordwise location of aft spar
-    #**************************************************************************
-    # Considerations:
-    # Internal flap: double sllotted
-    # External flap: single slotted
-    #**************************************************************************
+    '''
+    Description:
+        This function estimates the contribution to drag related to flap deflection
+        the options include:
+            - Internal flap: double slotted
+            - External flap: single slotted
+    Inputs:
+        - vehicle
+    Outputs:
+        - cd_flap
+    '''
     wing = vehicle['wing']
 
     A_int = 0.0011

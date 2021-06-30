@@ -1,0 +1,922 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry.wing_structural_layout_fuel_storage &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry.wing_structural_layout_fuel_storage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Sizing.Geometry.wing_structural_layout_fuel_storage</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Function  : Wing structural layout</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : July 2020</span>
+<span class="sd">Last edit : February 2021</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This module computes the wing structural layout and calculates</span>
+<span class="sd">    the fuel storage capacity in the wings</span>
+
+<span class="sd">Inputs:</span>
+<span class="sd">    - Vehicle dictionary</span>
+<span class="sd">    - x and y coordinates of wing chords </span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Updated vehicle dictionary</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    - Clean code</span>
+<span class="sd">    - Rename variables</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.atmosphere_ISA_deviation</span> <span class="kn">import</span> \
+    <span class="n">atmosphere_ISA_deviation</span>
+<span class="kn">from</span> <span class="nn">framework.utilities.logger</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="wing_structural_layout"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.wing_structural_layout_fuel_storage.wing_structural_layout">[docs]</a><span class="k">def</span> <span class="nf">wing_structural_layout</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">xutip</span><span class="p">,</span> <span class="n">yutip</span><span class="p">,</span>
+                           <span class="n">yltip</span><span class="p">,</span> <span class="n">xukink</span><span class="p">,</span> <span class="n">xlkink</span><span class="p">,</span> <span class="n">yukink</span><span class="p">,</span> <span class="n">ylkink</span><span class="p">,</span> <span class="n">xuroot</span><span class="p">,</span> <span class="n">xlroot</span><span class="p">,</span> <span class="n">yuroot</span><span class="p">,</span> <span class="n">ylroot</span><span class="p">):</span>
+    <span class="c1"># Generates wing structural layout and estimates fuel storage</span>
+    <span class="c1"># Author: Bento Mattos</span>
+    <span class="c1"># Version 2013R3b</span>
+
+    <span class="c1"># OBS: Wing leading edge must be of constant sweep</span>
+    <span class="c1"># Input:</span>
+    <span class="c1"># wing[&#39;trunnion_xposition&#39;] = Posicao da longarina traseira (fracional)</span>
+    <span class="c1"># AR = Wing aspect ratio</span>
+    <span class="c1"># Chord at fuselage centerline (CRaiz)</span>
+    <span class="c1"># Chord at wingtip (wing[&#39;tip_chord&#39;])</span>
+    <span class="c1"># Chord at kink station (wing[&#39;kink_chord&#39;])</span>
+    <span class="c1"># PSILE: Leading-edge sweepback angle</span>
+    <span class="c1"># Aileron basis as semi-span fraction (posaileron)</span>
+    <span class="c1"># Location of the kink station as semi-span fraction (wing.ybreak)</span>
+    
+    <span class="n">kg_l_to_kg_m3</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+    <span class="c1"># Initialization</span>
+
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">]</span>
+    <span class="n">nose_landing_gear</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;nose_landing_gear&#39;</span><span class="p">]</span>
+
+    
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;fuel_capacity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">nukink</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">yukink</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="n">ribs_spacing</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;ribs_spacing&#39;</span><span class="p">]</span>   <span class="c1"># (pol) Roskam Vol III pg 220 suggests 24</span>
+    <span class="n">nervspacm</span> <span class="o">=</span> <span class="n">ribs_spacing</span> <span class="o">*</span> <span class="mf">0.0254</span>  <span class="c1"># cm)</span>
+    <span class="n">querosene_density</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;fuel_density&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">kg_l_to_kg_m3</span>  <span class="c1"># jet A1 density</span>
+
+    <span class="n">angquebralongtras</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#</span>
+    <span class="n">diamfus</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> 
+
+    <span class="n">fquebra</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span_kink&#39;</span><span class="p">]</span>
+
+
+    <span class="c1"># Variaveis auxiliares</span>
+    <span class="n">bdiv2</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span>
+    <span class="n">xquebraBA</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">fquebra</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span>
+    <span class="n">yquebra</span> <span class="o">=</span> <span class="n">fquebra</span><span class="o">*</span><span class="n">bdiv2</span>
+
+    <span class="k">if</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;slat_presence&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">fraclongdi</span> <span class="o">=</span> <span class="mf">0.25</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fraclongdi</span> <span class="o">=</span> <span class="mf">0.15</span>
+
+    <span class="n">limited</span> <span class="o">=</span> <span class="n">fraclongdi</span>
+
+    <span class="c1"># Dados do trem de pouso:</span>
+    <span class="n">pneu_diam</span> <span class="o">=</span> <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;tyre_diameter&#39;</span><span class="p">]</span> <span class="c1"># diam do pneu em metros</span>
+    <span class="n">pneu_height</span> <span class="o">=</span> <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;tyre_height&#39;</span><span class="p">]</span>  <span class="c1"># largura do pneu (m)</span>
+    <span class="n">lmunhao</span> <span class="o">=</span> <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;trunnion_length&#39;</span><span class="p">]</span>  <span class="c1"># Comprimento do munhao (m)</span>
+
+    <span class="c1"># Intersecao asa-fuselagem</span>
+    <span class="n">yfusjunc</span> <span class="o">=</span> <span class="n">diamfus</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="c1"># Vetor para Aramzernar Todas as Nervuras</span>
+    <span class="n">Nerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+    <span class="c1"># Calcula a corda na intersecao</span>
+    <span class="n">xbainter</span> <span class="o">=</span> <span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span>  <span class="c1"># coord do ba na intersecao</span>
+
+    <span class="n">xbfquebra</span> <span class="o">=</span> <span class="n">xquebraBA</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">xbfquebra</span> <span class="o">==</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]:</span>
+        <span class="n">xbfinter</span> <span class="o">=</span> <span class="n">xbfquebra</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inclinabf</span> <span class="o">=</span> <span class="p">(</span><span class="n">yquebra</span><span class="o">-</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">xquebraBA</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">])</span>
+        <span class="n">xbfinter</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">yfusjunc</span><span class="o">-</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">inclinabf</span>  <span class="c1"># coord do bf na intersecao</span>
+
+    <span class="n">Cinter</span> <span class="o">=</span> <span class="n">xbfinter</span> <span class="o">-</span> <span class="n">xbainter</span>
+    <span class="n">aux1</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span>
+    <span class="n">aux2</span> <span class="o">=</span> <span class="n">xquebraBA</span>
+
+    <span class="c1"># *** Forma em planta da asa***</span>
+    <span class="n">xw</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">xbainter</span><span class="p">,</span> <span class="n">aux1</span><span class="p">,</span> <span class="p">(</span><span class="n">aux1</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]),</span> <span class="p">(</span><span class="n">aux2</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]),</span> <span class="n">xbfinter</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]]</span>
+    <span class="n">yw</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">yfusjunc</span><span class="p">,</span> <span class="n">bdiv2</span><span class="p">,</span> <span class="n">bdiv2</span><span class="p">,</span> <span class="n">yquebra</span><span class="p">,</span> <span class="n">yfusjunc</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+
+
+    <span class="n">xfus</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">yfus</span> <span class="o">=</span> <span class="p">[</span><span class="n">diamfus</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">diamfus</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># *** Ponta da asa ***</span>
+    <span class="n">xcontrolpoint2</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span>
+    <span class="n">xcontrolpoint3</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span>
+    <span class="n">xcontrolpoint4</span> <span class="o">=</span> <span class="n">aux2</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span>
+    <span class="n">ycontrolpoint3</span> <span class="o">=</span> <span class="n">bdiv2</span>
+    <span class="n">ycontrolpoint4</span> <span class="o">=</span> <span class="n">fquebra</span><span class="o">*</span><span class="n">bdiv2</span>
+    <span class="n">inclinabf</span> <span class="o">=</span> <span class="p">(</span><span class="n">ycontrolpoint4</span><span class="o">-</span><span class="n">ycontrolpoint3</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">xcontrolpoint4</span><span class="o">-</span><span class="n">xcontrolpoint3</span><span class="p">)</span>
+    <span class="n">xprojbfponta</span> <span class="o">=</span> <span class="n">xcontrolpoint3</span><span class="o">+</span><span class="p">(</span><span class="mf">1.05</span><span class="o">*</span><span class="n">bdiv2</span><span class="o">-</span><span class="n">ycontrolpoint3</span><span class="p">)</span><span class="o">/</span><span class="n">inclinabf</span>
+
+    <span class="c1"># projecao do BF da ponta</span>
+    <span class="n">xpp</span> <span class="o">=</span> <span class="p">[</span><span class="n">xcontrolpoint2</span><span class="p">,</span> <span class="p">(</span><span class="n">xcontrolpoint2</span><span class="o">+</span><span class="mf">0.15</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]),</span>
+           <span class="n">xprojbfponta</span><span class="p">,</span> <span class="p">(</span><span class="n">xcontrolpoint2</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])]</span>
+    <span class="n">ypp</span> <span class="o">=</span> <span class="p">[</span><span class="n">bdiv2</span><span class="p">,</span> <span class="p">(</span><span class="n">bdiv2</span><span class="o">+</span><span class="mf">0.025</span><span class="o">*</span><span class="n">bdiv2</span><span class="p">),</span> <span class="p">(</span><span class="n">bdiv2</span><span class="o">+</span><span class="mf">0.05</span><span class="o">*</span><span class="n">bdiv2</span><span class="p">),</span> <span class="n">bdiv2</span><span class="p">]</span>
+
+
+    <span class="c1"># *** Longarina dianteira</span>
+    <span class="n">xld</span> <span class="o">=</span> <span class="p">[(</span><span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">fraclongdi</span><span class="o">*</span><span class="n">Cinter</span><span class="p">),</span>
+           <span class="p">(</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">fraclongdi</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])]</span>
+    <span class="n">yld</span> <span class="o">=</span> <span class="p">[</span><span class="n">yfusjunc</span><span class="p">,</span> <span class="n">bdiv2</span><span class="p">]</span>
+
+    <span class="c1"># *** Fim longarina dianteira ***</span>
+
+    <span class="c1"># *** Longarina traseira (LT) ***</span>
+
+    <span class="c1"># LT externa</span>
+    <span class="n">x1aux</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">fquebra</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]))</span>
+    <span class="n">xlte</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1aux</span><span class="p">,</span> <span class="p">(</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])]</span>
+    <span class="n">ylte</span> <span class="o">=</span> <span class="p">[</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">fquebra</span><span class="p">,</span>  <span class="n">bdiv2</span><span class="p">]</span>
+
+    <span class="c1"># LT Interna</span>
+
+    <span class="n">inclnt</span> <span class="o">=</span> <span class="n">x1aux</span><span class="o">-</span><span class="p">(</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span>
+    <span class="n">inclnt</span> <span class="o">=</span> <span class="p">(</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">fquebra</span> <span class="o">-</span> <span class="n">bdiv2</span><span class="p">)</span><span class="o">/</span><span class="n">inclnt</span>
+
+    <span class="c1"># adiciona angulo graus para aumentar o tamanho do caixao central</span>
+    <span class="n">anglti</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">inclnt</span><span class="p">)</span><span class="o">+</span><span class="n">angquebralongtras</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+    <span class="n">xltintern</span> <span class="o">=</span> <span class="n">x1aux</span><span class="o">+</span><span class="p">((</span><span class="n">yfusjunc</span><span class="o">-</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">fquebra</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">anglti</span><span class="p">))</span>
+    <span class="n">xlti</span> <span class="o">=</span> <span class="p">[</span><span class="n">xltintern</span><span class="p">,</span> <span class="n">x1aux</span><span class="p">]</span>
+    <span class="n">ylti</span> <span class="o">=</span> <span class="p">[</span><span class="n">yfusjunc</span><span class="p">,</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">fquebra</span><span class="p">]</span>
+
+
+    <span class="n">xlt</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xlt</span> <span class="o">=</span> <span class="n">xlti</span>
+    <span class="n">xlt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xlte</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">ylt</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ylt</span> <span class="o">=</span> <span class="n">ylti</span>
+    <span class="n">ylt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ylte</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># *** Fim da longarina traseita ***</span>
+
+    <span class="c1"># ************************   Nervuras ********************************</span>
+    <span class="c1"># ++++  Na quebra</span>
+    <span class="c1">#</span>
+    <span class="n">x1aux</span> <span class="o">=</span> <span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">fraclongdi</span><span class="o">*</span><span class="n">Cinter</span>
+    <span class="n">y1aux</span> <span class="o">=</span> <span class="n">yfusjunc</span>
+    <span class="n">x2aux</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">fraclongdi</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span>
+    <span class="n">y2aux</span> <span class="o">=</span> <span class="n">bdiv2</span>
+
+    <span class="n">xnq</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ynq</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">x1aux</span> <span class="o">==</span> <span class="n">x2aux</span><span class="p">:</span>
+        <span class="n">xnq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1aux</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inclinald</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2aux</span><span class="o">-</span><span class="n">y1aux</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x2aux</span><span class="o">-</span><span class="n">x1aux</span><span class="p">)</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">x1aux</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">y1aux</span>
+        <span class="n">xnq</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">yquebra</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">/</span><span class="n">inclinald</span> <span class="o">+</span> <span class="n">x0</span><span class="p">)</span>
+
+
+    <span class="n">xnq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xquebraBA</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">])</span>
+    <span class="n">ynq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yquebra</span><span class="p">)</span>
+    <span class="n">ynq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynq</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">Nerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xnq</span><span class="p">,</span> <span class="n">ynq</span><span class="p">))</span>
+
+    <span class="c1"># Coordendas da nervura na quebra</span>
+    <span class="n">xtnervq</span> <span class="o">=</span> <span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ytnervq</span> <span class="o">=</span> <span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xdnervq</span> <span class="o">=</span> <span class="n">xnq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ydnervq</span> <span class="o">=</span> <span class="n">ynq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Nervura da asa externa com origem na quebra(eh perpendicular ah longarina</span>
+    <span class="c1"># traseira)</span>
+    <span class="n">x1aux</span> <span class="o">=</span> <span class="n">xquebraBA</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span>
+    <span class="n">y1aux</span> <span class="o">=</span> <span class="n">yquebra</span>
+
+    <span class="n">x2aux</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span>
+    <span class="n">y2aux</span> <span class="o">=</span> <span class="n">bdiv2</span>
+
+    <span class="n">nervkinknormal</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># a principio esta nervura nao existe</span>
+    <span class="n">nnervext</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Por enquanto, apenas a nervura padrao da quebra eh levada em conta</span>
+    <span class="n">angnev</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># REVIEEEEEEEEEEEEEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</span>
+    <span class="n">anglte</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">x2aux</span> <span class="o">==</span> <span class="n">x1aux</span><span class="p">:</span>
+        <span class="n">anglte</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">angnev</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inclinalt</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2aux</span><span class="o">-</span><span class="n">y1aux</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x2aux</span><span class="o">-</span><span class="n">x1aux</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inclinalt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">anglte</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">inclinalt</span><span class="p">)</span>
+            <span class="n">angnev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">anglte</span>
+            <span class="c1"># testa se o angulo entrea nerv da quebra e esta nervura eh maior</span>
+            <span class="c1"># que 5 graus</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">angnev</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">*</span><span class="n">rad</span><span class="p">:</span>
+                <span class="n">nervkinknormal</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># nervura serah considerada</span>
+                <span class="n">nnervext</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="n">x02</span> <span class="o">=</span> <span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y02</span> <span class="o">=</span> <span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">inclinanerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">angnev</span><span class="p">)</span>
+    <span class="n">x01</span> <span class="o">=</span> <span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">fraclongdi</span><span class="o">*</span><span class="n">Cinter</span>
+    <span class="n">y01</span> <span class="o">=</span> <span class="n">yfusjunc</span>
+    <span class="c1">#</span>
+
+    <span class="n">xnqa</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ynqa</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">nervkinknormal</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># acha intersecao com a longarina dianteira</span>
+        <span class="n">xnqa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># coord x do ponto da longarina traseira na quebra</span>
+        <span class="n">ynqa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># coord y do ponto da longarina traseira na quebra</span>
+
+        <span class="n">term1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y02</span><span class="o">-</span><span class="n">y01</span><span class="p">)</span><span class="o">-</span><span class="n">inclinanerv</span><span class="o">*</span><span class="n">x02</span><span class="o">+</span><span class="n">inclinald</span><span class="o">*</span><span class="n">x01</span>
+        <span class="n">xinerv</span> <span class="o">=</span> <span class="n">term1</span><span class="o">/</span><span class="p">(</span><span class="n">inclinald</span><span class="o">-</span><span class="n">inclinanerv</span><span class="p">)</span>
+        <span class="n">yinerv</span> <span class="o">=</span> <span class="n">y01</span><span class="o">+</span><span class="n">inclinald</span><span class="o">*</span><span class="p">(</span><span class="n">xinerv</span><span class="o">-</span><span class="n">x01</span><span class="p">)</span>
+        <span class="n">xnqa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xinerv</span><span class="p">)</span>
+        <span class="n">ynqa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yinerv</span><span class="p">)</span>
+        <span class="n">Nerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">Nerv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xnqa</span><span class="p">,</span> <span class="n">ynqa</span><span class="p">))))</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">yinerv</span> <span class="o">=</span> <span class="n">yquebra</span>
+
+    <span class="c1"># Restante das nervuras do caixao central externo</span>
+    <span class="n">ytnerv</span> <span class="o">=</span> <span class="n">y02</span>
+    <span class="n">xtnerv</span> <span class="o">=</span> <span class="n">x02</span>
+    <span class="n">ydnerv</span> <span class="o">=</span> <span class="n">yinerv</span>
+    <span class="c1">#</span>
+    <span class="n">jnervext</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">deltay</span> <span class="o">=</span> <span class="n">nervspacm</span>
+    <span class="k">if</span> <span class="n">anglte</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">deltax</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">deltax</span> <span class="o">=</span> <span class="n">deltay</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">anglte</span><span class="p">)</span>
+
+    <span class="n">xnervext_aux1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ynervext_aux1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xnervext_aux2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ynervext_aux2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># parte 1 ateh o flape</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">ydnerv</span><span class="o">+</span><span class="n">deltay</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">bdiv2</span><span class="p">:</span>
+        <span class="c1"># descobre coord da nova nervura na LT</span>
+        <span class="n">ytnerv</span> <span class="o">=</span> <span class="n">ytnerv</span><span class="o">+</span><span class="n">deltay</span>
+        <span class="n">xtnerv</span> <span class="o">=</span> <span class="n">xtnerv</span><span class="o">+</span><span class="n">deltax</span>
+        <span class="n">jnervext</span> <span class="o">=</span> <span class="n">jnervext</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">xnervext_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xtnerv</span><span class="p">)</span>
+        <span class="n">ynervext_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ytnerv</span><span class="p">)</span>
+        <span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xtnerv</span>
+        <span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ytnerv</span>
+        <span class="c1"># Calcula intersecao com a LD</span>
+        <span class="n">ydnerv</span> <span class="o">=</span> <span class="n">ydnerv</span><span class="o">+</span><span class="n">deltay</span>
+        <span class="n">xdnerv</span> <span class="o">=</span> <span class="n">x01</span><span class="o">+</span><span class="p">(</span><span class="n">ydnerv</span><span class="o">-</span><span class="n">y01</span><span class="p">)</span><span class="o">/</span><span class="n">inclinald</span>
+        <span class="n">xnervext_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xdnerv</span><span class="p">)</span>
+        <span class="n">ynervext_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ydnerv</span><span class="p">)</span>
+        <span class="n">xnq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xdnerv</span>
+        <span class="n">ynq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ydnerv</span>
+        <span class="n">nnervext</span> <span class="o">=</span> <span class="n">nnervext</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">Nerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">Nerv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xnq</span><span class="p">,</span> <span class="n">ynq</span><span class="p">))))</span>
+
+    <span class="c1"># Ultima nervura (fracionaria)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">ytnerv</span><span class="o">+</span><span class="n">deltay</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">bdiv2</span><span class="p">:</span>
+        <span class="n">jnervext</span> <span class="o">=</span> <span class="n">jnervext</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">ytnerv</span> <span class="o">=</span> <span class="n">ytnerv</span><span class="o">+</span><span class="n">deltay</span>
+        <span class="n">xtnerv</span> <span class="o">=</span> <span class="n">xtnerv</span><span class="o">+</span><span class="n">deltax</span>
+        <span class="n">xnq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xtnerv</span>
+        <span class="n">ynq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ytnerv</span>
+        <span class="n">xdnerv</span> <span class="o">=</span> <span class="p">(</span><span class="n">ytnerv</span><span class="o">-</span><span class="n">y01</span> <span class="o">+</span> <span class="n">x01</span><span class="o">*</span><span class="n">inclinald</span><span class="o">-</span><span class="n">inclinanerv</span><span class="o">*</span><span class="n">xtnerv</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="n">inclinald</span><span class="o">-</span><span class="n">inclinanerv</span><span class="p">)</span>
+        <span class="n">ydnerv</span> <span class="o">=</span> <span class="n">y01</span> <span class="o">+</span> <span class="n">inclinald</span><span class="o">*</span><span class="p">(</span><span class="n">xdnerv</span><span class="o">-</span><span class="n">x01</span><span class="p">)</span>
+        <span class="n">yinerv</span> <span class="o">=</span> <span class="n">ydnerv</span>
+        <span class="n">sinerv</span> <span class="o">=</span> <span class="n">xdnerv</span>
+
+        <span class="k">if</span> <span class="n">ydnerv</span> <span class="o">&gt;</span> <span class="n">bdiv2</span><span class="p">:</span>
+            <span class="n">yinerv</span> <span class="o">=</span> <span class="n">bdiv2</span>
+            <span class="n">y01p</span> <span class="o">=</span> <span class="n">bdiv2</span>
+            <span class="n">x01p</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span>
+            <span class="n">xinerv</span> <span class="o">=</span> <span class="p">(</span><span class="n">ytnerv</span><span class="o">-</span><span class="n">y01p</span> <span class="o">+</span> <span class="n">x01p</span><span class="o">*</span><span class="mi">0</span><span class="o">-</span><span class="n">inclinanerv</span><span class="o">*</span><span class="n">xtnerv</span><span class="p">)</span> <span class="o">/</span> \
+                <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="n">inclinanerv</span><span class="p">)</span>  <span class="c1"># inclinacao d apont eh zero</span>
+
+        <span class="n">xnervext_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xtnerv</span><span class="p">)</span>
+        <span class="n">ynervext_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ytnerv</span><span class="p">)</span>
+        <span class="n">xnervext_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xinerv</span><span class="p">)</span>
+        <span class="n">ynervext_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yinerv</span><span class="p">)</span>
+
+        <span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xdnerv</span>
+        <span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">yinerv</span>
+        <span class="n">nnervext</span> <span class="o">=</span> <span class="n">nnervext</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="n">Nerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">Nerv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xnq</span><span class="p">,</span> <span class="n">ynq</span><span class="p">))))</span>
+
+    <span class="n">xnervext</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">xnervext_aux1</span><span class="p">,</span> <span class="n">xnervext_aux2</span><span class="p">))</span>
+    <span class="n">ynervext</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">ynervext_aux1</span><span class="p">,</span> <span class="n">ynervext_aux2</span><span class="p">))</span>
+
+    <span class="c1"># Nervuras no caixao central interno</span>
+    <span class="n">xtnerv</span> <span class="o">=</span> <span class="n">xtnervq</span>
+    <span class="n">ytnerv</span> <span class="o">=</span> <span class="n">ytnervq</span>
+    <span class="n">xdnerv</span> <span class="o">=</span> <span class="n">xdnervq</span>
+    <span class="n">ydnerv</span> <span class="o">=</span> <span class="n">ydnervq</span>
+
+    <span class="n">nni</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">deltay</span> <span class="o">=</span> <span class="mf">0.60</span><span class="o">*</span><span class="n">deltay</span>
+
+    <span class="n">xnervint_aux1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ynervint_aux1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xnervint_aux2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ynervint_aux2</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">ytnerv</span><span class="o">-</span><span class="n">yfusjunc</span><span class="o">-</span><span class="n">deltay</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">nervspacm</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">ytnerv</span> <span class="o">=</span> <span class="n">ytnerv</span> <span class="o">-</span> <span class="n">deltay</span>
+        <span class="n">xtnerv</span> <span class="o">=</span> <span class="n">xtnervq</span> <span class="o">+</span> <span class="p">(</span><span class="n">ytnerv</span><span class="o">-</span><span class="n">ytnervq</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">anglti</span><span class="p">)</span>
+        <span class="n">ydnerv</span> <span class="o">=</span> <span class="n">ytnerv</span>
+        <span class="n">xdnerv</span> <span class="o">=</span> <span class="n">x01</span><span class="o">+</span><span class="p">(</span><span class="n">ydnerv</span><span class="o">-</span><span class="n">y01</span><span class="p">)</span><span class="o">/</span><span class="n">inclinald</span>
+        <span class="n">xnq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xdnerv</span>
+        <span class="n">ynq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ydnerv</span>
+        <span class="n">nni</span> <span class="o">=</span> <span class="n">nni</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">xnervint_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xdnerv</span><span class="p">)</span>
+        <span class="n">ynervint_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ydnerv</span><span class="p">)</span>
+        <span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xtnerv</span>
+        <span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ytnerv</span>
+        <span class="n">xnervint_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xtnerv</span><span class="p">)</span>
+        <span class="n">ynervint_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ytnerv</span><span class="p">)</span>
+
+        <span class="n">Nerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">Nerv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xnq</span><span class="p">,</span> <span class="n">ynq</span><span class="p">))))</span>
+
+    <span class="n">nni</span> <span class="o">=</span> <span class="n">nni</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="c1"># nervura na juncao asa-fuselagem</span>
+    <span class="n">xnq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ynq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">yld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xnervint_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnq</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ynervint_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynq</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xlti</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ylti</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xnervint_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnq</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ynervint_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynq</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1">#</span>
+    <span class="n">xnervint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">xnervint_aux1</span><span class="p">,</span> <span class="n">xnervint_aux2</span><span class="p">))</span>
+    <span class="n">ynervint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">ynervint_aux1</span><span class="p">,</span> <span class="n">ynervint_aux2</span><span class="p">))</span>
+
+    <span class="n">Nerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">Nerv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xnq</span><span class="p">,</span> <span class="n">ynq</span><span class="p">))))</span>
+
+    <span class="c1"># *** Aileron ***</span>
+    <span class="c1"># comprimento estimado do aileron: aprox. 25# da semi-envergadura</span>
+
+    <span class="n">xail</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">yail</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span>
+    <span class="n">yail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bdiv2</span><span class="p">)</span>
+    <span class="n">xail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span>
+    <span class="n">yail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bdiv2</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="n">yinfaileron</span> <span class="o">=</span> <span class="mf">0.75</span><span class="o">*</span><span class="n">bdiv2</span>
+    <span class="c1"># Procura a nervura mais proxima de yinfaileron</span>
+    <span class="n">minnerv</span> <span class="o">=</span> <span class="mf">1e06</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">jnervext</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">yinfaileron</span><span class="o">-</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">minnerv</span><span class="p">:</span>
+
+            <span class="n">minnerv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">yinfaileron</span><span class="o">-</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+
+            <span class="n">mem</span> <span class="o">=</span> <span class="n">j</span>
+
+    <span class="n">ytop_tanque_externo</span> <span class="o">=</span> <span class="mf">0.85</span><span class="o">*</span><span class="n">bdiv2</span>
+    <span class="n">minnerv</span> <span class="o">=</span> <span class="mf">1e06</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">jnervext</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ytop_tanque_externo</span><span class="o">-</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">minnerv</span><span class="p">:</span>
+            <span class="n">minnerv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ytop_tanque_externo</span><span class="o">-</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+            <span class="n">memtqe</span> <span class="o">=</span> <span class="n">j</span>
+
+    <span class="c1"># calcula intesecao com BF</span>
+    <span class="n">tg1</span> <span class="o">=</span> <span class="n">inclinabf</span>
+    <span class="n">tg2</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">xcontrolpoint3</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">ycontrolpoint3</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">xnervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mem</span><span class="p">]</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mem</span><span class="p">]</span>
+    <span class="c1">#</span>
+    <span class="n">term1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="p">)</span><span class="o">-</span><span class="n">tg2</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="n">tg1</span><span class="o">*</span><span class="n">x1</span>
+
+    <span class="n">xail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term1</span><span class="o">/</span><span class="p">(</span><span class="n">tg1</span><span class="o">-</span><span class="n">tg2</span><span class="p">))</span>
+    <span class="n">yail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="o">+</span><span class="n">tg1</span><span class="o">*</span><span class="p">(</span><span class="n">xail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">x1</span><span class="p">))</span>
+    <span class="c1">#</span>
+    <span class="n">xail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">mem</span><span class="p">])</span>
+    <span class="n">yail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">mem</span><span class="p">])</span>
+
+    <span class="n">xcombe</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ycombe</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Tanque de combust�vel na asa externa</span>
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xtnervq</span><span class="p">)</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ytnervq</span><span class="p">)</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xdnervq</span><span class="p">)</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ydnervq</span><span class="p">)</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">mem</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+        <span class="n">xcombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+        <span class="n">ycombe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+
+
+    <span class="n">xcgtqe</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">xcombe</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>  <span class="c1"># CG do tanque externo</span>
+    <span class="n">ycgtqe</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ycombe</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+
+    <span class="c1"># Calcula capacidade dos tanques (duas semi-asas)</span>
+    <span class="n">limitepe</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span>
+
+    <span class="c1"># estacoes da base inf e sup do tanque externo (ymed1 e ymed2)</span>
+    <span class="n">ymed1</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">ymed2</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="p">(</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">]</span><span class="o">+</span><span class="n">ynervext</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">memtqe</span><span class="p">])</span>
+
+    <span class="c1"># estacao superior do tanque interno da asa</span>
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">ymed3</span> <span class="o">=</span> <span class="n">ytnervq</span>
+        <span class="n">limitepi1</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span>
+
+        <span class="n">aux</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">xnervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">limitepi2</span> <span class="o">=</span> <span class="p">(</span><span class="n">aux</span><span class="o">-</span><span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]))</span><span class="o">/</span><span class="n">Cinter</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ymed3</span> <span class="o">=</span> <span class="n">ynervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">deltaysta</span> <span class="o">=</span> <span class="n">yquebra</span><span class="o">-</span><span class="n">yfusjunc</span>
+        <span class="n">Csupint</span> <span class="o">=</span> <span class="n">Cinter</span> <span class="o">+</span> <span class="p">((</span><span class="n">ymed3</span><span class="o">-</span><span class="n">yfusjunc</span><span class="p">)</span><span class="o">/</span><span class="n">deltaysta</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">Cinter</span><span class="p">)</span>
+        <span class="n">xbainter</span> <span class="o">=</span> <span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span>
+        <span class="n">xbaint</span> <span class="o">=</span> <span class="n">xbainter</span> <span class="o">+</span> <span class="p">((</span><span class="n">ymed3</span><span class="o">-</span><span class="n">yfusjunc</span><span class="p">)</span><span class="o">/</span><span class="n">deltaysta</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">xquebraBA</span><span class="o">-</span><span class="n">xbainter</span><span class="p">)</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xnervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">limitepi1</span> <span class="o">=</span> <span class="p">(</span><span class="n">aux</span><span class="o">-</span><span class="n">xbaint</span><span class="p">)</span><span class="o">/</span><span class="n">Csupint</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">xnervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">limitepi2</span> <span class="o">=</span> <span class="p">(</span><span class="n">aux</span><span class="o">-</span><span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]))</span><span class="o">/</span><span class="n">Cinter</span>
+
+
+    <span class="n">yinterno</span> <span class="o">=</span> <span class="n">ymed1</span>
+    <span class="n">yexterno</span> <span class="o">=</span> <span class="n">ymed2</span>
+    <span class="c1"># acha perfil externo</span>
+    <span class="n">deltay</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">yinterno</span>
+
+    <span class="n">xuperfilext</span> <span class="o">=</span> <span class="n">xutip</span>
+    <span class="n">yuperfilext</span> <span class="o">=</span> <span class="n">yukink</span> <span class="o">+</span> <span class="p">((</span><span class="n">yexterno</span><span class="o">-</span><span class="n">yinterno</span><span class="p">)</span><span class="o">/</span><span class="n">deltay</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">yutip</span><span class="o">-</span><span class="n">yukink</span><span class="p">)</span>
+    <span class="n">ylperfilext</span> <span class="o">=</span> <span class="n">ylkink</span> <span class="o">+</span> <span class="p">((</span><span class="n">yexterno</span><span class="o">-</span><span class="n">yinterno</span><span class="p">)</span><span class="o">/</span><span class="n">deltay</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">yltip</span><span class="o">-</span><span class="n">ylkink</span><span class="p">)</span>
+    <span class="n">Cext</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">((</span><span class="n">yexterno</span><span class="o">-</span><span class="n">yinterno</span><span class="p">)</span><span class="o">/</span><span class="n">deltay</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">])</span>
+    <span class="n">heighte</span> <span class="o">=</span> <span class="n">ymed2</span><span class="o">-</span><span class="n">ymed1</span>
+    <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">xpolye</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ypolye</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xpolyi</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ypolyi</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nukink</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">xuperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">limitepe</span> <span class="ow">and</span> <span class="n">xuperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">limited</span><span class="p">:</span>
+            <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">xpolye</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xuperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolye</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yuperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">xpolyi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xukink</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolyi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yukink</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nukink</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">xuperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">limitepe</span> <span class="ow">and</span> <span class="n">xuperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">limited</span><span class="p">:</span>
+            <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">xpolye</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xuperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolye</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ylperfilext</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">xpolyi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xlkink</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolyi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ylkink</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="c1"># a percentagem da corda na secao da raiz nao eh a memsma da long traseira</span>
+    <span class="n">yinterno</span> <span class="o">=</span> <span class="n">yfusjunc</span>
+    <span class="n">yexterno</span> <span class="o">=</span> <span class="n">ymed3</span>
+    <span class="c1"># acha perfil externo</span>
+    <span class="n">deltay</span> <span class="o">=</span> <span class="n">yquebra</span><span class="o">-</span><span class="n">yinterno</span>
+
+    <span class="n">gradaux</span> <span class="o">=</span> <span class="p">(</span><span class="n">yexterno</span><span class="o">-</span><span class="n">yinterno</span><span class="p">)</span><span class="o">/</span><span class="n">deltay</span>
+
+    <span class="n">xuperfilint</span> <span class="o">=</span> <span class="n">xuroot</span>
+
+    <span class="n">yuperfilint</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ylperfilint</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xuroot</span><span class="p">)):</span>
+        <span class="n">yuperfilint</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yuroot</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">gradaux</span><span class="o">*</span><span class="p">(</span><span class="n">yukink</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">yuroot</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="n">ylperfilint</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ylroot</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">gradaux</span><span class="o">*</span><span class="p">(</span><span class="n">ylkink</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">ylroot</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+
+    <span class="n">Csupint</span> <span class="o">=</span> <span class="n">Cinter</span> <span class="o">+</span> <span class="p">((</span><span class="n">yexterno</span><span class="o">-</span><span class="n">yinterno</span><span class="p">)</span><span class="o">/</span><span class="n">deltay</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">Cinter</span><span class="p">)</span>
+
+    <span class="n">limitedr</span> <span class="o">=</span> <span class="n">limited</span>
+
+    <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">xpolyroot</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ypolyroot</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xuroot</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">xuperfilint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">limitepi1</span> <span class="ow">and</span> <span class="n">xuperfilint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">limitedr</span><span class="p">:</span>
+            <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">xpolyroot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolyroot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yuperfilint</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="c1"># CHECKKKKKKKKKK THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xuroot</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">xuperfilint</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">limitepi1</span> <span class="ow">and</span> <span class="n">xuperfilint</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">limitedr</span><span class="p">:</span>
+            <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">xpolyroot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolyroot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ylperfilint</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="c1"># Area molhada no perfil da interseccao asa-fuselagem</span>
+    <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">xpolyroot1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ypolyroot1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xuroot</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">limitepi2</span> <span class="ow">and</span> <span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">limitedr</span><span class="p">:</span>
+            <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">xpolyroot1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolyroot1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yuroot</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="c1"># CHECKKKKKKKKKK THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xuroot</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">limitepi2</span> <span class="ow">and</span> <span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">limitedr</span><span class="p">:</span>
+            <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">xpolyroot1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xuroot</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ypolyroot1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ylroot</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">PolyArea</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="n">areae</span> <span class="o">=</span> <span class="n">PolyArea</span><span class="p">(</span><span class="n">xpolye</span><span class="p">,</span> <span class="n">ypolye</span><span class="p">)</span>
+    <span class="n">areae</span> <span class="o">=</span> <span class="n">areae</span><span class="o">*</span><span class="n">Cext</span><span class="o">*</span><span class="n">Cext</span>
+    <span class="n">areai</span> <span class="o">=</span> <span class="n">PolyArea</span><span class="p">(</span><span class="n">xpolyi</span><span class="p">,</span> <span class="n">ypolyi</span><span class="p">)</span>
+    <span class="n">areai</span> <span class="o">=</span> <span class="n">areai</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span>
+
+    <span class="n">arearootsup</span> <span class="o">=</span> <span class="n">PolyArea</span><span class="p">(</span><span class="n">xpolyroot</span><span class="p">,</span> <span class="n">ypolyroot</span><span class="p">)</span>
+    <span class="n">arearootsup</span> <span class="o">=</span> <span class="n">arearootsup</span><span class="o">*</span><span class="n">Csupint</span><span class="o">*</span><span class="n">Csupint</span>
+    <span class="n">arearootinf</span> <span class="o">=</span> <span class="n">PolyArea</span><span class="p">(</span><span class="n">xpolyroot1</span><span class="p">,</span> <span class="n">ypolyroot1</span><span class="p">)</span>
+    <span class="n">arearootinf</span> <span class="o">=</span> <span class="n">arearootinf</span><span class="o">*</span><span class="n">Cinter</span><span class="o">*</span><span class="n">Cinter</span>
+    <span class="c1"># Calculo dos volumes</span>
+    <span class="c1"># 2# de perdas devido a nervuras, revestimento e outros equip</span>
+    <span class="n">voltanqueext</span> <span class="o">=</span> <span class="mf">0.98</span><span class="o">*</span><span class="p">(</span><span class="n">heighte</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">areai</span> <span class="o">+</span> <span class="n">areae</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">areai</span><span class="o">*</span><span class="n">areae</span><span class="p">))</span>
+    <span class="c1"># 2# de perdas devido a nervuras, revestimento e outros equip</span>
+    <span class="n">voltanqueint</span> <span class="o">=</span> <span class="mf">0.98</span><span class="o">*</span><span class="p">(</span><span class="n">deltay</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">arearootinf</span> <span class="o">+</span>
+                                    <span class="n">arearootsup</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">arearootinf</span><span class="o">*</span><span class="n">arearootsup</span><span class="p">))</span>
+
+    <span class="n">capacidadete</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">voltanqueext</span><span class="o">*</span><span class="n">querosene_density</span>
+
+    <span class="c1"># Capacidade dos tanques da asa interna</span>
+    <span class="n">xcombi</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ycombi</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xdnervq</span><span class="p">)</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ydnervq</span><span class="p">)</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xtnervq</span><span class="p">)</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ytnervq</span><span class="p">)</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervint</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">xcombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xnervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ycombi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ynervint</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">nni</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+
+    <span class="n">xcgtqi</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">xcombi</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>  <span class="c1"># CG do tanque interno</span>
+    <span class="n">ycgtqi</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ycombi</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+
+    <span class="n">capacidadeti</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">voltanqueint</span><span class="o">*</span><span class="n">querosene_density</span>
+
+    <span class="c1"># Capacidade total dos tanques</span>
+    <span class="c1"># Considera perdas devido a nervuras, longarinas, revestimento, bombas</span>
+    <span class="c1"># etc...</span>
+    <span class="k">if</span> <span class="n">capacidadeti</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">capacidadete</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;fuel_capacity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">capacidadeti</span> <span class="o">+</span> <span class="n">capacidadete</span>
+
+    <span class="c1"># Localizacao do CG dos tanques de combustivel</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tank_center_of_gravity_xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">xcgtqe</span><span class="o">*</span><span class="n">capacidadete</span> <span class="o">+</span> <span class="n">xcgtqi</span><span class="o">*</span><span class="n">capacidadeti</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="n">capacidadeti</span><span class="o">+</span><span class="n">capacidadete</span><span class="p">)</span>
+
+    <span class="c1"># *** Flape externo ***</span>
+    <span class="n">xflape</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">yflape</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">yflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.10</span><span class="p">)</span>
+
+    <span class="n">x1aux</span> <span class="o">=</span> <span class="n">xquebraBA</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span>
+    <span class="n">y1aux</span> <span class="o">=</span> <span class="n">yquebra</span>
+    <span class="n">x2aux</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span>
+    <span class="n">y2aux</span> <span class="o">=</span> <span class="n">bdiv2</span>
+
+    <span class="k">if</span> <span class="n">x1aux</span> <span class="o">==</span> <span class="n">x2aux</span><span class="p">:</span>
+        <span class="n">xflape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1aux</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">gradbfaux</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2aux</span><span class="o">-</span><span class="n">y1aux</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x2aux</span><span class="o">-</span><span class="n">x1aux</span><span class="p">)</span>
+        <span class="n">xflape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yflape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">y1aux</span><span class="p">)</span><span class="o">/</span><span class="n">gradbfaux</span> <span class="o">+</span> <span class="n">x1aux</span>
+
+    <span class="c1"># Intersecao com a LT</span>
+    <span class="n">tg1</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tg2</span> <span class="o">=</span> <span class="n">inclnt</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">xail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">yail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mf">0.10</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">xnervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mem</span><span class="p">]</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">ynervext</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mem</span><span class="p">]</span>
+    <span class="n">term1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="p">)</span><span class="o">-</span><span class="n">tg2</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="n">tg1</span><span class="o">*</span><span class="n">x1</span>
+    <span class="n">xflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term1</span><span class="o">/</span><span class="p">(</span><span class="n">tg1</span><span class="o">-</span><span class="n">tg2</span><span class="p">))</span>
+    <span class="n">yflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="o">+</span><span class="n">tg1</span><span class="o">*</span><span class="p">(</span><span class="n">xflape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x1</span><span class="p">))</span>
+    <span class="n">xflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x02</span><span class="p">)</span>
+    <span class="n">yflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y02</span><span class="p">)</span>
+    <span class="n">xflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fquebra</span><span class="o">*</span><span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">])</span>
+    <span class="n">yflape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fquebra</span><span class="o">*</span><span class="n">bdiv2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">PolyArea</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PolyArea</span><span class="p">(</span><span class="n">xflape</span><span class="p">,</span> <span class="n">yflape</span><span class="p">)</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_area&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_span&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+
+
+    <span class="c1"># Insere nervura auxiliar para o flape externo</span>
+    <span class="n">xnervaf</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ynervaf</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xnervaf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xflape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ynervaf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yflape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">x1aux</span> <span class="o">=</span> <span class="n">yfusjunc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">fraclongdi</span><span class="o">*</span><span class="n">Cinter</span>
+    <span class="n">y1aux</span> <span class="o">=</span> <span class="n">yfusjunc</span>
+    <span class="n">x2aux</span> <span class="o">=</span> <span class="n">bdiv2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">fraclongdi</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span>
+    <span class="n">y2aux</span> <span class="o">=</span> <span class="n">bdiv2</span>
+
+    <span class="k">if</span> <span class="n">x1aux</span> <span class="o">==</span> <span class="n">x2aux</span><span class="p">:</span>
+        <span class="n">xnervaf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1aux</span><span class="p">)</span>
+        <span class="n">ynervaf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yflape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tg1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2aux</span><span class="o">-</span><span class="n">y1aux</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x2aux</span><span class="o">-</span><span class="n">x1aux</span><span class="p">)</span>
+        <span class="n">tg2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">angnev</span><span class="p">)</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">x1aux</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">y1aux</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">xflape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">yflape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">term1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="p">)</span><span class="o">-</span><span class="n">tg2</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="n">tg1</span><span class="o">*</span><span class="n">x1</span>
+        <span class="n">xnervaf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term1</span><span class="o">/</span><span class="p">(</span><span class="n">tg1</span><span class="o">-</span><span class="n">tg2</span><span class="p">))</span>
+        <span class="n">ynervaf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y2</span><span class="o">+</span><span class="n">tg2</span><span class="o">*</span><span class="p">(</span><span class="n">xnervaf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x2</span><span class="p">))</span>
+
+    <span class="n">xflapi</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">yflapi</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Flape interno</span>
+    <span class="n">xflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xflape</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">yflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yflape</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">xflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xflape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">yflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yflape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">cordafi</span> <span class="o">=</span> <span class="n">xflape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">xflape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">xflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yfusjunc</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="n">Cinter</span> <span class="o">-</span> <span class="n">cordafi</span><span class="p">)</span>
+    <span class="n">yflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yfusjunc</span><span class="p">)</span>
+    <span class="n">xflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yfusjunc</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="n">Cinter</span><span class="p">)</span>
+    <span class="n">yflapi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yfusjunc</span><span class="p">)</span>
+
+    <span class="c1"># posicao em x do munhao</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;trunnion_xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">xflapi</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">xltintern</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;wlayout.jpg&#39;</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;wlayout.jpg&#39;</span><span class="p">)</span>
+
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;tankprofiles.jpg&#39;</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;tankprofiles.jpg&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Check de consistencia</span>
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;fuel_capacity&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_area&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">checkconsistency</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># fail</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">checkconsistency</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># ok</span>
+
+    <span class="k">return</span> <span class="n">vehicle</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,11 +1,5 @@
 """
-File name : Airplane sizing check function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : January 2021
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB: MDO 
 
 Description:
     - This function performs the sizing and checks of the aicraft. It start calculationg the wetted area of the indivudual,
@@ -23,6 +17,13 @@ Outputs:
     - Update vehicle dictionary
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================

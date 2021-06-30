@@ -1,0 +1,865 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Weights.weights &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Weights.weights</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Weights.weights</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name : weights function</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : September/2020</span>
+<span class="sd">Last edit : September/2020</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This code describe the class to obtain the aircraft weight for the following groups:</span>
+<span class="sd">        - Wing</span>
+<span class="sd">        - Tail</span>
+<span class="sd">        - Body</span>
+<span class="sd">        - Alighting gear</span>
+<span class="sd">        - Alighting water</span>
+<span class="sd">        - Surface controls</span>
+<span class="sd">        - Engine</span>
+
+<span class="sd">Inputs:</span>
+<span class="sd">    - Vehicle dictionary</span>
+<span class="sd">    - Maximum takeoff weight [kg]</span>
+<span class="sd">    - Fuel mass [kg]</span>
+<span class="sd">    - Engine static thrust [N]</span>
+<span class="sd">    - Mach number</span>
+<span class="sd">    - Altitude [ft]</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Vehicle dictionary - weights updated</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.atmosphere_ISA_deviation</span> <span class="kn">import</span> <span class="n">atmosphere_ISA_deviation</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="k">global</span> <span class="n">deg_to_rad</span><span class="p">,</span> <span class="n">m2_to_ft2</span><span class="p">,</span> <span class="n">kg_to_lb</span><span class="p">,</span> <span class="n">lb_to_kg</span><span class="p">,</span> <span class="n">m_to_ft</span><span class="p">,</span> <span class="n">N_to_lbf</span>
+<span class="n">deg_to_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+<span class="n">m2_to_ft2</span> <span class="o">=</span> <span class="mf">10.76</span>
+<span class="n">kg_to_lb</span> <span class="o">=</span> <span class="mf">2.205</span>
+<span class="n">lb_to_kg</span> <span class="o">=</span> <span class="mf">0.4536</span>
+<span class="n">m_to_ft</span> <span class="o">=</span> <span class="mf">3.281</span>
+<span class="n">kn_to_m_s</span> <span class="o">=</span> <span class="mf">0.5144</span>
+<span class="n">N_to_lbf</span> <span class="o">=</span> <span class="mf">0.2248</span>
+
+
+<div class="viewcode-block" id="wing_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.wing_mass">[docs]</a><span class="k">def</span> <span class="nf">wing_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">altitude</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Isikveren 2002, pag. 56, eq. 84</span>
+<span class="sd">        - Calculates the wing mass in kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - maximum takeoff weight [kg]</span>
+<span class="sd">        - wing position</span>
+<span class="sd">        - landing gear position</span>
+<span class="sd">        - spoilers presence</span>
+<span class="sd">        - wing aspect ratio</span>
+<span class="sd">        - wing area [m2]</span>
+<span class="sd">        - wing taper ration</span>
+<span class="sd">        - wing sweep at c/4</span>
+<span class="sd">        - mach number</span>
+<span class="sd">        - wing mean thickness</span>
+<span class="sd">        - altitude [ft]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - wing mass [kg]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Assiciative constants definition</span>
+    <span class="n">safety_factor</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">YEIS</span> <span class="o">=</span> <span class="mi">2016</span>  <span class="c1"># Year of entry into service</span>
+    <span class="n">alpha_w</span> <span class="o">=</span> <span class="mf">0.0328</span>
+    <span class="n">phi_w</span> <span class="o">=</span> <span class="mf">0.656</span>
+    <span class="n">Beta_w</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">delta_w</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">epsilon_w</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">Chi_w</span> <span class="o">=</span> <span class="mf">1.1</span>
+    <span class="n">rho_sls_g</span> <span class="o">=</span> <span class="mf">0.125</span>
+    
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+
+    <span class="n">landing_gear_position</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span>
+    <span class="n">spoilers</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;spoiler_presence&#39;</span><span class="p">]</span>
+    
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span>
+        <span class="n">altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">V_MO</span> <span class="o">=</span> <span class="n">mach</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">kn_to_m_s</span>  <span class="c1"># Maximum operating speed [m/s]</span>
+
+    <span class="c1"># limit load factor - Roskam, pag. 37, eq 4.23</span>
+    <span class="n">n_limit</span> <span class="o">=</span> <span class="mf">2.1</span> <span class="o">+</span> <span class="mi">24000</span><span class="o">/</span><span class="p">((</span><span class="n">kg_to_lb</span><span class="o">*</span><span class="n">maximum_takeoff_weight</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10000</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n_limit</span> <span class="o">&lt;=</span> <span class="mf">2.5</span><span class="p">:</span>
+        <span class="n">n_limit</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+    <span class="c1"># wing installation philosophy</span>
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_co</span> <span class="o">=</span> <span class="mf">1.17</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_co</span> <span class="o">=</span> <span class="mf">1.25</span>
+
+    <span class="c1"># spoilers existence correction</span>
+    <span class="k">if</span> <span class="n">spoilers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_sp</span> <span class="o">=</span> <span class="mf">1.02</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_sp</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># landing gear installation philosophy</span>
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_lg</span> <span class="o">=</span> <span class="mf">1.03</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_lg</span> <span class="o">=</span> <span class="mf">1.015</span>
+
+    <span class="n">n_ultimate</span> <span class="o">=</span> <span class="n">safety_factor</span><span class="o">*</span><span class="n">n_limit</span>
+    <span class="n">Pi_ATM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">2.965</span> <span class="o">-</span> <span class="mf">0.001525</span><span class="o">*</span><span class="n">YEIS</span><span class="p">)</span>
+    <span class="n">Pi_Cw</span> <span class="o">=</span> <span class="n">k_co</span><span class="o">*</span><span class="n">k_sp</span><span class="o">*</span><span class="n">k_lg</span>
+    <span class="n">Pi_tc</span> <span class="o">=</span> <span class="mf">16.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;mean_thickness&#39;</span><span class="p">])</span>
+
+    <span class="n">tau_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">1.31</span><span class="o">*</span><span class="p">(((</span><span class="mf">0.5</span><span class="o">*</span><span class="n">rho_sls_g</span><span class="o">*</span><span class="n">V_MO</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_ultimate</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># structural stiffness</span>
+
+    <span class="n">aux1</span> <span class="o">=</span> <span class="n">Pi_ATM</span><span class="o">*</span><span class="n">alpha_w</span><span class="o">*</span><span class="n">Pi_Cw</span>
+    <span class="n">aux2</span> <span class="o">=</span> <span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">n_ultimate</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span><span class="o">**</span><span class="n">Beta_w</span><span class="p">)</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="n">Chi_w</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tau_s</span><span class="o">**</span><span class="n">delta_w</span><span class="p">)</span>
+    <span class="n">aux2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">aux2</span><span class="p">)</span>
+    <span class="n">aux3</span> <span class="o">=</span> <span class="n">Pi_tc</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span><span class="o">**</span><span class="n">epsilon_w</span>
+
+    <span class="k">return</span> <span class="n">aux1</span><span class="o">*</span><span class="p">((</span><span class="n">aux2</span><span class="o">/</span><span class="n">aux3</span><span class="p">)</span><span class="o">**</span><span class="n">phi_w</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="horizontal_tail_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.horizontal_tail_mass">[docs]</a><span class="k">def</span> <span class="nf">horizontal_tail_mass</span><span class="p">(</span><span class="n">V_dive</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 74, eq. 5.19</span>
+<span class="sd">        - Calculates the horizontal tail mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - dive speed [ktas]</span>
+<span class="sd">        - horizontal tail area [m2]</span>
+<span class="sd">        - horizontal tail sweep c/2 [deg]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - horizontal tail mass [kg]</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">horizontal_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;horizontal_tail&#39;</span><span class="p">]</span>
+
+
+    <span class="n">fin</span> <span class="o">=</span> <span class="s1">&#39;trimmable&#39;</span>  <span class="c1"># This should be an input in the future</span>
+
+    <span class="n">fin</span> <span class="o">=</span> <span class="s1">&#39;trimmable&#39;</span>
+    <span class="k">if</span> <span class="n">fin</span> <span class="o">==</span> <span class="s1">&#39;trimmable&#39;</span><span class="p">:</span>
+        <span class="n">k_h</span> <span class="o">=</span> <span class="mf">1.1</span>
+    <span class="k">elif</span> <span class="n">fin</span> <span class="o">==</span> <span class="s1">&#39;fixed&#39;</span><span class="p">:</span>
+        <span class="n">k_h</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">aux_1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.18</span><span class="o">*</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.2</span><span class="p">)</span><span class="o">*</span><span class="n">V_dive</span>
+    <span class="n">aux_2</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">k_h</span><span class="o">*</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">aux_1</span><span class="o">/</span><span class="n">aux_2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.287</span><span class="p">))</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="vertical_tail_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.vertical_tail_mass">[docs]</a><span class="k">def</span> <span class="nf">vertical_tail_mass</span><span class="p">(</span><span class="n">V_dive</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 74, eq. 5.20</span>
+<span class="sd">        - Calculates the vertical tail mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - dive speed [keas]</span>
+<span class="sd">        - horizontal tail area [m2]</span>
+<span class="sd">        - z distance horizontal tail [m]</span>
+<span class="sd">        - vertical tail area [m2]</span>
+<span class="sd">        - vertical tail span [m]</span>
+<span class="sd">        - vertical tail sweep c/2 [deg]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - vertical tail mass [kg]</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">horizontal_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;horizontal_tail&#39;</span><span class="p">]</span>
+    <span class="n">vertical_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;vertical_tail&#39;</span><span class="p">]</span>
+
+    <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span>  <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_v</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span>  <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">z_h</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="n">k_v</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.15</span><span class="o">*</span><span class="p">(((</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">*</span><span class="n">z_h</span><span class="p">)</span> <span class="o">/</span>
+                        <span class="p">((</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)))</span>
+
+    <span class="n">aux_1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.81</span><span class="o">*</span><span class="p">((</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.2</span><span class="p">))</span><span class="o">*</span><span class="n">V_dive</span>
+    <span class="n">aux_2</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_2&#39;</span><span class="p">]</span> <span class="o">*</span><span class="n">deg_to_rad</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">k_v</span><span class="o">*</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">aux_1</span><span class="o">/</span><span class="n">aux_2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.287</span><span class="p">))</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="fuselage_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.fuselage_mass">[docs]</a><span class="k">def</span> <span class="nf">fuselage_mass</span><span class="p">(</span><span class="n">V_dive</span><span class="p">,</span>
+                  <span class="n">vehicle</span>
+                  <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 77, eq. 5.27</span>
+<span class="sd">        - Calculates the fuselage mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - V dive [keas]</span>
+<span class="sd">        - fuselage width [m]</span>
+<span class="sd">        - fuselage height [m]</span>
+<span class="sd">        - fuselage length [m]</span>
+<span class="sd">        - fuselage wetted area [m2]</span>
+<span class="sd">        - engine position</span>
+<span class="sd">        - horizontal_tail[&#39;center_chord&#39;] [m]</span>
+<span class="sd">        - horizontal_tail_mean_aerodynamic_chord_yposition [m]</span>
+<span class="sd">        - horizontal_tail_sweep_leading_edge [deg]</span>
+<span class="sd">        - horizontal_tail_mean_aerodynamic_chord [m]</span>
+<span class="sd">        - vertical_tail_center_chord [m]</span>
+<span class="sd">        - vertical_tail_span [m]</span>
+<span class="sd">        - vertical_tail_sweep_leading_edge [deg]</span>
+<span class="sd">        - wing_aerodynamic_center_xposition [m]</span>
+
+
+<span class="sd">    Outputs:</span>
+<span class="sd">        - fuselage mass [kg]</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">horizontal_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;horizontal_tail&#39;</span><span class="p">]</span>
+    <span class="n">vertical_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;horizontal_tail&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+    <span class="n">V_dive</span> <span class="o">=</span> <span class="n">V_dive</span><span class="o">/</span><span class="n">kn_to_m_s</span>
+
+    <span class="n">fuselage_configuration</span> <span class="o">=</span> <span class="s2">&quot;pressurized&quot;</span>
+
+    <span class="k">if</span> <span class="n">fuselage_configuration</span> <span class="o">==</span> <span class="s2">&quot;pressurized&quot;</span><span class="p">:</span>
+        <span class="n">k_f</span> <span class="o">=</span> <span class="mf">1.08</span>
+    <span class="k">elif</span> <span class="n">fuselage_configuration</span> <span class="o">==</span> <span class="s2">&quot;maing_gear_attached&quot;</span><span class="p">:</span>
+        <span class="n">k_f</span> <span class="o">=</span> <span class="mf">1.07</span>
+    <span class="k">elif</span> <span class="n">fuselage_configuration</span> <span class="o">==</span> <span class="s2">&quot;cargo&quot;</span><span class="p">:</span>
+        <span class="n">k_f</span> <span class="o">=</span> <span class="mf">1.10</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">k_e</span> <span class="o">=</span> <span class="mf">1.04</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_e</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">if</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span>  <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="mf">0.98</span><span class="o">*</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">+</span> \
+            <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord_yposition&#39;</span><span class="p">]</span>  <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="mf">0.25</span><span class="o">*</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="mf">0.98</span><span class="o">*</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span> <span class="o">+</span> \
+            <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord_yposition&#39;</span><span class="p">]</span>  <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;leading_edge_xposition&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord_yposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span>
+
+    <span class="c1"># arm between wing aerodynamic center an hotizontal tail aerodynamic center</span>
+    <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;aerodynamic_centers_arm_wing_horizontal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span>  <span class="o">-</span> \
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span>
+
+
+    <span class="k">return</span> <span class="p">(</span><span class="mf">0.021</span><span class="o">*</span><span class="n">k_f</span><span class="o">*</span><span class="n">k_e</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">V_dive</span><span class="o">*</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;aerodynamic_centers_arm_wing_horizontal&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">))</span><span class="o">/</span><span class="p">((</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)))</span> <span class="o">*</span> <span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">**</span><span class="mf">1.2</span><span class="p">)</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="nacelle_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.nacelle_mass">[docs]</a><span class="k">def</span> <span class="nf">nacelle_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-GD, pag. 79, eq. 5.35</span>
+<span class="sd">        - Calculates the nacelle mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - engine fan diameter [m]</span>
+<span class="sd">        - engines number</span>
+<span class="sd">        - engine length [m]</span>
+<span class="sd">        - engine maximum static pressure at compressor [pascal???]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - nacelle mass [kg]</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - Check dimensions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">engine_inlet_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_diameter&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">7.435</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">*</span><span class="p">(((</span><span class="n">engine_inlet_area</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_pressure_ratio&#39;</span><span class="p">])</span><span class="o">**</span><span class="mf">0.731</span><span class="p">)</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="main_landig_gear_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.main_landig_gear_mass">[docs]</a><span class="k">def</span> <span class="nf">main_landig_gear_mass</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42</span>
+<span class="sd">        - Calculates the main landing gear mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - maximum_takeoff_weight [kg]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - main landing gear mass [kg]</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_lg</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_lg</span> <span class="o">=</span> <span class="mf">1.08</span>
+
+    <span class="n">A_lg</span> <span class="o">=</span> <span class="mi">40</span>
+    <span class="n">B_lg</span> <span class="o">=</span> <span class="mf">0.16</span>
+    <span class="n">C_lg</span> <span class="o">=</span> <span class="mf">0.019</span>
+    <span class="n">D_lg</span> <span class="o">=</span> <span class="mf">1.5E-5</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">k_lg</span><span class="o">*</span><span class="p">(</span><span class="n">A_lg</span> <span class="o">+</span> <span class="n">B_lg</span><span class="o">*</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_lg</span><span class="o">*</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span> <span class="o">+</span> <span class="n">D_lg</span><span class="o">*</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="nose_landig_gear_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.nose_landig_gear_mass">[docs]</a><span class="k">def</span> <span class="nf">nose_landig_gear_mass</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42</span>
+<span class="sd">        - Calculates the nose landing gear mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - maximum_takeoff_weight [kg]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - nose landing gear mass [kg]</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_lg</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_lg</span> <span class="o">=</span> <span class="mf">1.08</span>
+
+    <span class="n">A_lg</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">B_lg</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">C_lg</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">D_lg</span> <span class="o">=</span> <span class="mf">2E-6</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">k_lg</span><span class="o">*</span><span class="p">(</span><span class="n">A_lg</span> <span class="o">+</span> <span class="n">B_lg</span><span class="o">*</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_lg</span><span class="o">*</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span> <span class="o">+</span> <span class="n">D_lg</span><span class="o">*</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="engine_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.engine_mass">[docs]</a><span class="k">def</span> <span class="nf">engine_mass</span><span class="p">(</span><span class="n">engine_static_thrust</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Methodology from </span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - engine static thrust [N]</span>
+<span class="sd">        - engines number </span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - engine mass [kg]</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">0.084</span> <span class="o">*</span> <span class="p">((</span><span class="n">engine_static_thrust</span><span class="o">*</span><span class="n">N_to_lbf</span><span class="p">)</span><span class="o">**</span><span class="mf">1.1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.045</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;bypass&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="fuel_system_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.fuel_system_mass">[docs]</a><span class="k">def</span> <span class="nf">fuel_system_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 92, eq. 6.24</span>
+<span class="sd">        - Calculates the fuel system mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - wing fuel capacity [kg]</span>
+<span class="sd">        - engines number</span>
+<span class="sd">        - range distace [nm]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span>
+
+    <span class="n">fuel_type</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">if</span> <span class="n">fuel_type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_fsp</span> <span class="o">=</span> <span class="mf">5.870</span>
+    <span class="k">elif</span> <span class="n">fuel_type</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">k_fsp</span> <span class="o">=</span> <span class="mf">6.550</span>
+    <span class="k">elif</span> <span class="n">fuel_type</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">k_fsp</span> <span class="o">=</span> <span class="mf">6.710</span>
+
+    <span class="n">tanks_number</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">if</span> <span class="n">performance</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2000</span> <span class="ow">or</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span>  <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">tanks_number</span> <span class="o">=</span> <span class="mi">6</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="mi">80</span><span class="o">*</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span>  <span class="o">+</span> <span class="n">tanks_number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="p">(</span><span class="n">tanks_number</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;fuel_capacity&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">/</span><span class="n">k_fsp</span><span class="p">)</span><span class="o">**</span><span class="mf">0.333</span><span class="p">)</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="propulsion_system_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.propulsion_system_mass">[docs]</a><span class="k">def</span> <span class="nf">propulsion_system_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">engine_weight</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 93, eq. 6.28 - 6.41</span>
+<span class="sd">        - Calculates the nose landing gear mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - engines number</span>
+<span class="sd">        - engine position</span>
+<span class="sd">        - fuselage length [m]</span>
+<span class="sd">        - wing span [m]</span>
+<span class="sd">        - engine mass [kg] </span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - In Prof. Bento code the summatory multiplies the number of engines. Ask if that is right, </span>
+<span class="sd">        because engines number is considered in the equations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+
+    <span class="n">engine_afterburning_presence</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">engine_afterburning_presence</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k_ec</span> <span class="o">=</span> <span class="mf">1.080</span>
+    <span class="k">elif</span> <span class="n">engine_afterburning_presence</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">k_ec</span> <span class="o">=</span> <span class="mf">0.686</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">engine_controls</span> <span class="o">=</span> <span class="n">k_ec</span> <span class="o">*</span> \
+            <span class="p">((</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="p">)</span><span class="o">**</span><span class="mf">0.792</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">engine_controls</span> <span class="o">=</span> <span class="mf">88.46</span> <span class="o">*</span> \
+            <span class="p">(((</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">/</span><span class="mi">100</span><span class="p">))</span><span class="o">**</span><span class="mf">0.294</span>
+
+    <span class="n">engine_starting_system</span> <span class="o">=</span> <span class="mf">38.93</span><span class="o">*</span><span class="p">((</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span><span class="o">**</span><span class="mf">0.918</span>
+
+    <span class="n">engine_reverser_presence</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">engine_reverser_presence</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">engine_reverser</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">engine_reverser</span> <span class="o">=</span> <span class="mf">0.18</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">kg_to_lb</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">engine_controls</span> <span class="o">+</span> <span class="n">engine_starting_system</span> <span class="o">+</span> <span class="n">engine_reverser</span><span class="p">)</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="flight_control_system_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.flight_control_system_mass">[docs]</a><span class="k">def</span> <span class="nf">flight_control_system_mass</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42</span>
+<span class="sd">        - Calculates the nose landing gear mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - maximum takeoff weight</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - flight control syste mass</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">powered_flight_controls</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">powered_flight_controls</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">k_fc</span> <span class="o">=</span> <span class="mf">0.44</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_fc</span> <span class="o">=</span> <span class="mf">0.64</span>
+
+    <span class="n">k_le</span> <span class="o">=</span> <span class="mf">1.2</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">k_fc</span><span class="o">*</span><span class="n">k_le</span><span class="o">*</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="fixed_equipment_mass"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.fixed_equipment_mass">[docs]</a><span class="k">def</span> <span class="nf">fixed_equipment_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">fuel_weight</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Raymer, pag. 459, eq. 15.25 - 15.45 and Roskam-Torenbeek, pag. 105, eq. 7.31 - 7.45</span>
+<span class="sd">        - Calculates the fixed equipment mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - fuselage lenght [m]</span>
+<span class="sd">        - fuselage[&#39;cabine_length&#39;] [m]</span>
+<span class="sd">        - wing span [m]</span>
+<span class="sd">        - wing area [m2]</span>
+<span class="sd">        - engine position</span>
+<span class="sd">        - engines number</span>
+<span class="sd">        - lh - distance between wing and tail ac [m]</span>
+<span class="sd">        - pax_number</span>
+<span class="sd">        - maximum_takeoff_weight [kg]</span>
+<span class="sd">        - fuel weight [kg]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span>
+    <span class="n">systems</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;systems&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Hydraulic system</span>
+    <span class="n">number_of_functions_performed_by_controls</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">hydraulic_system_mass</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.2673</span><span class="o">*</span><span class="n">number_of_functions_performed_by_controls</span> <span class="o">*</span>
+                             <span class="p">((</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)</span><span class="o">**</span><span class="mf">0.937</span><span class="p">)</span>
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;hydraulic_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hydraulic_system_mass</span> <span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># Electrical system</span>
+    <span class="n">system_electrical_rating</span> <span class="o">=</span> <span class="mi">60</span>  <span class="c1"># [kV]</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">electrical_routing_distance</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">electrical_routing_distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;aerodynamic_centers_arm_wing_horizontal&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">m_to_ft</span>
+
+    <span class="n">electrical_system_mass</span> <span class="o">=</span> <span class="mf">7.291</span><span class="o">*</span><span class="n">system_electrical_rating</span><span class="o">**</span><span class="mf">0.782</span> <span class="o">*</span> \
+        <span class="n">electrical_routing_distance</span><span class="o">**</span><span class="mf">0.346</span> <span class="o">*</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">**</span><span class="mf">0.1</span>
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;electrical_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">electrical_system_mass</span><span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># Avionics</span>
+    <span class="n">uninstalled_avionics_mass</span> <span class="o">=</span> <span class="mi">1200</span>
+    <span class="n">avionics_mass</span> <span class="o">=</span> <span class="mf">1.73</span><span class="o">*</span><span class="p">(</span><span class="n">uninstalled_avionics_mass</span><span class="o">**</span><span class="mf">0.983</span><span class="p">)</span>
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;avionics_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avionics_mass</span><span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># Air ice pressure</span>
+    <span class="n">air_ice_pressure_system_mass</span> <span class="o">=</span> <span class="mf">6.75</span> <span class="o">*</span> \
+        <span class="p">((</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m_to_ft</span><span class="p">)</span><span class="o">**</span><span class="mf">1.28</span><span class="p">)</span>
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;air_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">air_ice_pressure_system_mass</span> <span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># Oxygen system</span>
+    <span class="n">oxygen_system_mass</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">+</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;passenger_capacity&#39;</span><span class="p">]</span> 
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;oxygen_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">oxygen_system_mass</span><span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># APU</span>
+    <span class="n">APU_mass</span> <span class="o">=</span> <span class="mf">0.0085</span><span class="o">*</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span>
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;APU_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">APU_mass</span><span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># Furnishing</span>
+    <span class="n">furnishing_mass</span> <span class="o">=</span> <span class="mf">0.211</span> <span class="o">*</span> \
+        <span class="p">((</span><span class="n">maximum_takeoff_weight</span> <span class="o">-</span> <span class="n">fuel_weight</span><span class="p">)</span><span class="o">*</span><span class="n">kg_to_lb</span><span class="p">)</span><span class="o">**</span><span class="mf">0.91</span>
+    
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;furnishing_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">furnishing_mass</span><span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># Paint</span>
+    <span class="n">paint_mass</span> <span class="o">=</span> <span class="mf">0.0045</span><span class="o">*</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span>
+     
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;paint_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">paint_mass</span><span class="o">*</span><span class="n">lb_to_kg</span>
+
+    <span class="c1"># Safety equipment - pag 141 Jenkinson</span>
+    <span class="k">if</span> <span class="n">performance</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2000</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="mf">3.4</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="mf">0.9</span>
+
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;safety&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0003</span><span class="o">*</span><span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span>
+
+    <span class="c1"># Handling gear</span>
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;handling_gear&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.0E-4</span> <span class="o">*</span> <span class="n">maximum_takeoff_weight</span><span class="o">*</span><span class="n">kg_to_lb</span>
+
+    <span class="c1"># Slats</span>
+    <span class="k">if</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;slat_presence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">slats_span</span> <span class="o">=</span> <span class="mf">0.8</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">slats_span</span> <span class="o">=</span> <span class="mf">0.7</span>
+
+        <span class="n">slats_area</span> <span class="o">=</span> <span class="n">slats_span</span><span class="o">*</span><span class="mf">0.15</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">m2_to_ft2</span><span class="p">)</span>
+        <span class="n">slats_mass</span> <span class="o">=</span> <span class="mf">3.53</span><span class="o">*</span><span class="p">(</span><span class="n">slats_area</span><span class="o">**</span><span class="mf">0.82</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">slats_mass</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">hydraulic_system_mass</span> <span class="o">+</span> <span class="n">electrical_system_mass</span> <span class="o">+</span> <span class="n">avionics_mass</span> <span class="o">+</span> <span class="n">air_ice_pressure_system_mass</span> <span class="o">+</span> <span class="n">oxygen_system_mass</span> <span class="o">+</span> <span class="n">APU_mass</span> <span class="o">+</span> <span class="n">furnishing_mass</span> <span class="o">+</span> <span class="n">paint_mass</span> <span class="o">+</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;safety&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;handling_gear&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">slats_mass</span><span class="p">)</span><span class="o">*</span><span class="n">lb_to_kg</span></div>
+
+
+<div class="viewcode-block" id="aircraft_empty_weight"><a class="viewcode-back" href="../../../framework.Weights.html#framework.Weights.weights.aircraft_empty_weight">[docs]</a><span class="k">def</span> <span class="nf">aircraft_empty_weight</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">fuel_mass</span><span class="p">,</span> <span class="n">engine_static_thrust</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">altitude</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description: Methodology from Raymer, pag. 459, eq. 15.25 - 15.45 and Roskam-Torenbeek, pag. 105, eq. 7.31 - 7.45</span>
+<span class="sd">        - Calculates the fixed equipment mass in lb, but the result is converted to kg</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">horizontal_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;horizontal_tail&#39;</span><span class="p">]</span>
+    <span class="n">vertical_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;vertical_tail&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">nacelle</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;nacelle&#39;</span><span class="p">]</span>
+    <span class="n">nose_landing_gear</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;nose_landing_gear&#39;</span><span class="p">]</span>
+    <span class="n">main_landing_gear</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;main_landing_gear&#39;</span><span class="p">]</span>
+    <span class="n">systems</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;systems&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Dive speed</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span>
+        <span class="n">altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">V_cruise</span> <span class="o">=</span> <span class="n">mach</span><span class="o">*</span><span class="n">a</span>
+    <span class="n">V_cruise_keas</span> <span class="o">=</span> <span class="n">V_cruise</span><span class="o">*</span><span class="n">sigma</span><span class="o">**</span><span class="mf">0.5</span>
+    <span class="n">V_dive</span><span class="o">=</span> <span class="mf">1.25</span><span class="o">*</span><span class="n">V_cruise_keas</span>
+
+    <span class="c1"># Structural weight</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">wing_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">altitude</span><span class="p">)</span>
+
+    <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">horizontal_tail_mass</span><span class="p">(</span>
+        <span class="n">V_dive</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertical_tail_mass</span><span class="p">(</span>
+        <span class="n">V_dive</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage_mass</span><span class="p">(</span><span class="n">V_dive</span><span class="p">,</span>
+                             <span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">nacelle</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nacelle_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">main_landig_gear_mass</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nose_landig_gear_mass</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;structural_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>  <span class="o">+</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">nacelle</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Power plant weight</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine_mass</span><span class="p">(</span><span class="n">engine_static_thrust</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;fuel_weight&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">fuel_system_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;propulsion_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">propulsion_system_mass</span><span class="p">(</span>
+        <span class="n">vehicle</span><span class="p">,</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span>
+
+    <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;power_plant_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;fuel_weight&#39;</span><span class="p">]</span>  <span class="o">+</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;propulsion_weight&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Fixed equionet weight</span>
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;flight_control_weight&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">flight_control_system_mass</span><span class="p">(</span><span class="n">maximum_takeoff_weight</span><span class="p">)</span>
+
+    <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;fixed_equipment_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fixed_equipment_mass</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">maximum_takeoff_weight</span><span class="p">,</span> <span class="n">fuel_mass</span><span class="p">)</span>
+    
+    <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;fixed_equipment_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;flight_control_weight&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;fixed_equipment_weight&#39;</span><span class="p">]</span>
+
+    <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;operational_empty_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;structural_weight&#39;</span><span class="p">]</span> <span class="o">+</span>  <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;power_plant_weight&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;fixed_equipment_weight&#39;</span><span class="p">]</span>
+    
+
+    <span class="k">return</span> <span class="n">vehicle</span></div>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># from framework.baseline_aircraft_parameters import *</span>
+<span class="c1"># maximum_takeoff_weight = 43718</span>
+<span class="c1"># mach = 0.8</span>
+<span class="c1"># altitude = 41000</span>
+
+<span class="c1"># wing = vehicle[&#39;wing&#39;]</span>
+<span class="c1"># wing[&#39;mean_thickness&#39;] = 0.1164</span>
+<span class="c1"># wing[&#39;aspect_ratio&#39;] = 8.3</span>
+<span class="c1"># wing[&#39;area&#39;] = 85</span>
+<span class="c1"># wing[&#39;sweep_c_4&#39;] = 21.9</span>
+<span class="c1"># wing[&#39;taper_ratio&#39;] = 0.32</span>
+<span class="c1"># print(wing_mass(vehicle, maximum_takeoff_weight, mach, altitude))</span>
+
+<span class="c1"># V_dive = 312</span>
+
+<span class="c1"># print(horizontal_tail_mass(V_dive, vehicle))</span>
+
+<span class="c1"># print(vertical_tail_mass(V_dive, vehicle))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

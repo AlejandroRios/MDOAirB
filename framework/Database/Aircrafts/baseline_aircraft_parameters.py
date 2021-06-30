@@ -1,19 +1,22 @@
 """
-File name : Baseline aircraft
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function descrive baseline aircraft properties which are used to test other modules
-Inputs:
-    -
+    - This function descrive baseline aircraft properties which is used to pass
+    information of the aircraft and operations through modules
+
 Outputs:
-    - 
+    - vehicle
+
 TODO's:
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -26,7 +29,6 @@ import numpy as np
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-
 
 def initialize_aircraft_parameters():
     aircraft = {}

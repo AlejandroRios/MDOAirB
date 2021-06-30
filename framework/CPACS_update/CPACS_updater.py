@@ -1,21 +1,22 @@
 """
-File name : CPACS to AVL function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This functions takes cpacs file and write AVL input file.
-TODO's:
-    - Define AVL writer as a def
-    - Separate run and read functions
-Inputs:
+    - This functions will update the CPACS file to consider the updates during the run.
+
+Reference:
     -
-Outputs:
-    - 
+
+TODO's:
+    - To be finished
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -26,18 +27,17 @@ import linecache
 import subprocess
 import numpy as np
 from itertools import islice
+
 from framework.Economics.crew_salary import crew_salary
-from framework.CPACS2AVL.cpacsfunctions import *
+from framework.CPACS_update.cpacsfunctions import *
 import cpacsfunctions as cpsf
-
-
 
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
 # CPACS XML input and output dir
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
-print(MODULE_DIR)
+# print(MODULE_DIR)
 cpacs_path = os.path.join(MODULE_DIR, 'ToolInput', 'Aircraft_In.xml')
 cpacs_out_path = os.path.join(MODULE_DIR, 'ToolOutput', 'Aircraft_Out.xml')
 
@@ -49,7 +49,7 @@ Cref = tigl.wingGetMAC(tigl.wingGetUID(1))
 Sref = tigl.wingGetReferenceArea(1, 1)
 b    = tigl.wingGetSpan(tigl.wingGetUID(1))
 
-print(Sref)
+# print(Sref)
 xpath_write = '/cpacs/toolspecific/AVL/save_results/total_forces/'
 model_xpath = '/cpacs/vehicles/aircraft/model/'
 wing_xpath = '/cpacs/vehicles/aircraft/model/wings/wing[1]/'

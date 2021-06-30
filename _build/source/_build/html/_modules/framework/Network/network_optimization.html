@@ -1,0 +1,1145 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Network.network_optimization &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Network.network_optimization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Network.network_optimization</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name : Network optimization function</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : June 2020</span>
+<span class="sd">Last edit : January 2021</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This function performs the network optimization using linear programming</span>
+<span class="sd">    algorithm (1-stop model)</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    - Distance matrix</span>
+<span class="sd">    - Demand matrix</span>
+<span class="sd">    - DOC matrix</span>
+<span class="sd">    - Pax capacity</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Network Profit [USD]</span>
+<span class="sd">    - Route frequencies </span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pulp</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">sys</span> 
+<span class="kn">from</span> <span class="nn">framework.Economics.revenue</span> <span class="kn">import</span> <span class="n">revenue</span>
+<span class="kn">from</span> <span class="nn">framework.utilities.logger</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+<div class="viewcode-block" id="network_optimization"><a class="viewcode-back" href="../../../framework.Network.html#framework.Network.network_optimization.network_optimization">[docs]</a><span class="k">def</span> <span class="nf">network_optimization</span><span class="p">(</span><span class="n">arrivals</span><span class="p">,</span> <span class="n">departures</span><span class="p">,</span> <span class="n">distances</span><span class="p">,</span> <span class="n">demand</span><span class="p">,</span> <span class="n">active_airports</span><span class="p">,</span> <span class="n">doc0</span><span class="p">,</span> <span class="n">pax_capacity</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== Start network optimization module ====&#39;</span><span class="p">)</span>
+    <span class="c1"># Definition of cities to be considered as departure_airport, first stop, final airport</span>
+    <span class="n">departure_airport</span> <span class="o">=</span> <span class="n">departures</span>
+    <span class="n">first_stop_airport</span> <span class="o">=</span> <span class="n">arrivals</span>
+    <span class="n">final_airport</span> <span class="o">=</span> <span class="n">departures</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">]</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>
+    <span class="c1"># doc0 = np.load(&#39;Database/DOC/DOC.npy&#39;,allow_pickle=True)</span>
+    <span class="c1"># doc0 = doc0.tolist() </span>
+
+    <span class="n">DOC</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">DOC</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">DOC</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">])</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Define minimization problem</span>
+    <span class="c1"># prob = LpProblem(&quot;Network&quot;, LpMaximize)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">LpProblem</span><span class="p">(</span><span class="s2">&quot;Network&quot;</span><span class="p">,</span> <span class="n">LpMinimize</span><span class="p">)</span>
+
+    <span class="n">pax_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;reference_load_factor&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">pax_capacity</span><span class="p">)</span>
+    <span class="n">average_ticket_price</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;average_ticket_price&#39;</span><span class="p">]</span>
+
+    <span class="n">distances_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">distances_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">distances_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">demand_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">demand_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">demand_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">demand_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">demand_list</span><span class="p">)</span>
+
+    <span class="n">switch_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">switch_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active_airports</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">switch_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active_airports</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">docs_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">docs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">docs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">froms_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">froms_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">froms_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="c1"># print(froms_list)</span>
+    <span class="n">tos_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">tos_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">tos_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+
+    <span class="n">arcs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">froms_list</span><span class="p">)))</span>
+    <span class="n">planes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;P1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">pax_number</span><span class="p">}}</span>
+
+    <span class="n">avg_capacity</span> <span class="o">=</span> <span class="n">pax_number</span>
+    <span class="n">avg_vel</span> <span class="o">=</span> <span class="mi">400</span>
+    <span class="n">avg_vel</span> <span class="o">=</span> <span class="p">[</span><span class="n">avg_vel</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">froms_list</span><span class="p">)</span>
+    <span class="n">avg_grnd_time</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">time_allowed</span> <span class="o">=</span> <span class="mi">13</span>
+    <span class="n">allowed_planes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mi">13</span><span class="o">/</span><span class="p">((</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">avg_vel</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="n">avg_grnd_time</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))]</span>
+
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="n">demand_aux</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">supply_aux</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="n">aux1</span> <span class="o">=</span> <span class="p">[</span><span class="n">demand</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span> <span class="p">]</span>
+        <span class="n">demand_aux</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">aux1</span><span class="p">))</span>
+        <span class="n">aux2</span> <span class="o">=</span> <span class="p">[</span><span class="n">demand</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="p">]</span>
+        <span class="n">supply_aux</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">aux2</span><span class="p">))</span>
+
+    <span class="n">sup_dem_ij</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">demand_aux</span><span class="p">,</span> <span class="n">supply_aux</span><span class="p">)]</span>
+    <span class="n">sup_dem_ji</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">supply_aux</span><span class="p">,</span> <span class="n">demand_aux</span><span class="p">)]</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">LpProblem</span><span class="p">(</span><span class="s2">&quot;NetOptMin&quot;</span><span class="p">,</span> <span class="n">LpMinimize</span><span class="p">)</span>
+    <span class="c1"># prob = LpProblem(&quot;NetOptMax&quot;, LpMaximize)</span>
+
+    <span class="n">flow</span> <span class="o">=</span> <span class="n">LpVariable</span><span class="o">.</span><span class="n">dicts</span><span class="p">(</span><span class="s2">&quot;flow&quot;</span><span class="p">,(</span><span class="n">arcs</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="n">LpInteger</span><span class="p">)</span>
+    <span class="n">aircrafts</span> <span class="o">=</span> <span class="n">LpVariable</span><span class="o">.</span><span class="n">dicts</span><span class="p">(</span><span class="s2">&quot;aircrafts&quot;</span><span class="p">,(</span><span class="n">arcs</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">LpInteger</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">+=</span> <span class="n">lpSum</span><span class="p">([</span><span class="n">aircrafts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">docs_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))])</span>
+    <span class="c1"># prob += lpSum([flow[i]*average_ticket_price for i in range(len(arcs))]) - lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])</span>
+    <span class="c1"># prob += lpSum([demand_list[i]*distances_list[i]*((flow[i]*average_ticket_price)/(flow[i]*distances_list[i])) for i in range(len(arcs))])  - lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])</span>
+
+
+    <span class="n">prob</span> <span class="o">+=</span> <span class="n">lpSum</span><span class="p">([</span><span class="n">flow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))])</span> <span class="o">==</span> <span class="n">demand_sum</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">prob</span> <span class="o">+=</span> <span class="n">lpSum</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">tos_list</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">lpSum</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">froms_list</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">sup_dem_ij</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">prob</span> <span class="o">+=</span> <span class="n">lpSum</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))</span> <span class="k">if</span> <span class="n">tos_list</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">lpSum</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))</span> <span class="k">if</span> <span class="n">froms_list</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">sup_dem_ji</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arcs</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">+=</span> <span class="n">flow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">aircrafts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">avg_capacity</span>
+
+
+
+    <span class="c1"># =============================================================================</span>
+    <span class="c1"># Solve linear programming problem (Network optimization)</span>
+    <span class="c1"># =============================================================================</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== Start PuLP optimization ====&#39;</span><span class="p">)</span>
+    <span class="c1"># prob.solve(GLPK(timeLimit=60*5, msg = 0))</span>
+    <span class="n">prob</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">COIN_CMD</span><span class="p">(</span><span class="n">timeLimit</span><span class="o">=</span><span class="mi">60</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== Start PuLP optimization ====&#39;</span><span class="p">)</span>
+    <span class="c1"># print(&#39;Problem solution:&#39;,value(prob.objective))</span>
+
+    <span class="c1"># for v in prob.variables():</span>
+    <span class="c1">#     print(v.name, &quot;=&quot;, v.varValue)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Network optimization status: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">LpStatus</span><span class="p">[</span><span class="n">prob</span><span class="o">.</span><span class="n">status</span><span class="p">]))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">condition</span> <span class="o">=</span> <span class="n">LpStatus</span><span class="p">[</span><span class="n">prob</span><span class="o">.</span><span class="n">status</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">condition</span> <span class="o">!=</span> <span class="s1">&#39;Optimal&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Optimal network solution NOT found&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+        <span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Could not complete network optimization&#39;</span><span class="p">)</span>
+
+
+    <span class="n">list_airplanes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">list_of_pax</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">prob</span><span class="o">.</span><span class="n">variables</span><span class="p">():</span>
+        <span class="n">variable_name</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">variable_name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;aircrafts&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">list_airplanes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">varValue</span><span class="p">)</span>
+            <span class="c1"># print(v.name, &quot;=&quot;, v.varValue)</span>
+        <span class="k">if</span> <span class="n">variable_name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;flow&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># print(v.name, &quot;=&quot;, v.varValue)</span>
+            <span class="n">list_of_pax</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">varValue</span><span class="p">)</span>
+
+    <span class="c1"># print(&#39;flow&#39;,sum(list_of_pax))</span>
+
+    <span class="c1"># Post processing</span>
+    <span class="n">min_capacity</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="k">def</span> <span class="nf">flatten_dict</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">separator</span> <span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">separator</span> <span class="o">+</span> <span class="n">k</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">k</span> <span class="p">:</span> <span class="n">v</span>
+                <span class="k">for</span> <span class="n">kk</span><span class="p">,</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">dd</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">separator</span><span class="p">,</span> <span class="n">kk</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">}</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="n">prefix</span> <span class="p">:</span> <span class="n">dd</span> <span class="p">}</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">fraction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span>
+                <span class="n">fraction</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fraction</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">list_of_pax</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="n">list_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)</span>
+    <span class="n">fraction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)))</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">idx</span><span class="o">&lt;</span><span class="n">list_size</span><span class="o">/</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">j</span><span class="o">&gt;</span><span class="n">i</span><span class="p">:</span>
+                    <span class="n">fraction</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">list_of_pax</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">while</span> <span class="n">idx</span><span class="o">&lt;</span><span class="n">list_size</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">i</span><span class="p">:</span>
+                    <span class="n">fraction</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">list_of_pax</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Flow matrix:&#39;</span><span class="p">,</span><span class="n">fraction</span><span class="p">)</span>
+
+    <span class="n">fraction</span> <span class="o">=</span> <span class="n">fraction</span><span class="o">/</span><span class="n">planes</span><span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">][</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+
+    <span class="n">fraction_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">fraction</span><span class="p">)</span>
+    <span class="n">fraction_2</span> <span class="o">=</span> <span class="n">fraction</span><span class="o">-</span><span class="n">fraction_1</span>
+
+    <span class="n">fraction_1_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">fraction_1_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fraction_1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">fraction_1_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fraction_1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">fraction_2_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">fraction_2_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">fraction_2_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">revenue_1_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fraction_1_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">fraction_1_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">revenue_1_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">revenue_1_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_1_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">average_ticket_price</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_1_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            
+
+    <span class="n">revenue_1_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">revenue_1_list</span><span class="p">]</span>
+
+    <span class="n">revenue_2_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fraction_2_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">fraction_2_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">revenue_2_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">revenue_2_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_2_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">average_ticket_price</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_2_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">revenue_2_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">revenue_2_list</span><span class="p">]</span>
+
+    <span class="n">revenue_tot2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">revenue_1_list</span><span class="p">,</span><span class="n">revenue_2_list</span><span class="p">)]</span>
+    <span class="n">revenue_tot2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">revenue_tot2</span><span class="p">)</span>
+
+    <span class="n">revenue_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">fraction_1</span><span class="o">*</span><span class="n">pax_number</span><span class="p">)</span><span class="o">*</span><span class="n">average_ticket_price</span>
+    <span class="n">revenue_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">min_capacity</span><span class="p">:</span>
+                <span class="n">revenue_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">pax_number</span><span class="o">*</span><span class="n">average_ticket_price</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">revenue_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                
+
+    <span class="n">revenue_mat</span> <span class="o">=</span> <span class="n">revenue_1</span><span class="o">+</span><span class="n">revenue_2</span>
+    <span class="n">revenue_tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">revenue_mat</span><span class="p">)</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">list_of_airplanes_processed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">min_capacity</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">list_of_airplanes_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">fraction_1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="n">fracction_aux</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Aircraft matrix:&#39;</span><span class="p">,</span><span class="n">list_of_airplanes_processed</span><span class="p">)</span>
+
+    <span class="n">departure_airports</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FRA&quot;</span><span class="p">,</span> <span class="s2">&quot;LHR&quot;</span><span class="p">,</span> <span class="s2">&quot;CDG&quot;</span><span class="p">,</span> <span class="s2">&quot;AMS&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;MAD&quot;</span><span class="p">,</span> <span class="s2">&quot;BCN&quot;</span><span class="p">,</span> <span class="s2">&quot;FCO&quot;</span><span class="p">,</span> <span class="s2">&quot;DUB&quot;</span><span class="p">,</span> <span class="s2">&quot;VIE&quot;</span><span class="p">,</span> <span class="s2">&quot;ZRH&quot;</span><span class="p">]</span>
+    <span class="n">arrival_airports</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FRA&quot;</span><span class="p">,</span> <span class="s2">&quot;LHR&quot;</span><span class="p">,</span> <span class="s2">&quot;CDG&quot;</span><span class="p">,</span> <span class="s2">&quot;AMS&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;MAD&quot;</span><span class="p">,</span> <span class="s2">&quot;BCN&quot;</span><span class="p">,</span> <span class="s2">&quot;FCO&quot;</span><span class="p">,</span> <span class="s2">&quot;DUB&quot;</span><span class="p">,</span> <span class="s2">&quot;VIE&quot;</span><span class="p">,</span> <span class="s2">&quot;ZRH&quot;</span><span class="p">]</span>
+                  
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="n">harvest</span> <span class="o">=</span> <span class="n">list_of_airplanes_processed</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">harvest</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="c1"># We want to show all ticks...</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrival_airports</span><span class="p">)))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departure_airports</span><span class="p">)))</span>
+    <span class="c1"># ... and label them with the respective list entries</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">arrival_airports</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">departure_airports</span><span class="p">)</span>
+
+    <span class="c1"># Loop over data dimensions and create text annotations.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departure_airports</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrival_airports</span><span class="p">)):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">harvest</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span>
+                        <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ax.set_title(&quot;Network frequencies for optimum aircraft (112 seats)&quot;)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+
+    <span class="n">DOCmat</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">DOCmat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">arrivals</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="n">departures</span><span class="p">[</span><span class="n">j</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">DOCmat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+    <span class="n">DOC_proccessed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="n">DOC_proccessed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">DOCmat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">list_of_airplanes_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="n">list_pax_processed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">min_capacity</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> 
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">list_pax_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraction_1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">planes</span><span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">][</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fracction_aux</span><span class="o">*</span><span class="n">planes</span><span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">][</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;aircrafts_used&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">list_of_airplanes_processed</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;covered_demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">list_pax_processed</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_revenue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_tot</span>
+    <span class="n">airplanes_ik</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="n">airplanes_ik</span><span class="p">[</span><span class="n">departures</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="c1"># print(list_airplanes[n])</span>
+            <span class="n">airplanes_ik</span><span class="p">[(</span><span class="n">departures</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">arrivals</span><span class="p">[</span><span class="n">k</span><span class="p">])]</span> <span class="o">=</span> <span class="n">list_of_airplanes_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="n">list_airplanes_db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">list_of_airplanes_processed</span><span class="p">)</span>
+    <span class="n">list_airplanes_db</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Database/Network/frequencies.csv&#39;</span><span class="p">)</span>
+
+    <span class="n">airplanes_flatt</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">airplanes_ik</span><span class="p">)</span>
+    
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;Database/Network/frequencies.npy&#39;</span><span class="p">,</span> <span class="n">airplanes_flatt</span><span class="p">)</span> 
+
+    <span class="n">list_of_pax_db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">list_pax_processed</span><span class="p">)</span>
+
+    <span class="n">list_of_pax_db</span> <span class="o">=</span> <span class="n">list_of_pax_db</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">list_of_pax_db</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="c1"># print(list_of_pax)</span>
+
+    <span class="n">list_of_pax_db</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Database/Network/pax.csv&#39;</span><span class="p">)</span>
+
+    <span class="n">DOC_tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">DOC_proccessed</span><span class="p">)</span>
+
+    
+    <span class="n">profit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><span class="n">revenue_tot</span> <span class="o">-</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">DOC_tot</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;profit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">DOC_tot</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;margin&#39;</span><span class="p">,</span><span class="n">profit</span><span class="o">/</span><span class="n">revenue_tot</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="n">profit</span><span class="p">)</span>
+
+
+    <span class="n">pax_number_flatt</span> <span class="o">=</span> <span class="n">list_pax_processed</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="n">pax_number_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;pax_number&#39;</span><span class="p">:</span><span class="n">pax_number_flatt</span><span class="p">})</span>
+    <span class="n">kpi_df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="c1"># print(pax_number_df)</span>
+    <span class="n">kpi_df1</span><span class="p">[</span><span class="s1">&#39;pax_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pax_number_df</span><span class="p">[</span><span class="s1">&#39;pax_number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="c1"># print(kpi_df1[&quot;pax_number&quot;])</span>
+
+    <span class="c1"># kpi_df1.drop(columns=[&quot;variable_object&quot;], inplace=True)</span>
+    <span class="n">kpi_df1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Test/optimization_solution01.csv&quot;</span><span class="p">)</span>
+
+    <span class="c1">############################################################################################</span>
+    <span class="k">def</span> <span class="nf">restructure_data</span><span class="p">(</span><span class="n">aux_mat</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">aux_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">aux_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">new_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">elif</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">i</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">new_mat</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)</span>
+
+    <span class="c1"># aircrafts_aux = np.reshape(aircrafts, (n,n-1))</span>
+
+    <span class="n">kpi_df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">aircrafts</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> 
+                                    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;variable_object&quot;</span><span class="p">])</span>
+    <span class="c1"># kpi_df2.idx =  pd.MultiIndex.from_tuples(kpi_df2.idx, </span>
+    <span class="c1">#                             names=[&quot;origin&quot;, &quot;destination&quot;])</span>
+    <span class="n">kpi_df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s2">&quot;aircraft_number&quot;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">kpi_df2</span><span class="p">[</span><span class="s2">&quot;variable_object&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">varValue</span><span class="p">)</span>
+
+    <span class="n">kpi_df2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;variable_object&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="n">distances_flatt</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+    <span class="c1"># doc_flatt = flatten_dict(DOC)</span>
+    <span class="n">demand_flatt</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">demand</span><span class="p">)</span>
+    <span class="n">revenue_flatt</span> <span class="o">=</span> <span class="n">revenue_mat</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">doc_flatt</span> <span class="o">=</span> <span class="n">DOC_proccessed</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">doc_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;doc&#39;</span><span class="p">:</span><span class="n">doc_flatt</span><span class="p">})</span>
+    <span class="n">revenue_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;revenue&#39;</span><span class="p">:</span><span class="n">revenue_flatt</span><span class="p">})</span>
+
+
+    <span class="n">distance_df</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">distances_flatt</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">])</span>
+    <span class="c1"># doc_df =  pd.DataFrame.from_dict(doc_flatt,orient=&quot;idx&quot;,columns=[&#39;doc&#39;])</span>
+    <span class="n">demand_df</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">demand_flatt</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">])</span>
+    <span class="c1"># revenue_df =  pd.DataFrame.from_dict(revenue_flatt,orient=&quot;idx&quot;,columns=[&#39;revenue&#39;])</span>
+
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances_list</span>
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;doc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">docs_list</span>
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand_list</span>
+    <span class="c1"># kpi_df2[&#39;revenue&#39;] = revenue_df[&#39;revenue&#39;].values</span>
+    
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;active_arcs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">kpi_df2</span><span class="p">[</span><span class="s2">&quot;aircraft_number&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;active_arcs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">restructure_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">Distances</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">Distances</span> <span class="o">=</span> <span class="n">restructure_data</span><span class="p">(</span><span class="n">Distances</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">Demand</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">Demand</span><span class="o">=</span> <span class="n">restructure_data</span><span class="p">(</span><span class="n">Demand</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="n">DON</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">DON</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">DON</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">DON</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+    
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;avg_degree_nodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">DON</span><span class="p">)</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="mi">500</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">CON</span> <span class="o">=</span><span class="mi">0</span>
+        <span class="n">MAXCON</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">Distances</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">R</span><span class="p">:</span>
+                    <span class="n">MAXCON</span> <span class="o">=</span> <span class="n">MAXCON</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">CON</span> <span class="o">=</span> <span class="n">CON</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">MAXCON</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">CON</span><span class="o">/</span><span class="n">MAXCON</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;average_clustering&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+
+
+    <span class="n">LF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">FREQ</span> <span class="o">=</span> <span class="n">X</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;number_of_frequencies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">list_of_airplanes_processed</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== End network optimization module ====&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">profit</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">,</span> <span class="n">kpi_df1</span><span class="p">,</span> <span class="n">kpi_df2</span></div>
+
+
+<div class="viewcode-block" id="network_optimization_fix"><a class="viewcode-back" href="../../../framework.Network.html#framework.Network.network_optimization.network_optimization_fix">[docs]</a><span class="k">def</span> <span class="nf">network_optimization_fix</span><span class="p">(</span><span class="n">arrivals</span><span class="p">,</span> <span class="n">departures</span><span class="p">,</span> <span class="n">distances</span><span class="p">,</span> <span class="n">demand</span><span class="p">,</span> <span class="n">active_airports</span><span class="p">,</span> <span class="n">doc0</span><span class="p">,</span> <span class="n">pax_capacity</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== Start network optimization module ====&#39;</span><span class="p">)</span>
+    <span class="c1"># Definition of cities to be considered as departure_airport, first stop, final airport</span>
+    <span class="n">departure_airport</span> <span class="o">=</span> <span class="n">departures</span>
+    <span class="n">first_stop_airport</span> <span class="o">=</span> <span class="n">arrivals</span>
+    <span class="n">final_airport</span> <span class="o">=</span> <span class="n">departures</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">]</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>
+    <span class="c1"># doc0 = np.load(&#39;Database/DOC/DOC.npy&#39;,allow_pickle=True)</span>
+    <span class="c1"># doc0 = doc0.tolist() </span>
+
+    <span class="n">DOC</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">DOC</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">DOC</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">])</span>
+
+    <span class="c1"># DOC = doc0</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>
+    <span class="c1"># print(DOC)</span>
+    <span class="c1"># Define minimization problem</span>
+    <span class="c1"># prob = LpProblem(&quot;Network&quot;, LpMaximize)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">LpProblem</span><span class="p">(</span><span class="s2">&quot;Network&quot;</span><span class="p">,</span> <span class="n">LpMinimize</span><span class="p">)</span>
+
+    <span class="n">pax_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;reference_load_factor&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">pax_capacity</span><span class="p">)</span>
+    <span class="n">average_ticket_price</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;average_ticket_price&#39;</span><span class="p">]</span>
+
+    <span class="n">distances_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">distances_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+
+    <span class="n">demand_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">demand_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+
+    <span class="n">demand_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">demand_list</span><span class="p">)</span>
+
+    <span class="n">switch_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">switch_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active_airports</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+
+    <span class="n">docs_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">docs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">docs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">froms_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">froms_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># print(froms_list)</span>
+    <span class="n">tos_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">json</span><span class="p">:</span>
+                <span class="n">tos_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+
+
+
+    <span class="n">arcs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">froms_list</span><span class="p">)))</span>
+    <span class="n">planes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;P1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">pax_number</span><span class="p">}}</span>
+
+    <span class="n">avg_capacity</span> <span class="o">=</span> <span class="n">pax_number</span>
+    <span class="n">avg_vel</span> <span class="o">=</span> <span class="mi">400</span>
+    <span class="n">avg_vel</span> <span class="o">=</span> <span class="p">[</span><span class="n">avg_vel</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">froms_list</span><span class="p">)</span>
+    <span class="n">avg_grnd_time</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">time_allowed</span> <span class="o">=</span> <span class="mi">13</span>
+    <span class="n">allowed_planes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mi">13</span><span class="o">/</span><span class="p">((</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">avg_vel</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="n">avg_grnd_time</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))]</span>
+
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="n">aircrafts</span> <span class="o">=</span> <span class="p">[</span><span class="n">demand_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">pax_number</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))]</span>
+    <span class="c1"># aircrafts = pax_number</span>
+    <span class="n">list_of_pax</span> <span class="o">=</span> <span class="p">[</span><span class="n">aircrafts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">pax_number</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arcs</span><span class="p">))]</span>
+
+    <span class="c1"># =============================================================================</span>
+    <span class="c1"># Solve linear programming problem (Network optimization)</span>
+    <span class="c1"># =============================================================================</span>
+    <span class="k">def</span> <span class="nf">restructure_data</span><span class="p">(</span><span class="n">aux_mat</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">aux_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">aux_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">new_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">elif</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">i</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">new_mat</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)</span>
+
+    <span class="c1"># Post processing</span>
+    <span class="n">min_capacity</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="k">def</span> <span class="nf">flatten_dict</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">separator</span> <span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">separator</span> <span class="o">+</span> <span class="n">k</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">k</span> <span class="p">:</span> <span class="n">v</span>
+                <span class="k">for</span> <span class="n">kk</span><span class="p">,</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">dd</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">separator</span><span class="p">,</span> <span class="n">kk</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">}</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="n">prefix</span> <span class="p">:</span> <span class="n">dd</span> <span class="p">}</span>
+
+    <span class="n">fraction</span> <span class="o">=</span> <span class="n">restructure_data</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">fraction</span> <span class="o">=</span> <span class="n">fraction</span><span class="o">/</span><span class="n">planes</span><span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">][</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+
+    <span class="n">fraction_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">fraction</span><span class="p">)</span>
+    <span class="n">fraction_2</span> <span class="o">=</span> <span class="n">fraction</span><span class="o">-</span><span class="n">fraction_1</span>
+
+    <span class="n">fraction_1_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">fraction_1_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fraction_1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">fraction_2_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">fraction_2_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">revenue_1_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fraction_1_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">fraction_1_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">revenue_1_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">revenue_1_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_1_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">average_ticket_price</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_1_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            
+
+    <span class="n">revenue_1_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">revenue_1_list</span><span class="p">]</span>
+
+    <span class="n">revenue_2_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fraction_2_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">fraction_2_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">revenue_2_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">revenue_2_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">demand_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_2_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">average_ticket_price</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">list_of_pax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">fraction_2_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">distances_list</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">revenue_2_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">revenue_2_list</span><span class="p">]</span>
+
+
+     
+
+    <span class="n">revenue_tot2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">revenue_1_list</span><span class="p">,</span><span class="n">revenue_2_list</span><span class="p">)]</span>
+    <span class="n">revenue_tot2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">revenue_tot2</span><span class="p">)</span>
+
+    <span class="n">revenue_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">fraction_1</span><span class="o">*</span><span class="n">pax_number</span><span class="p">)</span><span class="o">*</span><span class="n">average_ticket_price</span>
+    <span class="n">revenue_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">min_capacity</span><span class="p">:</span>
+                <span class="n">revenue_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">pax_number</span><span class="o">*</span><span class="n">average_ticket_price</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">revenue_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">revenue_mat</span> <span class="o">=</span> <span class="n">revenue_1</span><span class="o">+</span><span class="n">revenue_2</span>
+    <span class="n">revenue_tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">revenue_mat</span><span class="p">)</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">list_of_airplanes_processed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">min_capacity</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">list_of_airplanes_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">fraction_1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="n">fracction_aux</span>
+
+
+    <span class="n">DOCmat</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">DOCmat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">doc0</span><span class="p">[</span><span class="n">arrivals</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="n">departures</span><span class="p">[</span><span class="n">j</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">DOCmat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+    <span class="n">DOC_proccessed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="n">DOC_proccessed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">DOCmat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">list_of_airplanes_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="n">list_pax_processed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">min_capacity</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="n">fraction_2</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> 
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fracction_aux</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">list_pax_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraction_1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">planes</span><span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">][</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fracction_aux</span><span class="o">*</span><span class="n">planes</span><span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">][</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;aircrafts_used&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">list_of_airplanes_processed</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;covered_demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">list_pax_processed</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_revenue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_tot</span>
+    <span class="n">airplanes_ik</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">departures</span><span class="p">)):</span>
+        <span class="n">airplanes_ik</span><span class="p">[</span><span class="n">departures</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)):</span>
+            <span class="c1"># print(list_airplanes[n])</span>
+            <span class="n">airplanes_ik</span><span class="p">[(</span><span class="n">departures</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">arrivals</span><span class="p">[</span><span class="n">k</span><span class="p">])]</span> <span class="o">=</span> <span class="n">list_of_airplanes_processed</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+
+
+    <span class="n">list_airplanes_db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">list_of_airplanes_processed</span><span class="p">)</span>
+    <span class="n">list_airplanes_db</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Database/Network/frequencies.csv&#39;</span><span class="p">)</span>
+
+    <span class="n">airplanes_flatt</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">airplanes_ik</span><span class="p">)</span>
+    
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;Database/Network/frequencies.npy&#39;</span><span class="p">,</span> <span class="n">airplanes_flatt</span><span class="p">)</span> 
+
+    <span class="n">list_of_pax_db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">list_pax_processed</span><span class="p">)</span>
+
+    <span class="n">list_of_pax_db</span> <span class="o">=</span> <span class="n">list_of_pax_db</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">list_of_pax_db</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="c1"># print(list_of_pax)</span>
+
+    <span class="n">list_of_pax_db</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Database/Network/pax.csv&#39;</span><span class="p">)</span>
+
+    <span class="n">DOC_tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">DOC_proccessed</span><span class="p">)</span>
+
+    
+    <span class="n">profit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="mf">1.0</span><span class="o">*</span><span class="n">revenue_tot</span> <span class="o">-</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">DOC_tot</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;profit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">DOC_tot</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;margin&#39;</span><span class="p">,</span><span class="n">profit</span><span class="o">/</span><span class="n">revenue_tot</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="n">profit</span><span class="p">)</span>
+
+
+    <span class="n">pax_number_flatt</span> <span class="o">=</span> <span class="n">list_pax_processed</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="n">pax_number_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;pax_number&#39;</span><span class="p">:</span><span class="n">pax_number_flatt</span><span class="p">})</span>
+    <span class="n">kpi_df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="c1"># print(pax_number_df)</span>
+    <span class="n">kpi_df1</span><span class="p">[</span><span class="s1">&#39;pax_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pax_number_df</span><span class="p">[</span><span class="s1">&#39;pax_number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="c1"># print(kpi_df1[&quot;pax_number&quot;])</span>
+
+    <span class="c1"># kpi_df1.drop(columns=[&quot;variable_object&quot;], inplace=True)</span>
+    <span class="n">kpi_df1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Test/optimization_solution01.csv&quot;</span><span class="p">)</span>
+
+    <span class="c1">############################################################################################</span>
+    <span class="k">def</span> <span class="nf">restructure_data</span><span class="p">(</span><span class="n">aux_mat</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">aux_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">aux_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">new_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">elif</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">i</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux_mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">new_mat</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)</span>
+
+    <span class="n">kpi_df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">aircrafts</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;aircraft_number&quot;</span><span class="p">])</span>
+
+    <span class="n">distances_flatt</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+    <span class="c1"># doc_flatt = flatten_dict(DOC)</span>
+    <span class="n">demand_flatt</span> <span class="o">=</span> <span class="n">flatten_dict</span><span class="p">(</span><span class="n">demand</span><span class="p">)</span>
+    <span class="n">revenue_flatt</span> <span class="o">=</span> <span class="n">revenue_mat</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">doc_flatt</span> <span class="o">=</span> <span class="n">DOC_proccessed</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">doc_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;doc&#39;</span><span class="p">:</span><span class="n">doc_flatt</span><span class="p">})</span>
+    <span class="n">revenue_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;revenue&#39;</span><span class="p">:</span><span class="n">revenue_flatt</span><span class="p">})</span>
+
+
+    <span class="n">distance_df</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">distances_flatt</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;idx&quot;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">])</span>
+    <span class="c1"># doc_df =  pd.DataFrame.from_dict(doc_flatt,orient=&quot;idx&quot;,columns=[&#39;doc&#39;])</span>
+    <span class="n">demand_df</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">demand_flatt</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;idx&quot;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">])</span>
+    <span class="c1"># revenue_df =  pd.DataFrame.from_dict(revenue_flatt,orient=&quot;idx&quot;,columns=[&#39;revenue&#39;])</span>
+
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances_list</span>
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;doc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">docs_list</span>
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand_list</span>
+    <span class="c1"># kpi_df2[&#39;revenue&#39;] = revenue_df[&#39;revenue&#39;].values</span>
+    
+    <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;active_arcs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">kpi_df2</span><span class="p">[</span><span class="s2">&quot;aircraft_number&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;active_arcs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">restructure_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">Distances</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">Distances</span> <span class="o">=</span> <span class="n">restructure_data</span><span class="p">(</span><span class="n">Distances</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">Demand</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">Demand</span><span class="o">=</span> <span class="n">restructure_data</span><span class="p">(</span><span class="n">Demand</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="n">DON</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">DON</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">DON</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">DON</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+    
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;avg_degree_nodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">DON</span><span class="p">)</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="mi">500</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">CON</span> <span class="o">=</span><span class="mi">0</span>
+        <span class="n">MAXCON</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">Distances</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">R</span><span class="p">:</span>
+                    <span class="n">MAXCON</span> <span class="o">=</span> <span class="n">MAXCON</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">CON</span> <span class="o">=</span> <span class="n">CON</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">MAXCON</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">CON</span><span class="o">/</span><span class="n">MAXCON</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;average_clustering&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+
+
+    <span class="n">LF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">FREQ</span> <span class="o">=</span> <span class="n">X</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;number_of_frequencies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">list_of_airplanes_processed</span><span class="p">)</span>
+
+
+    
+
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== End network optimization module ====&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">profit</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">,</span> <span class="n">kpi_df1</span><span class="p">,</span> <span class="n">kpi_df2</span></div>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># # Load origin-destination distance matrix [nm]</span>
+<span class="c1"># distances_db = pd.read_csv(&#39;Database/Distance/distance.csv&#39;)</span>
+<span class="c1"># distances_db = (distances_db.T)</span>
+<span class="c1"># distances = distances_db.to_dict()  # Convert to dictionaty</span>
+
+<span class="c1"># # Load daily demand matrix and multiply by market share (10%)</span>
+<span class="c1"># demand_db = pd.read_csv(&#39;Database//Demand/demand.csv&#39;)</span>
+<span class="c1"># demand_db = round(market_share*(demand_db.T))</span>
+<span class="c1"># demand = demand_db.to_dict()</span>
+<span class="c1"># from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters</span>
+
+<span class="c1"># vehicle = initialize_aircraft_parameters()</span>
+<span class="c1"># operations = vehicle[&#39;operations&#39;]</span>
+<span class="c1"># # departures = [&quot;FRA&quot;, &quot;LHR&quot;, &quot;CDG&quot;, &quot;AMS&quot;,</span>
+<span class="c1"># #             &quot;MAD&quot;, &quot;BCN&quot;, &quot;FCO&quot;,&quot;DUB&quot;,&quot;VIE&quot;,&quot;ZRH&quot;]</span>
+<span class="c1"># # arrivals = [&quot;FRA&quot;, &quot;LHR&quot;, &quot;CDG&quot;, &quot;AMS&quot;,</span>
+<span class="c1"># #             &quot;MAD&quot;, &quot;BCN&quot;, &quot;FCO&quot;,&quot;DUB&quot;,&quot;VIE&quot;,&quot;ZRH&quot;]</span>
+
+<span class="c1"># departures = [&#39;CD0&#39;,&#39;CD1&#39;,&#39;CD2&#39;,&#39;CD3&#39;,</span>
+<span class="c1">#         &#39;CD4&#39;,&#39;CD5&#39;,&#39;CD6&#39;,&#39;CD7&#39;,&#39;CD8&#39;,&#39;CD9&#39;]</span>
+<span class="c1"># arrivals = [&#39;CD0&#39;,&#39;CD1&#39;,&#39;CD2&#39;,&#39;CD3&#39;,</span>
+<span class="c1">#         &#39;CD4&#39;,&#39;CD5&#39;,&#39;CD6&#39;,&#39;CD7&#39;,&#39;CD8&#39;,&#39;CD9&#39;]</span>
+
+
+<span class="c1"># # Load origin-destination distance matrix [nm]</span>
+<span class="c1"># distances_db = pd.read_csv(&#39;Database/Distance/distance.csv&#39;)</span>
+<span class="c1"># distances_db = (distances_db)</span>
+<span class="c1"># distances = distances_db.to_dict()  # Convert to dictionaty</span>
+
+<span class="c1"># market_share = operations[&#39;market_share&#39;]</span>
+<span class="c1"># # # Load dai</span>
+<span class="c1"># demand_db= pd.read_csv(&#39;Database/Demand/demand.csv&#39;)</span>
+<span class="c1"># demand_db= round(market_share*(demand_db.T))</span>
+<span class="c1"># demand = demand_db.to_dict()</span>
+
+<span class="c1"># df3 = pd.read_csv(&#39;Database/DOC/DOC_test5.csv&#39;)</span>
+<span class="c1"># df3 = (df3.T)</span>
+<span class="c1"># doc0 = df3.to_dict()</span>
+
+<span class="c1"># active_airports_db = pd.read_csv(&#39;Database/Demand/switch_matrix_full.csv&#39;)</span>
+<span class="c1"># active_airports_db = active_airports_db</span>
+<span class="c1"># active_airports = active_airports_db .to_dict()</span>
+
+
+<span class="c1"># demand_in = {}</span>
+<span class="c1"># for i in range(len(departures)):</span>
+<span class="c1">#     demand_in[departures[i]] = {}</span>
+<span class="c1">#     for k in range(len(arrivals)):</span>
+<span class="c1">#         if i != k:</span>
+<span class="c1">#             demand_in[departures[i]][arrivals[k]] = demand[departures[i]][arrivals[k]]*active_airports[departures[i]][arrivals[k]]</span>
+<span class="c1">#         else:</span>
+<span class="c1">#             demand_in[departures[i]][arrivals[k]] =  demand[departures[i]][arrivals[k]]*active_airports[departures[i]][arrivals[k]]</span>
+<span class="c1"># pax_capacity = 144</span>
+
+
+
+<span class="c1"># network_optimization(arrivals, departures, distances, demand_in, active_airports, doc0, pax_capacity, vehicle)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

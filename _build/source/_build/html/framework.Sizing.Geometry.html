@@ -1,0 +1,1119 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry package &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">framework.Sizing.Geometry package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.airfoil_preprocessing">framework.Sizing.Geometry.airfoil_preprocessing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.area_triangle_3d">framework.Sizing.Geometry.area_triangle_3d module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.cpacsfunctions">framework.Sizing.Geometry.cpacsfunctions module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.fuselage_sizing">framework.Sizing.Geometry.fuselage_sizing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.landig_gear_position">framework.Sizing.Geometry.landig_gear_position module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.landing_gear_layout">framework.Sizing.Geometry.landing_gear_layout module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.nose_landig_gear_sizing">framework.Sizing.Geometry.nose_landig_gear_sizing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.pax_cabine_length">framework.Sizing.Geometry.pax_cabine_length module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_horizontal_tail">framework.Sizing.Geometry.sizing_horizontal_tail module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_landing_gear">framework.Sizing.Geometry.sizing_landing_gear module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_tail">framework.Sizing.Geometry.sizing_tail module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_vertical_tail">framework.Sizing.Geometry.sizing_vertical_tail module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.tailcone_sizing">framework.Sizing.Geometry.tailcone_sizing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.tire_selection">framework.Sizing.Geometry.tire_selection module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wetted_area">framework.Sizing.Geometry.wetted_area module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wetted_area_fuselage">framework.Sizing.Geometry.wetted_area_fuselage module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wetted_area_wing">framework.Sizing.Geometry.wetted_area_wing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wing_structural_layout_fuel_storage">framework.Sizing.Geometry.wing_structural_layout_fuel_storage module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/framework.Sizing.Geometry.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="framework-sizing-geometry-package">
+<h1>framework.Sizing.Geometry package<a class="headerlink" href="#framework-sizing-geometry-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.airfoil_preprocessing">
+<span id="framework-sizing-geometry-airfoil-preprocessing-module"></span><h2>framework.Sizing.Geometry.airfoil_preprocessing module<a class="headerlink" href="#module-framework.Sizing.Geometry.airfoil_preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>” 
+Function  : airfoil_preprocessing.py
+Title     : Airfoil pre-processing
+Written by: Alejandro Rios
+Date      : September/2019
+Last edit : August/2020
+Language  : Python
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module takes as input the airfoil cordinates .dat file an redefine number of panels</p></li>
+</ul>
+</dd>
+<dt>Future implementations:</dt><dd><ul class="simple">
+<li><p>Redefine airfoil to create blunt trailing edge in order to prevent numerical errors</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Aifoil name [str]</p></li>
+<li><p>Panel number [int]</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Airfoil.dat</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.airfoil_preprocessing.airfoil_preprocessing">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.airfoil_preprocessing.</code><code class="sig-name descname">airfoil_preprocessing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">airfoil</span></em>, <em class="sig-param"><span class="n">panel_number</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/airfoil_preprocessing.html#airfoil_preprocessing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.airfoil_preprocessing.airfoil_preprocessing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.area_triangle_3d">
+<span id="framework-sizing-geometry-area-triangle-3d-module"></span><h2>framework.Sizing.Geometry.area_triangle_3d module<a class="headerlink" href="#module-framework.Sizing.Geometry.area_triangle_3d" title="Permalink to this headline">¶</a></h2>
+<p>” 
+Function  : area_triangle_3d.py
+Title     : Triangle area 3D
+Written by: Alejandro Rios
+Date      : November/2019
+Last edit : August/2020
+Language  : Python
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculate the area triangle for applications in 3D surfaces area calculation</p></li>
+</ul>
+</dd>
+<dt>Future implementations:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Triangle coordinates x, y, z</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>area</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.area_triangle_3d.area_triangle_3d">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.area_triangle_3d.</code><code class="sig-name descname">area_triangle_3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/area_triangle_3d.html#area_triangle_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.area_triangle_3d.area_triangle_3d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.cpacsfunctions">
+<span id="framework-sizing-geometry-cpacsfunctions-module"></span><h2>framework.Sizing.Geometry.cpacsfunctions module<a class="headerlink" href="#module-framework.Sizing.Geometry.cpacsfunctions" title="Permalink to this headline">¶</a></h2>
+<p>CEASIOMpy: Conceptual Aircraft Design Software</p>
+<p>Developed for CFS ENGINEERING, 1015 Lausanne, Switzerland</p>
+<p>Functions to manipulate CPACS file, it uses TIXI and TIGL ceasiompy.aries, 
+and add some simplified or complementary functions.</p>
+<p>Python version: &gt;=3.6</p>
+<div class="line-block">
+<div class="line">Author : Aidan Jungo</div>
+<div class="line">Creation: 2018-10-02</div>
+<div class="line">Last modifiction: 2019-10-21</div>
+</div>
+<p>TODO:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘copy_branch’: change all uID of the copied branch? how?</p></li>
+<li></li>
+</ul>
+</div></blockquote>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.add_float_vector">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">add_float_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">vector</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#add_float_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.add_float_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a vector (of float) at given CPACS xpath</p>
+<p>Function ‘add_float_vector’ will add a vector (composed by float) at the
+given XPath, if the node does not exist, it will be created. Values will be
+overwritten if paths exists.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to add
+vector (list, tuple): Vector of floats to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.add_string_vector">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">add_string_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">vector</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#add_string_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.add_string_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a vector (of string) at given CPACS xpath</p>
+<p>Function ‘add_string_vector’ will add a vector (composed by stings) at the
+given XPath, if the node does not exist, it will be created. Values will be
+overwritten if paths exists.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to add
+vector (list): Vector of string to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.add_uid">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">add_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#add_uid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.add_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to add UID at a specific XPath.</p>
+<p>Function ‘add_uid’ checks and add UID to a specific path, the function will
+automatically update the chosen UID if it exists already.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the branch to add the uid
+uid (str): uid to add at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.aircraft_name">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">aircraft_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi_or_cpacs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#aircraft_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.aircraft_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>The function get the name of the aircraft from the cpacs file or add a</dt><dd><p>default one if non-existant.</p>
+</dd>
+<dt>Args:</dt><dd><p>cpacs_path (str): Path to the CPACS file</p>
+</dd>
+<dt>Returns:</dt><dd><p>name (str): Name of the aircraft.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.close_tixi">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">close_tixi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi_handle</span></em>, <em class="sig-param"><span class="n">cpacs_out_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#close_tixi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.close_tixi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close TIXI handle and save the CPACS file.</p>
+<p>Function ‘close_tixi’ close the TIXI Handle and save the CPACS file at the
+location given by ‘cpacs_out_path’ after checking if the directory path
+exists</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+cpacs_out_path (str): Path to the CPACS output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.copy_branch">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">copy_branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath_from</span></em>, <em class="sig-param"><span class="n">xpath_to</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#copy_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.copy_branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to copy a CPACS branch.</p>
+<p>Function ‘copy_branch’ copy the branch (with sub-branches) from
+‘xpath_from’ to ‘xpath_to’ by using recursion. The new branch should
+be identical (uiD, attribute, etc). There is no log in this function
+because of its recursivity.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+xpath_from (str): xpath of the branch to copy
+xpath_to (str): Destination xpath</p>
+</dd>
+<dt>Returns:</dt><dd><p>tixi (handles): Modified TIXI Handle (with copied branch)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.create_branch">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">create_branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">add_child</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#create_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.create_branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a CPACS branch.</p>
+<p>Function ‘create_branch’ create a branch in the tixi handle and also all
+the missing parent nodes. Be careful, the xpath must be unique until the
+last element, it means, if several element exist, its index must be precised
+(index start at 1).
+e.g.: ‘/cpacs/vehicles/aircraft/model/wings/wing[2]/name’</p>
+<p>If the entire xpath already exist, the option ‘add_child’ (True/False) lets
+the user decide if a named child should be added next to the existing
+one(s). This only valid for the last element of the xpath.</p>
+<dl>
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the branch to create
+add_child (boolean): Choice of adding a name child if the last element</p>
+<blockquote>
+<div><p>of the xpath if one already exists</p>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>tixi (handles): Modified TIXI Handle (with new branch)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.get_float_vector">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">get_float_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#get_float_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.get_float_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a vector (of float) at given CPACS xpath</p>
+<p>Function ‘get_float_vector’ will get a vector (composed by float) at the
+given XPath, if the node does not exist, an error will be raised.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.get_path">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">get_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#get_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.get_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a path with your os system format</p>
+<p>Function ‘get_path’ will get a get the path in the CPACS file and return
+a path with the format corresponding to your os (‘/’ for Linux and MacOS
+and ‘’ for Windows). All paths to store in the CPACS file could be saved as
+normal strings as long as this function is used to get them back.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the path to get</p>
+</dd>
+<dt>Returns:</dt><dd><p>correct_path (str): Path with the correct separators</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.get_string_vector">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">get_string_vector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#get_string_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.get_string_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a vector (of string) at given CPACS xpath</p>
+<p>Function ‘get_string_vector’ will get a vector (composed by string) at the
+given XPath, if the node does not exist, an error will be raised.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>tixi (handle): Tixi handle
+xpath (str): XPath of the vector to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.get_uid">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">get_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#get_uid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.get_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get uID from a specific XPath.</p>
+<p>Function ‘get_uid’ checks the xpath and get the corresponding uID.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the branch to add the uid</p>
+</dd>
+<dt>Returns:</dt><dd><p>uid (str): uid to add at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.get_value">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">get_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.get_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get value from a CPACS branch if this branch exist.</p>
+<p>Function ‘get_value’ check first if the the xpath exist and a value is store
+at this place. Then, it gets and returns this value. If the value or the
+xpath does not exist it raise an error and return ‘None’.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the value to get</p>
+</dd>
+<dt>Returns:</dt><dd><p>value (float or str): Value found at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.get_value_or_default">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">get_value_or_default</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi</span></em>, <em class="sig-param"><span class="n">xpath</span></em>, <em class="sig-param"><span class="n">default_value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#get_value_or_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.get_value_or_default" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Function to get value from a CPACS branch if this branch exist, if not</dt><dd><p>it returns the default value.</p>
+</dd>
+</dl>
+<p>Function ‘get_value_or_default’ do the same than the function ‘get_value’
+but if no value is found at this place it returns the default value and add
+it at the xpath. If the xpath does not exist, it is created.</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file
+xpath (str): xpath of the value to get
+default_value (str, float or int): Default value</p>
+</dd>
+<dt>Returns:</dt><dd><p>tixi (handles): Modified TIXI Handle (with added default value)
+value (str, float or int): Value found at xpath</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.open_tigl">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">open_tigl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tixi_handle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#open_tigl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.open_tigl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create TIGL handles for a CPACS file and return this handle.</p>
+<p>Function ‘open_tigl’ return the TIGL Handle from its TIXI Handle.
+If this operation is not possible, it returns ‘None’</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIGL functions <a class="reference external" href="http://tigl.sourceforge.net/Doc/index.html">http://tigl.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file</p>
+</dd>
+<dt>Returns:</dt><dd><p>tigl_handle (handles): TIGL Handle of the CPACS file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.cpacsfunctions.open_tixi">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.cpacsfunctions.</code><code class="sig-name descname">open_tixi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cpacs_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/cpacsfunctions.html#open_tixi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.cpacsfunctions.open_tixi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create TIXI handles for a CPACS file and return this handle.</p>
+<p>Function ‘open_tixi’ return the TIXI Handle of a CPACS file given as input
+by its path. If this operation is not possible, it returns ‘None’</p>
+<dl class="simple">
+<dt>Source :</dt><dd><ul class="simple">
+<li><p>TIXI functions: <a class="reference external" href="http://tixi.sourceforge.net/Doc/index.html">http://tixi.sourceforge.net/Doc/index.html</a></p></li>
+</ul>
+</dd>
+<dt>Args:</dt><dd><p>cpacs_path (str): Path to the CPACS file</p>
+</dd>
+<dt>Returns::</dt><dd><p>tixi_handle (handles): TIXI Handle of the CPACS file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.fuselage_sizing">
+<span id="framework-sizing-geometry-fuselage-sizing-module"></span><h2>framework.Sizing.Geometry.fuselage_sizing module<a class="headerlink" href="#module-framework.Sizing.Geometry.fuselage_sizing" title="Permalink to this headline">¶</a></h2>
+<p>File name :
+Authors   :
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      :
+Last edit :
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates the cabine dimensions</p></li>
+<li><p>Reference PreSTO-Cabin - <a class="reference external" href="https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf">https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf</a></p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.fuselage_sizing.fuselage_cross_section">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.fuselage_sizing.</code><code class="sig-name descname">fuselage_cross_section</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/fuselage_sizing.html#fuselage_cross_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.fuselage_sizing.fuselage_cross_section" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.landig_gear_position">
+<span id="framework-sizing-geometry-landig-gear-position-module"></span><h2>framework.Sizing.Geometry.landig_gear_position module<a class="headerlink" href="#module-framework.Sizing.Geometry.landig_gear_position" title="Permalink to this headline">¶</a></h2>
+<p>File name : Landing gear position function
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : January 2021
+Last edit : February 2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the calculation of the main landing gear position</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary with landing gear information updated</p></li>
+<li><p>y position trunnion</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.landig_gear_position.landig_gear_position">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.landig_gear_position.</code><code class="sig-name descname">landig_gear_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/landig_gear_position.html#landig_gear_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.landig_gear_position.landig_gear_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.landing_gear_layout">
+<span id="framework-sizing-geometry-landing-gear-layout-module"></span><h2>framework.Sizing.Geometry.landing_gear_layout module<a class="headerlink" href="#module-framework.Sizing.Geometry.landing_gear_layout" title="Permalink to this headline">¶</a></h2>
+<p>File name : Landing gear layout function
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : January 2021
+Last edit : February 2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<p>Description: This function creates the landing gear layout.
+References:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ROSKAM, J. Airplane Design vol. IV - Layout of landing gear and systems. DARCorp, 2010.
+TORENBEEK, E. Synthesis of subsonic airplane design. DUP / Kluwer, 1982.</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary updated</p></li>
+<li><p>Min angle main gear to cg [deg]</p></li>
+<li><p>Pneu number by strut</p></li>
+<li><p>Pneu main gear diameter [m]</p></li>
+<li><p>Pneu main gear length [m]</p></li>
+<li><p>Min psiton length [m]</p></li>
+<li><p>Main gear shock absorber diameter [m]</p></li>
+<li><p>Nose gear piston length [m]</p></li>
+<li><p>Nose gear shock absorber diameter [m]</p></li>
+<li><p>Pneu nose gear length [m]</p></li>
+<li><p>Pneu nose gear diameter [m]</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Rename variables</p></li>
+<li><p>Update comments</p></li>
+<li><p>Update format to PEP8</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.landing_gear_layout.landing_gear_layout">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.landing_gear_layout.</code><code class="sig-name descname">landing_gear_layout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/landing_gear_layout.html#landing_gear_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.landing_gear_layout.landing_gear_layout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.nose_landig_gear_sizing">
+<span id="framework-sizing-geometry-nose-landig-gear-sizing-module"></span><h2>framework.Sizing.Geometry.nose_landig_gear_sizing module<a class="headerlink" href="#module-framework.Sizing.Geometry.nose_landig_gear_sizing" title="Permalink to this headline">¶</a></h2>
+<p>File name :
+Authors   : 
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : 
+Last edit :
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.nose_landig_gear_sizing.landing_gear_layout">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.nose_landig_gear_sizing.</code><code class="sig-name descname">landing_gear_layout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/nose_landig_gear_sizing.html#landing_gear_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.nose_landig_gear_sizing.landing_gear_layout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.pax_cabine_length">
+<span id="framework-sizing-geometry-pax-cabine-length-module"></span><h2>framework.Sizing.Geometry.pax_cabine_length module<a class="headerlink" href="#module-framework.Sizing.Geometry.pax_cabine_length" title="Permalink to this headline">¶</a></h2>
+<p>File name : Pax cabine length
+Written by: Alejandro Rios
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : Octobe 2019
+Last edit : February 2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the pax cabine length</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>pax cabine lenght [m]</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Clean code</p></li>
+<li><p>Rename variables</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.pax_cabine_length.pax_cabine_length">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.pax_cabine_length.</code><code class="sig-name descname">pax_cabine_length</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/pax_cabine_length.html#pax_cabine_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.pax_cabine_length.pax_cabine_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.pax_cabine_length.seattop_fileira">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.pax_cabine_length.</code><code class="sig-name descname">seattop_fileira</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x0</span></em>, <em class="sig-param"><span class="n">fuselage</span></em>, <em class="sig-param"><span class="n">SeatProf</span></em>, <em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/pax_cabine_length.html#seattop_fileira"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.pax_cabine_length.seattop_fileira" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_horizontal_tail">
+<span id="framework-sizing-geometry-sizing-horizontal-tail-module"></span><h2>framework.Sizing.Geometry.sizing_horizontal_tail module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_horizontal_tail" title="Permalink to this headline">¶</a></h2>
+<p>” 
+Title     : Size Horizontal Tail 
+Written by: Alejandro Rios
+Date      : 30/10/19
+Language  : Python
+Aeronautical Institute of Technology</p>
+<p>Inputs:
+MTOW</p>
+<p>Outputs:
+Cap_Sal
+FO_Sal</p>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_horizontal_tail.sizing_horizontal_tail">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_horizontal_tail.</code><code class="sig-name descname">sizing_horizontal_tail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">mach</span></em>, <em class="sig-param"><span class="n">ceiling</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_horizontal_tail.html#sizing_horizontal_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_horizontal_tail.sizing_horizontal_tail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_landing_gear">
+<span id="framework-sizing-geometry-sizing-landing-gear-module"></span><h2>framework.Sizing.Geometry.sizing_landing_gear module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_landing_gear" title="Permalink to this headline">¶</a></h2>
+<p>File name : Sizing landing gear
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : January 2021
+Last edit : February 2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the landing gear sizing.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary with landing gear information updated</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_landing_gear.sizing_landing_gear">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_landing_gear.</code><code class="sig-name descname">sizing_landing_gear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_landing_gear.html#sizing_landing_gear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_landing_gear.sizing_landing_gear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_tail">
+<span id="framework-sizing-geometry-sizing-tail-module"></span><h2>framework.Sizing.Geometry.sizing_tail module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_tail" title="Permalink to this headline">¶</a></h2>
+<p>File name : Tail sizing function
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : Dezember/2020
+Last edit : January/2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs an iterative cycle to re-size the vertical and</p></li>
+</ul>
+<p>horizontal stabilizer to decrease the whole airplane weight.</p>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary</p></li>
+<li><p>Mach number</p></li>
+<li><p>Aaltitude [ft]</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary with updated infortmation of tail sizing</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_tail.sizing_tail">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_tail.</code><code class="sig-name descname">sizing_tail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">mach</span></em>, <em class="sig-param"><span class="n">altitude</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_tail.html#sizing_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_tail.sizing_tail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_vertical_tail">
+<span id="framework-sizing-geometry-sizing-vertical-tail-module"></span><h2>framework.Sizing.Geometry.sizing_vertical_tail module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_vertical_tail" title="Permalink to this headline">¶</a></h2>
+<p>File name :
+Authors   : 
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : 
+Last edit :
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Review final results - the equations are in lb or kg?</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_vertical_tail.sizing_vertical_tail">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_vertical_tail.</code><code class="sig-name descname">sizing_vertical_tail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">mach</span></em>, <em class="sig-param"><span class="n">altitude</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_vertical_tail.html#sizing_vertical_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_vertical_tail.sizing_vertical_tail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.tailcone_sizing">
+<span id="framework-sizing-geometry-tailcone-sizing-module"></span><h2>framework.Sizing.Geometry.tailcone_sizing module<a class="headerlink" href="#module-framework.Sizing.Geometry.tailcone_sizing" title="Permalink to this headline">¶</a></h2>
+<p>Function  : tailcone_sizing.py
+Title     : Tail cone sizing
+Written by: Alejandro Rios
+Date      : November/2019
+Last edit : August/2020
+Language  : Python
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the tailcone sizing</p></li>
+</ul>
+</dd>
+<dt>Future implementations:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Number of pax</p></li>
+<li><p>Engine position</p></li>
+<li><p>Fuselage height</p></li>
+<li><p>Fuselage width</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>tailcone length</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.tailcone_sizing.tailcone_sizing">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.tailcone_sizing.</code><code class="sig-name descname">tailcone_sizing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NPax</span></em>, <em class="sig-param"><span class="n">PEng</span></em>, <em class="sig-param"><span class="n">fuse_height</span></em>, <em class="sig-param"><span class="n">fuse_width</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/tailcone_sizing.html#tailcone_sizing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.tailcone_sizing.tailcone_sizing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.tire_selection">
+<span id="framework-sizing-geometry-tire-selection-module"></span><h2>framework.Sizing.Geometry.tire_selection module<a class="headerlink" href="#module-framework.Sizing.Geometry.tire_selection" title="Permalink to this headline">¶</a></h2>
+<p>File name : Tire selection function
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : January 2021
+Last edit : February 2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function selects the tire as function of sizing parameters</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Load [lbf]</p></li>
+<li><p>Speed qualified [mph]</p></li>
+<li><p>Pneu pressure [psi]</p></li>
+<li><p>Selection criteria</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Tire_diameter [in]</p></li>
+<li><p>Tire width [in]</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.tire_selection.tire_selection">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.tire_selection.</code><code class="sig-name descname">tire_selection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">load</span></em>, <em class="sig-param"><span class="n">V_qualified</span></em>, <em class="sig-param"><span class="n">pneu_pressure</span></em>, <em class="sig-param"><span class="n">selection_criteria</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/tire_selection.html#tire_selection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.tire_selection.tire_selection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wetted_area">
+<span id="framework-sizing-geometry-wetted-area-module"></span><h2>framework.Sizing.Geometry.wetted_area module<a class="headerlink" href="#module-framework.Sizing.Geometry.wetted_area" title="Permalink to this headline">¶</a></h2>
+<p>File name : Wetted area function
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : Dezember 2019
+Last edit : January 2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates the wetted area of the principal components of the</p></li>
+</ul>
+<p>aircraft.</p>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionaty</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Updated vehicle dictionary</p></li>
+<li><p>x and y coordinates of wing chords</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Split this function into functions for each component</p></li>
+<li><p>Rename engine variables</p></li>
+<li><p>x and y coordinates output into vehicle dictionary</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area.wetted_area">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area.</code><code class="sig-name descname">wetted_area</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area.html#wetted_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area.wetted_area" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wetted_area_fuselage">
+<span id="framework-sizing-geometry-wetted-area-fuselage-module"></span><h2>framework.Sizing.Geometry.wetted_area_fuselage module<a class="headerlink" href="#module-framework.Sizing.Geometry.wetted_area_fuselage" title="Permalink to this headline">¶</a></h2>
+<p>Function  : wetted_area_fuselage.py
+Title     : Wetted area fuselage
+Written by: Alejandro Rios
+Date      : November/2019
+Last edit : August/2020
+Language  : Python
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the wetted area of the fuselage</p></li>
+</ul>
+</dd>
+<dt>Future implementations:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Fuselage height</p></li>
+<li><p>Fuselage width</p></li>
+<li><p>Length front nose fuselage ???</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Total fuselage area</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_forward_fuselage">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_fuselage.</code><code class="sig-name descname">wetted_area_forward_fuselage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_fuselage.html#wetted_area_forward_fuselage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_forward_fuselage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_tailcone_fuselage">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_fuselage.</code><code class="sig-name descname">wetted_area_tailcone_fuselage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_fuselage.html#wetted_area_tailcone_fuselage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_tailcone_fuselage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wetted_area_wing">
+<span id="framework-sizing-geometry-wetted-area-wing-module"></span><h2>framework.Sizing.Geometry.wetted_area_wing module<a class="headerlink" href="#module-framework.Sizing.Geometry.wetted_area_wing" title="Permalink to this headline">¶</a></h2>
+<p>” 
+Title     : Wetted area wing
+Written by: Alejandro Rios
+Date      : 13/11/19
+Language  : Python
+Aeronautical Institute of Technology</p>
+<p>Inputs:
+MTOW</p>
+<p>Outputs:
+Cap_Sal
+FO_Sal</p>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_wing.calcareawet">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_wing.</code><code class="sig-name descname">calcareawet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xistosXper</span></em>, <em class="sig-param"><span class="n">xistosYper</span></em>, <em class="sig-param"><span class="n">xistosZper</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_wing.html#calcareawet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_wing.calcareawet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_wing.tri3darea">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_wing.</code><code class="sig-name descname">tri3darea</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x1</span></em>, <em class="sig-param"><span class="n">y1</span></em>, <em class="sig-param"><span class="n">z1</span></em>, <em class="sig-param"><span class="n">x2</span></em>, <em class="sig-param"><span class="n">y2</span></em>, <em class="sig-param"><span class="n">z2</span></em>, <em class="sig-param"><span class="n">x3</span></em>, <em class="sig-param"><span class="n">y3</span></em>, <em class="sig-param"><span class="n">z3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_wing.html#tri3darea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_wing.tri3darea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_wing.wetted_area_wing">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_wing.</code><code class="sig-name descname">wetted_area_wing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">fileToRead1</span></em>, <em class="sig-param"><span class="n">fileToRead2</span></em>, <em class="sig-param"><span class="n">fileToRead3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_wing.html#wetted_area_wing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_wing.wetted_area_wing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wing_structural_layout_fuel_storage">
+<span id="framework-sizing-geometry-wing-structural-layout-fuel-storage-module"></span><h2>framework.Sizing.Geometry.wing_structural_layout_fuel_storage module<a class="headerlink" href="#module-framework.Sizing.Geometry.wing_structural_layout_fuel_storage" title="Permalink to this headline">¶</a></h2>
+<p>Function  : Wing structural layout
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : July 2020
+Last edit : February 2021
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module computes the wing structural layout and calculates</p></li>
+</ul>
+<p>the fuel storage capacity in the wings</p>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Vehicle dictionary</p></li>
+<li><p>x and y coordinates of wing chords</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Updated vehicle dictionary</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Clean code</p></li>
+<li><p>Rename variables</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wing_structural_layout_fuel_storage.wing_structural_layout">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wing_structural_layout_fuel_storage.</code><code class="sig-name descname">wing_structural_layout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">xutip</span></em>, <em class="sig-param"><span class="n">yutip</span></em>, <em class="sig-param"><span class="n">yltip</span></em>, <em class="sig-param"><span class="n">xukink</span></em>, <em class="sig-param"><span class="n">xlkink</span></em>, <em class="sig-param"><span class="n">yukink</span></em>, <em class="sig-param"><span class="n">ylkink</span></em>, <em class="sig-param"><span class="n">xuroot</span></em>, <em class="sig-param"><span class="n">xlroot</span></em>, <em class="sig-param"><span class="n">yuroot</span></em>, <em class="sig-param"><span class="n">ylroot</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wing_structural_layout_fuel_storage.html#wing_structural_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wing_structural_layout_fuel_storage.wing_structural_layout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-framework.Sizing.Geometry" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

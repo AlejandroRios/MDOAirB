@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Economics.direct_operational_cost &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Economics.direct_operational_cost</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Economics.direct_operational_cost</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name : Direct Operational Cost</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : October/2019</span>
+<span class="sd">Last edit : September/2020</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description: </span>
+<span class="sd">    - This module calculates the direct operational cost using the</span>
+<span class="sd">    Roskam formulation</span>
+
+<span class="sd">Inputs:</span>
+<span class="sd">    -Time block</span>
+<span class="sd">    -Cons_block</span>
+<span class="sd">    -weitght_empty_kg</span>
+<span class="sd">    -total_mission_distance</span>
+<span class="sd">    -max_engine_thrust</span>
+<span class="sd">    -engines_number</span>
+<span class="sd">    -weitght_engine_kg</span>
+<span class="sd">    -max_takeoff_mass</span>
+
+<span class="sd">Outputs:</span>
+<span class="sd">    - DOC [USD]</span>
+
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    - Rename variables</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">framework.Economics.crew_salary</span> <span class="kn">import</span> <span class="n">crew_salary</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="structtype"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.direct_operational_cost.structtype">[docs]</a><span class="k">class</span> <span class="nc">structtype</span><span class="p">():</span>
+    <span class="k">pass</span></div>
+
+
+<span class="n">salary</span> <span class="o">=</span> <span class="n">structtype</span><span class="p">()</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">structtype</span><span class="p">()</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="direct_operational_cost"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.direct_operational_cost.direct_operational_cost">[docs]</a><span class="k">def</span> <span class="nf">direct_operational_cost</span><span class="p">(</span>
+    <span class="n">time_between_overhaul</span><span class="p">,</span>
+    <span class="n">total_mission_flight_time</span><span class="p">,</span>
+    <span class="n">fuel_mass</span><span class="p">,</span>
+    <span class="n">operational_empty_weight</span><span class="p">,</span>
+    <span class="n">total_mission_distance</span><span class="p">,</span>
+    <span class="n">max_engine_thrust</span><span class="p">,</span>
+    <span class="n">engines_number</span><span class="p">,</span>
+    <span class="n">engines_weight</span><span class="p">,</span>
+    <span class="n">max_takeoff_mass</span><span class="p">,</span>
+    <span class="n">vehicle</span>
+<span class="p">):</span>
+
+    <span class="c1"># Constants</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">]</span>
+    <span class="n">kg2lb</span> <span class="o">=</span> <span class="mf">2.20462262</span>
+    <span class="n">kg_l_to_lb_gal</span> <span class="o">=</span> <span class="mf">8.3454</span>
+    <span class="n">N_to_lbf</span> <span class="o">=</span> <span class="mf">0.224809</span>
+    <span class="n">var</span><span class="o">.</span><span class="n">Range</span> <span class="o">=</span> <span class="n">total_mission_distance</span>
+    <span class="n">salary</span><span class="o">.</span><span class="n">Captain</span><span class="p">,</span> <span class="n">salary</span><span class="o">.</span><span class="n">FO</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">crew_salary</span><span class="p">(</span><span class="n">max_takeoff_mass</span><span class="p">)</span>
+    <span class="n">Fuel_price</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;fuel_price_per_kg&#39;</span><span class="p">]</span>
+
+    <span class="c1"># =============================================================================</span>
+    <span class="c1"># Mision data</span>
+    <span class="c1"># =============================================================================</span>
+
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">total_mission_flight_time</span><span class="o">/</span><span class="mi">60</span>  <span class="c1"># [HRS] BLOCK TIME EQ 5.6</span>
+    <span class="n">Block_Range</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">Range</span>  <span class="c1"># [NM] BLOCK RANGE</span>
+    <span class="n">vbl</span> <span class="o">=</span> <span class="n">Block_Range</span> <span class="o">/</span> <span class="n">tbl</span>  <span class="c1"># [KTS]BLOCK SPEED EQ 5.5</span>
+    <span class="n">Uannbl</span> <span class="o">=</span> <span class="mf">1e3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">3.4546</span> <span class="o">*</span> <span class="n">tbl</span> <span class="o">+</span> <span class="mf">2.994</span> <span class="o">-</span> <span class="p">(</span><span class="mf">12.289</span> <span class="o">*</span> <span class="p">(</span><span class="n">tbl</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span>
+                                            <span class="mf">5.6626</span> <span class="o">*</span> <span class="p">(</span><span class="n">tbl</span><span class="p">)</span> <span class="o">+</span> <span class="mf">8.964</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># [HRS] ANNUAL UTILIZATION</span>
+
+    <span class="c1"># ==============================</span>
+    <span class="c1"># DOC PAG 146</span>
+    <span class="c1"># ==============================</span>
+
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># DOC FLT</span>
+    <span class="c1"># ==============================#</span>
+
+    <span class="c1"># 1) CREW COST -&gt; Ccrew</span>
+    <span class="n">nc1</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># NUMBER OF CAPTAIN</span>
+    <span class="n">nc2</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># NUMBER OF FIRST OFFICER</span>
+    <span class="n">kj</span> <span class="o">=</span> <span class="mf">0.26</span>  <span class="c1"># FACTOR WHICH ACCOUNTS FOR VACATION PAY, COST TRAINING ...</span>
+    <span class="c1"># THESE DATA ARE ASSUMED TO BE APPLICABLE FOR 1990</span>
+    <span class="n">SAL1</span> <span class="o">=</span> <span class="n">salary</span><span class="o">.</span><span class="n">Captain</span>  <span class="c1"># SALARY CAPTAIN [USD/YR]</span>
+    <span class="n">SAL2</span> <span class="o">=</span> <span class="n">salary</span><span class="o">.</span><span class="n">FO</span>  <span class="c1"># SALARY FIRST OFFICER [USD/YR]</span>
+    <span class="n">AH1</span> <span class="o">=</span> <span class="mi">800</span>  <span class="c1"># [HRS]</span>
+    <span class="n">AH2</span> <span class="o">=</span> <span class="mi">800</span>  <span class="c1"># [HRS]</span>
+    <span class="n">TEF1</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># [USD/blhr]</span>
+    <span class="n">TEF2</span> <span class="o">=</span> <span class="n">TEF1</span>  <span class="c1"># TRAVEL EXPENSE FACTOR</span>
+    <span class="n">Ccrew</span> <span class="o">=</span> <span class="p">(</span><span class="n">nc1</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">kj</span><span class="p">)</span><span class="o">/</span><span class="n">vbl</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">SAL1</span><span class="o">/</span><span class="n">AH1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">TEF1</span><span class="o">/</span><span class="n">vbl</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">nc2</span> <span class="o">*</span>
+                                                            <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">kj</span><span class="p">)</span><span class="o">/</span><span class="n">vbl</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">SAL2</span><span class="o">/</span><span class="n">AH2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">TEF2</span><span class="o">/</span><span class="n">vbl</span><span class="p">))</span>  <span class="c1"># [USD/NM] EQ 5.21 PAG 109</span>
+
+    <span class="c1"># 2) FUEL AND OIL COST -&gt; Cpol (PAG 148)</span>
+    <span class="n">pfuel</span> <span class="o">=</span> <span class="n">Fuel_price</span><span class="o">*</span><span class="mf">1.08</span>  <span class="c1"># PRICE [USD/GALLON]</span>
+    <span class="n">dfuel</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;fuel_density&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">kg_l_to_lb_gal</span>  <span class="c1"># DENSITY [LBS/GALLON]</span>
+    <span class="n">Wfbl</span> <span class="o">=</span> <span class="n">fuel_mass</span><span class="o">*</span><span class="n">kg2lb</span>  <span class="c1"># [LBS] OPERATIONAL MISSION FUEL</span>
+    <span class="n">Cpol</span> <span class="o">=</span> <span class="mf">1.05</span><span class="o">*</span><span class="p">(</span><span class="n">Wfbl</span><span class="o">/</span><span class="n">Block_Range</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">pfuel</span><span class="o">/</span><span class="n">dfuel</span><span class="p">)</span>  <span class="c1"># EQ 5.30 PAG 116 5# DO DOC</span>
+
+    <span class="c1"># 3) INSURANCE COST -&gt; Cins (PAG 148)</span>
+    <span class="c1"># Cins = 0.02 * (DOC) # EQ 5.32 * PAG 117</span>
+    <span class="n">Cins</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">DOCflt</span> <span class="o">=</span> <span class="n">Ccrew</span> <span class="o">+</span> <span class="n">Cpol</span> <span class="o">+</span> <span class="n">Cins</span>
+
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># DOC MAINT</span>
+    <span class="c1"># ==============================#</span>
+
+    <span class="n">fnrev</span> <span class="o">=</span> <span class="mf">1.03</span>  <span class="c1"># NON-REVENUE FACTOR. IT ACCOUNTS FOR EXTRA MAINTENANCE COSTS INCURRED DUE FLIGHT DELAYS</span>
+
+    <span class="c1"># 1) MAINTENANCE LABOR COST FOR AIRFRAME AND SYSTEMS -&gt; Clab_ap (PAG 148)</span>
+    <span class="n">weight_empty_lb</span> <span class="o">=</span> <span class="n">operational_empty_weight</span><span class="o">*</span><span class="n">kg2lb</span>
+    <span class="n">weight_engine_lb</span> <span class="o">=</span> <span class="n">engines_weight</span><span class="o">*</span><span class="n">kg2lb</span>
+    <span class="n">Wa</span> <span class="o">=</span> <span class="n">weight_empty_lb</span> <span class="o">-</span> <span class="n">engines_number</span> <span class="o">*</span> \
+        <span class="n">weight_engine_lb</span>  <span class="c1"># [LBS] AIRFRAME WEIGHT</span>
+    <span class="n">MHRmap_bl</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="mf">0.067</span><span class="o">*</span><span class="p">(</span><span class="n">Wa</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># [mhrs/blhr] FIGURE 5.5 PAG 122</span>
+    <span class="n">Rlap</span> <span class="o">=</span> <span class="mf">15.5</span>  <span class="c1"># [USD/mhr] RATE PER MANHOUR</span>
+    <span class="n">Clab_ap</span> <span class="o">=</span> <span class="n">fnrev</span> <span class="o">*</span> <span class="n">MHRmap_bl</span> <span class="o">*</span> <span class="n">Rlap</span> <span class="o">/</span> <span class="n">vbl</span>  <span class="c1"># [USD/NM] EQ 5.34 PAG 119</span>
+
+    <span class="c1"># 2) MAINTENANCE LABOR COST FOR ENGINES -&gt; Clab_eng  (PAG 149)</span>
+    <span class="c1"># BPR = razao de passagem</span>
+    <span class="n">Tto</span> <span class="o">=</span> <span class="n">engines_number</span><span class="o">*</span><span class="n">max_engine_thrust</span><span class="o">*</span><span class="n">N_to_lbf</span>  <span class="c1"># lbf</span>
+    <span class="n">Tto_Ne</span> <span class="o">=</span> <span class="n">Tto</span> <span class="o">/</span> <span class="n">engines_number</span>  <span class="c1"># [LBS] TAKE-OFF THRUST PER ENGINE</span>
+    <span class="n">Hem</span> <span class="o">=</span> <span class="n">time_between_overhaul</span>  <span class="c1"># [HRS] OVERHAUL PERIOD</span>
+    <span class="n">Rleng</span> <span class="o">=</span> <span class="n">Rlap</span>
+    <span class="n">MHRmeng_bl</span> <span class="o">=</span> <span class="p">((</span><span class="mf">0.718</span> <span class="o">+</span> <span class="mf">0.0317</span><span class="o">*</span><span class="p">(</span><span class="n">Tto_Ne</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="mi">1100</span><span class="o">/</span><span class="n">Hem</span><span class="p">)</span> <span class="o">+</span>
+                  <span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># [mhrs/blhr] FIGURE 5.6 PAG 123</span>
+    <span class="n">Clab_eng</span> <span class="o">=</span> <span class="n">fnrev</span><span class="o">*</span><span class="mf">1.3</span><span class="o">*</span><span class="n">engines_number</span><span class="o">*</span><span class="n">MHRmeng_bl</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="n">Rleng</span><span class="o">/</span><span class="n">vbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.36 PAG 120</span>
+
+    <span class="c1"># 3) MAINTANENCE MATERIALS COST FOR AIRPLANE -&gt; Cmat_ap (PAG 150)</span>
+    <span class="c1"># ENGINE PRICE</span>
+    <span class="n">CEF</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.10</span><span class="o">/</span><span class="mf">3.02</span><span class="p">)</span>  <span class="c1"># FATOR DE CORRECAO DO PRECO</span>
+    <span class="c1"># [USD] PAG 65 APPENDIX B4 EQ B10 PAG 351</span>
+    <span class="n">EP1989</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">2.3044</span> <span class="o">+</span> <span class="mf">0.8858</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Tto_Ne</span><span class="p">))))</span>
+    <span class="n">EP</span> <span class="o">=</span> <span class="n">CEF</span><span class="o">*</span><span class="n">EP1989</span>  <span class="c1"># [1992]</span>
+    <span class="c1"># AIRPLANE PRICE</span>
+    <span class="c1"># [USD] PAG 89 APPENDIX A9 EQ A12 PAG 331</span>
+    <span class="n">AEP1989</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">3.3191</span> <span class="o">+</span> <span class="mf">0.8043</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">max_takeoff_mass</span> <span class="o">*</span> <span class="n">kg2lb</span><span class="p">))))</span>
+    <span class="n">AEP</span> <span class="o">=</span> <span class="n">CEF</span><span class="o">*</span><span class="n">AEP1989</span>  <span class="c1"># [1992]</span>
+    <span class="c1"># AIRFRAME PRICE</span>
+    <span class="n">AFP</span> <span class="o">=</span> <span class="n">AEP</span> <span class="o">-</span> <span class="n">engines_number</span><span class="o">*</span><span class="n">EP</span>  <span class="c1"># [USD]</span>
+
+    <span class="k">if</span> <span class="n">max_takeoff_mass</span> <span class="o">*</span> <span class="n">kg2lb</span> <span class="o">&gt;=</span> <span class="mi">10000</span><span class="p">:</span>  <span class="c1"># FIGURE 5.8 PAG 126</span>
+        <span class="n">ATF</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">elif</span> <span class="n">max_takeoff_mass</span> <span class="o">*</span> <span class="n">kg2lb</span> <span class="o">&lt;</span> <span class="mi">10000</span> <span class="ow">and</span> <span class="n">max_takeoff_mass</span> <span class="o">*</span> <span class="n">kg2lb</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="p">:</span>
+        <span class="n">ATF</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ATF</span> <span class="o">=</span> <span class="mf">0.25</span>
+
+    <span class="n">CEFy</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># PAG 150</span>
+    <span class="n">Cmat_apbhr</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">CEFy</span> <span class="o">*</span> <span class="n">ATF</span> <span class="o">+</span> <span class="mf">0.79</span><span class="o">*</span><span class="mf">1e-5</span> <span class="o">*</span> <span class="n">AFP</span>  <span class="c1"># PAG 150 FIGURE 5.8 PAG 126</span>
+    <span class="n">Cmat_ap</span> <span class="o">=</span> <span class="n">fnrev</span> <span class="o">*</span> <span class="p">(</span><span class="n">Cmat_apbhr</span><span class="o">/</span><span class="n">vbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.37 PAG 120</span>
+
+    <span class="c1"># 4) MAINTANENCE MATERIALS COST FOR ENGINE -&gt; Cmat_eng (PAG 150)</span>
+    <span class="n">KHem</span> <span class="o">=</span> <span class="mf">0.021</span> <span class="o">*</span> <span class="p">(</span><span class="n">Hem</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.769</span>  <span class="c1"># FIGURE 5.11 PAG 129</span>
+    <span class="n">ESPPF</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1"># ENGINE SPARE PARTS PRICE PAG 133</span>
+    <span class="n">Cmat_engblhr</span> <span class="o">=</span> <span class="p">(</span><span class="mf">5.43</span><span class="o">*</span><span class="mf">1e-5</span> <span class="o">*</span> <span class="n">EP</span> <span class="o">*</span> <span class="n">ESPPF</span> <span class="o">-</span> <span class="mf">0.47</span><span class="p">)</span><span class="o">/</span><span class="n">KHem</span>  <span class="c1"># FIGURE 5.9 PAG 127</span>
+    <span class="n">Cmat_eng</span> <span class="o">=</span> <span class="n">fnrev</span> <span class="o">*</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="n">engines_number</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="n">Cmat_engblhr</span><span class="o">/</span><span class="n">vbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.38 PAG 125</span>
+
+    <span class="c1"># 5) APPLIED MAINTENANCE BURDEN COST -&gt; Camb (PAG 151)</span>
+    <span class="n">famb_lab</span> <span class="o">=</span> <span class="mf">1.2</span>  <span class="c1"># OVERHEAD DISTRIBUTION FACTOR LABOUR COST PAG 129 -&gt; MIDDLE VALUE</span>
+    <span class="n">famb_mat</span> <span class="o">=</span> <span class="mf">0.55</span>  <span class="c1"># OVERHEAD DISTRIBUTION FACTOR MATERIAL COST PAG 129 -&gt; MIDDLE VALUE</span>
+    <span class="n">Camb</span> <span class="o">=</span> <span class="n">fnrev</span> <span class="o">*</span> <span class="p">(</span><span class="n">famb_lab</span> <span class="o">*</span> <span class="p">(</span><span class="n">MHRmap_bl</span> <span class="o">*</span> <span class="n">Rlap</span> <span class="o">+</span> <span class="n">engines_number</span> <span class="o">*</span> <span class="n">MHRmeng_bl</span> <span class="o">*</span> <span class="n">Rleng</span><span class="p">)</span> <span class="o">+</span>
+                    <span class="n">famb_mat</span> <span class="o">*</span> <span class="p">(</span><span class="n">Cmat_apbhr</span> <span class="o">+</span> <span class="n">engines_number</span> <span class="o">*</span> <span class="n">Cmat_engblhr</span><span class="p">))</span><span class="o">/</span><span class="n">vbl</span>  <span class="c1"># [USD/NM] EQ 5.39 PAG 125</span>
+
+    <span class="c1"># TOTAL MAINTENANCE COST</span>
+    <span class="n">DOCmaint</span> <span class="o">=</span> <span class="n">Clab_ap</span> <span class="o">+</span> <span class="n">Clab_eng</span> <span class="o">+</span> <span class="n">Cmat_ap</span> <span class="o">+</span> \
+        <span class="n">Cmat_eng</span> <span class="o">+</span> <span class="n">Camb</span>  <span class="c1"># [USD/NM] PAG 151</span>
+
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># DOC DEPRECIATION</span>
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># (PAG 130)</span>
+    <span class="c1"># 1) AIRPLANE DEPRECIATION COST -&gt; Cdap (PAG 151)</span>
+    <span class="n">fdap</span> <span class="o">=</span> <span class="mf">0.85</span>  <span class="c1"># AIRFRAME DEPRECIATION FACTOR TABELA 5.7 PAG 134</span>
+    <span class="n">DPap</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># AIRPLANE DEPRECIATION PERIOD TABELA 5.7 PAG 134</span>
+    <span class="c1"># [USD] PAG 151 AVIONICS SYSTEM PRICE APPENDIX C THE SAME VALUE WHICH WAS USED IN THE EXAMPLE</span>
+    <span class="n">ASP</span> <span class="o">=</span> <span class="mi">2670000</span>
+    <span class="n">Cdap</span> <span class="o">=</span> <span class="n">fdap</span> <span class="o">*</span> <span class="p">(</span><span class="n">AEP</span> <span class="o">-</span> <span class="n">engines_number</span> <span class="o">*</span> <span class="n">EP</span> <span class="o">-</span> <span class="n">ASP</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="n">DPap</span> <span class="o">*</span> <span class="n">Uannbl</span> <span class="o">*</span> <span class="n">vbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.41 PAG 130</span>
+
+    <span class="c1"># 2) ENGINE DEPRECIATION FACTOR -&gt; Cdeng (PAG 152)</span>
+    <span class="n">fdeng</span> <span class="o">=</span> <span class="mf">0.85</span>  <span class="c1"># ENGINE DEPRECIATION FACTOR TABELA 5.7 PAG 134</span>
+    <span class="n">DPeng</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># ENGINE DEPRECIATION PERIOD TABELA 5.7 PAG 134</span>
+    <span class="c1"># [USD/NM] EQ 5.42 PAG 131</span>
+    <span class="n">Cdeng</span> <span class="o">=</span> <span class="n">fdeng</span> <span class="o">*</span> <span class="n">engines_number</span> <span class="o">*</span> <span class="n">EP</span> <span class="o">/</span> <span class="p">(</span><span class="n">DPeng</span> <span class="o">*</span> <span class="n">Uannbl</span> <span class="o">*</span> <span class="n">vbl</span><span class="p">)</span>
+
+    <span class="c1"># 3) AVIONICS DEPRECIATION FACTOR -&gt; Cdav (PAG 152)</span>
+    <span class="n">fdav</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># AVIONICS DEPRECIATION FACTOR TABELA 5.7 PAG 134</span>
+    <span class="n">DPav</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># AVIONICS DEPRECIATION PERIOD TABELA 5.7 PAG 134</span>
+    <span class="n">Cdav</span> <span class="o">=</span> <span class="n">fdav</span> <span class="o">*</span> <span class="n">ASP</span> <span class="o">/</span> <span class="p">(</span><span class="n">DPav</span> <span class="o">*</span> <span class="n">Uannbl</span> <span class="o">*</span> <span class="n">vbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.44 PAG 131</span>
+
+    <span class="c1"># 4) AIRPLANE SPARE PARTS DEPRECIATION FACTOR -&gt; Cdapsp (PAG 152)</span>
+    <span class="n">fdapsp</span> <span class="o">=</span> <span class="mf">0.85</span>  <span class="c1"># AIRPLANE SPARE PARTS DEPRECIATION FACTOR TABELA 5.7 PAG 134</span>
+    <span class="n">fapsp</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># AIRPLANE SPARE PARTS FACTOR PAG 132</span>
+    <span class="n">DPapsp</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># AIRPLANE SPARE PARTS DEPRECIATION PERIOD TABELA 5.7 PAG 134</span>
+    <span class="c1"># [USD/NM] EQ 5.45 PAG 132</span>
+    <span class="n">Cdapsp</span> <span class="o">=</span> <span class="n">fdapsp</span> <span class="o">*</span> <span class="n">fapsp</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="n">AEP</span> <span class="o">-</span> <span class="n">engines_number</span> <span class="o">*</span> <span class="n">EP</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">DPapsp</span> <span class="o">*</span> <span class="n">Uannbl</span> <span class="o">*</span> <span class="n">vbl</span><span class="p">)</span>
+
+    <span class="c1"># 5) ENGINE SPARE PARTS DEPRECIATION FACTOR -&gt; Cdengsp (PAG 153)</span>
+    <span class="n">fdengsp</span> <span class="o">=</span> <span class="mf">0.85</span>  <span class="c1"># ENGINE SPARE PARTS DEPRECIATION FACTOR TABELA 5.7 PAG 134</span>
+    <span class="n">fengsp</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># ENGINE SPARE PARTS FACTOR PAG 133</span>
+    <span class="n">ESPDF</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1"># ENGINE SPARE PARTS PRICE FACTOR PAG 133</span>
+    <span class="n">DPengsp</span> <span class="o">=</span> <span class="mf">7.0</span>  <span class="c1"># ENGINE SPARE PARTS DEPRECIATION PERIOD TABELA 5.7 PAG 134</span>
+    <span class="n">Cdengsp</span> <span class="o">=</span> <span class="n">fdengsp</span> <span class="o">*</span> <span class="n">fengsp</span> <span class="o">*</span> <span class="n">engines_number</span> <span class="o">*</span> <span class="n">EP</span> <span class="o">*</span> <span class="n">ESPDF</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="n">DPengsp</span> <span class="o">*</span> <span class="n">Uannbl</span> <span class="o">*</span> <span class="n">vbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.46 PAG 133</span>
+
+    <span class="c1"># TOTAL DEPRECIATION COST</span>
+    <span class="n">DOCdepr</span> <span class="o">=</span> <span class="n">Cdap</span> <span class="o">+</span> <span class="n">Cdeng</span> <span class="o">+</span> <span class="n">Cdav</span> <span class="o">+</span> <span class="n">Cdapsp</span> <span class="o">+</span> <span class="n">Cdengsp</span>  <span class="c1"># [USD/NM] PAG 153</span>
+
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># DOC TAXES</span>
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># (PAG 130)</span>
+    <span class="c1"># 1) COST OF LANDING FEES -&gt; Clf (PAG 154)</span>
+    <span class="c1"># EQ 5.49 PAG 135 AIRPLANE LANDING FEE PER LANDING</span>
+    <span class="n">Caplf</span> <span class="o">=</span> <span class="mf">0.002</span> <span class="o">*</span> <span class="n">max_takeoff_mass</span> <span class="o">*</span> <span class="n">kg2lb</span>
+    <span class="n">Clf</span> <span class="o">=</span> <span class="n">Caplf</span><span class="o">/</span><span class="p">(</span><span class="n">vbl</span><span class="o">*</span><span class="n">tbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.48 PAG 135 LANDING FEE</span>
+
+    <span class="c1"># 2) COST OF NAVIGATION FEES -&gt; Cnf (PAG 154)</span>
+    <span class="n">Capnf</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># [USD/FLIGHT] PAG 136 OPERATIONS OUTSIDE THE USA</span>
+    <span class="n">Cnf</span> <span class="o">=</span> <span class="n">Capnf</span><span class="o">/</span><span class="p">(</span><span class="n">vbl</span><span class="o">*</span><span class="n">tbl</span><span class="p">)</span>  <span class="c1"># [USD/NM] EQ 5.52 PAG 135</span>
+
+    <span class="c1"># 3) COST OF REGISTRY FEES -&gt; Crf (PAG 154)</span>
+    <span class="n">frt</span> <span class="o">=</span> <span class="mf">0.001</span> <span class="o">+</span> <span class="mf">1e-8</span> <span class="o">*</span> <span class="n">max_takeoff_mass</span> <span class="o">*</span> <span class="n">kg2lb</span>
+    <span class="c1"># Crt        = frt * DOC # EQ 5.53 PAG 136</span>
+    <span class="c1"># DOClnr    = Clf + Cnf + Crt</span>
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># TOTAL DOC</span>
+    <span class="c1"># ==============================#</span>
+
+    <span class="n">DOCcalc</span> <span class="o">=</span> <span class="p">(</span><span class="n">DOCflt</span> <span class="o">+</span> <span class="n">DOCmaint</span> <span class="o">+</span> <span class="n">DOCdepr</span> <span class="o">+</span> <span class="n">Clf</span> <span class="o">+</span> <span class="n">Cnf</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.02</span> <span class="o">+</span> <span class="n">frt</span> <span class="o">+</span> <span class="mf">0.07</span><span class="p">))</span>  <span class="c1"># [USD/NM] PAG 155</span>
+    <span class="c1"># print(&#39;DOC = &#39;, DOCcalc, &#39;USD$/nm &#39;)</span>
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># DOC FINANCING</span>
+    <span class="c1"># ==============================#</span>
+
+    <span class="c1"># DOCfin     = 0.07 * DOC # EQ 5.5 PAG 136</span>
+
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># DOC TOTAL</span>
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># DOC = DOC + DOCfin</span>
+    <span class="c1"># ==============================#</span>
+    <span class="c1"># IOC PAG 155</span>
+    <span class="c1"># ==============================#</span>
+
+    <span class="n">fioc</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">0.5617</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Block_Range</span><span class="p">)</span> <span class="o">+</span> <span class="mf">4.5765</span>  <span class="c1"># FIGURE 5.12 PAG 139</span>
+    <span class="n">IOC</span> <span class="o">=</span> <span class="n">fioc</span> <span class="o">*</span> <span class="n">DOCcalc</span>  <span class="c1"># [USD/NM] EQ 5.56 PAG 137</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">DOCcalc</span><span class="p">)</span></div>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># from framework.Database.Aircrafts.baseline_aircraft_parameters import *</span>
+<span class="c1"># print(direct_operational_cost(</span>
+<span class="c1">#     2500,</span>
+<span class="c1">#     62,</span>
+<span class="c1">#     1403,</span>
+<span class="c1">#     29105,</span>
+<span class="c1">#     358,</span>
+<span class="c1">#     69350,</span>
+<span class="c1">#     2,</span>
+<span class="c1">#     6789,</span>
+<span class="c1">#     34022,</span>
+<span class="c1">#     vehicle))</span>
+
+<span class="c1"># print(direct_operational_cost(</span>
+<span class="c1">#     2500,</span>
+<span class="c1">#     62,</span>
+<span class="c1">#     1403,</span>
+<span class="c1">#     29105,</span>
+<span class="c1">#     358,</span>
+<span class="c1">#     169350,</span>
+<span class="c1">#     2,</span>
+<span class="c1">#     10186,</span>
+<span class="c1">#     51552,</span>
+<span class="c1">#     vehicle))</span>
+
+<span class="c1">#     def direct_operational_cost(</span>
+<span class="c1">#     time_between_overhaul,</span>
+<span class="c1">#     total_mission_flight_time,</span>
+<span class="c1">#     fuel_mass,</span>
+<span class="c1">#     operational_empty_weight,</span>
+<span class="c1">#     total_mission_distance,</span>
+<span class="c1">#     max_engine_thrust,</span>
+<span class="c1">#     engines_number,</span>
+<span class="c1">#     engines_weight,</span>
+<span class="c1">#     max_takeoff_mass,</span>
+<span class="c1">#     vehicle</span>
+<span class="c1"># ):</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

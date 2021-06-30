@@ -1,25 +1,23 @@
 """
-File name : Network optimization function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : June 2020
-Last edit : January 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This function performs the network optimization using linear programming
     algorithm (1-stop model)
-Inputs:
-    - Distance matrix
-    - Demand matrix
-    - DOC matrix
-    - Pax capacity
-Outputs:
-    - Network Profit [USD]
-    - Route frequencies 
+
+Reference:
+    - Taylor
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -42,6 +40,26 @@ from framework.utilities.logger import get_logger
 log = get_logger(__file__.split('.')[0])
 
 def network_optimization(arrivals, departures, distances, demand, active_airports, doc0, pax_capacity, vehicle):
+    """
+    Description:
+        - This function performs the network optimization using linear programming
+    algorithm (1-stop model)
+    Inputs:
+        - arrivals
+        - departures
+        - distances
+        - demand
+        - active_airports
+        - doc0
+        - pax_capacity
+        - vehicle
+    Outputs:
+        - profit
+        - vehicle
+        - kpi_df1
+        - kpi_df2
+    """
+
     log.info('==== Start network optimization module ====')
     # Definition of cities to be considered as departure_airport, first stop, final airport
     departure_airport = departures
@@ -49,8 +67,6 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     final_airport = departures
     operations = vehicle['operations']
     results = vehicle['results']
-    # doc0 = np.load('Database/DOC/DOC.npy',allow_pickle=True)
-    # doc0 = doc0.tolist() 
 
     DOC = {}
     for i in departures:
@@ -62,12 +78,11 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
 
     results = vehicle['results']
 
-    # Define minimization problem
-    # prob = LpProblem("Network", LpMaximize)
-    prob = LpProblem("Network", LpMinimize)
-
     pax_number = int(operations['reference_load_factor']*pax_capacity)
     average_ticket_price = operations['average_ticket_price']
+
+    # The following lines will manipulate the input matrix as required in accordance
+    # with the structuration of the problem
 
     distances_list = []
     for i in departures:
@@ -156,17 +171,18 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     sup_dem_ij = [x - y for x, y in zip(demand_aux, supply_aux)]
     sup_dem_ji = [x - y for x, y in zip(supply_aux, demand_aux)]
 
+    # Problem definition
     prob = LpProblem("NetOptMin", LpMinimize)
-    # prob = LpProblem("NetOptMax", LpMaximize)
 
+    # Design variables definition
     flow = LpVariable.dicts("flow",(arcs),0,None,LpInteger)
     aircrafts = LpVariable.dicts("aircrafts",(arcs),0,10,LpInteger)
 
     prob += lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])
     # prob += lpSum([flow[i]*average_ticket_price for i in range(len(arcs))]) - lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])
     # prob += lpSum([demand_list[i]*distances_list[i]*((flow[i]*average_ticket_price)/(flow[i]*distances_list[i])) for i in range(len(arcs))])  - lpSum([aircrafts[i]*docs_list[i] for i in range(len(arcs))])
-
-
+    
+    # Constraints definition
     prob += lpSum([flow[i] for i in range(len(arcs))]) == demand_sum
 
     for i in range(0,len(nodes)//2):
@@ -178,8 +194,6 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     for i in arcs:
         prob += flow[i] <= aircrafts[i]*avg_capacity
 
-
-
     # =============================================================================
     # Solve linear programming problem (Network optimization)
     # =============================================================================
@@ -190,9 +204,6 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     log.info('==== Start PuLP optimization ====')
     # print('Problem solution:',value(prob.objective))
 
-    # for v in prob.variables():
-    #     print(v.name, "=", v.varValue)
-
     log.info('Network optimization status: {}'.format(LpStatus[prob.status]))
     try:
         condition = LpStatus[prob.status]
@@ -200,7 +211,6 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
             raise ValueError('Optimal network solution NOT found')
     except (ValueError, IndexError):
         exit('Could not complete network optimization')
-
 
     list_airplanes = []
     list_of_pax = []
@@ -213,17 +223,22 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
             # print(v.name, "=", v.varValue)
             list_of_pax.append(v.varValue)
 
-    # print('flow',sum(list_of_pax))
-
+    # =============================================================================
     # Post processing
+    # =============================================================================
     min_capacity = 0.5
 
     def flatten_dict(dd, separator ='_', prefix =''):
+        """
+        Description:
+            - This function takes a dictionary in matrix shape and convert it to a vector shape
+        """
         return { prefix + separator + k if prefix else k : v
                 for kk, vv in dd.items()
                 for k, v in flatten_dict(vv, separator, kk).items()
                 } if isinstance(dd, dict) else { prefix : dd }
 
+    # Fill matrix with the fraction of pax transported
     idx = 0
     fraction = np.zeros((len(arrivals),len(arrivals)))
     for i in range(len(arrivals)):
@@ -252,8 +267,8 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
 
     print('Flow matrix:',fraction)
 
+    # Evaluate the fraction of pax transported consdering the min an max load factor
     fraction = fraction/planes['P1']['w']
-
     fraction_1 = np.floor(fraction)
     fraction_2 = fraction-fraction_1
 
@@ -276,15 +291,14 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
         for j in range(len(arrivals)):
             if i != j and i > j:
                 fraction_2_list.append(fraction_2[i][j])
-
+    
+    # Calculate revenue
     revenue_1_list = []
     for i in range(len(fraction_1_list)):
         if (list_of_pax[i] <= 0 or fraction_1_list[i] <= 0):
             revenue_1_list.append(0)
         else:
             revenue_1_list.append(demand_list[i]*distances_list[i]*(list_of_pax[i]*fraction_1_list[i]*average_ticket_price)/(list_of_pax[i]*fraction_1_list[i]*distances_list[i]))
-            
-
     revenue_1_list = [0 if x != x else x for x in revenue_1_list]
 
     revenue_2_list = []
@@ -347,10 +361,8 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
                         ha="center", va="center", color="w")
 
     # ax.set_title("Network frequencies for optimum aircraft (112 seats)")
-    fig.tight_layout()
-    plt.show()
-
-
+    # fig.tight_layout()
+    # plt.show()
 
     DOCmat =  np.zeros((len(arrivals),len(arrivals)))
     for i in range(len(departures)):
@@ -397,7 +409,6 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
     list_of_pax_db = pd.DataFrame(list_pax_processed)
 
     list_of_pax_db = list_of_pax_db.loc[~(list_of_pax_db==0).all(axis=1)]
-    # print(list_of_pax)
 
     list_of_pax_db.to_csv('Database/Network/pax.csv')
 
@@ -788,19 +799,6 @@ def network_optimization_fix(arrivals, departures, distances, demand, active_air
     kpi_df1.to_csv("Test/optimization_solution01.csv")
 
     ############################################################################################
-    def restructure_data(aux_mat,n):
-        aux_mat = np.reshape(aux_mat, (n,n-1))
-        new_mat = np.zeros((n,n))
-        for i in range(n):
-            for j in range(n):
-                if i == j:
-                    new_mat[i][j] = 0
-                elif j<=i:
-                    new_mat[i][j] = aux_mat[i][j]
-                else:
-                    new_mat[i][j] = aux_mat[i][j-1]
-        return new_mat
-
     n = len(arrivals)
 
     kpi_df2 = pd.DataFrame(aircrafts, columns = ["aircraft_number"])
@@ -814,17 +812,13 @@ def network_optimization_fix(arrivals, departures, distances, demand, active_air
     doc_df = pd.DataFrame({'doc':doc_flatt})
     revenue_df = pd.DataFrame({'revenue':revenue_flatt})
 
-
     distance_df =  pd.DataFrame.from_dict(distances_flatt,orient="idx",columns=['distances'])
-    # doc_df =  pd.DataFrame.from_dict(doc_flatt,orient="idx",columns=['doc'])
     demand_df =  pd.DataFrame.from_dict(demand_flatt,orient="idx",columns=['demand'])
-    # revenue_df =  pd.DataFrame.from_dict(revenue_flatt,orient="idx",columns=['revenue'])
 
     kpi_df2['distances'] = distances_list
     kpi_df2['doc'] = docs_list
     kpi_df2['demand'] = demand_list
-    # kpi_df2['revenue'] = revenue_df['revenue'].values
-    
+
     kpi_df2['active_arcs'] = np.where(kpi_df2["aircraft_number"] > 0, 1, 0)
     X = kpi_df2['active_arcs'].to_numpy()
     X = restructure_data(X,n)
@@ -834,7 +828,6 @@ def network_optimization_fix(arrivals, departures, distances, demand, active_air
 
     Demand = kpi_df2['demand'].to_numpy()
     Demand= restructure_data(Demand,n)
-
 
     N = 0
     for i,j in np.ndindex(X.shape):
@@ -874,10 +867,6 @@ def network_optimization_fix(arrivals, departures, distances, demand, active_air
     FREQ = X
 
     results['number_of_frequencies'] = np.sum(list_of_airplanes_processed)
-
-
-    
-
 
     log.info('==== End network optimization module ====')
     return profit, vehicle, kpi_df1, kpi_df2

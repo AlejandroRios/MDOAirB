@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.CPACS_update.cpacsfunctions &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.CPACS_update.cpacsfunctions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.CPACS_update.cpacsfunctions</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CEASIOMpy: Conceptual Aircraft Design Software</span>
+
+<span class="sd">Developed for CFS ENGINEERING, 1015 Lausanne, Switzerland</span>
+
+<span class="sd">Functions to manipulate CPACS file, it uses TIXI and TIGL ceasiompy.aries, </span>
+<span class="sd">and add some simplified or complementary functions.</span>
+
+<span class="sd">Python version: &gt;=3.6</span>
+
+<span class="sd">| Author : Aidan Jungo</span>
+<span class="sd">| Creation: 2018-10-02</span>
+<span class="sd">| Last modifiction: 2019-10-21</span>
+
+<span class="sd">TODO:</span>
+
+<span class="sd">    * &#39;copy_branch&#39;: change all uID of the copied branch? how?</span>
+<span class="sd">    *</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">#==============================================================================</span>
+<span class="c1">#   IMPORTS</span>
+<span class="c1">#==============================================================================</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Depending how/where Tixi and Tigl are installed, it could be:</span>
+<span class="c1"># import tixi3wrapper</span>
+<span class="c1"># import tigl3wrapper</span>
+<span class="c1"># from tixi3wrapper import Tixi3Exception</span>
+<span class="c1"># from tigl3wrapper import Tigl3Exception</span>
+
+<span class="kn">import</span> <span class="nn">tixi3.tixi3wrapper</span> <span class="k">as</span> <span class="nn">tixi3wrapper</span>
+<span class="kn">import</span> <span class="nn">tigl3.tigl3wrapper</span> <span class="k">as</span> <span class="nn">tigl3wrapper</span>
+<span class="kn">from</span> <span class="nn">tixi3.tixi3wrapper</span> <span class="kn">import</span> <span class="n">Tixi3Exception</span>
+<span class="kn">from</span> <span class="nn">tigl3.tigl3wrapper</span> <span class="kn">import</span> <span class="n">Tigl3Exception</span>
+
+
+
+
+<span class="c1">#==============================================================================</span>
+<span class="c1">#   CLASSES</span>
+<span class="c1">#==============================================================================</span>
+
+
+<span class="c1">#==============================================================================</span>
+<span class="c1">#   FUNCTIONS</span>
+<span class="c1">#==============================================================================</span>
+
+<div class="viewcode-block" id="open_tixi"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.open_tixi">[docs]</a><span class="k">def</span> <span class="nf">open_tixi</span><span class="p">(</span><span class="n">cpacs_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Create TIXI handles for a CPACS file and return this handle.</span>
+
+<span class="sd">    Function &#39;open_tixi&#39; return the TIXI Handle of a CPACS file given as input</span>
+<span class="sd">    by its path. If this operation is not possible, it returns &#39;None&#39;</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cpacs_path (str): Path to the CPACS file</span>
+
+<span class="sd">    Returns::</span>
+<span class="sd">        tixi_handle (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tixi_handle</span> <span class="o">=</span> <span class="n">tixi3wrapper</span><span class="o">.</span><span class="n">Tixi3</span><span class="p">()</span>
+    <span class="n">tixi_handle</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cpacs_path</span><span class="p">)</span>
+
+    <span class="c1"># log.info(&#39;TIXI handle has been created.&#39;+cpacs_path)</span>
+
+    <span class="k">return</span> <span class="n">tixi_handle</span></div>
+
+
+<div class="viewcode-block" id="open_tigl"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.open_tigl">[docs]</a><span class="k">def</span> <span class="nf">open_tigl</span><span class="p">(</span><span class="n">tixi_handle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Create TIGL handles for a CPACS file and return this handle.</span>
+
+<span class="sd">    Function &#39;open_tigl&#39; return the TIGL Handle from its TIXI Handle.</span>
+<span class="sd">    If this operation is not possible, it returns &#39;None&#39;</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIGL functions http://tigl.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi_handle (handles): TIXI Handle of the CPACS file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tigl_handle (handles): TIGL Handle of the CPACS file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tigl_handle</span> <span class="o">=</span> <span class="n">tigl3wrapper</span><span class="o">.</span><span class="n">Tigl3</span><span class="p">()</span>
+    <span class="n">tigl_handle</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">tixi_handle</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="n">tigl_handle</span><span class="o">.</span><span class="n">logSetVerbosity</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1 - only error, 2 - error and warnings</span>
+
+    <span class="c1"># log.info(&#39;TIGL handle has been created.&#39;)</span>
+    <span class="k">return</span> <span class="n">tigl_handle</span></div>
+
+
+<div class="viewcode-block" id="close_tixi"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.close_tixi">[docs]</a><span class="k">def</span> <span class="nf">close_tixi</span><span class="p">(</span><span class="n">tixi_handle</span><span class="p">,</span> <span class="n">cpacs_out_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Close TIXI handle and save the CPACS file.</span>
+
+<span class="sd">    Function &#39;close_tixi&#39; close the TIXI Handle and save the CPACS file at the</span>
+<span class="sd">    location given by &#39;cpacs_out_path&#39; after checking if the directory path</span>
+<span class="sd">    exists</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi_handle (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">        cpacs_out_path (str): Path to the CPACS output file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Check if the directory of &#39;cpacs_out_path&#39; exist, if not, create it</span>
+    <span class="n">path_split</span> <span class="o">=</span> <span class="n">cpacs_out_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">path_split</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+        <span class="c1"># log.info(str(dir_path) + &#39; directory has been created.&#39;)</span>
+
+    <span class="c1"># Save CPACS file</span>
+    <span class="n">tixi_handle</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">cpacs_out_path</span><span class="p">)</span>
+    <span class="c1"># log.info(&quot;Output CPACS file has been saved at: &quot; + cpacs_out_path)</span>
+
+    <span class="c1"># Close TIXI handle</span>
+    <span class="n">tixi_handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+    <span class="c1"># log.info(&quot;TIXI Handle has been closed.&quot;)</span>
+
+
+<div class="viewcode-block" id="create_branch"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.create_branch">[docs]</a><span class="k">def</span> <span class="nf">create_branch</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">,</span> <span class="n">add_child</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to create a CPACS branch.</span>
+
+<span class="sd">    Function &#39;create_branch&#39; create a branch in the tixi handle and also all</span>
+<span class="sd">    the missing parent nodes. Be careful, the xpath must be unique until the</span>
+<span class="sd">    last element, it means, if several element exist, its index must be precised</span>
+<span class="sd">    (index start at 1).</span>
+<span class="sd">    e.g.: &#39;/cpacs/vehicles/aircraft/model/wings/wing[2]/name&#39;</span>
+
+<span class="sd">    If the entire xpath already exist, the option &#39;add_child&#39; (True/False) lets</span>
+<span class="sd">    the user decide if a named child should be added next to the existing</span>
+<span class="sd">    one(s). This only valid for the last element of the xpath.</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">        xpath (str): xpath of the branch to create</span>
+<span class="sd">        add_child (boolean): Choice of adding a name child if the last element</span>
+<span class="sd">                             of the xpath if one already exists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tixi (handles): Modified TIXI Handle (with new branch)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">xpath_split</span> <span class="o">=</span> <span class="n">xpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="n">xpath_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xpath_split</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">xpath_count</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">xpath_index</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">xpath_partial</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">xpath_split</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">xpath_index</span><span class="p">])</span>
+        <span class="n">xpath_parent</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">xpath_split</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">xpath_index</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">xpath_split</span><span class="p">[(</span><span class="n">xpath_index</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath_partial</span><span class="p">):</span>
+            <span class="c1"># log.info(&#39;Branch &quot;&#39; + xpath_partial + &#39;&quot; already exist&#39;)</span>
+
+            <span class="k">if</span> <span class="n">child</span> <span class="o">==</span> <span class="n">xpath_split</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">add_child</span><span class="p">:</span>
+                <span class="n">namedchild_nb</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getNamedChildrenCount</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+                <span class="n">tixi</span><span class="o">.</span><span class="n">createElementAtIndex</span> <span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">namedchild_nb</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Named child &quot;&#39;</span> <span class="o">+</span> <span class="n">child</span>
+                         <span class="o">+</span> <span class="s1">&#39;&quot; has been added to branch &quot;&#39;</span>
+                         <span class="o">+</span> <span class="n">xpath_parent</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tixi</span><span class="o">.</span><span class="n">createElement</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Child &quot;&#39;</span> <span class="o">+</span> <span class="n">child</span> <span class="o">+</span> <span class="s1">&#39;&quot; has been added to branch &quot;&#39;</span>
+                     <span class="o">+</span> <span class="n">xpath_parent</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="copy_branch"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.copy_branch">[docs]</a><span class="k">def</span> <span class="nf">copy_branch</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath_from</span><span class="p">,</span> <span class="n">xpath_to</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to copy a CPACS branch.</span>
+
+<span class="sd">    Function &#39;copy_branch&#39; copy the branch (with sub-branches) from</span>
+<span class="sd">    &#39;xpath_from&#39; to &#39;xpath_to&#39; by using recursion. The new branch should</span>
+<span class="sd">    be identical (uiD, attribute, etc). There is no log in this function</span>
+<span class="sd">    because of its recursivity.</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi_handle (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">        xpath_from (str): xpath of the branch to copy</span>
+<span class="sd">        xpath_to (str): Destination xpath</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tixi (handles): Modified TIXI Handle (with copied branch)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath_from</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">xpath_from</span> <span class="o">+</span> <span class="s1">&#39; XPath does not exist!&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath_to</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">xpath_to</span> <span class="o">+</span> <span class="s1">&#39; XPath does not exist!&#39;</span><span class="p">)</span>
+
+    <span class="n">child_nb</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getNumberOfChilds</span><span class="p">(</span><span class="n">xpath_from</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">child_nb</span><span class="p">:</span>
+        <span class="n">xpath_to_split</span> <span class="o">=</span> <span class="n">xpath_to</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="n">xpath_to_parent</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">xpath_to_split</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">child_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">child_nb</span><span class="p">):</span>
+            <span class="n">child_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tixi</span><span class="o">.</span><span class="n">getChildNodeName</span><span class="p">(</span><span class="n">xpath_from</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># If it is a text Element --&gt; no child</span>
+        <span class="k">if</span> <span class="s2">&quot;#&quot;</span> <span class="ow">in</span> <span class="n">child_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">elem_to_copy</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getTextElement</span><span class="p">(</span><span class="n">xpath_from</span><span class="p">)</span>
+            <span class="n">tixi</span><span class="o">.</span><span class="n">updateTextElement</span><span class="p">(</span><span class="n">xpath_to</span><span class="p">,</span> <span class="n">elem_to_copy</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If child are named child (e.g. wings/wing)</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">child_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">child_list</span><span class="p">):</span>
+                <span class="n">namedchild_nb</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getNamedChildrenCount</span><span class="p">(</span><span class="n">xpath_from</span><span class="p">,</span> 
+                                                           <span class="n">child_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">namedchild_nb</span><span class="p">):</span>
+                    <span class="n">new_xpath_from</span> <span class="o">=</span> <span class="n">xpath_from</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">child_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> \
+                                     <span class="o">+</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+                    <span class="n">new_xpath_to</span> <span class="o">=</span> <span class="n">xpath_to</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">child_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> \
+                                   <span class="o">+</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+                    <span class="n">tixi</span><span class="o">.</span><span class="n">createElement</span><span class="p">(</span><span class="n">xpath_to</span><span class="p">,</span> <span class="n">child_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+                    <span class="c1"># Call the function itself for recursion</span>
+                    <span class="n">copy_branch</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">new_xpath_from</span><span class="p">,</span> <span class="n">new_xpath_to</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_list</span><span class="p">:</span>
+                    <span class="n">new_xpath_from</span> <span class="o">=</span> <span class="n">xpath_from</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">child</span>
+                    <span class="n">new_xpath_to</span> <span class="o">=</span> <span class="n">xpath_to</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">child</span>
+
+                    <span class="c1"># Create child</span>
+                    <span class="n">tixi</span><span class="o">.</span><span class="n">createElement</span><span class="p">(</span><span class="n">xpath_to</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+
+                    <span class="c1"># Call the function itself for recursion</span>
+                    <span class="n">copy_branch</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">new_xpath_from</span><span class="p">,</span> <span class="n">new_xpath_to</span><span class="p">)</span>
+
+        <span class="c1"># Copy attribute(s) if exists</span>
+        <span class="n">last_attrib</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">attrib_index</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">last_attrib</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attrib_name</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getAttributeName</span><span class="p">(</span><span class="n">xpath_from</span><span class="p">,</span> <span class="n">attrib_index</span><span class="p">)</span>
+                <span class="n">attrib_text</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getTextAttribute</span><span class="p">(</span><span class="n">xpath_from</span><span class="p">,</span> <span class="n">attrib_name</span><span class="p">)</span>
+                <span class="n">tixi</span><span class="o">.</span><span class="n">addTextAttribute</span><span class="p">(</span><span class="n">xpath_to</span><span class="p">,</span> <span class="n">attrib_name</span><span class="p">,</span> <span class="n">attrib_text</span><span class="p">)</span>
+                <span class="n">attrib_index</span> <span class="o">=</span> <span class="n">attrib_index</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">last_attrib</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="get_uid"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.get_uid">[docs]</a><span class="k">def</span> <span class="nf">get_uid</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to get uID from a specific XPath.</span>
+
+<span class="sd">    Function &#39;get_uid&#39; checks the xpath and get the corresponding uID.</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">        xpath (str): xpath of the branch to add the uid</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        uid (str): uid to add at xpath</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">xpath</span> <span class="o">+</span> <span class="s1">&#39; XPath does not exist!&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkAttribute</span><span class="p">(</span><span class="n">xpath</span><span class="p">,</span> <span class="s1">&#39;uID&#39;</span><span class="p">):</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getTextAttribute</span><span class="p">(</span><span class="n">xpath</span><span class="p">,</span> <span class="s1">&#39;uID&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">uid</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No uID found for: &quot;</span> <span class="o">+</span> <span class="n">xpath</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="add_uid"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.add_uid">[docs]</a><span class="k">def</span> <span class="nf">add_uid</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">,</span> <span class="n">uid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to add UID at a specific XPath.</span>
+
+<span class="sd">    Function &#39;add_uid&#39; checks and add UID to a specific path, the function will</span>
+<span class="sd">    automatically update the chosen UID if it exists already.</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">        xpath (str): xpath of the branch to add the uid</span>
+<span class="sd">        uid (str): uid to add at xpath</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exist</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">uid_new</span> <span class="o">=</span> <span class="n">uid</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">exist</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">uIDCheckExists</span><span class="p">(</span><span class="n">uid_new</span><span class="p">):</span>
+            <span class="n">tixi</span><span class="o">.</span><span class="n">uIDSetToXPath</span><span class="p">(</span><span class="n">xpath</span><span class="p">,</span> <span class="n">uid_new</span><span class="p">)</span>
+            <span class="n">exist</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">uid_new</span> <span class="o">=</span> <span class="n">uid</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;UID already existing changed to: &#39;</span> <span class="o">+</span> <span class="n">uid_new</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_value"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.get_value">[docs]</a><span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to get value from a CPACS branch if this branch exist.</span>
+
+<span class="sd">    Function &#39;get_value&#39; check first if the the xpath exist and a value is store</span>
+<span class="sd">    at this place. Then, it gets and returns this value. If the value or the</span>
+<span class="sd">    xpath does not exist it raise an error and return &#39;None&#39;.</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi_handle (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">        xpath (str): xpath of the value to get</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">         value (float or str): Value found at xpath</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Try to get the a value at xpath</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getTextElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span> <span class="c1"># check if it is a &#39;float&#39;</span>
+            <span class="n">is_float</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># check if the path exist</span>
+        <span class="k">if</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No value has been found at &#39;</span> <span class="o">+</span> <span class="n">xpath</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No value has been found at &#39;</span> <span class="o">+</span> <span class="n">xpath</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">xpath</span> <span class="o">+</span> <span class="s1">&#39; cannot be found in the CPACS file&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">xpath</span> <span class="o">+</span> <span class="s1">&#39; cannot be found in the CPACS file&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Special return for boolean</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;False&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="get_value_or_default"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.get_value_or_default">[docs]</a><span class="k">def</span> <span class="nf">get_value_or_default</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">,</span> <span class="n">default_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function to get value from a CPACS branch if this branch exist, if not</span>
+<span class="sd">        it returns the default value.</span>
+
+<span class="sd">    Function &#39;get_value_or_default&#39; do the same than the function &#39;get_value&#39;</span>
+<span class="sd">    but if no value is found at this place it returns the default value and add</span>
+<span class="sd">    it at the xpath. If the xpath does not exist, it is created.</span>
+
+<span class="sd">    Source :</span>
+<span class="sd">        * TIXI functions: http://tixi.sourceforge.net/Doc/index.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi_handle (handles): TIXI Handle of the CPACS file</span>
+<span class="sd">        xpath (str): xpath of the value to get</span>
+<span class="sd">        default_value (str, float or int): Default value</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tixi (handles): Modified TIXI Handle (with added default value)</span>
+<span class="sd">        value (str, float or int): Value found at xpath</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Default value will be used instead&#39;</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">default_value</span>
+
+        <span class="n">xpath_parent</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">xpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">value_name</span> <span class="o">=</span> <span class="n">xpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">create_branch</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath_parent</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">is_int</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">is_float</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">is_bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">try</span><span class="p">:</span> <span class="c1"># check if it is an &#39;int&#39; or &#39;float&#39;</span>
+            <span class="n">is_int</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">default_value</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="n">is_float</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">default_value</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+            <span class="n">is_bool</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default_value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">is_bool</span><span class="p">:</span>
+           <span class="n">tixi</span><span class="o">.</span><span class="n">addTextElement</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">value_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">is_float</span> <span class="ow">or</span> <span class="n">is_int</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">default_value</span><span class="p">)</span>
+            <span class="n">tixi</span><span class="o">.</span><span class="n">addDoubleElement</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">value_name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">tixi</span><span class="o">.</span><span class="n">addTextElement</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">value_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Default value has been added to the cpacs file at: &#39;</span> <span class="o">+</span> <span class="n">xpath</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Value found at &#39;</span> <span class="o">+</span> <span class="n">xpath</span> <span class="o">+</span> <span class="s1">&#39;, default value will not be used&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Special return for boolean</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;False&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="add_float_vector"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.add_float_vector">[docs]</a><span class="k">def</span> <span class="nf">add_float_vector</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Add a vector (of float) at given CPACS xpath</span>
+
+<span class="sd">    Function &#39;add_float_vector&#39; will add a vector (composed by float) at the</span>
+<span class="sd">    given XPath, if the node does not exist, it will be created. Values will be</span>
+<span class="sd">    overwritten if paths exists.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handle): Tixi handle</span>
+<span class="sd">        xpath (str): XPath of the vector to add</span>
+<span class="sd">        vector (list, tuple): Vector of floats to add</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Strip trailing &#39;/&#39; (has no meaning here)</span>
+    <span class="k">if</span> <span class="n">xpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+        <span class="n">xpath</span> <span class="o">=</span> <span class="n">xpath</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Get the field name and the parent CPACS path</span>
+    <span class="n">xpath_child_name</span> <span class="o">=</span> <span class="n">xpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xpath_parent</span> <span class="o">=</span> <span class="n">xpath</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xpath_child_name</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">):</span>
+        <span class="n">create_branch</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath_parent</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">):</span>
+        <span class="n">tixi</span><span class="o">.</span><span class="n">updateFloatVector</span><span class="p">(</span><span class="n">xpath</span><span class="p">,</span> <span class="n">vector</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vector</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">tixi</span><span class="o">.</span><span class="n">addTextAttribute</span><span class="p">(</span><span class="n">xpath</span><span class="p">,</span> <span class="s1">&#39;mapType&#39;</span><span class="p">,</span> <span class="s1">&#39;vector&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tixi</span><span class="o">.</span><span class="n">addFloatVector</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">xpath_child_name</span><span class="p">,</span> <span class="n">vector</span><span class="p">,</span> \
+                            <span class="nb">len</span><span class="p">(</span><span class="n">vector</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">tixi</span><span class="o">.</span><span class="n">addTextAttribute</span><span class="p">(</span><span class="n">xpath</span><span class="p">,</span> <span class="s1">&#39;mapType&#39;</span><span class="p">,</span> <span class="s1">&#39;vector&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_float_vector"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.get_float_vector">[docs]</a><span class="k">def</span> <span class="nf">get_float_vector</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get a vector (of float) at given CPACS xpath</span>
+
+<span class="sd">    Function &#39;get_float_vector&#39; will get a vector (composed by float) at the</span>
+<span class="sd">    given XPath, if the node does not exist, an error will be raised.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handle): Tixi handle</span>
+<span class="sd">        xpath (str): XPath of the vector to get</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">xpath</span> <span class="o">+</span> <span class="s1">&#39; path does not exist!&#39;</span><span class="p">)</span>
+
+    <span class="n">float_vector_str</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getTextElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">float_vector_str</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No value has been fournd at &#39;</span> <span class="o">+</span> <span class="n">xpath</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">float_vector_str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
+        <span class="n">float_vector_str</span> <span class="o">=</span> <span class="n">float_vector_str</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">float_vector_list</span> <span class="o">=</span> <span class="n">float_vector_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+    <span class="n">float_vector</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">float_vector_list</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">float_vector</span></div>
+
+
+<div class="viewcode-block" id="add_string_vector"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.add_string_vector">[docs]</a><span class="k">def</span> <span class="nf">add_string_vector</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Add a vector (of string) at given CPACS xpath</span>
+
+<span class="sd">    Function &#39;add_string_vector&#39; will add a vector (composed by stings) at the</span>
+<span class="sd">    given XPath, if the node does not exist, it will be created. Values will be</span>
+<span class="sd">    overwritten if paths exists.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handle): Tixi handle</span>
+<span class="sd">        xpath (str): XPath of the vector to add</span>
+<span class="sd">        vector (list): Vector of string to add</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Strip trailing &#39;/&#39; (has no meaning here)</span>
+    <span class="k">if</span> <span class="n">xpath</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+        <span class="n">xpath</span> <span class="o">=</span> <span class="n">xpath</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Get the field name and the parent CPACS path</span>
+    <span class="n">xpath_child_name</span> <span class="o">=</span> <span class="n">xpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xpath_parent</span> <span class="o">=</span> <span class="n">xpath</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xpath_child_name</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">vector_str</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">vector</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">):</span>
+        <span class="n">create_branch</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath_parent</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">):</span>
+        <span class="n">tixi</span><span class="o">.</span><span class="n">updateTextElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">,</span> <span class="n">vector_str</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tixi</span><span class="o">.</span><span class="n">addTextElement</span><span class="p">(</span><span class="n">xpath_parent</span><span class="p">,</span> <span class="n">xpath_child_name</span><span class="p">,</span> <span class="n">vector_str</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_string_vector"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.get_string_vector">[docs]</a><span class="k">def</span> <span class="nf">get_string_vector</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get a vector (of string) at given CPACS xpath</span>
+
+<span class="sd">    Function &#39;get_string_vector&#39; will get a vector (composed by string) at the</span>
+<span class="sd">    given XPath, if the node does not exist, an error will be raised.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handle): Tixi handle</span>
+<span class="sd">        xpath (str): XPath of the vector to get</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tixi</span><span class="o">.</span><span class="n">checkElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">xpath</span> <span class="o">+</span> <span class="s1">&#39; path does not exist!&#39;</span><span class="p">)</span>
+
+    <span class="n">string_vector_str</span> <span class="o">=</span> <span class="n">tixi</span><span class="o">.</span><span class="n">getTextElement</span><span class="p">(</span><span class="n">xpath</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">string_vector_str</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No value has been fournd at &#39;</span> <span class="o">+</span> <span class="n">xpath</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">string_vector_str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
+        <span class="n">string_vector_str</span> <span class="o">=</span> <span class="n">string_vector_str</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">string_vector_list</span> <span class="o">=</span> <span class="n">string_vector_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+    <span class="n">string_vector</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">string_vector_list</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">string_vector</span></div>
+
+
+<div class="viewcode-block" id="get_path"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.get_path">[docs]</a><span class="k">def</span> <span class="nf">get_path</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get a path with your os system format</span>
+
+<span class="sd">    Function &#39;get_path&#39; will get a get the path in the CPACS file and return</span>
+<span class="sd">    a path with the format corresponding to your os (&#39;/&#39; for Linux and MacOS</span>
+<span class="sd">    and &#39;\&#39; for Windows). All paths to store in the CPACS file could be saved as</span>
+<span class="sd">    normal strings as long as this function is used to get them back.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tixi (handle): Tixi handle</span>
+<span class="sd">        xpath (str): XPath of the path to get</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        correct_path (str): Path with the correct separators</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path_str</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">xpath</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">path_str</span> <span class="ow">and</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">path_str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Request path format is unrecognized!&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">path_str</span><span class="p">:</span>
+        <span class="n">path_list</span> <span class="o">=</span> <span class="n">path_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">path_str</span><span class="p">:</span>
+        <span class="n">path_list</span> <span class="o">=</span> <span class="n">path_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No path has been recognized!&#39;</span><span class="p">)</span>
+
+    <span class="n">correct_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">path_list</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">correct_path</span></div>
+
+
+<div class="viewcode-block" id="aircraft_name"><a class="viewcode-back" href="../../../framework.CPACS_update.html#framework.CPACS_update.cpacsfunctions.aircraft_name">[docs]</a><span class="k">def</span> <span class="nf">aircraft_name</span><span class="p">(</span><span class="n">tixi_or_cpacs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; The function get the name of the aircraft from the cpacs file or add a</span>
+<span class="sd">        default one if non-existant.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cpacs_path (str): Path to the CPACS file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        name (str): Name of the aircraft.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO: MODIFY this funtion, temporary it could accept a cpacs path or tixi handle</span>
+    <span class="c1"># check xpath</span>
+    <span class="c1"># *modify corresponding test</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tixi_or_cpacs</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+
+        <span class="n">tixi</span> <span class="o">=</span> <span class="n">open_tixi</span><span class="p">(</span><span class="n">tixi_or_cpacs</span><span class="p">)</span>
+
+        <span class="n">aircraft_name_xpath</span> <span class="o">=</span> <span class="s1">&#39;/cpacs/header/name&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">get_value_or_default</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">aircraft_name_xpath</span><span class="p">,</span> <span class="s1">&#39;Aircraft&#39;</span><span class="p">)</span>
+
+        <span class="n">close_tixi</span><span class="p">(</span><span class="n">tixi</span><span class="p">,</span> <span class="n">tixi_or_cpacs</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">aircraft_name_xpath</span> <span class="o">=</span> <span class="s1">&#39;/cpacs/header/name&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">get_value_or_default</span><span class="p">(</span><span class="n">tixi_or_cpacs</span><span class="p">,</span> <span class="n">aircraft_name_xpath</span><span class="p">,</span> <span class="s1">&#39;Aircraft&#39;</span><span class="p">)</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;The name of the aircraft is : &#39;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+
+
+
+<span class="c1">#==============================================================================</span>
+<span class="c1">#    MAIN</span>
+<span class="c1">#==============================================================================</span>
+
+<span class="c1">### HOW TO IMPORT THESE MODULE</span>
+
+<span class="c1"># from ceasiompy.utils.cpacsfunctions import cpsf</span>
+
+<span class="c1"># All available function are:</span>
+<span class="c1"># open_tixi, close_tixi, open_tigl, create_branch, copy_branch, add_uid, </span>
+<span class="c1"># get_value, get_value_or_default, add_float_vector, get_float_vector, </span>
+<span class="c1"># add_string_vector, get_string_vector, get_path, aircraft_name</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

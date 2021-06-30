@@ -1,4 +1,1 @@
-2021-06-21 09:31:52,680 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-09:29:56,192 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 789.527566740251
-2021-06-21 09:29:56,192 - c:\users\aarc8\documents\github\mdoairb\framework\S2021-06-21 09:29:56,337 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-06-21 09:31:52,567 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-06-29 09:58:59,768 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Network\network_optimization     - INFO - ==== Start network optimization module ====

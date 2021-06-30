@@ -1,20 +1,23 @@
 """
-File name : Plot network results
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This function takes the outputs of the network optimization and crates
+    density plots and network connection plots
+
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
-    -
+    - Crate a funtion from this module
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -31,17 +34,6 @@ import networkx as nx
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-# df = pd.read_csv('Data4Clustering02.csv', header=0, delimiter=', ')
-# df_head = df.head()
-# =============================================================================
-# MAIN
-# =============================================================================
-
-# =============================================================================
-# TEST
-# =============================================================================
-
-
 fig, ax = plt.subplots()
 m = Basemap(resolution='i', projection='merc', llcrnrlat=40,
             urcrnrlat=55, llcrnrlon=-10, urcrnrlon=20)
@@ -69,20 +61,7 @@ for i in departures:
     for j in arrivals:
         freq_2.append(dic[(i,j)])
 
-
-
 freq_matrix = np.array(freq_2).reshape(10,10)
-
-# freq_matrix = np.array([[ 0. , 0., 10. , 5. , 0. , 0. , 0. , 4. , 0. , 0.],
-#  [ 0. , 0., 10. , 0. ,10. , 0. , 9. , 0. , 0. , 2.],
-#  [ 9. , 0.,  0. , 0. , 0. , 0. , 8. , 3. ,10. , 0.],
-#  [ 0. , 7.,  0. , 0. , 2. , 0. , 0. , 0. , 0. , 3.],
-#  [ 0. , 0., 10. , 0. , 0. , 0. , 0. , 0. , 0. , 0.],
-#  [ 9. , 0.,  0. , 0. , 2. , 0. , 0. , 0. , 0. , 0.],
-#  [ 0. , 0., 10. , 0. , 9. , 0. , 0. , 0. , 0. , 9.],
-#  [ 3. , 8.,  0. , 0. , 0. , 8. , 0. , 0. ,10. , 0.],
-#  [ 0. , 3.,  0. , 0. , 0. , 3. , 0. , 4. , 0. , 0.],
-#  [ 0. , 2.,  9. , 0. , 0. , 0. , 0. , 0. ,10. , 0.]])
 
 freq_matrix = freq_matrix.astype(int)
 
@@ -99,10 +78,7 @@ x = lon_coordinates
 y = lat_coordinates
 x = x.values.tolist()
 y = y.values.tolist()
-# print(x)
 names = data.APT
-# n = 20
-# colors = plt.cm.jet(np.linspace(0,1,n))
 
 
 
@@ -117,8 +93,6 @@ for i, j in arcs:
         x2, y2 = m(lon_coordinates[j], lat_coordinates[j])
         color_value = plt.cm.viridis(freq_matrix[i][j]/10)
         m.drawgreatcircle(lon_coordinates[i], lat_coordinates[i], lon_coordinates[j], lat_coordinates[j], linewidth=freq_matrix[i][j]/2, color = color_value, alpha = 0.9)
-        # LineCollection(segments, cmap=cmap, norm=norm)
-
 
 departure_airports = ["FRA", "LHR", "CDG", "AMS",
               "MAD", "BCN", "FCO", "DUB", "VIE", "ZRH"]
@@ -146,3 +120,10 @@ ax1.xaxis.set_ticks_position('top')
 # ax.set_title("Network frequencies for optimum aircraft (112 seats)")
 fig.tight_layout()
 plt.show()
+# =============================================================================
+# MAIN
+# =============================================================================
+
+# =============================================================================
+# TEST
+# =============================================================================

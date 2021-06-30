@@ -1,33 +1,21 @@
 """
-File name : weights function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This code describe the class to obtain the aircraft weight for the following groups:
-        - Wing
-        - Tail
-        - Body
-        - Alighting gear
-        - Alighting water
-        - Surface controls
-        - Engine
 
-Inputs:
-    - Vehicle dictionary
-    - Maximum takeoff weight [kg]
-    - Fuel mass [kg]
-    - Engine static thrust [N]
-    - Mach number
-    - Altitude [ft]
-Outputs:
-    - Vehicle dictionary - weights updated
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================

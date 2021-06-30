@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Performance.Engine.engine_performance &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Performance.Engine.engine_performance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Performance.Engine.engine_performance</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name : Engine performance</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : September/2020</span>
+<span class="sd">Last edit : September/2020</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This function caculates the turbofan performance based in EngineSim from NASA</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    - Altitude [ft]</span>
+<span class="sd">    - Mach number</span>
+<span class="sd">    - Throttle position [0 to 1]</span>
+<span class="sd">    - Vehicle dictionary</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Thrust force [N] </span>
+<span class="sd">    - Fuel flow [kg/hr]</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    - Change all comments</span>
+<span class="sd">    - Change variable naming</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">optimize</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="c1"># from framework.Attributes.Atmosphere.atmosphere import atmosphere</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.atmosphere_ISA_deviation</span> <span class="kn">import</span> <span class="n">atmosphere_ISA_deviation</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.fair</span> <span class="kn">import</span> <span class="n">FAIR</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="turbofan"><a class="viewcode-back" href="../../../../framework.Performance.Engine.html#framework.Performance.Engine.engine_performance.turbofan">[docs]</a><span class="k">def</span> <span class="nf">turbofan</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">throttle_position</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+    <span class="n">fan_pressure_ratio</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_pressure_ratio&#39;</span><span class="p">]</span>
+    <span class="n">compressor_pressure_ratio</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_pressure_ratio&#39;</span><span class="p">]</span>
+    <span class="n">bypass_ratio</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;bypass&#39;</span><span class="p">]</span>
+    <span class="n">fan_diameter</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_diameter&#39;</span><span class="p">]</span>
+    <span class="n">turbine_inlet_temperature</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;turbine_inlet_temperature&#39;</span><span class="p">]</span>
+
+    <span class="c1"># ----- MOTOR DATA INPUT --------------------------------------------------</span>
+    <span class="n">fan_disk_area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">fan_diameter</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>
+    <span class="n">compressor_compression_rate</span> <span class="o">=</span> <span class="n">compressor_pressure_ratio</span> <span class="o">/</span> \
+        <span class="n">fan_pressure_ratio</span>  <span class="c1"># taxa de compressão fornecida pelo compressor</span>
+    <span class="n">combustor_compression_ratio</span> <span class="o">=</span> <span class="mf">0.99</span>     <span class="c1"># razão de pressão do combustor</span>
+    <span class="c1"># temperatura na entrada da turbina</span>
+    <span class="n">inlet_turbine_temperature</span> <span class="o">=</span> <span class="n">turbine_inlet_temperature</span>
+    <span class="c1"># at takeoff 10# increase in turbine temperatute for 5 min</span>
+    <span class="n">inlet_turbine_temperature_takeoff</span> <span class="o">=</span> <span class="n">turbine_inlet_temperature</span>
+    <span class="n">thermal_energy</span> <span class="o">=</span> <span class="mi">43260000</span>   <span class="c1"># Poder calorífico (J/kg)</span>
+
+    <span class="c1"># ----- DESIGN POINT ------------------------------------------------------</span>
+
+    <span class="n">design_mach</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">design_altitude</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">design_throttle_position</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># ------ EFICIÊNCIAS ------------------------------------------------------</span>
+
+    <span class="n">inlet_efficiency</span> <span class="o">=</span> <span class="mf">0.99</span>
+    <span class="n">compressor_efficiency</span> <span class="o">=</span> <span class="mf">0.95</span>
+    <span class="n">combustion_chamber_efficiency</span> <span class="o">=</span> <span class="mf">0.99</span>
+    <span class="n">turbine_efficiency</span> <span class="o">=</span> <span class="mf">0.98</span>
+    <span class="n">nozzle_efficiency</span> <span class="o">=</span> <span class="mf">0.99</span>
+    <span class="n">fan_efficiency</span> <span class="o">=</span> <span class="mf">0.90</span>
+
+    <span class="c1"># Atualizado tabela acima em setembro de 2013 de acordo com as anotacoes</span>
+    <span class="c1"># de aula do Ney</span>
+    <span class="c1"># ------ TEMPERATURE RATIOS -----------------------------------------------</span>
+    <span class="n">temperature_ratio</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># #########################################################################</span>
+    <span class="c1"># #########  G E T  T H E R M O - DESIGN MODE #############################</span>
+
+    <span class="c1"># ------ PRESSURE RATIOS --------------------------------------------------</span>
+
+    <span class="n">inlet_pressure_ratio</span> <span class="o">=</span> <span class="n">inlet_efficiency</span>
+    <span class="n">compressor_pressure_ratio</span> <span class="o">=</span> <span class="n">compressor_compression_rate</span>
+    <span class="n">combustor_pressure_ratio</span> <span class="o">=</span> <span class="n">combustor_compression_ratio</span>
+    <span class="n">fan_pressure_ratio</span> <span class="o">=</span> <span class="n">fan_pressure_ratio</span>
+
+    <span class="c1"># ------ FREE STREAM ------------------------------------------------------</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.4</span>                             <span class="c1"># gamma do programa</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="mf">287.2933</span>                           <span class="c1"># R do programa</span>
+
+    <span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span> <span class="n">T_0</span><span class="p">,</span> <span class="n">P_0</span><span class="p">,</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="n">design_altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">T0_0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">design_mach</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">T_0</span>     <span class="c1"># temperatura total</span>
+    <span class="n">P0_0</span> <span class="o">=</span> <span class="n">P_0</span><span class="o">*</span><span class="p">(</span><span class="n">T0_0</span><span class="o">/</span><span class="n">T_0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">gamma</span><span class="o">/</span><span class="p">(</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># pressão total</span>
+    <span class="n">a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">gamma</span><span class="o">*</span><span class="n">R</span><span class="o">*</span><span class="n">T_0</span><span class="p">)</span>                  <span class="c1"># velocidade do som</span>
+    <span class="n">u0</span> <span class="o">=</span> <span class="n">design_mach</span><span class="o">*</span><span class="n">a0</span>                           <span class="c1"># velocidade de vôo</span>
+
+    <span class="c1"># ------ TEMPERATURE RATIOS -----------------------------------------------</span>
+    <span class="c1"># ----- ENTRADA DE AR -----------------------------------------------------</span>
+    <span class="n">P0_1</span> <span class="o">=</span> <span class="n">P0_0</span>
+    <span class="n">T0_1</span> <span class="o">=</span> <span class="n">T0_0</span>
+
+    <span class="c1"># ----- INLET -------------------------------------------------------------</span>
+    <span class="n">T0_2</span> <span class="o">=</span> <span class="n">T0_1</span>
+    <span class="n">P0_2</span> <span class="o">=</span> <span class="n">P0_1</span><span class="o">*</span><span class="n">inlet_pressure_ratio</span>
+    <span class="n">T0_2_T0_1</span> <span class="o">=</span> <span class="n">T0_2</span><span class="o">/</span><span class="n">T0_1</span>
+    <span class="c1"># ----- FAN ---------------------------------------------------------------</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T_0</span><span class="p">)</span>
+
+    <span class="n">del_h_fan</span> <span class="o">=</span> <span class="n">Cp_2</span><span class="o">*</span><span class="n">T0_2</span><span class="o">/</span><span class="n">fan_efficiency</span> <span class="o">*</span> \
+        <span class="p">((</span><span class="n">fan_pressure_ratio</span><span class="p">)</span><span class="o">**</span><span class="p">((</span><span class="n">gamma_2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma_2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">del_t_fan</span> <span class="o">=</span> <span class="n">del_h_fan</span><span class="o">/</span><span class="n">Cp_2</span>
+    <span class="n">T0_13</span> <span class="o">=</span> <span class="n">T0_2</span> <span class="o">+</span> <span class="n">del_t_fan</span>
+    <span class="n">P0_13</span> <span class="o">=</span> <span class="n">P0_2</span> <span class="o">*</span> <span class="n">fan_pressure_ratio</span>
+    <span class="n">T0_13_T0_2</span> <span class="o">=</span> <span class="n">T0_13</span> <span class="o">/</span> <span class="n">T0_2</span>
+
+    <span class="c1"># ----- COMPRESSOR --------------------------------------------------------</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_4</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_4</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_13</span><span class="p">)</span>
+    <span class="n">del_h_c</span> <span class="o">=</span> <span class="n">Cp_4</span><span class="o">*</span><span class="n">T0_13</span><span class="o">/</span><span class="n">compressor_efficiency</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="n">compressor_pressure_ratio</span><span class="o">**</span><span class="p">((</span><span class="n">gamma_4</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma_4</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">tau_r_R</span> <span class="o">=</span> <span class="n">T0_0</span>
+    <span class="n">pi_cl_R</span> <span class="o">=</span> <span class="n">fan_pressure_ratio</span>
+    <span class="n">T_0R</span> <span class="o">=</span> <span class="n">T_0</span>
+    <span class="n">del_t_c</span> <span class="o">=</span> <span class="n">del_h_c</span><span class="o">/</span><span class="n">Cp_4</span>
+    <span class="n">T0_3</span> <span class="o">=</span> <span class="n">T0_13</span> <span class="o">+</span> <span class="n">del_t_c</span>
+    <span class="n">P0_3</span> <span class="o">=</span> <span class="n">P0_13</span> <span class="o">*</span> <span class="n">compressor_pressure_ratio</span>
+    <span class="n">T0_3_T0_13</span> <span class="o">=</span> <span class="n">T0_3</span> <span class="o">/</span> <span class="n">T0_13</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_3</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_3</span><span class="p">)</span>
+
+    <span class="n">tau_cl_R</span> <span class="o">=</span> <span class="n">T0_13_T0_2</span>
+    <span class="n">pi_ch_R</span> <span class="o">=</span> <span class="n">compressor_compression_rate</span>
+
+    <span class="c1"># ----- COMBUSTOR ---------------------------------------------------------</span>
+    <span class="n">T0_4</span> <span class="o">=</span> <span class="n">design_throttle_position</span> <span class="o">*</span> \
+        <span class="n">inlet_turbine_temperature_takeoff</span>    <span class="c1"># ponto de projeto</span>
+    <span class="n">P0_4</span> <span class="o">=</span> <span class="n">P0_3</span> <span class="o">*</span> <span class="n">combustor_pressure_ratio</span>
+    <span class="n">T0_4_T0_3</span> <span class="o">=</span> <span class="n">T0_4</span> <span class="o">/</span> <span class="n">T0_3</span>
+
+    <span class="c1"># ----- HIGHT TURBINE -----------------------------------------------------</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_4</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_4</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_4</span><span class="p">)</span>
+    <span class="n">del_h_ht</span> <span class="o">=</span> <span class="n">del_h_c</span>
+    <span class="n">del_t_ht</span> <span class="o">=</span> <span class="n">del_h_ht</span> <span class="o">/</span> <span class="n">Cp_4</span>
+
+    <span class="n">T0_5</span> <span class="o">=</span> <span class="n">T0_4</span> <span class="o">-</span> <span class="n">del_t_ht</span>
+    <span class="n">high_pressure_turbine_pressure_ratio</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">1</span><span class="o">-</span><span class="n">del_h_ht</span><span class="o">/</span><span class="p">(</span><span class="n">Cp_4</span><span class="o">*</span><span class="n">T0_4</span><span class="o">*</span><span class="n">turbine_efficiency</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="n">gamma_4</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_4</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">P0_5</span> <span class="o">=</span> <span class="n">P0_4</span> <span class="o">*</span> <span class="n">high_pressure_turbine_pressure_ratio</span>
+    <span class="n">T0_5_T0_4</span> <span class="o">=</span> <span class="n">T0_5</span> <span class="o">/</span> <span class="n">T0_4</span>
+
+    <span class="c1"># ----- LOWER TURBINE -----------------------------------------------------</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_5</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_5</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_5</span><span class="p">)</span>
+    <span class="n">del_h_lt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">bypass_ratio</span><span class="p">)</span><span class="o">*</span><span class="n">del_h_fan</span>
+    <span class="n">del_t_lt</span> <span class="o">=</span> <span class="n">del_h_lt</span> <span class="o">/</span> <span class="n">Cp_5</span>
+
+    <span class="n">T0_15</span> <span class="o">=</span> <span class="n">T0_5</span> <span class="o">-</span> <span class="n">del_t_lt</span>
+    <span class="n">low_pressure_turbine_pressure_ratio</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">1</span><span class="o">-</span><span class="n">del_h_lt</span><span class="o">/</span><span class="p">(</span><span class="n">Cp_5</span><span class="o">*</span><span class="n">T0_5</span><span class="o">*</span><span class="n">turbine_efficiency</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="n">gamma_5</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_5</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">P0_15</span> <span class="o">=</span> <span class="n">P0_5</span> <span class="o">*</span> <span class="n">low_pressure_turbine_pressure_ratio</span>
+    <span class="n">T0_15_T0_5</span> <span class="o">=</span> <span class="n">T0_15</span> <span class="o">/</span> <span class="n">T0_5</span>
+
+    <span class="n">epr</span> <span class="o">=</span> <span class="n">inlet_pressure_ratio</span><span class="o">*</span><span class="n">compressor_pressure_ratio</span><span class="o">*</span><span class="n">combustor_pressure_ratio</span> <span class="o">*</span> \
+        <span class="n">high_pressure_turbine_pressure_ratio</span> <span class="o">*</span> \
+        <span class="n">fan_pressure_ratio</span><span class="o">*</span><span class="n">low_pressure_turbine_pressure_ratio</span>
+    <span class="n">etr</span> <span class="o">=</span> <span class="n">T0_2_T0_1</span> <span class="o">*</span> <span class="n">T0_3_T0_13</span><span class="o">*</span><span class="n">T0_4_T0_3</span><span class="o">*</span><span class="n">T0_5_T0_4</span><span class="o">*</span><span class="n">T0_13_T0_2</span><span class="o">*</span><span class="n">T0_15_T0_5</span>
+    <span class="c1"># #########################################################################</span>
+
+    <span class="c1"># ########### G E T    G E O M E T R Y  ###################################</span>
+    <span class="n">acore</span> <span class="o">=</span> <span class="n">fan_disk_area</span><span class="o">/</span><span class="p">(</span><span class="n">bypass_ratio</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>                   <span class="c1"># área do núcleo</span>
+
+    <span class="c1">#  ---- a8rat = a8 / acore ----</span>
+    <span class="n">a8rat</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">0.75</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">etr</span><span class="o">/</span><span class="n">T0_2_T0_1</span><span class="p">)</span><span class="o">/</span><span class="n">epr</span><span class="o">*</span><span class="n">inlet_pressure_ratio</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="c1"># OBS: divide por inlet_pressure_ratio pois ele não é considerado no cálculo do EPR e</span>
+    <span class="c1"># ETR acima no applet original</span>
+
+    <span class="n">a8</span> <span class="o">=</span> <span class="n">a8rat</span> <span class="o">*</span> <span class="n">acore</span>
+    <span class="n">a4</span> <span class="o">=</span> <span class="n">a8</span> <span class="o">*</span> <span class="n">high_pressure_turbine_pressure_ratio</span> <span class="o">*</span> \
+        <span class="n">low_pressure_turbine_pressure_ratio</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T0_5_T0_4</span><span class="o">*</span><span class="n">T0_15_T0_5</span><span class="p">)</span>
+    <span class="n">a4p</span> <span class="o">=</span> <span class="n">a8</span> <span class="o">*</span> <span class="n">low_pressure_turbine_pressure_ratio</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T0_15_T0_5</span><span class="p">)</span>
+    <span class="n">a8d</span> <span class="o">=</span> <span class="n">a8</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="n">design_mach</span> <span class="o">==</span> <span class="n">mach</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">design_altitude</span> <span class="o">==</span> <span class="n">altitude</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">design_throttle_position</span> <span class="o">==</span> <span class="n">throttle_position</span><span class="p">)):</span>
+        <span class="n">designpoint</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">designpoint</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">T_0A</span> <span class="o">=</span> <span class="n">T_0</span>
+    <span class="n">tau_r_A</span> <span class="o">=</span> <span class="n">T0_0</span>
+    <span class="n">pi_cl_A</span> <span class="o">=</span> <span class="n">fan_pressure_ratio</span>
+    <span class="n">tau_cl_A</span> <span class="o">=</span> <span class="n">T0_13_T0_2</span>
+    <span class="n">pi_ch_A</span> <span class="o">=</span> <span class="n">compressor_pressure_ratio</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">designpoint</span><span class="p">:</span>
+        <span class="c1"># #########################################################################</span>
+        <span class="c1"># #########  G E T  T H E R M O - WIND TUNNEL TEST ########################</span>
+        <span class="c1"># disp(&#39;passei aqui designpoint&#39;)</span>
+        <span class="n">Mach</span> <span class="o">=</span> <span class="n">mach</span>
+        <span class="n">design_throttle_position</span> <span class="o">=</span> <span class="n">throttle_position</span>
+
+        <span class="c1"># ------ FREE STREAM ------------------------------------------------------</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.4</span>                             <span class="c1"># gamma do programa</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="mf">287.2933</span>                           <span class="c1"># R do programa</span>
+
+        <span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span> <span class="n">T_0</span><span class="p">,</span> <span class="n">P_0</span><span class="p">,</span><span class="n">rho_0</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span><span class="n">a0</span><span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">T0_0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">Mach</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">T_0</span>     <span class="c1"># temperatura total</span>
+        <span class="n">P0_0</span> <span class="o">=</span> <span class="n">P_0</span><span class="o">*</span><span class="p">(</span><span class="n">T0_0</span><span class="o">/</span><span class="n">T_0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">gamma</span><span class="o">/</span><span class="p">(</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># pressão total</span>
+        <span class="n">a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">gamma</span><span class="o">*</span><span class="n">R</span><span class="o">*</span><span class="n">T_0</span><span class="p">)</span>                  <span class="c1"># velocidade do som</span>
+        <span class="n">u0</span> <span class="o">=</span> <span class="n">Mach</span><span class="o">*</span><span class="n">a0</span>                           <span class="c1"># velocidade de vôo</span>
+
+        <span class="c1"># ----- ENTRADA DE AR -----------------------------------------------------</span>
+        <span class="n">P0_1</span> <span class="o">=</span> <span class="n">P0_0</span>
+        <span class="n">T0_1</span> <span class="o">=</span> <span class="n">T0_0</span>
+
+        <span class="c1"># ----- INLET -------------------------------------------------------------</span>
+        <span class="n">T0_2</span> <span class="o">=</span> <span class="n">T0_1</span>
+        <span class="n">P0_2</span> <span class="o">=</span> <span class="n">P0_1</span><span class="o">*</span><span class="n">inlet_pressure_ratio</span>
+
+        <span class="c1"># ----- COMBUSTOR ---------------------------------------------------------</span>
+        <span class="n">T0_4</span> <span class="o">=</span> <span class="n">design_throttle_position</span><span class="o">*</span><span class="n">inlet_turbine_temperature</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_4</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_4</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_4</span><span class="p">)</span>
+
+        <span class="c1"># ----- HIGHT TURBINE -----------------------------------------------------</span>
+        <span class="n">T0_5_T0_4</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">find_turbine_temperature_ratio</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">a4p</span><span class="o">/</span><span class="n">a4</span><span class="p">,</span> <span class="n">turbine_efficiency</span><span class="p">,</span> <span class="o">-</span><span class="n">gamma_4</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_4</span><span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">T0_5</span> <span class="o">=</span> <span class="n">T0_4</span><span class="o">*</span><span class="n">T0_5_T0_4</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_5</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_5</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_5</span><span class="p">)</span>
+        <span class="n">del_t_ht</span> <span class="o">=</span> <span class="n">T0_5</span> <span class="o">-</span> <span class="n">T0_4</span>
+        <span class="n">del_h_ht</span> <span class="o">=</span> <span class="n">del_t_ht</span><span class="o">*</span><span class="n">Cp_4</span>
+        <span class="n">high_pressure_turbine_pressure_ratio</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">T0_5_T0_4</span><span class="p">)</span><span class="o">/</span><span class="n">turbine_efficiency</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">gamma_4</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_4</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># ----- LOWER TURBINE -----------------------------------------------------</span>
+        <span class="n">T0_15_T0_5</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">find_turbine_temperature_ratio</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">a8d</span><span class="o">/</span><span class="n">a4p</span><span class="p">,</span> <span class="n">turbine_efficiency</span><span class="p">,</span> <span class="o">-</span><span class="n">gamma_5</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_5</span><span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">T0_15</span> <span class="o">=</span> <span class="n">T0_5</span> <span class="o">*</span> <span class="n">T0_15_T0_5</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_15</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_15</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_15</span><span class="p">)</span>
+        <span class="n">del_t_lt</span> <span class="o">=</span> <span class="n">T0_15</span> <span class="o">-</span> <span class="n">T0_5</span>
+        <span class="n">del_h_lt</span> <span class="o">=</span> <span class="n">del_t_lt</span><span class="o">*</span><span class="n">Cp_5</span>
+        <span class="n">low_pressure_turbine_pressure_ratio</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">T0_15_T0_5</span><span class="p">)</span><span class="o">/</span><span class="n">turbine_efficiency</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">gamma_5</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_5</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># ----- FAN ---------------------------------------------------------------</span>
+        <span class="n">del_h_fan</span> <span class="o">=</span> <span class="n">del_h_lt</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">bypass_ratio</span><span class="p">)</span>
+        <span class="n">del_t_fan</span> <span class="o">=</span> <span class="o">-</span><span class="n">del_h_fan</span> <span class="o">/</span> <span class="n">Cp_2</span>
+        <span class="n">T0_13</span> <span class="o">=</span> <span class="n">T0_2</span> <span class="o">+</span> <span class="n">del_t_fan</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_13</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_13</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_13</span><span class="p">)</span>
+        <span class="n">T0_13_T0_2</span> <span class="o">=</span> <span class="n">T0_13</span> <span class="o">/</span> <span class="n">T0_2</span>
+        <span class="n">fan_pressure_ratio</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">T0_13_T0_2</span><span class="p">)</span><span class="o">*</span><span class="n">fan_efficiency</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">gamma_2</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_2</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">tau_r_A</span> <span class="o">=</span> <span class="n">T0_0</span>
+        <span class="n">pi_cl_A</span> <span class="o">=</span> <span class="n">fan_pressure_ratio</span>
+        <span class="n">T_0A</span> <span class="o">=</span> <span class="n">T_0</span>
+
+        <span class="c1"># ----- COMPRESSOR --------------------------------------------------------</span>
+        <span class="n">del_h_c</span> <span class="o">=</span> <span class="n">del_h_ht</span>
+        <span class="n">del_t_c</span> <span class="o">=</span> <span class="o">-</span><span class="n">del_h_c</span> <span class="o">/</span> <span class="n">Cp_13</span>
+
+        <span class="n">T0_3</span> <span class="o">=</span> <span class="n">T0_13</span> <span class="o">+</span> <span class="n">del_t_c</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_3</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_3</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_3</span><span class="p">)</span>
+        <span class="n">T0_3_T0_13</span> <span class="o">=</span> <span class="n">T0_3</span> <span class="o">/</span> <span class="n">T0_13</span>
+        <span class="n">compressor_pressure_ratio</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">T0_3_T0_13</span><span class="p">)</span><span class="o">*</span><span class="n">compressor_efficiency</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">gamma_13</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_13</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">T0_4_T0_3</span> <span class="o">=</span> <span class="n">T0_4</span> <span class="o">/</span> <span class="n">T0_3</span>
+
+        <span class="n">tau_cl_A</span> <span class="o">=</span> <span class="n">T0_13_T0_2</span>
+        <span class="n">pi_ch_A</span> <span class="o">=</span> <span class="n">compressor_pressure_ratio</span>
+
+        <span class="c1"># ----- total pressures definition ----------------------------------------</span>
+        <span class="n">P0_13</span> <span class="o">=</span> <span class="n">P0_2</span> <span class="o">*</span> <span class="n">fan_pressure_ratio</span>
+        <span class="n">P0_3</span> <span class="o">=</span> <span class="n">P0_13</span> <span class="o">*</span> <span class="n">compressor_pressure_ratio</span>
+        <span class="n">P0_4</span> <span class="o">=</span> <span class="n">P0_3</span> <span class="o">*</span> <span class="n">combustor_pressure_ratio</span>
+        <span class="n">P0_5</span> <span class="o">=</span> <span class="n">P0_4</span> <span class="o">*</span> <span class="n">high_pressure_turbine_pressure_ratio</span>
+        <span class="n">P0_15</span> <span class="o">=</span> <span class="n">P0_5</span> <span class="o">*</span> <span class="n">low_pressure_turbine_pressure_ratio</span>
+
+        <span class="c1"># ----- overall pressure &amp; temperature ratios -----------------------------</span>
+        <span class="c1"># print(compressor_pressure_ratio)</span>
+        <span class="c1"># print(combustor_pressure_ratio)</span>
+        <span class="n">epr</span> <span class="o">=</span> <span class="n">inlet_pressure_ratio</span><span class="o">*</span><span class="n">compressor_pressure_ratio</span><span class="o">*</span><span class="n">combustor_pressure_ratio</span> <span class="o">*</span> \
+            <span class="n">high_pressure_turbine_pressure_ratio</span> <span class="o">*</span> \
+            <span class="n">fan_pressure_ratio</span><span class="o">*</span><span class="n">low_pressure_turbine_pressure_ratio</span>
+        <span class="n">etr</span> <span class="o">=</span> <span class="n">T0_2_T0_1</span> <span class="o">*</span> <span class="n">T0_3_T0_13</span><span class="o">*</span><span class="n">T0_4_T0_3</span><span class="o">*</span><span class="n">T0_5_T0_4</span><span class="o">*</span><span class="n">T0_13_T0_2</span><span class="o">*</span><span class="n">T0_15_T0_5</span>
+
+    <span class="c1"># ########### G E T   P E R F O R M A N C E  ##############################</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Cp_exit</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gamma_exit</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span>
+        <span class="n">item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T0_5</span><span class="p">)</span>   <span class="c1"># gamma de saída (T0_5 ???)</span>
+    <span class="n">Re</span> <span class="o">=</span> <span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma_exit</span><span class="o">*</span><span class="n">Cp_exit</span>       <span class="c1"># Constante R de saída</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mf">32.2</span>
+
+    <span class="n">P0_8</span> <span class="o">=</span> <span class="n">P0_0</span> <span class="o">*</span> <span class="n">epr</span>
+    <span class="n">T0_8</span> <span class="o">=</span> <span class="n">T0_0</span> <span class="o">*</span> <span class="n">etr</span>
+
+    <span class="n">fact2</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">gamma_exit</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">fact1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="n">fact2</span>
+    <span class="n">mdot</span> <span class="o">=</span> <span class="n">a8</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">gamma_exit</span><span class="p">)</span><span class="o">*</span><span class="n">P0_8</span><span class="o">*</span><span class="n">fact1</span> <span class="o">/</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T0_8</span><span class="o">*</span><span class="n">Re</span><span class="p">)</span>  <span class="c1"># fluxo mássico [kg/s]</span>
+
+    <span class="n">npr</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">P0_8</span><span class="o">/</span><span class="n">P_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">fact1</span> <span class="o">=</span> <span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma_exit</span>
+    <span class="n">uexit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">gamma_exit</span><span class="o">*</span><span class="n">T0_8</span> <span class="o">*</span>
+                    <span class="n">nozzle_efficiency</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">npr</span><span class="p">)</span><span class="o">**</span><span class="n">fact1</span><span class="p">))</span>  <span class="c1"># ????</span>
+    
+    <span class="n">N1ratio</span> <span class="o">=</span> <span class="p">((</span><span class="n">T_0A</span><span class="o">*</span><span class="n">tau_r_A</span><span class="o">*</span><span class="n">pi_cl_A</span><span class="o">**</span><span class="p">((</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">T_0R</span><span class="o">*</span><span class="n">tau_r_R</span><span class="o">*</span><span class="n">pi_cl_R</span><span class="o">**</span><span class="p">((</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mf">0.5</span>
+    <span class="n">N1A</span> <span class="o">=</span> <span class="n">N1ratio</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_rotation_ref&#39;</span><span class="p">]</span>
+
+    <span class="n">N2ratio</span> <span class="o">=</span> <span class="p">((</span><span class="n">T_0A</span><span class="o">*</span><span class="n">tau_r_A</span><span class="o">*</span><span class="n">tau_cl_A</span><span class="o">*</span><span class="n">pi_ch_A</span><span class="o">**</span><span class="p">((</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">T_0R</span><span class="o">*</span><span class="n">tau_r_R</span><span class="o">*</span><span class="n">tau_cl_R</span><span class="o">*</span><span class="n">pi_ch_R</span><span class="o">**</span><span class="p">((</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mf">0.5</span>
+    <span class="n">N2A</span> <span class="o">=</span> <span class="n">N2ratio</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_rotation_ref&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># Contribuição do núcleo --------------------------------------------------</span>
+    <span class="n">npr</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">P0_8</span><span class="o">/</span><span class="n">P_0</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>                                    <span class="c1"># definição da razão entre a pressão de saída do motor e a pressão ambiente</span>
+    <span class="n">fact1</span> <span class="o">=</span> <span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma_exit</span>                                      <span class="c1"># constante 1</span>
+    <span class="n">u0_8</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">gamma_exit</span><span class="o">*</span><span class="n">T0_8</span><span class="o">*</span><span class="n">nozzle_efficiency</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">npr</span><span class="p">)</span><span class="o">**</span><span class="n">fact1</span><span class="p">))</span>
+     
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">npr</span> <span class="o">&lt;=</span> <span class="mf">1.893</span><span class="p">):</span>
+        <span class="n">pexit</span> <span class="o">=</span> <span class="n">P_0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pexit</span> <span class="o">=</span> <span class="mf">0.52828</span><span class="o">*</span><span class="n">P0_8</span>
+
+    <span class="n">fgros</span> <span class="o">=</span> <span class="n">u0_8</span> <span class="o">+</span> <span class="p">(</span><span class="n">pexit</span><span class="o">-</span><span class="n">P_0</span><span class="p">)</span><span class="o">*</span><span class="n">a8</span><span class="o">/</span><span class="n">mdot</span><span class="o">/</span><span class="n">g</span>
+
+    <span class="c1"># ------ contribuição do fan -------------------------------------------</span>
+    <span class="n">snpr</span> <span class="o">=</span> <span class="n">P0_13</span> <span class="o">/</span> <span class="n">P_0</span>
+    <span class="n">fact1</span> <span class="o">=</span> <span class="p">(</span><span class="n">gamma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">gamma</span>
+    <span class="n">ues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="o">/</span><span class="n">fact1</span><span class="o">*</span><span class="n">T0_13</span><span class="o">*</span><span class="n">nozzle_efficiency</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">snpr</span><span class="o">**</span><span class="n">fact1</span><span class="p">))</span>
+
+    <span class="n">uexit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="o">/</span><span class="p">(</span><span class="n">gamma_exit</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">gamma_exit</span><span class="o">*</span><span class="n">T0_8</span> <span class="o">*</span>
+                    <span class="n">nozzle_efficiency</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">npr</span><span class="p">)</span><span class="o">**</span><span class="n">fact1</span><span class="p">))</span>  <span class="c1"># ????</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">snpr</span> <span class="o">&lt;=</span> <span class="mf">1.893</span><span class="p">):</span>
+        <span class="n">pfexit</span> <span class="o">=</span> <span class="n">P_0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pfexit</span> <span class="o">=</span> <span class="mf">0.52828</span><span class="o">*</span><span class="n">P0_13</span>
+
+    <span class="n">fgros</span> <span class="o">=</span> <span class="n">fgros</span> <span class="o">+</span> <span class="n">bypass_ratio</span><span class="o">*</span><span class="n">ues</span> <span class="o">+</span> <span class="p">(</span><span class="n">pfexit</span><span class="o">-</span><span class="n">P_0</span><span class="p">)</span><span class="o">*</span><span class="n">bypass_ratio</span><span class="o">*</span><span class="n">acore</span><span class="o">/</span><span class="n">mdot</span><span class="o">/</span><span class="n">g</span>
+
+    <span class="n">dram</span> <span class="o">=</span> <span class="n">u0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">bypass_ratio</span><span class="p">)</span>
+    <span class="n">fnet</span> <span class="o">=</span> <span class="n">fgros</span> <span class="o">-</span> <span class="n">dram</span>
+    <span class="n">fuel_air</span> <span class="o">=</span> <span class="p">(</span><span class="n">T0_4_T0_3</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">combustion_chamber_efficiency</span> <span class="o">*</span>
+                              <span class="n">thermal_energy</span><span class="o">/</span><span class="p">(</span><span class="n">Cp_3</span><span class="o">*</span><span class="n">T0_3</span><span class="p">)</span><span class="o">-</span><span class="n">T0_4</span><span class="o">/</span><span class="n">T0_3</span><span class="p">)</span>
+
+    <span class="c1"># ####### Estimativa de Peso ##############################################</span>
+    <span class="n">ncomp</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">compressor_compression_rate</span><span class="o">/</span><span class="mf">1.5</span><span class="p">))</span>
+    <span class="n">nturb</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">ncomp</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">dfan</span> <span class="o">=</span> <span class="mf">293.02</span>          <span class="c1"># fan density</span>
+    <span class="n">dcomp</span> <span class="o">=</span> <span class="mf">293.02</span>         <span class="c1"># comp density</span>
+    <span class="n">dburn</span> <span class="o">=</span> <span class="mf">515.2</span>          <span class="c1"># burner density</span>
+    <span class="n">dturb</span> <span class="o">=</span> <span class="mf">515.2</span>          <span class="c1"># turbine density</span>
+    <span class="n">conv1</span> <span class="o">=</span> <span class="mf">10.7639104167</span>  <span class="c1"># conversão de acore para ft**2</span>
+
+    <span class="n">weight</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.4552</span><span class="o">*</span><span class="mf">0.0932</span><span class="o">*</span><span class="n">acore</span><span class="o">*</span><span class="n">conv1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">acore</span><span class="o">*</span><span class="n">conv1</span><span class="o">/</span><span class="mf">6.965</span><span class="p">)</span> <span class="o">*</span>
+              <span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">bypass_ratio</span><span class="p">)</span><span class="o">*</span><span class="n">dfan</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="n">dcomp</span><span class="o">*</span><span class="p">(</span><span class="n">ncomp</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">dburn</span> <span class="o">+</span> <span class="n">dturb</span><span class="o">*</span><span class="n">nturb</span><span class="p">))</span>  <span class="c1"># [N]</span>
+
+    <span class="c1"># SUBROUTINE OUTPUTS</span>
+    <span class="c1"># weightkgf = weight/9.8</span>
+    <span class="c1"># tracaokgf = fnet*mdot/9.8  #[kgf]</span>
+    <span class="n">force</span> <span class="o">=</span> <span class="n">fnet</span><span class="o">*</span><span class="n">mdot</span>  <span class="c1"># [tracao em Newtons]</span>
+    <span class="c1"># [kg/h]   # correção de 15# baseado em dados de motores reais</span>
+    <span class="n">fuel_flow</span> <span class="o">=</span> <span class="mf">1.15</span><span class="o">*</span><span class="n">fuel_air</span><span class="o">*</span><span class="n">mdot</span><span class="o">*</span><span class="mi">3600</span>
+
+
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;performance_parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">force</span><span class="p">,</span> <span class="n">fuel_flow</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;total_pressures&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">P0_0</span><span class="p">,</span> <span class="n">P0_1</span><span class="p">,</span> <span class="n">P0_2</span><span class="p">,</span> <span class="n">P0_3</span><span class="p">,</span> <span class="n">P0_4</span><span class="p">,</span> <span class="n">P0_5</span><span class="p">,</span> <span class="n">P0_8</span><span class="p">,</span> <span class="n">P0_13</span><span class="p">,</span> <span class="n">P0_15</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;total_temperatures&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">T0_0</span><span class="p">,</span> <span class="n">T0_1</span><span class="p">,</span> <span class="n">T0_2</span><span class="p">,</span> <span class="n">T0_3</span><span class="p">,</span> <span class="n">T0_4</span><span class="p">,</span> <span class="n">T0_5</span><span class="p">,</span> <span class="n">T0_8</span><span class="p">,</span> <span class="n">T0_13</span><span class="p">,</span> <span class="n">T0_15</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;exit_areas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">acore</span><span class="p">,</span> <span class="n">a8</span><span class="p">,</span> <span class="n">a8</span><span class="o">*</span><span class="n">bypass_ratio</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fuel_flows&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mdot</span><span class="p">,</span> <span class="n">mdot</span><span class="o">*</span><span class="n">bypass_ratio</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;gas_exit_speeds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u0_8</span><span class="p">,</span> <span class="n">ues</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;rotation_speeds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">N1A</span><span class="p">,</span> <span class="n">N2A</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">N1A</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">N2A</span>
+
+    <span class="k">return</span> <span class="n">force</span><span class="p">,</span> <span class="n">fuel_flow</span><span class="p">,</span> <span class="n">vehicle</span></div>
+
+
+<div class="viewcode-block" id="find_turbine_temperature_ratio"><a class="viewcode-back" href="../../../../framework.Performance.Engine.html#framework.Performance.Engine.engine_performance.find_turbine_temperature_ratio">[docs]</a><span class="k">def</span> <span class="nf">find_turbine_temperature_ratio</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="n">c</span>
+    <span class="k">return</span> <span class="n">f</span></div>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># h = 457.2014</span>
+<span class="c1"># mach = 0.388</span>
+<span class="c1"># throttle_position = 0.95</span>
+<span class="c1"># force, fuel_flow , vehicle = turbofan(h, mach, throttle_position)</span>
+
+<span class="c1"># print(force)</span>
+<span class="c1"># print(fuel_flow)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.utilities.output &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.utilities.output</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.utilities.output</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name :</span>
+<span class="sd">Authors   : </span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : </span>
+<span class="sd">Last edit :</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    -</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    -</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    -</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">framework.utilities.logger</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+<div class="viewcode-block" id="write_optimal_results"><a class="viewcode-back" href="../../../framework.utilities.html#framework.utilities.output.write_optimal_results">[docs]</a><span class="k">def</span> <span class="nf">write_optimal_results</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span> <span class="n">DOC_ik</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">,</span> <span class="n">kpi_df2</span><span class="p">):</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== Start writing aircraft results ====&#39;</span><span class="p">)</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H%M&#39;</span><span class="p">)</span>
+
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">cabine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;cabine&#39;</span><span class="p">]</span>
+    <span class="n">horizontal_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;horizontal_tail&#39;</span><span class="p">]</span>
+    <span class="n">vertical_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;vertical_tail&#39;</span><span class="p">]</span>
+    <span class="n">winglet</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;winglet&#39;</span><span class="p">]</span>
+
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">pylon</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;pylon&#39;</span><span class="p">]</span>
+
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">]</span>
+
+    <span class="n">airport_departure</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;airport_departure&#39;</span><span class="p">]</span>
+    <span class="n">airport_destination</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;airport_destination&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Creating data for output</span>
+    <span class="n">active_arcs</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;active_arcs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">number_aircraft</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;aircraft_number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">average_cruise_mach</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;mach_tot_aircraft&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">number_aircraft</span>
+    <span class="n">total_fuel</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;total_fuel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">total_CO2</span> <span class="o">=</span> <span class="n">total_fuel</span><span class="o">*</span><span class="mf">3.15</span>
+    <span class="n">total_distance</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;total_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">total_pax</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;covered_demand&#39;</span><span class="p">]</span>
+    <span class="n">CO2_efficiency</span> <span class="o">=</span> <span class="mf">3.15</span><span class="o">*</span><span class="n">total_fuel</span><span class="o">/</span><span class="p">(</span><span class="n">total_pax</span><span class="o">*</span><span class="n">total_distance</span><span class="o">*</span><span class="mf">1.852</span><span class="p">)</span>
+    <span class="n">total_cost</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span>
+    <span class="n">total_revenue</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_revenue&#39;</span><span class="p">]</span>
+    <span class="n">total_profit</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;profit&#39;</span><span class="p">]</span>
+    <span class="n">margin_percent</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">total_profit</span><span class="o">/</span><span class="n">total_revenue</span><span class="p">)</span>
+    <span class="n">average_DOC</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;DOC_nd&#39;</span><span class="p">]</span>
+    <span class="n">average_DOC</span> <span class="o">=</span> <span class="n">average_DOC</span><span class="p">[</span><span class="n">average_DOC</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">average_distance</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;active_arcs&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">]</span>
+    <span class="n">average_distance</span> <span class="o">=</span> <span class="n">average_distance</span><span class="p">[</span><span class="n">average_distance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">average_CEMV</span> <span class="o">=</span> <span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;total_CEMV&#39;</span><span class="p">]</span>
+    <span class="n">average_CEMV</span> <span class="o">=</span> <span class="n">average_CEMV</span><span class="p">[</span><span class="n">average_CEMV</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    
+    <span class="n">number_aircraft2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(((</span><span class="n">kpi_df2</span><span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span><span class="o">/</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;maximum_daily_utilization&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="p">))</span>
+    
+    <span class="n">REV</span> <span class="o">=</span> <span class="mf">1.1</span><span class="o">*</span><span class="n">total_pax</span><span class="o">*</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;average_ticket_price&#39;</span><span class="p">]</span>
+    <span class="n">COST</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">total_cost</span>
+    <span class="n">RASK</span> <span class="o">=</span> <span class="n">REV</span><span class="o">/</span><span class="p">(</span><span class="n">total_pax</span><span class="o">*</span><span class="n">total_distance</span><span class="p">)</span>
+    <span class="n">CASK</span> <span class="o">=</span> <span class="n">COST</span><span class="o">/</span><span class="p">(</span><span class="n">total_pax</span><span class="o">*</span><span class="n">total_distance</span><span class="p">)</span>
+    <span class="n">NP</span> <span class="o">=</span> <span class="n">RASK</span><span class="o">-</span><span class="n">CASK</span>
+
+    <span class="c1"># write string one by one adding newline</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Aircrafts/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="c1"># with open(&#39;Database/Results/Aircrafts/acft_&#39; + str(profit) +&#39;.txt&#39;,&#39;a&#39;) as output:</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;======== Aircraft and network optimization results ========&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># ===============================================================================</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> ----- Aircraft parameters ----- </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Operational Empty Weight: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;operational_empty_weight&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39; [kg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Maximum Takeoff Weight: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39; [kg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Maximum Landing Weight: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_landing_weight&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39; [kg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Maximum Zero Fuel Weight: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_zero_fuel_weight&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39; [kg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Maximum Fuel Weight: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;fuel_capacity&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39; [kg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Performance: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;RANGE: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">performance</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [nm] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;MMO: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_maximum_operating&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;VMO: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;max_operating_speed&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [kts] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Ceiling: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;max_ceiling&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [ft] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Fuselage: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Pax: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;passenger_capacity&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Crew: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;crew_number&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Aisles number: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;aisles_number&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Seats number: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Seat width: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Seat pitch: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_pitch&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Cabine height: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_height&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Fuselage length: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Cockpit length: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cockpit_length&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Tail length: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;tail_length&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Width: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Diameter: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Height: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Dz floor: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;Dz_floor&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Wetted area: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Weight: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; [kg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Aerodynamics: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;CLmax: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;CL_maximum_clean&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;CLmax TO: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;CL_maximum_takeoff&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;CLmax LD: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;CL_maximum_landing&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Wing: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Area: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Span: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Aspect Ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Taper Ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Sweep c/4: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Sweep LE: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Twist: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;twist&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Wetted area: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Kink position: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span_kink&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [%] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Root incidence: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_incidence&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Kink incidence: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_incidence&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Tip incidence: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_incidence&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Root t/c: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Kink t/c: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Tip t/c: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Center chord: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Root chord: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Kink chord: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Tip chord: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;MAC: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Leading edge xposition: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;leading_edge_xposition&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Slat presence: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;slat_presence&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Flap span: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_span&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [%] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Flap area: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_area&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Flap def. TO: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_deflection_takeoff&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Flap def. LD: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;flap_deflection_landing&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Aileron position: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aileron_position&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [%] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Rear spar position: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;rear_spar_ref&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [%] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Vertical tail: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Area: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Aspect Ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Taper Ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Sweep c/4: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Horizontal tail: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Area: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Aspect Ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Taper Ratio: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Sweep c/4: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Winglet: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Aspect Ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Taper Ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Sweep leading edge: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Engine: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Maximum thrust: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;maximum_thrust&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; [N] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Bypass ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;bypass&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Fan diameter: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_diameter&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Fan pressure ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_pressure_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Compressor pressure ratio: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_pressure_ratio&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Turbine inlet temperature: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;turbine_inlet_temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [deg C] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Engine length: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Pylon: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Wetted area: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Aircraft: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Wing position: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Horizontal tail position: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Engine position: &#39;</span> <span class="o">+</span>
+                     <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Wetted area: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; [m2] </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> ----- Network parameters ----- </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Number of nodes: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;nodes_number&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Number of arcs: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">active_arcs</span><span class="p">)))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Average degree of nodes: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;avg_degree_nodes&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Average path length: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">average_distance</span><span class="p">)))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Network density: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;network_density&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Average clustering: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;average_clustering&#39;</span><span class="p">])))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Referemce values: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Mach: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Range: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; [nm] \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;DOC: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; [$/nm] \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Passengers: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Net present value: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; [$] \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Price: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; [$] \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Average fare: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; [$] \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Average load factor: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; \n&#39;)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Average market share: &#39; + str(&quot;{:.2f}&quot;.format(0)) + &#39; [%] \n&#39;)</span>
+
+        <span class="c1"># output.write(&#39;Airports array: &#39; + str(airport_departure[&#39;array&#39;]) + &quot;\n&quot;)</span>
+
+        <span class="n">market_share</span> <span class="o">=</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;market_share&#39;</span><span class="p">]</span>
+
+        <span class="n">demand_db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Database/Demand/demand.csv&#39;</span><span class="p">)</span>
+        <span class="n">demand_db</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">market_share</span><span class="o">*</span><span class="p">(</span><span class="n">demand_db</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Daily demand: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">demand_db</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">distances_db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Database/Distance/distance.csv&#39;</span><span class="p">)</span>
+        <span class="n">distances_db</span> <span class="o">=</span> <span class="p">(</span><span class="n">distances_db</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Distances: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">distances_db</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># headings_db = pd.read_csv(&#39;Database/distabces/distance.csv&#39;)</span>
+        <span class="c1"># headings_db = (headings_db.T)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Headings: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># np.savetxt(output, headings_db.values, fmt=&#39;%d&#39;)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">DOC: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">DOC_ik</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">DOC_ik</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+
+        <span class="n">frequencies_db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;Database/Network/frequencies.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="s1">&#39;TRUE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="c1"># frequencies = pd.DataFrame(frequencies_db, index=False, header=False )</span>
+
+        <span class="n">frequencies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">frequencies_db</span><span class="p">)</span>
+        
+        <span class="c1"># frequencies_db = pd.read_csv(&#39;Database/Network/frequencies.npy&#39;)</span>
+        <span class="c1"># frequencies_db = (frequencies_db.T)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">Frequencies: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># np.savetxt(output, frequencies_db.values, fmt=&#39;%d&#39;)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">frequencies</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Network Results: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Average Cruise Mach: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">average_cruise_mach</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Total fuel [kg]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_fuel</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Total CO2 [kg]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_CO2</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;CO2 efficiency [kg/pax.nm]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.8f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CO2_efficiency</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Average CEMV [kg/nm]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.8f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">average_CEMV</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Total distance [nm]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_distance</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Total pax: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_pax</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Total cost [$]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_cost</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Total revenue [$]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_revenue</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Total profit [$]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_profit</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Margin percent [%]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin_percent</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Average DOC [$/nm]: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">average_DOC</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;NRASK [$/pax.nm]x1E-4: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">RASK</span><span class="o">*</span><span class="mf">1E4</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;NCASK [$/pax.nm]x1E-4: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CASK</span><span class="o">*</span><span class="mf">1E4</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;NP [$/pax.nm]x1E-4: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">NP</span><span class="o">*</span><span class="mf">1E4</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Number of frequencies: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;number_of_frequencies&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># output.write(</span>
+        <span class="c1">#     &#39;Number of used aircraft: &#39; + str(&quot;{:.2f}&quot;.format(number_aircraft)) + &#39; \n&#39;)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Number of used aircraft: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">number_aircraft2</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;Sectors per aircraft: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;number_of_frequencies&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">number_aircraft2</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>    
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== End writing aircraft results ====&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="write_kml_results"><a class="viewcode-back" href="../../../framework.utilities.html#framework.utilities.output.write_kml_results">[docs]</a><span class="k">def</span> <span class="nf">write_kml_results</span><span class="p">(</span><span class="n">arrivals</span><span class="p">,</span> <span class="n">departures</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== Start writing klm results ====&#39;</span><span class="p">)</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H%M&#39;</span><span class="p">)</span>
+
+    <span class="n">departures</span> <span class="o">=</span> <span class="n">departures</span>
+    <span class="n">arrivals</span> <span class="o">=</span> <span class="n">arrivals</span>
+
+    <span class="n">data_airports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Database/Airports/airports.csv&quot;</span><span class="p">)</span>
+    <span class="n">frequencies_db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;Database/Network/frequencies.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="s1">&#39;TRUE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Kml/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;.kml&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="c1"># with open(r&#39;Database/Results/Klm/acft_&#39; + str(profit) + &#39;.kml&#39;,&#39;w&#39;) as output:</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;kml xmlns=&quot;http://www.opengis.net/kml/2.2&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;Document&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;        &lt;Folder&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;          &lt;name&gt;NETWORK01&lt;/name&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;              &lt;Style&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;                &lt;LineStyle&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;                   &lt;color&gt;ffff0055&lt;/color&gt; &lt;width&gt;5&lt;/width&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;                &lt;/LineStyle&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;             &lt;/Style&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># output.write(&#39;      &lt;Placemark&gt;\n&#39;)</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">departures</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">k</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">frequencies_db</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">)]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;      &lt;Placemark&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;             &lt;LineString&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                    <span class="n">dep_latitude</span> <span class="o">=</span> <span class="n">data_airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_airports</span><span class="p">[</span><span class="s1">&#39;APT2&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;LAT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">dep_longitude</span> <span class="o">=</span> <span class="n">data_airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_airports</span><span class="p">[</span><span class="s1">&#39;APT2&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;LON&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">des_latitude</span> <span class="o">=</span> <span class="n">data_airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_airports</span><span class="p">[</span><span class="s1">&#39;APT2&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">k</span><span class="p">,</span> <span class="s1">&#39;LAT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">des_longitude</span> <span class="o">=</span> <span class="n">data_airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_airports</span><span class="p">[</span><span class="s1">&#39;APT2&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">k</span><span class="p">,</span> <span class="s1">&#39;LON&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;                &lt;coordinates&gt;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dep_longitude</span><span class="p">))</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dep_latitude</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;0,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">des_longitude</span><span class="p">))</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">des_latitude</span><span class="p">))</span><span class="o">+</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span><span class="s1">&#39;&lt;/coordinates&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;             &lt;/LineString&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;     	&lt;/Placemark&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;       &lt;/Folder&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;/Document&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;/kml&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;==== End writing klm results ====&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
+
+<span class="k">def</span> <span class="nf">write_newtork_results</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span><span class="n">dataframe01</span><span class="p">,</span><span class="n">dataframe02</span><span class="p">):</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H%M&#39;</span><span class="p">)</span>
+
+    <span class="n">dataframe01</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Network/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;01.csv&#39;</span><span class="p">)</span>
+    <span class="n">dataframe02</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Network/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;02.csv&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span>
+
+<div class="viewcode-block" id="write_newtork_results"><a class="viewcode-back" href="../../../framework.utilities.html#framework.utilities.output.write_newtork_results">[docs]</a><span class="k">def</span> <span class="nf">write_newtork_results</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span><span class="n">dataframe01</span><span class="p">,</span><span class="n">dataframe02</span><span class="p">):</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H%M&#39;</span><span class="p">)</span>
+
+    <span class="n">dataframe01</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Network/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;01.csv&#39;</span><span class="p">)</span>
+    <span class="n">dataframe02</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Network/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">profit</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;02.csv&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
+<div class="viewcode-block" id="write_unfeasible_results"><a class="viewcode-back" href="../../../framework.utilities.html#framework.utilities.output.write_unfeasible_results">[docs]</a><span class="k">def</span> <span class="nf">write_unfeasible_results</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H%M&#39;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Aircrafts_unfeasible/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="c1"># with open(&#39;Database/Results/Aircrafts/acft_&#39; + str(profit) +&#39;.txt&#39;,&#39;a&#39;) as output:</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;======== Aircraft parameters ========&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># ===============================================================================</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> ----- Aircraft parameters ----- </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> ----- Flags ----- </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> landing, takeoff, climb second segment, missed approach, cruise, fuel, noise </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">flags</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="write_bad_results"><a class="viewcode-back" href="../../../framework.utilities.html#framework.utilities.output.write_bad_results">[docs]</a><span class="k">def</span> <span class="nf">write_bad_results</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H%M&#39;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Database/Results/Aircrafts_with_error/acft_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="c1"># with open(&#39;Database/Results/Aircrafts/acft_&#39; + str(profit) +&#39;.txt&#39;,&#39;a&#39;) as output:</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s1">&#39;======== Aircraft parameters ========&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># ===============================================================================</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> ----- Aircraft parameters ----- </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> ----- Error message ----- </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span></div>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># from framework.Database.Aircrafts.baseline_aircraft_parameters import *</span>
+
+<span class="c1"># write_optimal_results(vehicle,150000)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

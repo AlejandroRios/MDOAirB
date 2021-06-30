@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Noise.Engine.noise_SAE &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Noise.Engine.noise_SAE</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Noise.Engine.noise_SAE</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name :</span>
+<span class="sd">Authors   : </span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : </span>
+<span class="sd">Last edit :</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This method predicts the free-field 1/3 Octave Band SPL of coaxial subsonic</span>
+<span class="sd">       jets for turbofan engines under the following conditions:</span>
+<span class="sd">       a) Flyover (observer on ground)</span>
+<span class="sd">       b) Static (observer on ground)</span>
+<span class="sd">       c) In-flight or in-flow (observer on airplane or in a wind tunnel)</span>
+<span class="sd">       Adapted from SUAVE.</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    - Velocity_primary           - Primary jet flow velocity</span>
+<span class="sd">    - Temperature_primary        - Primary jet flow temperature</span>
+<span class="sd">    - Pressure_primary           - Primary jet flow pressure</span>
+<span class="sd">    - Area_primary               - Area of the primary nozzle</span>
+<span class="sd">    - Velocity_secondary         - Secondary jet flow velocity</span>
+<span class="sd">    - Temperature_secondary      - Secondary jet flow temperature</span>
+<span class="sd">    - Pressure_secondary         - Secondary jet flow pressure</span>
+<span class="sd">    - Area_secondary             - Area of the secondary nozzle</span>
+<span class="sd">    - AOA                        - Angle of attack</span>
+<span class="sd">    - Velocity_aircraft          - Aircraft velocity</span>
+<span class="sd">    - Altitude                   - Altitude</span>
+<span class="sd">    - N1                         - Fan rotational speed [rpm]</span>
+<span class="sd">    - EXA                        - Distance from fan face to fan exit/ fan diameter</span>
+<span class="sd">    - Plug_diameter              - Diameter of the engine external plug [m]</span>
+<span class="sd">    - Engine_height              - Engine centerline height above the ground plane</span>
+<span class="sd">    - distance_microphone        - Distance from the nozzle exhaust to the microphone</span>
+<span class="sd">    - angles                     - Array containing the desired polar angles</span>
+<span class="sd">    - atmosphere                 - Airport atmosphere (SUAVE type)</span>
+<span class="sd">    - altitude                   - Airport altitude</span>
+<span class="sd">    - delta_isa                  - ISA Temperature deviation</span>
+
+<span class="sd">Outputs:</span>
+<span class="sd">    - SPL_p                           - Sound Pressure Level of the primary jet</span>
+<span class="sd">    - SPL_s                           - Sound Pressure Level of the secondary jet</span>
+<span class="sd">    - SPL_m                           - Sound Pressure Level of the mixed jet</span>
+<span class="sd">    - SPL_total                       - Sound Pressure Level of the total jet noise </span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<div class="viewcode-block" id="noise_SAE"><a class="viewcode-back" href="../../../../framework.Noise.Engine.html#framework.Noise.Engine.noise_SAE.noise_SAE">[docs]</a><span class="k">def</span> <span class="nf">noise_SAE</span><span class="p">(</span><span class="n">turbofan</span><span class="p">,</span><span class="n">segment</span><span class="p">,</span><span class="n">analyses</span><span class="p">,</span><span class="n">config</span><span class="p">,</span><span class="n">settings</span><span class="p">,</span><span class="n">ioprint</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>  
+    <span class="c1"># unpack </span>
+    <span class="n">Velocity_primary</span>       <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">core_nozzle</span><span class="o">.</span><span class="n">noise_speed</span> <span class="o">*</span> <span class="mf">0.92</span><span class="o">*</span><span class="p">(</span><span class="n">turbofan</span><span class="o">.</span><span class="n">design_thrust</span><span class="o">/</span><span class="mf">52700.</span><span class="p">)</span>   
+    <span class="n">Temperature_primary</span>    <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">turbofan</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">exit_stagnation_temperature</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">Pressure_primary</span>       <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">turbofan</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">exit_stagnation_pressure</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> 
+
+    <span class="n">Velocity_secondary</span>     <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">fan_nozzle</span><span class="o">.</span><span class="n">noise_speed</span> <span class="o">*</span> <span class="p">(</span><span class="n">turbofan</span><span class="o">.</span><span class="n">design_thrust</span><span class="o">/</span><span class="mf">52700.</span><span class="p">)</span> 
+    <span class="n">Temperature_secondary</span>  <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">turbofan</span><span class="o">.</span><span class="n">fan</span><span class="o">.</span><span class="n">exit_stagnation_temperature</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">Pressure_secondary</span>     <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">turbofan</span><span class="o">.</span><span class="n">fan</span><span class="o">.</span><span class="n">exit_stagnation_pressure</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> 
+
+    <span class="n">N1</span>                     <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">fan</span><span class="o">.</span><span class="n">rotation</span><span class="o">*</span> <span class="mf">0.92</span><span class="o">*</span><span class="p">(</span><span class="n">turbofan</span><span class="o">.</span><span class="n">design_thrust</span><span class="o">/</span><span class="mf">52700.</span><span class="p">)</span>
+    <span class="n">Diameter_primary</span>       <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">core_nozzle_diameter</span>
+    <span class="n">Diameter_secondary</span>     <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">fan_nozzle_diameter</span>
+    <span class="n">engine_height</span>          <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">engine_height</span>
+    <span class="n">EXA</span>                    <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">exa</span>
+    <span class="n">Plug_diameter</span>          <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">plug_diameter</span> 
+    <span class="n">Xe</span>                     <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">geometry_xe</span>
+    <span class="n">Ye</span>                     <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">geometry_ye</span>
+    <span class="n">Ce</span>                     <span class="o">=</span> <span class="n">turbofan</span><span class="o">.</span><span class="n">geometry_Ce</span>
+
+    <span class="n">Velocity_aircraft</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">freestream</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> 
+    <span class="n">Altitude</span>               <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">freestream</span><span class="o">.</span><span class="n">altitude</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">AOA</span>                    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">aerodynamics</span><span class="o">.</span><span class="n">angle_of_attack</span> <span class="o">/</span> <span class="n">Units</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
+
+    <span class="n">noise_time</span>             <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">conditions</span><span class="o">.</span><span class="n">frames</span><span class="o">.</span><span class="n">inertial</span><span class="o">.</span><span class="n">time</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>    
+
+    <span class="c1"># Calls the function noise_geometric to calculate all the distance and emission angles</span>
+    <span class="c1">#geometric = noise_counterplot(segment,config) </span>
+    <span class="n">noise_geometric</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span><span class="n">analyses</span><span class="p">,</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># unpack</span>
+    <span class="n">distance_microphone</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">dist</span>   
+    <span class="n">angles</span>              <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">theta</span>  
+    <span class="n">phi</span>                 <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">phi</span>     
+
+    <span class="n">nsteps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">noise_time</span><span class="p">)</span>        
+
+    <span class="c1">#Preparing matrix for noise calculation</span>
+    <span class="n">sound_ambient</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+    <span class="n">density_ambient</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+    <span class="n">viscosity</span>           <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+    <span class="n">temperature_ambient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+    <span class="n">pressure_amb</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+    <span class="n">Mach_aircraft</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+
+    <span class="c1">#Velocity_primary = np.ones(nsteps)*Velocity_primary_1</span>
+    <span class="c1">#Velocity_secondary = np.ones(nsteps)*Velocity_secondary_1</span>
+
+    <span class="c1"># ==============================================</span>
+    <span class="c1"># Computing atmospheric conditions</span>
+    <span class="c1"># ============================================== </span>
+    <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nsteps</span><span class="p">):</span>
+        <span class="n">atmo_data</span> <span class="o">=</span>  <span class="n">analyses</span><span class="o">.</span><span class="n">atmosphere</span><span class="o">.</span><span class="n">compute_values</span><span class="p">(</span><span class="n">Altitude</span><span class="p">[</span><span class="nb">id</span><span class="p">])</span>    
+        <span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>       <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">atmo_data</span><span class="o">.</span><span class="n">speed_of_sound</span><span class="p">)</span>
+        <span class="n">density_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>     <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">atmo_data</span><span class="o">.</span><span class="n">density</span><span class="p">)</span>
+        <span class="n">viscosity</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>           <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">atmo_data</span><span class="o">.</span><span class="n">dynamic_viscosity</span><span class="p">)</span>
+        <span class="n">temperature_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">atmo_data</span><span class="o">.</span><span class="n">temperature</span><span class="p">)</span>
+        <span class="n">pressure_amb</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>        <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">atmo_data</span><span class="o">.</span><span class="n">pressure</span><span class="p">)</span>
+
+    <span class="c1">#Base parameters necessary input for the noise code</span>
+    <span class="n">pressure_isa</span> <span class="o">=</span> <span class="mi">101325</span> <span class="c1"># [Pa]</span>
+    <span class="n">R_gas</span>        <span class="o">=</span> <span class="mf">287.1</span>  <span class="c1"># [J/kg K]</span>
+    <span class="n">gama_primary</span> <span class="o">=</span> <span class="mf">1.37</span>   <span class="c1"># Corretion for the primary jet</span>
+    <span class="n">gama</span>         <span class="o">=</span> <span class="mf">1.4</span>
+
+    <span class="c1">#Calculation of nozzle areas</span>
+    <span class="n">Area_primary</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">Diameter_primary</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> 
+    <span class="n">Area_secondary</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">Diameter_secondary</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> 
+
+    <span class="n">Xo</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Acoustic center of reference [m] - Used for wind tunnel acoustic data</span>
+
+    <span class="c1"># Flags for definition of near-fiel or wind-tunnel data</span>
+    <span class="n">near_field</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tunnel</span>     <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="sd">&quot;&quot;&quot;Starting the main program&quot;&quot;&quot;</span>
+
+    <span class="c1">#Arrays for the calculation of atmospheric attenuation</span>
+    <span class="n">Acq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">))</span>
+    <span class="n">Acf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">6.1</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">))</span>
+
+    <span class="c1">#Desired frequency range for noise evaluation</span>
+    <span class="n">frequency</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">center_frequencies</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span> 
+    <span class="n">num_f</span>     <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span>
+
+    <span class="c1"># Defining each array before the main loop</span>
+    <span class="n">B</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">theta_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">theta_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">theta_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">EX_p</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">EX_s</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">EX_m</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">exc</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">SPL_p</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">SPL_s</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">SPL_m</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">PG_p</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">PG_s</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">PG_m</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+
+    <span class="n">dspl_attenuation_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">dspl_attenuation_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+    <span class="n">dspl_attenuation_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+
+    <span class="n">SPL_total_history</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nsteps</span><span class="p">,</span><span class="n">num_f</span><span class="p">))</span>
+    <span class="n">SPL_primary_history</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nsteps</span><span class="p">,</span><span class="n">num_f</span><span class="p">))</span>
+    <span class="n">SPL_secondary_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nsteps</span><span class="p">,</span><span class="n">num_f</span><span class="p">))</span>
+    <span class="n">SPL_mixed_history</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nsteps</span><span class="p">,</span><span class="n">num_f</span><span class="p">))</span>
+
+    <span class="c1"># Noise history in dBA</span>
+    <span class="n">SPLt_dBA_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nsteps</span><span class="p">,</span><span class="n">num_f</span><span class="p">))</span>  
+    <span class="n">SPLt_dBA_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>     
+
+    <span class="c1"># Start loop for each position of aircraft </span>
+    <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nsteps</span><span class="p">):</span>
+
+        <span class="c1"># Jet Flow Parameters</span>
+
+        <span class="c1">#Primary and Secondary jets</span>
+        <span class="n">Cpp</span> <span class="o">=</span> <span class="n">R_gas</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">gama_primary</span><span class="p">)</span>
+        <span class="n">Cp</span>  <span class="o">=</span> <span class="n">R_gas</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">gama</span><span class="p">)</span>
+
+        <span class="n">density_primary</span>   <span class="o">=</span> <span class="n">Pressure_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">R_gas</span><span class="o">*</span><span class="n">Temperature_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">R_gas</span><span class="o">*</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">Cpp</span><span class="p">))</span>
+        <span class="n">density_secondary</span> <span class="o">=</span> <span class="n">Pressure_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">R_gas</span><span class="o">*</span><span class="n">Temperature_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">R_gas</span><span class="o">*</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">Cp</span><span class="p">))</span>
+
+        <span class="n">mass_flow_primary</span>   <span class="o">=</span> <span class="n">Area_primary</span><span class="o">*</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="n">density_primary</span>
+        <span class="n">mass_flow_secondary</span> <span class="o">=</span> <span class="n">Area_secondary</span><span class="o">*</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="n">density_secondary</span>
+
+        <span class="c1">#Mach number of the external flow - based on the aircraft velocity</span>
+        <span class="n">Mach_aircraft</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">Velocity_aircraft</span><span class="o">/</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+
+        <span class="c1">#Calculation Procedure for the Mixed Jet Flow Parameters</span>
+        <span class="n">Velocity_mixed</span> <span class="o">=</span> <span class="p">(</span><span class="n">mass_flow_primary</span><span class="o">*</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">+</span><span class="n">mass_flow_secondary</span><span class="o">*</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">])</span><span class="o">/</span> \
+            <span class="p">(</span><span class="n">mass_flow_primary</span><span class="o">+</span><span class="n">mass_flow_secondary</span><span class="p">)</span>
+        <span class="n">Temperature_mixed</span> <span class="o">=</span><span class="p">(</span><span class="n">mass_flow_primary</span><span class="o">*</span><span class="n">Temperature_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">+</span><span class="n">mass_flow_secondary</span><span class="o">*</span><span class="n">Temperature_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">])</span><span class="o">/</span> \
+            <span class="p">(</span><span class="n">mass_flow_primary</span><span class="o">+</span><span class="n">mass_flow_secondary</span><span class="p">)</span>
+        <span class="n">density_mixed</span> <span class="o">=</span> <span class="n">pressure_amb</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">R_gas</span><span class="o">*</span><span class="n">Temperature_mixed</span><span class="o">-</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">R_gas</span><span class="o">*</span><span class="n">Velocity_mixed</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">Cp</span><span class="p">))</span>
+        <span class="n">Area_mixed</span> <span class="o">=</span> <span class="n">Area_primary</span><span class="o">*</span><span class="n">density_primary</span><span class="o">*</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">mass_flow_secondary</span><span class="o">/</span><span class="n">mass_flow_primary</span><span class="p">))</span><span class="o">/</span> \
+            <span class="p">(</span><span class="n">density_mixed</span><span class="o">*</span><span class="n">Velocity_mixed</span><span class="p">)</span>
+        <span class="n">Diameter_mixed</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Area_mixed</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+
+        <span class="c1">#**********************************************</span>
+        <span class="c1"># START OF THE NOISE PROCEDURE CALCULATIONS</span>
+        <span class="c1">#**********************************************</span>
+
+        <span class="n">XBPR</span> <span class="o">=</span> <span class="n">mass_flow_secondary</span><span class="o">/</span><span class="n">mass_flow_primary</span> <span class="o">-</span> <span class="mf">5.5</span>
+        <span class="k">if</span> <span class="n">XBPR</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">XBPR</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">XBPR</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">:</span>
+            <span class="n">XBPR</span><span class="o">=</span><span class="mi">4</span>
+
+        <span class="c1">#Auxiliary parameter defined as DVPS</span>
+        <span class="n">DVPS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="n">Area_secondary</span><span class="o">+</span><span class="n">Velocity_aircraft</span><span class="o">*</span><span class="n">Area_primary</span><span class="p">)</span><span class="o">/</span>\
+                       <span class="p">(</span><span class="n">Area_secondary</span><span class="o">+</span><span class="n">Area_primary</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">DVPS</span><span class="o">&lt;</span><span class="mf">0.3</span><span class="p">:</span>
+            <span class="n">DVPS</span><span class="o">=</span><span class="mf">0.3</span>
+
+        <span class="c1"># Calculation of the Strouhal number for each jet component (p-primary, s-secondary, m-mixed)</span>
+        <span class="n">Str_p</span> <span class="o">=</span> <span class="n">frequency</span><span class="o">*</span><span class="n">Diameter_primary</span><span class="o">/</span><span class="p">(</span><span class="n">DVPS</span><span class="p">)</span>  <span class="c1">#Primary jet</span>
+        <span class="n">Str_s</span> <span class="o">=</span> <span class="n">frequency</span><span class="o">*</span><span class="n">Diameter_mixed</span><span class="o">/</span><span class="p">(</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">-</span><span class="n">Velocity_aircraft</span><span class="p">)</span> <span class="c1">#Secondary jet</span>
+        <span class="n">Str_m</span> <span class="o">=</span> <span class="n">frequency</span><span class="o">*</span><span class="n">Diameter_mixed</span><span class="o">/</span><span class="p">(</span><span class="n">Velocity_mixed</span><span class="o">-</span><span class="n">Velocity_aircraft</span><span class="p">)</span> <span class="c1">#Mixed jet</span>
+
+        <span class="c1">#Calculation of the Excitation adjustment parameter</span>
+        <span class="c1">#Excitation Strouhal Number</span>
+        <span class="n">excitation_Strouhal</span> <span class="o">=</span> <span class="p">(</span><span class="n">N1</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Diameter_mixed</span><span class="o">/</span><span class="n">Velocity_mixed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">excitation_Strouhal</span> <span class="o">&gt;</span> <span class="mf">0.25</span> <span class="ow">and</span> <span class="n">excitation_Strouhal</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">):</span>
+            <span class="n">SX</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">SX</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="p">(</span><span class="n">excitation_Strouhal</span><span class="o">-</span><span class="mf">0.25</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">excitation_Strouhal</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="c1">#Effectiveness</span>
+        <span class="n">exps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">SX</span><span class="p">)</span>
+
+        <span class="c1">#Spectral Shape Factor</span>
+        <span class="n">exs</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="n">exps</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Str_m</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">excitation_Strouhal</span><span class="o">+</span><span class="mf">0.00001</span><span class="p">)))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1">#Fan Duct Lenght Factor</span>
+        <span class="n">exd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.6</span><span class="o">-</span><span class="p">(</span><span class="n">EXA</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="c1">#Excitation source location factor (zk)</span>
+        <span class="n">zk</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="mf">0.4</span><span class="o">*</span><span class="p">(</span><span class="n">exd</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">exps</span><span class="p">)</span>    
+
+        <span class="c1">#Main loop for the desired polar angles</span>
+
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+
+        <span class="c1"># Call function noise source location for the calculation of theta</span>
+        <span class="n">thetaj</span> <span class="o">=</span> <span class="n">noise_source_location</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">Xo</span><span class="p">,</span><span class="n">zk</span><span class="p">,</span><span class="n">Diameter_primary</span><span class="p">,</span><span class="n">theta_p</span><span class="p">,</span><span class="n">Area_primary</span><span class="p">,</span><span class="n">Area_secondary</span><span class="p">,</span><span class="n">distance_microphone</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span>
+                                       <span class="n">Diameter_secondary</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">theta_s</span><span class="p">,</span><span class="n">theta_m</span><span class="p">,</span><span class="n">Diameter_mixed</span><span class="p">,</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span>
+                                       <span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">Velocity_mixed</span><span class="p">,</span><span class="n">Velocity_aircraft</span><span class="p">,</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">Str_m</span><span class="p">,</span><span class="n">Str_s</span><span class="p">)</span>
+
+        <span class="c1"># Loop for the frequency array range</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">num_f</span><span class="p">):</span>
+            <span class="c1">#Calculation of the Directivity Factor</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">theta_m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span><span class="mf">1.4</span><span class="p">):</span>
+                <span class="n">exc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="n">Velocity_mixed</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">theta_m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">1.4</span><span class="p">):</span>
+                <span class="n">exc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span><span class="p">(</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="n">Velocity_mixed</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mf">1.8</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">theta_m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mf">1.4</span><span class="p">))</span>
+
+            <span class="c1">#Acoustic excitation adjustment (EX)</span>
+            <span class="n">EX_m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">exd</span><span class="o">*</span><span class="n">exs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">exc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   <span class="c1">#mixed component - dependant of the frequency</span>
+
+        <span class="n">EX_p</span> <span class="o">=</span> <span class="o">+</span><span class="mi">5</span><span class="o">*</span><span class="n">exd</span><span class="o">*</span><span class="n">exps</span>   <span class="c1">#primary component - no frequency dependance</span>
+        <span class="n">EX_s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">zk</span><span class="p">))</span> <span class="c1">#secondary component - no frequency dependance    </span>
+
+        <span class="n">distance_primary</span>   <span class="o">=</span> <span class="n">distance_microphone</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> 
+        <span class="n">distance_secondary</span> <span class="o">=</span> <span class="n">distance_microphone</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> 
+        <span class="n">distance_mixed</span>     <span class="o">=</span> <span class="n">distance_microphone</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+
+        <span class="c1">#Noise attenuation due to Ambient Pressure</span>
+        <span class="n">dspl_ambient_pressure</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pressure_amb</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="n">pressure_isa</span><span class="p">)</span>
+
+        <span class="c1">#Noise attenuation due to Density Gradientes</span>
+        <span class="n">dspl_density_p</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">((</span><span class="n">density_primary</span><span class="o">+</span><span class="n">density_secondary</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">density_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]))</span>
+        <span class="n">dspl_density_s</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">((</span><span class="n">density_secondary</span><span class="o">+</span><span class="n">density_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">density_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]))</span>
+        <span class="n">dspl_density_m</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">((</span><span class="n">density_mixed</span><span class="o">+</span><span class="n">density_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">density_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]))</span>
+
+        <span class="c1">#Noise attenuation due to Spherical divergence</span>
+        <span class="n">dspl_spherical_p</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Diameter_primary</span><span class="o">/</span><span class="n">distance_primary</span><span class="p">)</span>
+        <span class="n">dspl_spherical_s</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Diameter_mixed</span><span class="o">/</span><span class="n">distance_secondary</span><span class="p">)</span>
+        <span class="n">dspl_spherical_m</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Diameter_mixed</span><span class="o">/</span><span class="n">distance_mixed</span><span class="p">)</span>
+
+        <span class="c1"># Noise attenuation due to Geometric Near-Field</span>
+        <span class="k">if</span> <span class="n">near_field</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">dspl_geometric_p</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">dspl_geometric_s</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">dspl_geometric_m</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">elif</span> <span class="n">near_field</span> <span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">dspl_geometric_p</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Diameter_primary</span><span class="o">+</span><span class="p">(</span><span class="n">Diameter_primary</span><span class="o">*</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="n">frequency</span><span class="p">))</span><span class="o">/</span><span class="n">distance_primary</span><span class="p">)</span>
+            <span class="n">dspl_geometric_s</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Diameter_mixed</span><span class="o">+</span><span class="p">(</span><span class="n">Diameter_mixed</span><span class="o">*</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="n">frequency</span><span class="p">))</span><span class="o">/</span><span class="n">distance_secondary</span><span class="p">)</span>
+            <span class="n">dspl_geometric_m</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Diameter_mixed</span><span class="o">+</span><span class="p">(</span><span class="n">Diameter_mixed</span><span class="o">*</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="n">frequency</span><span class="p">))</span><span class="o">/</span><span class="n">distance_mixed</span><span class="p">)</span>
+
+        <span class="c1"># Noise attenuation due to Acoustic Near-Field</span>
+        <span class="k">if</span> <span class="n">near_field</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">dspl_acoustic_p</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+            <span class="n">dspl_acoustic_s</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+            <span class="n">dspl_acoustic_m</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+        <span class="k">elif</span> <span class="n">near_field</span> <span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">dspl_acoustic_p</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.13</span><span class="o">*</span><span class="p">(</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">distance_primary</span><span class="o">*</span><span class="n">frequency</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">dspl_acoustic_s</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.13</span><span class="o">*</span><span class="p">(</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">distance_secondary</span><span class="o">*</span><span class="n">frequency</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">dspl_acoustic_m</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.13</span><span class="o">*</span><span class="p">(</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">distance_mixed</span><span class="o">*</span><span class="n">frequency</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Atmospheric attenuation coefficient</span>
+        <span class="k">if</span> <span class="n">tunnel</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">f_primary</span>   <span class="o">=</span> <span class="n">frequency</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Mach_aircraft</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta_p</span><span class="p">))</span>
+            <span class="n">f_secondary</span> <span class="o">=</span> <span class="n">frequency</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Mach_aircraft</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta_s</span><span class="p">))</span>
+            <span class="n">f_mixed</span>     <span class="o">=</span> <span class="n">frequency</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Mach_aircraft</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta_m</span><span class="p">))</span>
+            <span class="n">Aci</span>         <span class="o">=</span> <span class="n">Acf</span> <span class="o">+</span> <span class="p">((</span><span class="n">temperature_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">-</span><span class="mi">0</span><span class="p">)</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">Acq</span><span class="o">-</span><span class="n">Acf</span><span class="p">)</span>    
+
+            <span class="n">Ac_primary</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">f_primary</span><span class="p">,</span><span class="n">frequency</span><span class="p">,</span><span class="n">Aci</span><span class="p">)</span>
+            <span class="n">Ac_secondary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">f_secondary</span><span class="p">,</span><span class="n">frequency</span><span class="p">,</span><span class="n">Aci</span><span class="p">)</span>
+            <span class="n">Ac_mixed</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">f_mixed</span><span class="p">,</span><span class="n">frequency</span><span class="p">,</span><span class="n">Aci</span><span class="p">)</span>
+
+                <span class="c1">#Atmospheric attenuation</span>
+            <span class="n">delta_atmo</span> <span class="o">=</span> <span class="n">atmospheric_attenuation</span><span class="p">(</span><span class="n">distance_primary</span><span class="p">)</span>
+
+            <span class="n">dspl_attenuation_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">delta_atmo</span> 
+            <span class="n">dspl_attenuation_s</span> <span class="o">=</span> <span class="o">-</span><span class="n">delta_atmo</span> 
+            <span class="n">dspl_attenuation_m</span> <span class="o">=</span> <span class="o">-</span><span class="n">delta_atmo</span> 
+
+        <span class="k">elif</span> <span class="n">tunnel</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span> <span class="c1">#These corrections are not applicable for jet rigs or static conditions</span>
+            <span class="n">dspl_attenuation_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+            <span class="n">dspl_attenuation_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+            <span class="n">dspl_attenuation_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+            <span class="n">EX_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_f</span><span class="p">)</span>
+            <span class="n">EX_p</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">EX_s</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Calculation of the total noise attenuation (p-primary, s-secondary, m-mixed components)</span>
+        <span class="n">DSPL_p</span> <span class="o">=</span> <span class="n">dspl_ambient_pressure</span><span class="o">+</span><span class="n">dspl_density_p</span><span class="o">+</span><span class="n">dspl_geometric_p</span><span class="o">+</span><span class="n">dspl_acoustic_p</span><span class="o">+</span><span class="n">dspl_attenuation_p</span><span class="o">+</span><span class="n">dspl_spherical_p</span>
+        <span class="n">DSPL_s</span> <span class="o">=</span> <span class="n">dspl_ambient_pressure</span><span class="o">+</span><span class="n">dspl_density_s</span><span class="o">+</span><span class="n">dspl_geometric_s</span><span class="o">+</span><span class="n">dspl_acoustic_s</span><span class="o">+</span><span class="n">dspl_attenuation_s</span><span class="o">+</span><span class="n">dspl_spherical_s</span>
+        <span class="n">DSPL_m</span> <span class="o">=</span> <span class="n">dspl_ambient_pressure</span><span class="o">+</span><span class="n">dspl_density_m</span><span class="o">+</span><span class="n">dspl_geometric_m</span><span class="o">+</span><span class="n">dspl_acoustic_m</span><span class="o">+</span><span class="n">dspl_attenuation_m</span><span class="o">+</span><span class="n">dspl_spherical_m</span>
+
+
+        <span class="c1"># Calculation of interference effects on jet noise</span>
+        <span class="n">ATK_m</span>   <span class="o">=</span> <span class="n">angle_of_attack_effect</span><span class="p">(</span><span class="n">AOA</span><span class="p">,</span><span class="n">Mach_aircraft</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">theta_m</span><span class="p">)</span>
+        <span class="n">INST_s</span>  <span class="o">=</span> <span class="n">jet_installation_effect</span><span class="p">(</span><span class="n">Xe</span><span class="p">,</span><span class="n">Ye</span><span class="p">,</span><span class="n">Ce</span><span class="p">,</span><span class="n">theta_s</span><span class="p">,</span><span class="n">Diameter_mixed</span><span class="p">)</span>
+        <span class="n">Plug</span>    <span class="o">=</span> <span class="n">external_plug_effect</span><span class="p">(</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span> <span class="n">Velocity_mixed</span><span class="p">,</span> <span class="n">Diameter_primary</span><span class="p">,</span><span class="n">Diameter_secondary</span><span class="p">,</span>
+                                       <span class="n">Diameter_mixed</span><span class="p">,</span> <span class="n">Plug_diameter</span><span class="p">,</span> <span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span> <span class="n">theta_p</span><span class="p">,</span><span class="n">theta_s</span><span class="p">,</span><span class="n">theta_m</span><span class="p">)</span>
+
+        <span class="n">GPROX_m</span> <span class="o">=</span> <span class="n">ground_proximity_effect</span><span class="p">(</span><span class="n">Velocity_mixed</span><span class="p">,</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">theta_m</span><span class="p">,</span><span class="n">engine_height</span><span class="p">,</span><span class="n">Diameter_mixed</span><span class="p">,</span><span class="n">frequency</span><span class="p">)</span>
+
+        <span class="c1"># Calculation of the sound pressure level for each jet component</span>
+        <span class="n">SPL_p</span> <span class="o">=</span> <span class="n">primary_noise_component</span><span class="p">(</span><span class="n">SPL_p</span><span class="p">,</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">Temperature_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">R_gas</span><span class="p">,</span><span class="n">theta_p</span><span class="p">,</span><span class="n">DVPS</span><span class="p">,</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span>
+                                        <span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">Velocity_aircraft</span><span class="p">,</span><span class="n">Area_primary</span><span class="p">,</span><span class="n">Area_secondary</span><span class="p">,</span><span class="n">DSPL_p</span><span class="p">,</span><span class="n">EX_p</span><span class="p">,</span><span class="n">Str_p</span><span class="p">)</span> <span class="o">+</span> <span class="n">Plug</span><span class="o">.</span><span class="n">PG_p</span>
+
+        <span class="n">SPL_s</span> <span class="o">=</span> <span class="n">secondary_noise_component</span><span class="p">(</span><span class="n">SPL_s</span><span class="p">,</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">theta_s</span><span class="p">,</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span>
+                                          <span class="n">Velocity_aircraft</span><span class="p">,</span><span class="n">Area_primary</span><span class="p">,</span><span class="n">Area_secondary</span><span class="p">,</span><span class="n">DSPL_s</span><span class="p">,</span><span class="n">EX_s</span><span class="p">,</span><span class="n">Str_s</span><span class="p">)</span> <span class="o">+</span> <span class="n">Plug</span><span class="o">.</span><span class="n">PG_s</span> <span class="o">+</span> <span class="n">INST_s</span>
+
+        <span class="n">SPL_m</span> <span class="o">=</span> <span class="n">mixed_noise_component</span><span class="p">(</span><span class="n">SPL_m</span><span class="p">,</span><span class="n">Velocity_primary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">theta_m</span><span class="p">,</span><span class="n">sound_ambient</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">Velocity_secondary</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span>
+                                      <span class="n">Velocity_aircraft</span><span class="p">,</span><span class="n">Area_primary</span><span class="p">,</span><span class="n">Area_secondary</span><span class="p">,</span><span class="n">DSPL_m</span><span class="p">,</span><span class="n">EX_m</span><span class="p">,</span><span class="n">Str_m</span><span class="p">,</span><span class="n">Velocity_mixed</span><span class="p">,</span><span class="n">XBPR</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="n">Plug</span><span class="o">.</span><span class="n">PG_m</span> <span class="o">+</span> <span class="n">ATK_m</span> <span class="o">+</span> <span class="n">GPROX_m</span>
+
+        <span class="c1"># Sum of the Total Noise</span>
+        <span class="n">SPL_total</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">0.1</span><span class="o">*</span><span class="n">SPL_p</span><span class="p">)</span><span class="o">+</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">0.1</span><span class="o">*</span><span class="n">SPL_s</span><span class="p">)</span><span class="o">+</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">0.1</span><span class="o">*</span><span class="n">SPL_m</span><span class="p">))</span>
+
+        <span class="c1"># Store the SPL history     </span>
+        <span class="n">SPL_total_history</span><span class="p">[</span><span class="nb">id</span><span class="p">][:]</span>     <span class="o">=</span> <span class="n">SPL_total</span><span class="p">[:]</span>
+        <span class="n">SPL_primary_history</span><span class="p">[</span><span class="nb">id</span><span class="p">][:]</span>   <span class="o">=</span> <span class="n">SPL_p</span><span class="p">[:]</span>
+        <span class="n">SPL_secondary_history</span><span class="p">[</span><span class="nb">id</span><span class="p">][:]</span> <span class="o">=</span> <span class="n">SPL_s</span><span class="p">[:]</span>
+        <span class="n">SPL_mixed_history</span><span class="p">[</span><span class="nb">id</span><span class="p">][:]</span>     <span class="o">=</span> <span class="n">SPL_m</span><span class="p">[:]</span>
+
+        <span class="c1"># Calculation of dBA based on the sound pressure time history</span>
+        <span class="n">SPLt_dBA</span> <span class="o">=</span> <span class="n">dbA_noise</span><span class="p">(</span><span class="n">SPL_total</span><span class="p">)</span>
+        <span class="n">SPLt_dBA_history</span><span class="p">[</span><span class="n">i</span><span class="p">][:]</span> <span class="o">=</span> <span class="n">SPLt_dBA</span><span class="p">[:]</span>
+        <span class="n">SPLt_dBA_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">SPLt_dBA</span><span class="p">)</span>          
+
+    <span class="c1"># Calculation of the Perceived Noise Level EPNL based on the sound time history</span>
+    <span class="n">PNL_total</span>               <span class="o">=</span>  <span class="n">pnl_noise</span><span class="p">(</span><span class="n">SPL_total_history</span><span class="p">)</span>    
+    <span class="n">PNL_primary</span>             <span class="o">=</span>  <span class="n">pnl_noise</span><span class="p">(</span><span class="n">SPL_primary_history</span><span class="p">)</span>  
+    <span class="n">PNL_secondary</span>           <span class="o">=</span>  <span class="n">pnl_noise</span><span class="p">(</span><span class="n">SPL_secondary_history</span><span class="p">)</span>  
+    <span class="n">PNL_mixed</span>               <span class="o">=</span>  <span class="n">pnl_noise</span><span class="p">(</span><span class="n">SPL_mixed_history</span><span class="p">)</span>  
+
+    <span class="c1"># Calculation of the tones corrections on the SPL for each component and total</span>
+    <span class="n">tone_correction_total</span>     <span class="o">=</span> <span class="n">noise_tone_correction</span><span class="p">(</span><span class="n">SPL_total_history</span><span class="p">)</span> 
+    <span class="n">tone_correction_primary</span>   <span class="o">=</span> <span class="n">noise_tone_correction</span><span class="p">(</span><span class="n">SPL_primary_history</span><span class="p">)</span> 
+    <span class="n">tone_correction_secondary</span> <span class="o">=</span> <span class="n">noise_tone_correction</span><span class="p">(</span><span class="n">SPL_secondary_history</span><span class="p">)</span> 
+    <span class="n">tone_correction_mixed</span>     <span class="o">=</span> <span class="n">noise_tone_correction</span><span class="p">(</span><span class="n">SPL_mixed_history</span><span class="p">)</span> 
+
+    <span class="c1"># Calculation of the PLNT for each component and total</span>
+    <span class="n">PNLT_total</span>     <span class="o">=</span> <span class="n">PNL_total</span><span class="o">+</span><span class="n">tone_correction_total</span>
+    <span class="n">PNLT_primary</span>   <span class="o">=</span> <span class="n">PNL_primary</span><span class="o">+</span><span class="n">tone_correction_primary</span>
+    <span class="n">PNLT_secondary</span> <span class="o">=</span> <span class="n">PNL_secondary</span><span class="o">+</span><span class="n">tone_correction_secondary</span>
+    <span class="n">PNLT_mixed</span>     <span class="o">=</span> <span class="n">PNL_mixed</span><span class="o">+</span><span class="n">tone_correction_mixed</span>
+
+    <span class="c1"># Calculation of the EPNL for each component and total</span>
+    <span class="n">EPNL_total</span>     <span class="o">=</span> <span class="n">epnl_noise</span><span class="p">(</span><span class="n">PNLT_total</span><span class="p">)</span>
+    <span class="n">EPNL_primary</span>   <span class="o">=</span> <span class="n">epnl_noise</span><span class="p">(</span><span class="n">PNLT_primary</span><span class="p">)</span>
+    <span class="n">EPNL_secondary</span> <span class="o">=</span> <span class="n">epnl_noise</span><span class="p">(</span><span class="n">PNLT_secondary</span><span class="p">)</span>
+    <span class="n">EPNL_mixed</span>     <span class="o">=</span> <span class="n">epnl_noise</span><span class="p">(</span><span class="n">PNLT_mixed</span><span class="p">)</span>
+
+    <span class="c1">#Calculation of the SENEL total</span>
+    <span class="n">SENEL_total</span> <span class="o">=</span> <span class="n">senel_noise</span><span class="p">(</span><span class="n">SPLt_dBA_max</span><span class="p">)</span>
+
+    <span class="c1"># Open output file to print the results</span>
+    <span class="k">if</span> <span class="n">ioprint</span><span class="p">:</span>
+        <span class="n">print_engine_output</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span><span class="n">EPNL_total</span><span class="p">,</span><span class="n">PNLT_total</span><span class="p">,</span><span class="n">Velocity_aircraft</span><span class="p">,</span> <span class="n">noise_time</span><span class="p">,</span><span class="n">Altitude</span><span class="p">,</span><span class="n">Mach_aircraft</span><span class="p">,</span>
+                            <span class="n">Velocity_primary</span><span class="p">,</span><span class="n">Velocity_secondary</span><span class="p">,</span><span class="n">angles</span><span class="p">,</span><span class="n">phi</span><span class="p">,</span> <span class="n">distance_microphone</span><span class="p">,</span><span class="n">PNLT_primary</span><span class="p">,</span><span class="n">PNLT_secondary</span><span class="p">,</span>
+                            <span class="n">PNLT_mixed</span><span class="p">,</span><span class="n">SPLt_dBA_max</span><span class="p">,</span> <span class="n">EPNL_primary</span><span class="p">,</span><span class="n">EPNL_secondary</span><span class="p">,</span><span class="n">EPNL_mixed</span><span class="p">,</span><span class="n">SENEL_total</span><span class="p">,</span> <span class="n">nsteps</span><span class="p">,</span>
+                            <span class="n">frequency</span><span class="p">,</span> <span class="n">SPL_primary_history</span><span class="p">,</span><span class="n">SPL_secondary_history</span><span class="p">,</span><span class="n">SPL_mixed_history</span> <span class="p">,</span> <span class="n">SPL_total_history</span> <span class="p">)</span>
+
+    <span class="n">engine_noise</span>                   <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+    <span class="n">engine_noise</span><span class="o">.</span><span class="n">EPNL_total</span>        <span class="o">=</span> <span class="n">EPNL_total</span> 
+    <span class="n">engine_noise</span><span class="o">.</span><span class="n">SENEL_total</span>       <span class="o">=</span> <span class="n">SENEL_total</span>
+    <span class="n">engine_noise</span><span class="o">.</span><span class="n">SPL_spectrum</span>      <span class="o">=</span> <span class="n">SPL_total_history</span>
+    <span class="n">engine_noise</span><span class="o">.</span><span class="n">SPL</span>               <span class="o">=</span> <span class="n">SPL_arithmetic</span><span class="p">(</span><span class="n">SPL_total_history</span><span class="p">)</span>
+    <span class="n">engine_noise</span><span class="o">.</span><span class="n">SPL_dBA</span>           <span class="o">=</span> <span class="n">SPL_arithmetic</span><span class="p">(</span><span class="n">SPLt_dBA</span><span class="p">)</span>    
+
+    <span class="k">return</span> <span class="n">engine_noise</span></div>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

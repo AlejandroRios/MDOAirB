@@ -1,0 +1,888 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry.wetted_area &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry.wetted_area</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Sizing.Geometry.wetted_area</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name : Wetted area function</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : Dezember 2019</span>
+<span class="sd">Last edit : January 2021</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This function calculates the wetted area of the principal components of the </span>
+<span class="sd">    aircraft.</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    - Vehicle dictionaty</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Updated vehicle dictionary</span>
+<span class="sd">    - x and y coordinates of wing chords </span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    - Split this function into functions for each component</span>
+<span class="sd">    - Rename engine variables</span>
+<span class="sd">    - x and y coordinates output into vehicle dictionary</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.pax_cabine_length</span> <span class="kn">import</span> <span class="n">pax_cabine_length</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.tailcone_sizing</span> <span class="kn">import</span> <span class="n">tailcone_sizing</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.wetted_area_fuselage</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.wetted_area_wing</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.sizing_horizontal_tail</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Engine.engine_performance</span> <span class="kn">import</span> <span class="n">turbofan</span>
+<span class="kn">from</span> <span class="nn">framework.utilities.logger</span> <span class="kn">import</span> <span class="n">get_logger</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">framework.CPACS_update.cpacsfunctions</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># import cpacsfunctions as cpsf</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">global</span> <span class="n">deg_to_rad</span>
+<span class="n">deg_to_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+<span class="n">N_to_lbf</span> <span class="o">=</span> <span class="mf">0.2248089431</span>
+
+
+<div class="viewcode-block" id="wetted_area"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.wetted_area.wetted_area">[docs]</a><span class="k">def</span> <span class="nf">wetted_area</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+
+    <span class="n">MODULE_DIR</span> <span class="o">=</span> <span class="s1">&#39;c:/Users/aarc8/Documents/github\MDOAirB/framework/CPACS_update&#39;</span>
+    <span class="n">cpacs_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MODULE_DIR</span><span class="p">,</span> <span class="s1">&#39;ToolInput&#39;</span><span class="p">,</span> <span class="s1">&#39;Aircraft_In.xml&#39;</span><span class="p">)</span>
+    <span class="n">cpacs_out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MODULE_DIR</span><span class="p">,</span> <span class="s1">&#39;ToolOutput&#39;</span><span class="p">,</span> <span class="s1">&#39;Aircraft_Out.xml&#39;</span><span class="p">)</span>
+    <span class="n">tixi</span> <span class="o">=</span> <span class="n">open_tixi</span><span class="p">(</span><span class="n">cpacs_out_path</span><span class="p">)</span>
+    <span class="n">tigl</span> <span class="o">=</span> <span class="n">open_tigl</span><span class="p">(</span><span class="n">tixi</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;---- Start wetted area module ----&#39;</span><span class="p">)</span>
+
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">horizontal_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;horizontal_tail&#39;</span><span class="p">]</span>
+    <span class="n">vertical_tail</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;vertical_tail&#39;</span><span class="p">]</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;operations&#39;</span><span class="p">]</span>
+    <span class="n">pylon</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;pylon&#39;</span><span class="p">]</span>
+    <span class="n">winglet</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;winglet&#39;</span><span class="p">]</span>
+
+    <span class="n">fileToRead1</span> <span class="o">=</span> <span class="s1">&#39;proot&#39;</span>
+    <span class="n">fileToRead2</span> <span class="o">=</span> <span class="s1">&#39;pkink&#39;</span>
+    <span class="n">fileToRead3</span> <span class="o">=</span> <span class="s1">&#39;ptip&#39;</span>
+
+    <span class="n">engine_thrust</span><span class="p">,</span> <span class="n">_</span> <span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>  <span class="c1"># force [N], fuel flow [kg/hr]</span>
+
+    <span class="n">engine_thrust_lbf</span><span class="o">=</span> <span class="n">engine_thrust</span><span class="o">*</span><span class="n">N_to_lbf</span>
+
+    <span class="c1"># Sizing</span>
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">])</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">])</span>  <span class="c1"># number of engines</span>
+
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="c1"># Fuselage pax cabine length</span>
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pax_cabine_length</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;tail_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tailcone_sizing</span><span class="p">(</span>
+        <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;passenger_capacity&#39;</span><span class="p">],</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">],</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">],</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">])</span>
+
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;tail_length&#39;</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cockpit_length&#39;</span><span class="p">]</span>  <span class="c1"># comprimento fuselagem [m]</span>
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">-</span> \
+        <span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;tail_length&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cockpit_length&#39;</span><span class="p">])</span>
+    <span class="c1"># Calculo da area molhada da fuselagem</span>
+    <span class="c1"># --&gt; Fuselagem dianteira</span>
+    <span class="n">fuselage_wetted_area_forward</span> <span class="o">=</span> <span class="n">wetted_area_forward_fuselage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+    <span class="c1"># --&gt; Cabina de passageiros</span>
+    <span class="c1"># calculo da excentricidade da elipse (se��o transversal da fuselagem)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">],</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">],</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="n">a</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">e</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">fusealge_wetted_area_pax_cabine</span> <span class="o">=</span> <span class="n">p</span><span class="o">*</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span>
+    <span class="c1"># --&gt; Cone de cauda</span>
+    <span class="n">fuselage_wetted_area_tailcone</span> <span class="o">=</span> <span class="n">wetted_area_tailcone_fuselage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">)</span>
+    <span class="c1"># Hah ainda que se descontar a area do perfil da raiz da asa</span>
+    <span class="c1"># Sera feito mais adiante</span>
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage_wetted_area_forward</span> <span class="o">+</span> \
+        <span class="n">fusealge_wetted_area_pax_cabine</span><span class="o">+</span><span class="n">fuselage_wetted_area_tailcone</span>
+
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">open_tixi</span><span class="p">(</span><span class="n">cpacs_out_path</span><span class="p">)</span>
+
+    <span class="n">fuselage_xpath</span> <span class="o">=</span> <span class="s1">&#39;/cpacs/vehicles/aircraft/model/fuselages/fuselage[1]/&#39;</span>
+    
+    <span class="c1"># Update leading edge position</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[8]/length&#39;</span><span class="p">,</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[9]/length&#39;</span><span class="p">,</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[10]/length&#39;</span><span class="p">,</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[11]/length&#39;</span><span class="p">,</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cabine_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[12]/length&#39;</span><span class="p">,</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;tail_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[13]/length&#39;</span><span class="p">,</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;tail_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="n">nominal_diameter</span> <span class="o">=</span> <span class="mf">2.0705</span><span class="o">*</span><span class="mi">2</span>
+
+
+    <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">nominal_diameter</span>
+
+
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;transformation/scaling/y&#39;</span><span class="p">,</span><span class="n">scale_factor</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">fuselage_xpath</span><span class="o">+</span><span class="s1">&#39;transformation/scaling/z&#39;</span><span class="p">,</span><span class="n">scale_factor</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">close_tixi</span><span class="p">(</span><span class="n">tixi_out</span><span class="p">,</span> <span class="n">cpacs_out_path</span><span class="p">)</span>
+
+    <span class="c1"># -----------------------------------------------------------------------------</span>
+
+    <span class="c1"># Wing</span>
+    <span class="n">wing_trap_surface</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>  <span class="c1"># [m2]area da asa</span>
+    <span class="n">wing_trap_aspect_ratio</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span>  <span class="c1"># Alongamento da asa</span>
+    <span class="n">wing_trap_taper_ratio</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span>
+    <span class="n">wing_trap_center_chord</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">wing_trap_surface</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="p">))</span>  <span class="c1"># [m] corda no centr</span>
+
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">wing_dihedral</span> <span class="o">=</span> <span class="mf">2.5</span>  <span class="c1"># [�] diedro para asa baixa</span>
+        <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">wing_dihedral</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">wing_dihedral</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.5</span>  <span class="c1"># [�] diedro para asa alta</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_trap_taper_ratio</span> <span class="o">*</span> \
+        <span class="n">wing_trap_center_chord</span>  <span class="c1"># [m] corda na ponta</span>
+
+    <span class="n">wing_trap_mean_geometrical_chord</span> <span class="o">=</span> <span class="n">wing_trap_surface</span> <span class="o">/</span> \
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span>  <span class="c1"># [m] corda media geometrica</span>
+    <span class="c1"># [m] corda media geometrica</span>
+    <span class="n">wing_trap_mean_aerodynamic_chord</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">wing_trap_center_chord</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="p">)</span>
+    <span class="n">wing_trap_mean_aerodynamic_chord_yposition</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">6</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">wing_trap_taper_ratio</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="p">)</span>  <span class="c1"># [m] posi�ao y da mac</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">wing_trap_aspect_ratio</span><span class="o">*</span><span class="p">(</span>
+        <span class="mi">1</span><span class="o">-</span><span class="n">wing_trap_taper_ratio</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="p">)))</span>  <span class="c1"># [�] enflechamento bordo de ataque</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_c_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">wing_trap_aspect_ratio</span><span class="o">*</span><span class="p">(</span>
+        <span class="mi">1</span><span class="o">-</span><span class="n">wing_trap_taper_ratio</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="p">)))</span>  <span class="c1"># [�] enflechamento C/2</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="n">wing_trap_aspect_ratio</span><span class="o">*</span><span class="p">(</span>
+        <span class="mi">1</span><span class="o">-</span><span class="n">wing_trap_taper_ratio</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing_trap_taper_ratio</span><span class="p">)))</span>  <span class="c1"># [�] enflechamento bordo de fuga</span>
+
+    <span class="c1"># Reference wing</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="mi">2</span>  <span class="c1"># [m] y da raiz da asa</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span_kink&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># [m] y da quebra</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span><span class="o">-</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span> <span class="o">*</span>
+                                                                                                                                               <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">]))</span>  <span class="c1"># [m] corda da quebra</span>
+    <span class="n">wing_trap_root_chord</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span><span class="o">-</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span> <span class="o">*</span>
+                                                                                                                                                 <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">]))</span>  <span class="c1"># [m] corda da raiz fus trap</span>
+    <span class="c1"># corda da raiz fus crank</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_trap_root_chord</span> <span class="o">+</span> \
+        <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">])</span> <span class="o">*</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">])</span>
+    <span class="n">wing_exposed_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">])</span> <span class="o">+</span> \
+        <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">])</span>  <span class="c1"># area exposta</span>
+    <span class="c1"># corda na juncao com a fus da asa de ref</span>
+    <span class="n">wing_ref_root_chord</span> <span class="o">=</span> <span class="n">wing_exposed_area</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">])</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span>
+    <span class="n">wing_ref_center_chord</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">wing_ref_root_chord</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span>
+         <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">])</span>  <span class="c1"># [m] corda na raiz  da asa de ref</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_trap_center_chord</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">])</span>  <span class="c1"># [m] chord at root</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">wing_ref_center_chord</span>  <span class="c1"># taper ratio actual wing</span>
+
+    <span class="n">wing_ref_tip_chord</span> <span class="o">=</span> <span class="n">wing_ref_center_chord</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span>
+    <span class="n">wing_ref_mean_geometrical_chord</span> <span class="o">=</span> <span class="n">wing_ref_center_chord</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># mgc asa de ref</span>
+    <span class="n">wing_ref_mean_aerodynamic_chord</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">wing_ref_center_chord</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>  <span class="c1"># mac da asa ref</span>
+    <span class="n">wing_ref_mean_aerodynamic_chord_yposition</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">6</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>  <span class="c1"># y da mac da asa ref</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">wing_ref_mean_geometrical_chord</span>  <span class="c1"># alongamento asa real</span>
+
+    <span class="n">wing_ref_area</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">wing_ref_mean_geometrical_chord</span>  <span class="c1"># reference area [m�]</span>
+    <span class="n">wing_exposed_span</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">-</span> \
+        <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># envergadura asa exposta</span>
+    <span class="c1"># exposed wing aspect ratio</span>
+    <span class="n">wing_exposed_aspect_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing_exposed_span</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">wing_exposed_area</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">wing_exposed_taper_ratio</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span>  <span class="c1"># afilamento asa exposta</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_ref_mean_aerodynamic_chord</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord_yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_ref_mean_aerodynamic_chord_yposition</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;leading_edge_xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4250</span> <span class="o">*</span> \
+        <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>  <span class="c1"># inital estimative</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;leading_edge_xposition&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">wing_ref_mean_aerodynamic_chord_yposition</span> <span class="o">*</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span> <span class="o">+</span> \
+        <span class="mf">0.25</span><span class="o">*</span><span class="n">wing_ref_mean_aerodynamic_chord</span>
+    <span class="n">wing_rel_aerodynamic_center_xposition</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">wing_ref_mean_aerodynamic_chord</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aileron_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span><span class="o">-</span><span class="p">((</span><span class="mf">0.75</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span> <span class="o">*</span>
+                                                                                                                                           <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="p">(</span><span class="mf">0.75</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">]))</span>  <span class="c1"># corda no aileron</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aileron_surface&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span> <span class="o">+</span>
+                                                                                                                                   <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;aileron_chord&#39;</span><span class="p">])</span><span class="o">*</span><span class="p">((</span><span class="mf">0.75</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">])</span>  <span class="c1"># area exposta com flap</span>
+    
+
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">open_tixi</span><span class="p">(</span><span class="n">cpacs_out_path</span><span class="p">)</span>
+
+    <span class="n">wing_xpath</span> <span class="o">=</span> <span class="s1">&#39;/cpacs/vehicles/aircraft/model/wings/wing[1]/&#39;</span>
+    
+    <span class="c1"># Update leading edge position</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;transformation/translation/x&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;leading_edge_xposition&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Update center chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Update root chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[2]/length&#39;</span><span class="p">,</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord_yposition&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Update kink chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[3]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[3]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[3]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[3]/length&#39;</span><span class="p">,</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord_yposition&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[3]/sweepAngle&#39;</span><span class="p">,</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Update tip chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[4]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[4]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[4]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[4]/length&#39;</span><span class="p">,</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">wing_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[4]/sweepAngle&#39;</span><span class="p">,</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">close_tixi</span><span class="p">(</span><span class="n">tixi_out</span><span class="p">,</span> <span class="n">cpacs_out_path</span><span class="p">)</span>
+
+
+
+
+    <span class="c1">############################# WING WETTED AREA ############################</span>
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="c1"># engine[&#39;diameter&#39;] = engine[&#39;fan_diameter&#39;]/0.98  # [m]</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span_kink&#39;</span><span class="p">]</span>
+
+    <span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">xutip</span><span class="p">,</span> <span class="n">yutip</span><span class="p">,</span> <span class="n">xltip</span><span class="p">,</span> <span class="n">yltip</span><span class="p">,</span>
+        <span class="n">xubreak</span><span class="p">,</span> <span class="n">yubreak</span><span class="p">,</span> <span class="n">xlbreak</span><span class="p">,</span> <span class="n">ylbreak</span><span class="p">,</span> <span class="n">xuraiz</span><span class="p">,</span> <span class="n">yuraiz</span><span class="p">,</span> <span class="n">xlraiz</span><span class="p">,</span> <span class="n">ylraiz</span><span class="p">)</span> <span class="o">=</span> <span class="n">wetted_area_wing</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">fileToRead1</span><span class="p">,</span> <span class="n">fileToRead2</span><span class="p">,</span> <span class="n">fileToRead3</span><span class="p">)</span>
+
+    <span class="c1"># descontar a area do perfil da raiz da asa da area molhada da fuselagem</span>
+    <span class="n">xproot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">xuraiz</span><span class="p">),</span> <span class="n">xlraiz</span><span class="p">])</span>
+    <span class="n">xproot</span> <span class="o">=</span> <span class="n">xproot</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">yproot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">yuraiz</span><span class="p">),</span> <span class="n">ylraiz</span><span class="p">])</span>
+    <span class="n">yproot</span> <span class="o">=</span> <span class="n">yproot</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">PolyArea</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="n">area_root</span> <span class="o">=</span> <span class="n">PolyArea</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">xproot</span><span class="p">,</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">yproot</span><span class="p">)</span>
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">area_root</span>
+    <span class="c1"># -----------------------------------------------------------------------------</span>
+    <span class="c1">################################# WINGLET #################################</span>
+    <span class="c1">###########################################################################</span>
+
+    <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;winglet_presence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.65</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span>
+        <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">*</span><span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Perfil da ponta = perfil da raiz</span>
+        <span class="c1"># Assume-se 9# da espessura relativa do perfil</span>
+        <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;thickess&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.09</span>
+        <span class="n">aux1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.25</span><span class="o">*</span><span class="p">(</span><span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;thickess&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span> <span class="o">*</span>
+                                                 <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])))</span>
+        <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">aux1</span>  <span class="c1"># [m2]</span>
+
+    <span class="c1"># -----------------------------------------------------------------------------</span>
+    <span class="c1">##############################VERTICAL TAIL################################</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1"># initial guess for VT area</span>
+    <span class="n">vertical_tail_surface_to_wing_area</span> <span class="o">=</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>  <span class="c1"># rela�ao de areas</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span>  <span class="c1"># Envergadura EV (m)</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">*</span>
+         <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]))</span>  <span class="c1"># corda de centro</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span>  <span class="c1"># corda da ponta</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span>  <span class="c1"># corda na raiz</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span>  <span class="c1"># mgc</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>  <span class="c1"># mac</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord_yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="mi">6</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span>
+                                                                  <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])))</span>  <span class="c1"># [�] enflechamento bordo de ataque</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span>
+                                                         <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])))</span>  <span class="c1"># [�] enflechamento C/2</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span>
+                                                                   <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])))</span>  <span class="c1"># [�] enflechamento bordo de fuga</span>
+    <span class="c1"># lv=(0.060*wingref.S*wing[&#39;span&#39;])/vertical_tail[&#39;area&#39;] # fisrt estimate</span>
+    <span class="c1"># lv=lh - 0.25*ht.ct - vertical_tail[&#39;span&#39;] * tan(deg_to_rad*vertical_tail[&#39;sweep_leading_edge&#39;]) + 0.25*vertical_tail[&#39;center_chord&#39;] + vertical_tail[&#39;mean_aerodynamic_chord&#39;] *tan(deg_to_rad*vertical_tail[&#39;sweep_c_4&#39;]) # braco da EV</span>
+    <span class="c1"># vt.v=vertical_tail[&#39;area&#39;]*lv/(wingref.S*wing[&#39;span&#39;]) # volume de cauda</span>
+
+
+    <span class="c1">############################# VT wetted area ######################################</span>
+    <span class="n">vertical_tail_mean_chord_thickness</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span>  <span class="c1"># [#]espessura media</span>
+    <span class="n">vertical_tail_tau</span> <span class="o">=</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># additional area due to the dorsal fin [m2]</span>
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span>
+                                                            <span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail_tau</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])))</span>  <span class="c1"># [m2]</span>
+    <span class="c1"># Read geometry of VT airfoil</span>
+    <span class="n">panel_number</span> <span class="o">=</span> <span class="mi">201</span>
+    <span class="n">airfoil_name</span> <span class="o">=</span> <span class="s1">&#39;pvt&#39;</span>
+    <span class="c1"># airfoil_preprocessing(airfoil_name, panel_number)</span>
+    <span class="c1"># df_pvt = pd.read_table(&quot;&quot;+ airfoil_name +&#39;.dat&#39; ,header=None,skiprows=[0],sep=&#39;,&#39;)</span>
+    <span class="n">df_pvt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Database/Airfoils/&quot;</span> <span class="o">+</span> <span class="n">airfoil_name</span><span class="o">+</span><span class="s1">&#39;.dat&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span>
+                         <span class="n">delimiter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">df_pvt</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+
+    <span class="c1"># [coordinates,~]=get_airfoil_coord(&#39;pvt.dat&#39;)</span>
+
+    <span class="n">xvt</span> <span class="o">=</span> <span class="n">df_pvt</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">yvt</span> <span class="o">=</span> <span class="n">df_pvt</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">area_root_vt</span> <span class="o">=</span> <span class="n">PolyArea</span><span class="p">(</span>
+        <span class="n">xvt</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">],</span> <span class="n">yvt</span><span class="o">*</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">])</span>
+
+    <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.95</span><span class="o">*</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord_yposition&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_ref&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span>
+
+    <span class="n">vertical_tail_xle_position</span> <span class="o">=</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center_xposition&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.25</span>
+    <span class="c1"># Desconta area da intersecao VT-fuselagem da area molhada da fuselagem</span>
+    <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">area_root_vt</span>
+
+
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">open_tixi</span><span class="p">(</span><span class="n">cpacs_out_path</span><span class="p">)</span>
+
+    <span class="n">vertical_tail_xpath</span> <span class="o">=</span> <span class="s1">&#39;/cpacs/vehicles/aircraft/model/wings/wing[3]/&#39;</span>
+    
+
+    <span class="c1"># Update leading edge position</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;transformation/translation/x&#39;</span><span class="p">,</span> <span class="n">vertical_tail_xle_position</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Update center chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Update root chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[2]/length&#39;</span><span class="p">,</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">vertical_tail_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[2]/sweepAngle&#39;</span><span class="p">,</span><span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">close_tixi</span><span class="p">(</span><span class="n">tixi_out</span><span class="p">,</span> <span class="n">cpacs_out_path</span><span class="p">)</span>
+    <span class="c1"># -----------------------------------------------------------------------------</span>
+    <span class="c1">##############################HORIZONTAL TAIL##############################</span>
+    <span class="c1">###########################################################################</span>
+    <span class="n">vehicle</span> <span class="o">=</span> <span class="n">sizing_horizontal_tail</span><span class="p">(</span>
+        <span class="n">vehicle</span><span class="p">,</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_cruise&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">operations</span><span class="p">[</span><span class="s1">&#39;max_ceiling&#39;</span><span class="p">])</span>
+
+
+    <span class="n">horizontal_tail_xle_position</span> <span class="o">=</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;aerodynamic_center&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.25</span>
+
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">open_tixi</span><span class="p">(</span><span class="n">cpacs_out_path</span><span class="p">)</span>
+
+    <span class="n">horizontal_thail_xpath</span> <span class="o">=</span> <span class="s1">&#39;/cpacs/vehicles/aircraft/model/wings/wing[2]/&#39;</span>
+    
+
+    <span class="c1"># Update leading edge position</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;transformation/translation/x&#39;</span><span class="p">,</span> <span class="n">horizontal_tail_xle_position</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Update center chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[1]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/x&#39;</span><span class="p">,</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/y&#39;</span><span class="p">,</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;sections/section[2]/elements/element/transformation/scaling/z&#39;</span><span class="p">,</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># Update root chord </span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[2]/length&#39;</span><span class="p">,</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[2]/sweepAngle&#39;</span><span class="p">,</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[1]/dihedralAngle&#39;</span><span class="p">,</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;dihedral&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">tixi_out</span><span class="o">.</span><span class="n">updateDoubleElement</span><span class="p">(</span><span class="n">horizontal_thail_xpath</span><span class="o">+</span><span class="s1">&#39;positionings/positioning[2]/dihedralAngle&#39;</span><span class="p">,</span><span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;dihedral&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">tixi_out</span> <span class="o">=</span> <span class="n">close_tixi</span><span class="p">(</span><span class="n">tixi_out</span><span class="p">,</span> <span class="n">cpacs_out_path</span><span class="p">)</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">###################################ENGINE##################################</span>
+    <span class="c1">###########################################################################</span>
+
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.22</span><span class="o">*</span><span class="p">((</span><span class="n">engine_thrust_lbf</span><span class="p">)</span><span class="o">**</span><span class="mf">0.4</span><span class="p">)</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="s1">&#39;mach_maximum_operating&#39;</span><span class="p">]</span><span class="o">**</span><span class="mf">0.2</span><span class="p">)</span> <span class="o">*</span> \
+        <span class="mf">2.54</span><span class="o">/</span><span class="mi">100</span>  <span class="c1"># [m] Raymer pg 19</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># livro 6 pag 111 fig 4.41 x/l=0.6</span>
+        <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span_kink&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># [m] y do motor</span>
+        <span class="n">wing_engine_external_yposition</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;engine_position_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span>
+                   <span class="p">)</span>  <span class="c1"># corda da seccao do motor</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.65</span> <span class="o">*</span> \
+            <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">15</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span>
+        <span class="n">wing_engine_external_yposition</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># livro 6 pag 111 fig 4.41 x/l=0.6</span>
+        <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span_kink&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># [m] y do motor</span>
+        <span class="n">wing_engine_external_yposition</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;engine_position_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span>
+                   <span class="p">)</span>  <span class="c1"># corda da seccao do motor</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="c1"># livro 6 pag 111 fig 4.41 x/l=0.6</span>
+        <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;semi_span_kink&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># [m] y do motor</span>
+        <span class="c1"># [m] y do motor externo distancia entre os dois 30# de b</span>
+        <span class="n">wing_engine_external_yposition</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">)</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;engine_position_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span>
+                   <span class="p">)</span>  <span class="c1"># corda da seccao do motor</span>
+        <span class="n">wing_engine_external_position_chord</span> <span class="o">=</span> <span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">])</span><span class="o">-</span><span class="p">(</span><span class="n">wing_engine_external_yposition</span>
+                                                                                                                                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">wing_engine_external_yposition</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">deg_to_rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_trailing_edge&#39;</span><span class="p">]))</span>
+    <span class="c1"># -----------------------------------------------------------------------------</span>
+    <span class="c1">#########################AREA MOLHADA######################################</span>
+
+    <span class="c1">########################## Engine #########################################</span>
+    <span class="c1"># aux1=(1-2/auxdiv)**2/3</span>
+    <span class="c1"># engine.wing_wetted_area=pi*engine[&#39;diameter&#39;]*engine_length*aux1*(1+1/((engine_length/engine[&#39;diameter&#39;])**2)) # [m2]</span>
+    <span class="n">ln</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>  <span class="c1"># Fan cowling</span>
+    <span class="n">ll</span> <span class="o">=</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">ln</span>
+    <span class="n">lg</span> <span class="o">=</span> <span class="mf">0.40</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>  <span class="c1"># Gas generator</span>
+    <span class="n">lp</span> <span class="o">=</span> <span class="mf">0.10</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>  <span class="c1"># Plug</span>
+    <span class="n">esp</span> <span class="o">=</span> <span class="mf">0.12</span>
+    <span class="n">Dn</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">esp</span><span class="p">)</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span>
+    <span class="n">Dhl</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span>
+    <span class="n">Def</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">esp</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span>
+    <span class="n">Dg</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="n">Dn</span>
+    <span class="n">Deg</span> <span class="o">=</span> <span class="mf">0.90</span><span class="o">*</span><span class="n">Dg</span>
+    <span class="n">Dp</span> <span class="o">=</span> <span class="n">lp</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">wetted_area_fan_cowling</span> <span class="o">=</span> <span class="n">ln</span><span class="o">*</span><span class="n">Dn</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.35</span><span class="o">*</span><span class="p">(</span><span class="n">ll</span><span class="o">/</span><span class="n">ln</span><span class="p">)</span><span class="o">+</span><span class="mf">0.80</span> <span class="o">*</span>
+                                     <span class="p">((</span><span class="n">ll</span><span class="o">*</span><span class="n">Dhl</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ln</span><span class="o">*</span><span class="n">Dn</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.15</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ll</span><span class="o">/</span><span class="n">ln</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Def</span><span class="o">/</span><span class="n">Dn</span><span class="p">))</span>
+    <span class="n">wetted_area_gas_generator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">lg</span><span class="o">*</span><span class="n">Dg</span> <span class="o">*</span> \
+        <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.333</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">Deg</span><span class="o">/</span><span class="n">Dg</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mf">0.18</span><span class="o">*</span><span class="p">((</span><span class="n">Dg</span><span class="o">/</span><span class="n">lg</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">3</span><span class="p">)))))</span>
+    <span class="n">wetted_area_plug</span> <span class="o">=</span> <span class="mf">0.7</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">Dp</span><span class="o">*</span><span class="n">lp</span>
+    <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wetted_area_fan_cowling</span> <span class="o">+</span> \
+        <span class="n">wetted_area_gas_generator</span><span class="o">+</span><span class="n">wetted_area_plug</span>
+
+    <span class="c1"># -----------------------------------------------------------------------------</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">####################################PYLON##################################</span>
+    <span class="c1">###########################################################################</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;engine_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>  <span class="c1"># mac</span>
+        <span class="c1"># x/l=-0.6 e z/d = 0.85 figure 4.41 pag 111</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.85</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.6</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;engine_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;xposition&#39;</span><span class="p">])</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span> <span class="o">/</span>
+             <span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])))</span>
+        <span class="n">pylon_out_surface</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.80</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>  <span class="c1"># mac</span>
+        <span class="c1"># t/d=0.65 figure 4.42 pag 113  ang=15</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.65</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pylon_out_surface</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>  <span class="c1"># mac</span>
+        <span class="c1"># t/d=0.65 figure 4.42 pag 113  ang=15</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.65</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pylon_out_surface</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;engine_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_aerodynamic_chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;pylon_position_chord&#39;</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span>  <span class="c1"># mac</span>
+        <span class="c1"># x/l=-0.6 e z/d = 0.85 figure 4.41 pag 111</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.85</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;xposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.6</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;engine_position_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;mean_geometrical_chord&#39;</span><span class="p">]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;xposition&#39;</span><span class="p">])</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_c_4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span> <span class="o">/</span>
+             <span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;aspect_ratio&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])))</span>
+        <span class="c1"># engine out</span>
+        <span class="n">wing_pylon_out_position_chord</span> <span class="o">=</span> <span class="n">wing_engine_external_position_chord</span>
+        <span class="n">pylon_out_length</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+        <span class="n">pylon_out_taper_ratio</span> <span class="o">=</span> <span class="n">pylon_out_length</span><span class="o">/</span><span class="n">wing_pylon_out_position_chord</span>
+        <span class="n">pylon_out_mean_geometrical_chord</span> <span class="o">=</span> <span class="n">wing_pylon_out_position_chord</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon_out_taper_ratio</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">pylon_out_mean_aerodynamic_chord</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">wing_pylon_out_position_chord</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon_out_taper_ratio</span><span class="o">+</span><span class="n">pylon_out_taper_ratio</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon_out_taper_ratio</span><span class="p">)</span>  <span class="c1"># mac</span>
+        <span class="c1"># x/l=-0.6 e z/d = 0.85 figure 4.41 pag 111</span>
+        <span class="n">ppylon_out_span</span> <span class="o">=</span> <span class="mf">0.85</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span>
+        <span class="n">pylon_out_xposition</span> <span class="o">=</span> <span class="mf">0.6</span><span class="o">*</span><span class="n">wing_engine_external_position_chord</span>
+        <span class="n">pylon_out_aspect_ratio</span> <span class="o">=</span> <span class="n">ppylon_out_span</span><span class="o">/</span><span class="n">pylon_out_mean_geometrical_chord</span>
+        <span class="n">pylon_out_surface</span> <span class="o">=</span> <span class="n">ppylon_out_span</span><span class="o">*</span><span class="n">pylon_out_mean_geometrical_chord</span>
+        <span class="n">pylon_out_sweep_leading_edge</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">ppylon_out_span</span><span class="o">/</span><span class="n">pylon_out_xposition</span><span class="p">)</span>
+        <span class="n">pylon_out_sweep</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">deg_to_rad</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">pylon_out_sweep_leading_edge</span><span class="o">*</span><span class="n">deg_to_rad</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">pylon_out_taper_ratio</span><span class="p">)</span> <span class="o">/</span>
+             <span class="p">(</span><span class="n">pylon_out_aspect_ratio</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">pylon_out_taper_ratio</span><span class="p">)))</span>
+
+    <span class="c1">#############################WETTED AREA###################################</span>
+    <span class="n">pylon_mean_thickness</span> <span class="o">=</span> <span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span>
+                            <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># [#]espessura media</span>
+    <span class="k">if</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span>
+            <span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]))</span>  <span class="c1"># [m2]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pylon_wetted_area_in</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span>
+            <span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]))</span>  <span class="c1"># [m2]</span>
+        <span class="n">pylon_wetted_area_out</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">pylon_out_surface</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span>
+            <span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;thickness_ratio&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">pylon_out_taper_ratio</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">pylon_out_taper_ratio</span><span class="p">))</span>  <span class="c1"># [m2]</span>
+        <span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pylon_wetted_area_in</span> <span class="o">+</span> <span class="n">pylon_wetted_area_out</span>
+
+    <span class="c1"># -----------------------------------------------------------------------------</span>
+    <span class="c1">#  *************** Definicoes adicionais **********************************</span>
+    <span class="c1"># cg dos tanques de combust�vel da asa e posicao do trem d pouso principal</span>
+    <span class="c1"># winglaywei2013</span>
+    <span class="c1">################################TOTAL######################################</span>
+    <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">horizontal_tail</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="mi">2</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">pylon</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="n">vertical_tail</span><span class="p">[</span><span class="s1">&#39;dorsalfin_wetted_area&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">winglet</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span>
+    <span class="n">Fuswing_wetted_area_m2</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Individual wetted area [m2]: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]))</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;---- End wetted area module ----&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">vehicle</span><span class="p">,</span>
+        <span class="n">xutip</span><span class="p">,</span>
+        <span class="n">yutip</span><span class="p">,</span>
+        <span class="n">xltip</span><span class="p">,</span>
+        <span class="n">yltip</span><span class="p">,</span>
+        <span class="n">xubreak</span><span class="p">,</span>
+        <span class="n">yubreak</span><span class="p">,</span>
+        <span class="n">xlbreak</span><span class="p">,</span>
+        <span class="n">ylbreak</span><span class="p">,</span>
+        <span class="n">xuraiz</span><span class="p">,</span>
+        <span class="n">yuraiz</span><span class="p">,</span>
+        <span class="n">xlraiz</span><span class="p">,</span>
+        <span class="n">ylraiz</span><span class="p">)</span></div>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># print(wetted_area(</span>
+<span class="c1">#         41000,</span>
+<span class="c1">#         0.85,</span>
+<span class="c1">#         0.85,</span>
+<span class="c1">#         50,</span>
+<span class="c1">#         4,</span>
+<span class="c1">#         1,</span>
+<span class="c1">#         0.46,</span>
+<span class="c1">#         0.5,</span>
+<span class="c1">#         0.8128,</span>
+<span class="c1">#         0.3,</span>
+<span class="c1">#         72,</span>
+<span class="c1">#         8,</span>
+<span class="c1">#         0.25,</span>
+<span class="c1">#         15,</span>
+<span class="c1">#         -2,</span>
+<span class="c1">#         1,</span>
+<span class="c1">#         2.9088,</span>
+<span class="c1">#         3.1786,</span>
+<span class="c1">#         1,</span>
+<span class="c1">#         1,</span>
+<span class="c1">#         16.2,</span>
+<span class="c1">#         1.2,</span>
+<span class="c1">#         0.5,</span>
+<span class="c1">#         41,</span>
+<span class="c1">#         23.35,</span>
+<span class="c1">#         4.35,</span>
+<span class="c1">#         0.4,</span>
+<span class="c1">#         1,</span>
+<span class="c1">#         0.25,</span>
+<span class="c1">#         0,</span>
+<span class="c1">#         2,</span>
+<span class="c1">#         0.5))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

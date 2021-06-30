@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Noise.Noise_Smith.takeoff_integration02 &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Noise.Noise_Smith.takeoff_integration02</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Noise.Noise_Smith.takeoff_integration02</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name :</span>
+<span class="sd">Authors   : </span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : </span>
+<span class="sd">Last edit :</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    -</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    -</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    -</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.atmosphere_ISA_deviation</span> <span class="kn">import</span> <span class="n">atmosphere_ISA_deviation</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Engine.engine_performance</span> <span class="kn">import</span> <span class="n">turbofan</span>
+
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">ode</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="k">global</span> <span class="n">GRAVITY</span>
+<span class="n">GRAVITY</span> <span class="o">=</span> <span class="mf">9.81</span>
+<span class="n">kt_to_ms</span> <span class="o">=</span> <span class="mf">0.514444</span>
+<div class="viewcode-block" id="takeoff_integration"><a class="viewcode-back" href="../../../../framework.Noise.Noise_Smith.html#framework.Noise.Noise_Smith.takeoff_integration02.takeoff_integration">[docs]</a><span class="k">def</span> <span class="nf">takeoff_integration</span><span class="p">(</span>
+    <span class="n">initial_block_altitude</span><span class="p">,</span>
+    <span class="n">initial_block_distance</span><span class="p">,</span>
+    <span class="n">initial_block_trajectory_angle</span><span class="p">,</span>
+    <span class="n">initial_block_time</span><span class="p">,</span>
+    <span class="n">initial_block_velocity</span><span class="p">,</span>
+    <span class="n">initial_block_horizontal_velocity</span><span class="p">,</span>
+    <span class="n">initial_block_vertical_velocity</span><span class="p">,</span>
+    <span class="n">initial_fan_rotation</span><span class="p">,</span>
+    <span class="n">initial_compressor_rotation</span><span class="p">,</span>
+    <span class="n">aircraft_parameters</span><span class="p">,</span>
+    <span class="n">takeoff_parameters</span><span class="p">,</span>
+    <span class="n">runaway_parameters</span><span class="p">,</span>
+    <span class="n">landing_parameters</span><span class="p">,</span>
+    <span class="n">vehicle</span><span class="p">,</span>
+    <span class="n">rho_ISA</span><span class="p">,</span>
+    <span class="n">stop_criteria</span><span class="p">,</span>
+    <span class="n">phase</span>
+    <span class="p">):</span>
+
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;ground&#39;</span><span class="p">:</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">initial_block_time</span>
+        <span class="n">z0</span> <span class="o">=</span> <span class="p">[</span><span class="n">initial_block_distance</span><span class="p">,</span> <span class="n">initial_block_velocity</span><span class="p">]</span>
+        <span class="n">solver</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">ground</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_integrator</span><span class="p">(</span><span class="s1">&#39;vode&#39;</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_f_params</span><span class="p">(</span><span class="n">takeoff_parameters</span><span class="p">,</span><span class="n">runaway_parameters</span><span class="p">,</span><span class="n">landing_parameters</span><span class="p">,</span><span class="n">rho_ISA</span><span class="p">,</span><span class="n">vehicle</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_initial_value</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">initial_block_time</span> <span class="o">+</span> <span class="mi">200</span>
+        <span class="c1"># N = 50</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">sol_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+        <span class="n">sol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">z0</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+
+    <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;flare&#39;</span><span class="p">:</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">initial_block_time</span>
+        <span class="n">z0</span> <span class="o">=</span> <span class="p">[</span><span class="n">initial_block_distance</span><span class="p">,</span> <span class="n">initial_block_velocity</span><span class="p">,</span> <span class="n">initial_block_altitude</span><span class="p">,</span> <span class="n">initial_block_vertical_velocity</span><span class="p">,</span> <span class="n">initial_block_trajectory_angle</span><span class="p">]</span>
+        <span class="n">solver</span> <span class="o">=</span> <span class="n">ode</span><span class="p">(</span><span class="n">flare</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_integrator</span><span class="p">(</span><span class="s1">&#39;vode&#39;</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_f_params</span><span class="p">(</span><span class="n">aircraft_parameters</span><span class="p">,</span> <span class="n">takeoff_parameters</span><span class="p">,</span><span class="n">runaway_parameters</span><span class="p">,</span><span class="n">landing_parameters</span><span class="p">,</span><span class="n">rho_ISA</span><span class="p">,</span><span class="n">vehicle</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_initial_value</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">initial_block_time</span> <span class="o">+</span> <span class="mi">200</span>
+        <span class="c1"># N = 50</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+        <span class="n">sol_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+        <span class="n">sol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">z0</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;ground&#39;</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">solver</span><span class="o">.</span><span class="n">successful</span><span class="p">()</span> <span class="ow">and</span> <span class="n">solver</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">stop_criteria</span><span class="p">:</span>
+            <span class="n">solver</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="n">sol</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">times</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">t</span>
+            
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">rho_ISA</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">mach</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">kt_to_ms</span><span class="p">)</span>
+            <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span><span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+            <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_rotation&#39;</span><span class="p">]</span>
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_rotation&#39;</span><span class="p">]</span>
+
+            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">time_vec</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">velocity_vec</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">distance_vec</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">velocity_horizontal_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">altitude_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">velocity_vertical_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">trajectory_angle_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">fan_rotation_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">compressor_rotation_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+
+
+        <span class="n">final_block_time</span> <span class="o">=</span> <span class="n">time_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_velocity</span> <span class="o">=</span> <span class="n">velocity_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_distance</span> <span class="o">=</span> <span class="n">distance_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_horizontal_velocity</span> <span class="o">=</span> <span class="n">velocity_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_altitude</span> <span class="o">=</span> <span class="n">altitude_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_vertical_velocity</span> <span class="o">=</span>  <span class="n">velocity_vertical_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_trajectory_angle</span> <span class="o">=</span> <span class="n">trajectory_angle_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_fan_rotation</span> <span class="o">=</span> <span class="n">fan_rotation_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_compressor_rotation</span> <span class="o">=</span> <span class="n">compressor_rotation_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="k">elif</span> <span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;flare&#39;</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">solver</span><span class="o">.</span><span class="n">successful</span><span class="p">()</span> <span class="ow">and</span> <span class="n">solver</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">stop_criteria</span><span class="p">:</span>
+            <span class="n">solver</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="n">sol</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">times</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">t</span>
+
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">rho_ISA</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">mach</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">kt_to_ms</span><span class="p">)</span>
+            <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span><span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+            <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sol</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sol</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_rotation&#39;</span><span class="p">]</span>
+            <span class="n">sol_var</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_rotation&#39;</span><span class="p">]</span>
+
+            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">time_vec</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">velocity_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">distance_vec</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">velocity_horizontal_vec</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">altitude_vec</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">velocity_vertical_vec</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">trajectory_angle_vec</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="n">fan_rotation_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">compressor_rotation_vec</span> <span class="o">=</span> <span class="n">sol_var</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+
+
+        <span class="n">final_block_time</span> <span class="o">=</span> <span class="n">time_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_velocity</span> <span class="o">=</span> <span class="n">velocity_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_distance</span> <span class="o">=</span> <span class="n">distance_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_horizontal_velocity</span> <span class="o">=</span> <span class="n">velocity_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_altitude</span> <span class="o">=</span> <span class="n">altitude_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_vertical_velocity</span> <span class="o">=</span>  <span class="n">velocity_vertical_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_trajectory_angle</span> <span class="o">=</span> <span class="n">trajectory_angle_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_fan_rotation</span> <span class="o">=</span> <span class="n">fan_rotation_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_compressor_rotation</span> <span class="o">=</span> <span class="n">compressor_rotation_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+    <span class="k">elif</span> <span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;climb&#39;</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">initial_block_time</span><span class="p">)</span> <span class="o">==</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">initial_block_time</span> <span class="o">+</span> <span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;time_step&#39;</span><span class="p">]):</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">initial_block_time</span><span class="p">)</span> <span class="o">+</span> <span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;time_step&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">initial_block_time</span><span class="p">)</span>
+
+        <span class="n">V_35</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">initial_block_horizontal_velocity</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">initial_block_vertical_velocity</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">rho_ISA</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="n">initial_block_altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">mach</span> <span class="o">=</span><span class="n">V_35</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">kt_to_ms</span><span class="p">)</span>
+
+        <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span><span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+            <span class="n">initial_block_altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+        
+        <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+        <span class="n">total_thrust_force</span> <span class="o">=</span> <span class="n">thrust_force</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">initial_block_altitude</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">total_thrust_force</span><span class="o">/</span><span class="p">((</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CD_air_LG_down&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CL_air&#39;</span><span class="p">])))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">total_thrust_force</span><span class="o">/</span><span class="p">((</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CD_air_LG_up&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CL_air&#39;</span><span class="p">])))</span>
+        
+        <span class="n">rate_of_climb</span> <span class="o">=</span> <span class="n">V_35</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+        <span class="n">delta_altitude</span> <span class="o">=</span> <span class="n">rate_of_climb</span><span class="o">*</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;time_step&#39;</span><span class="p">]</span>
+        <span class="n">delta_distance</span> <span class="o">=</span> <span class="n">V_35</span><span class="o">*</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;time_step&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+        
+
+        <span class="n">time_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">time</span><span class="p">]</span>
+        <span class="n">velocity_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">V_35</span><span class="p">]</span>
+        <span class="n">distance_vec</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">initial_block_distance</span><span class="o">+</span><span class="n">delta_distance</span><span class="p">)]</span>
+        <span class="n">velocity_horizontal_vec</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">V_35</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">))]</span>
+        <span class="n">altitude_vec</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">initial_block_altitude</span><span class="o">+</span><span class="n">delta_altitude</span><span class="p">)]</span>
+        <span class="n">velocity_vertical_vec</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">rate_of_climb</span><span class="p">)]</span>
+        <span class="n">trajectory_angle_vec</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">gamma</span><span class="o">*</span><span class="p">(</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))]</span>
+        <span class="n">fan_rotation_vec</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_rotation&#39;</span><span class="p">])]</span>
+        <span class="n">compressor_rotation_vec</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_rotation&#39;</span><span class="p">])]</span>
+ 
+        <span class="n">iteration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="p">):</span>
+
+            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;time_step&#39;</span><span class="p">]</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="n">distance_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">altitude</span> <span class="o">=</span> <span class="n">altitude_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">iteration</span> <span class="o">=</span> <span class="n">iteration</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">mach</span> <span class="o">=</span> <span class="n">velocity_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">kt_to_ms</span><span class="p">)</span>
+            <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span><span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+            <span class="n">altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+            <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+            <span class="n">total_thrust_force</span> <span class="o">=</span> <span class="n">thrust_force</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span>
+            
+            <span class="n">N1</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_rotation&#39;</span><span class="p">]</span>
+            <span class="n">N2</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;compressor_rotation&#39;</span><span class="p">]</span>
+
+
+            <span class="k">if</span> <span class="n">initial_block_altitude</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">total_thrust_force</span><span class="o">/</span><span class="p">((</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CD_air_LG_down&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CL_air&#39;</span><span class="p">])))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">total_thrust_force</span><span class="o">/</span><span class="p">((</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CD_air_LG_up&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CL_air&#39;</span><span class="p">])))</span>
+            <span class="n">rate_of_climb</span> <span class="o">=</span> <span class="n">V_35</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+            
+            <span class="n">delta_altitude</span> <span class="o">=</span> <span class="n">rate_of_climb</span><span class="o">*</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;time_step&#39;</span><span class="p">]</span>
+            <span class="n">delta_distance</span> <span class="o">=</span> <span class="n">V_35</span><span class="o">*</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;time_step&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+
+            <span class="n">time_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+            <span class="n">velocity_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">V_35</span><span class="p">)</span>
+            <span class="n">distance_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">distance</span><span class="o">+</span><span class="n">delta_distance</span><span class="p">))</span>
+            <span class="n">velocity_horizontal_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">V_35</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">)))</span>
+            <span class="n">altitude_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">altitude</span><span class="o">+</span><span class="n">delta_altitude</span><span class="p">))</span>
+            <span class="n">velocity_vertical_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rate_of_climb</span><span class="p">))</span>
+            <span class="n">trajectory_angle_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gamma</span><span class="o">*</span><span class="p">(</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)))</span>
+            <span class="n">fan_rotation_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">N1</span><span class="p">))</span>
+            <span class="n">compressor_rotation_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">N2</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">distance_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10000</span><span class="p">:</span>
+                <span class="k">break</span>
+        
+        <span class="n">time_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">time_vec</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">final_block_time</span> <span class="o">=</span> <span class="n">time_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_velocity</span> <span class="o">=</span> <span class="n">velocity_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_distance</span> <span class="o">=</span> <span class="n">distance_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_horizontal_velocity</span> <span class="o">=</span> <span class="n">velocity_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_altitude</span> <span class="o">=</span> <span class="n">altitude_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_vertical_velocity</span> <span class="o">=</span>  <span class="n">velocity_vertical_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_block_trajectory_angle</span> <span class="o">=</span> <span class="n">trajectory_angle_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_fan_rotation</span> <span class="o">=</span> <span class="n">fan_rotation_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_compressor_rotation</span> <span class="o">=</span> <span class="n">compressor_rotation_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">final_block_altitude</span><span class="p">,</span>
+    <span class="n">final_block_distance</span><span class="p">,</span>
+    <span class="n">final_block_trajectory_angle</span><span class="p">,</span>
+    <span class="n">final_block_time</span><span class="p">,</span>
+    <span class="n">final_block_velocity</span><span class="p">,</span>
+    <span class="n">final_block_horizontal_velocity</span><span class="p">,</span>
+    <span class="n">final_block_vertical_velocity</span><span class="p">,</span>
+    <span class="n">final_fan_rotation</span><span class="p">,</span>
+    <span class="n">final_compressor_rotation</span><span class="p">,</span>
+    <span class="n">time_vec</span><span class="p">,</span>
+    <span class="n">velocity_vec</span><span class="p">,</span>
+    <span class="n">distance_vec</span><span class="p">,</span>
+    <span class="n">velocity_horizontal_vec</span><span class="p">,</span>
+    <span class="n">altitude_vec</span><span class="p">,</span>
+    <span class="n">velocity_vertical_vec</span><span class="p">,</span>
+    <span class="n">trajectory_angle_vec</span><span class="p">,</span>
+    <span class="n">fan_rotation_vec</span><span class="p">,</span>
+    <span class="n">compressor_rotation_vec</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ground"><a class="viewcode-back" href="../../../../framework.Noise.Noise_Smith.html#framework.Noise.Noise_Smith.takeoff_integration02.ground">[docs]</a><span class="k">def</span> <span class="nf">ground</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">state</span><span class="p">,</span><span class="n">takeoff_parameters</span><span class="p">,</span><span class="n">runaway_parameters</span><span class="p">,</span><span class="n">landing_parameters</span><span class="p">,</span><span class="n">rho_ISA</span><span class="p">,</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">velocity</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">constant</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">runaway_parameters</span><span class="p">[</span><span class="s1">&#39;mu_roll&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">])</span>
+    <span class="n">K0</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;T0&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">constant</span> <span class="o">-</span> <span class="n">runaway_parameters</span><span class="p">[</span><span class="s1">&#39;mu_roll&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;takeoff_weight&#39;</span><span class="p">]</span>
+    <span class="n">K1</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;T1&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">constant</span>
+    <span class="n">K2</span> <span class="o">=</span> <span class="n">engine</span><span class="p">[</span><span class="s1">&#39;T2&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">constant</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">rho_ISA</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">runaway_parameters</span><span class="p">[</span><span class="s1">&#39;mu_roll&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">landing_parameters</span><span class="p">[</span><span class="s1">&#39;CL_3P&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">landing_parameters</span><span class="p">[</span><span class="s1">&#39;CD_3P&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># Cálculo das derivadas</span>
+    <span class="n">x_dot</span> <span class="o">=</span> <span class="n">velocity</span>
+    <span class="n">V_dot</span> <span class="o">=</span> <span class="p">(</span><span class="n">GRAVITY</span><span class="o">/</span><span class="n">takeoff_parameters</span><span class="p">[</span><span class="s1">&#39;takeoff_weight&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">K0</span> <span class="o">+</span> <span class="n">K1</span><span class="o">*</span><span class="n">velocity</span> <span class="o">+</span> <span class="n">K2</span><span class="o">*</span><span class="n">velocity</span><span class="o">*</span><span class="n">velocity</span><span class="p">)</span>
+    
+
+    <span class="n">dout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">x_dot</span><span class="p">,</span> <span class="n">V_dot</span><span class="p">])</span>
+    <span class="n">dout</span> <span class="o">=</span> <span class="n">dout</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">dout</span></div>
+
+<div class="viewcode-block" id="flare"><a class="viewcode-back" href="../../../../framework.Noise.Noise_Smith.html#framework.Noise.Noise_Smith.takeoff_integration02.flare">[docs]</a><span class="k">def</span> <span class="nf">flare</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">state</span><span class="p">,</span><span class="n">aircraft_parameters</span><span class="p">,</span><span class="n">takeoff_parameters</span><span class="p">,</span><span class="n">runaway_parameters</span><span class="p">,</span><span class="n">landing_parameters</span><span class="p">,</span><span class="n">rho_ISA</span><span class="p">,</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">velocity_horizontal</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">altitude</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">velocity_vertical</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">trajectory_angle</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+    <span class="n">V_resultant</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">velocity_vertical</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">velocity_horizontal</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">trajectory_angle</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">rho_ISA</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">mach</span> <span class="o">=</span> <span class="n">V_resultant</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">kt_to_ms</span><span class="p">)</span>
+    <span class="n">throttle_position</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span><span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+        <span class="n">altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">throttle_position</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>  <span class="c1"># force [N], fuel flow [kg/hr]</span>
+    
+    <span class="n">total_thrust_force</span> <span class="o">=</span> <span class="n">thrust_force</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span>
+
+    <span class="n">drag</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">rho_ISA</span><span class="o">*</span><span class="p">(</span><span class="n">V_resultant</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CD_air_LG_down&#39;</span><span class="p">]</span>
+    <span class="n">lift</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">rho_ISA</span><span class="o">*</span><span class="p">(</span><span class="n">V_resultant</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">aircraft_parameters</span><span class="p">[</span><span class="s1">&#39;CL_air&#39;</span><span class="p">]</span>
+
+    <span class="n">velocity_horizontal</span> <span class="o">=</span> <span class="n">V_resultant</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+    <span class="n">parameter2_dot</span> <span class="o">=</span> <span class="n">GRAVITY</span><span class="o">/</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">total_thrust_force</span> <span class="o">-</span> <span class="n">drag</span> <span class="o">-</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span> <span class="o">-</span> <span class="n">GRAVITY</span><span class="o">*</span><span class="p">(</span><span class="mf">1.3</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+    <span class="n">velocity_vertical</span> <span class="o">=</span> <span class="n">V_resultant</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+    <span class="n">parameter4_dot</span> <span class="o">=</span> <span class="n">GRAVITY</span><span class="o">*</span><span class="p">(</span><span class="mf">1.3</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">GRAVITY</span><span class="o">/</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">total_thrust_force</span> <span class="o">-</span> <span class="n">drag</span> <span class="o">-</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+    <span class="n">gamma_dot</span> <span class="o">=</span> <span class="p">(</span><span class="n">GRAVITY</span><span class="o">/</span><span class="n">V_resultant</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.3</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">gamma</span><span class="p">))</span>
+
+
+    <span class="n">dout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">velocity_horizontal</span><span class="p">,</span> <span class="n">parameter2_dot</span><span class="p">,</span> <span class="n">velocity_vertical</span><span class="p">,</span>  <span class="n">parameter4_dot</span><span class="p">,</span> <span class="n">gamma_dot</span><span class="p">])</span>
+    <span class="n">dout</span> <span class="o">=</span> <span class="n">dout</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">dout</span></div>
+
+<div class="viewcode-block" id="climb"><a class="viewcode-back" href="../../../../framework.Noise.Noise_Smith.html#framework.Noise.Noise_Smith.takeoff_integration02.climb">[docs]</a><span class="k">def</span> <span class="nf">climb</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">climb_V_cas</span><span class="p">,</span> <span class="n">mach_climb</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">,</span> <span class="n">final_block_altitude</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">):</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">altitude</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">altitude</span> <span class="o">&gt;</span> <span class="n">final_block_altitude</span><span class="p">:</span>
+        <span class="k">return</span>
+        
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">rho_ISA</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span>  <span class="o">=</span> <span class="n">atmosphere_ISA_deviation</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+    <span class="n">throttle_position</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">if</span> <span class="n">climb_V_cas</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">mach</span> <span class="o">=</span> <span class="n">V_cas_to_mach</span><span class="p">(</span><span class="n">climb_V_cas</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mach</span> <span class="o">=</span> <span class="n">mach_climb</span>
+
+    <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span> <span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+        <span class="n">altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">throttle_position</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>  <span class="c1"># force [N], fuel flow [kg/hr]</span>
+    <span class="n">thrust_to_weight</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">thrust_force</span><span class="o">/</span><span class="p">(</span><span class="n">mass</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span>
+    <span class="n">rate_of_climb</span><span class="p">,</span> <span class="n">V_tas</span><span class="p">,</span> <span class="n">climb_path_angle</span> <span class="o">=</span> <span class="n">rate_of_climb_calculation</span><span class="p">(</span>
+        <span class="n">thrust_to_weight</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+    <span class="c1"># if rate_of_climb &lt; 300:</span>
+    <span class="c1">#     print(&#39;rate of climb violated!&#39;)</span>
+
+    <span class="n">V_tas</span> <span class="o">=</span> <span class="n">V_tas</span><span class="o">*</span><span class="n">kt_to_ms</span>
+
+    <span class="n">rate_of_climb</span> <span class="o">=</span> <span class="n">rate_of_climb</span><span class="o">*</span><span class="mf">0.0166667</span>
+
+    <span class="n">x_dot</span> <span class="o">=</span> <span class="p">(</span><span class="n">V_tas</span><span class="o">*</span><span class="mf">101.269</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">climb_path_angle</span><span class="p">)</span>  <span class="c1"># ft/min</span>
+    <span class="n">h_dot</span> <span class="o">=</span> <span class="n">rate_of_climb</span>  <span class="c1"># ft/min</span>
+    <span class="c1"># W_dot = -2*fuel_flow*kghr_to_kgmin  # kg/min</span>
+    <span class="n">time_dot</span> <span class="o">=</span> <span class="n">h_dot</span><span class="o">*</span><span class="mf">0.0166667</span>
+    <span class="c1"># dout = np.asarray([x_dot, h_dot, W_dot])</span>
+    <span class="n">dout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">x_dot</span><span class="p">,</span> <span class="n">h_dot</span><span class="p">])</span>
+    <span class="n">dout</span> <span class="o">=</span> <span class="n">dout</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dout</span></div>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,20 +1,22 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This function calculates the noise during the approach
+
+Reference:
+    - SMITH, M.J.T - Aircraft Noise (1989)
+    - ESDU77022 - Atmospheric properties
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -32,7 +34,28 @@ import numpy as np
 # =============================================================================
 deg_to_rad = np.pi/180
 def approach_noise(time_vec,velocity_vec,distance_vec,altitude_vec,landing_parameters,noise_parameters,aircraft_geometry,vehicle):
+    """
+    Description:
+        -This function calculates the noise during approach
 
+    Inputs:
+        - time_vec
+        - velocity_vec
+        - distance_vec
+        - altitude_vec
+        - landing_parameters
+        - noise_parameters
+        - aircraft_geometry
+        - vehicle
+
+    Outputs:
+        - f
+        - OASPLhistory
+        - tetaout
+        - time_vec
+        - distance_vec
+        - altitude_vec
+    """
     aircraft = vehicle['aircraft']
 
     XA = noise_parameters['takeoff_longitudinal_distance_mic']

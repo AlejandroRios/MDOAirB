@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Attributes.Atmosphere package &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">framework.Attributes.Atmosphere package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-framework.Attributes.Atmosphere.atmosphere">framework.Attributes.Atmosphere.atmosphere module</a></li>
+<li><a class="reference internal" href="#module-framework.Attributes.Atmosphere.atmosphere_ISA_deviation">framework.Attributes.Atmosphere.atmosphere_ISA_deviation module</a></li>
+<li><a class="reference internal" href="#module-framework.Attributes.Atmosphere.fair">framework.Attributes.Atmosphere.fair module</a></li>
+<li><a class="reference internal" href="#module-framework.Attributes.Atmosphere.temperature_dependent_air_properties">framework.Attributes.Atmosphere.temperature_dependent_air_properties module</a></li>
+<li><a class="reference internal" href="#module-framework.Attributes.Atmosphere">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>framework.Attributes.Atmosphere package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/framework.Attributes.Atmosphere.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="framework-attributes-atmosphere-package">
+<h1>framework.Attributes.Atmosphere package<a class="headerlink" href="#framework-attributes-atmosphere-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-framework.Attributes.Atmosphere.atmosphere">
+<span id="framework-attributes-atmosphere-atmosphere-module"></span><h2>framework.Attributes.Atmosphere.atmosphere module<a class="headerlink" href="#module-framework.Attributes.Atmosphere.atmosphere" title="Permalink to this headline">¶</a></h2>
+<p>File name : Atmosphere function
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : September/2020
+Last edit : September/2020
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>International Standard Atmosphere (ISA) in SI units</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Altitude [ft]</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>T = temperature (K),</p></li>
+<li><p>p = pressure (N/m2),</p></li>
+<li><p>rho = density (kg/m3),</p></li>
+<li><p>a = sound speed (m/s)</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.atmosphere.atmosphere">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.atmosphere.</code><code class="sig-name descname">atmosphere</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">h</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/atmosphere.html#atmosphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.atmosphere.atmosphere" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Attributes.Atmosphere.atmosphere_ISA_deviation">
+<span id="framework-attributes-atmosphere-atmosphere-isa-deviation-module"></span><h2>framework.Attributes.Atmosphere.atmosphere_ISA_deviation module<a class="headerlink" href="#module-framework.Attributes.Atmosphere.atmosphere_ISA_deviation" title="Permalink to this headline">¶</a></h2>
+<p>File name : Atmosphere functions ISA deviation
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : September/2020
+Last edit : September/2020
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>International Standard Atmosphere (ISA) based in:</p></li>
+<li><p>Reference: Blake, BOEING CO. Flight Operations Engineering - Jet</p></li>
+</ul>
+<p>Transport Performance Methods. 7th ed. Boeing Co., Everett,
+Estados Unidos, 1989
+- Chapter 4, page 4-1</p>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>Altitude [ft]</p></li>
+<li><p>Delta ISA [deg C]</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>T = temperature [K]</p></li>
+<li><p>p = pressure [Pascal]</p></li>
+<li><p>rho = density [kg/m3]</p></li>
+<li><p>a = sound speed [kts]</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.atmosphere_ISA_deviation.atmosphere_ISA_deviation">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.atmosphere_ISA_deviation.</code><code class="sig-name descname">atmosphere_ISA_deviation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">h</span></em>, <em class="sig-param"><span class="n">delta_ISA</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/atmosphere_ISA_deviation.html#atmosphere_ISA_deviation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.atmosphere_ISA_deviation.atmosphere_ISA_deviation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Attributes.Atmosphere.fair">
+<span id="framework-attributes-atmosphere-fair-module"></span><h2>framework.Attributes.Atmosphere.fair module<a class="headerlink" href="#module-framework.Attributes.Atmosphere.fair" title="Permalink to this headline">¶</a></h2>
+<p>File name : FAIR function
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : September/2020
+Last edit : September/2020
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.AFPROP">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">AFPROP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em>, <em class="sig-param"><span class="n">A0</span></em>, <em class="sig-param"><span class="n">A1</span></em>, <em class="sig-param"><span class="n">A2</span></em>, <em class="sig-param"><span class="n">A3</span></em>, <em class="sig-param"><span class="n">A4</span></em>, <em class="sig-param"><span class="n">A5</span></em>, <em class="sig-param"><span class="n">A6</span></em>, <em class="sig-param"><span class="n">A7</span></em>, <em class="sig-param"><span class="n">h_ref</span></em>, <em class="sig-param"><span class="n">phi_ref</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#AFPROP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.AFPROP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.AFPROP_A">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">AFPROP_A</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#AFPROP_A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.AFPROP_A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.AFPROP_P">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">AFPROP_P</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#AFPROP_P"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.AFPROP_P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.FAIR">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">FAIR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">T</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">h</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">Pr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">phi</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#FAIR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.FAIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.find_Pr">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">find_Pr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#find_Pr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.find_Pr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.find_h">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">find_h</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#find_h"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.find_h" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.find_phi">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">find_phi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#find_phi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.find_phi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.fair.unFAIR">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.fair.</code><code class="sig-name descname">unFAIR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em>, <em class="sig-param"><span class="n">FAR</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/fair.html#unFAIR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.fair.unFAIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Attributes.Atmosphere.temperature_dependent_air_properties">
+<span id="framework-attributes-atmosphere-temperature-dependent-air-properties-module"></span><h2>framework.Attributes.Atmosphere.temperature_dependent_air_properties module<a class="headerlink" href="#module-framework.Attributes.Atmosphere.temperature_dependent_air_properties" title="Permalink to this headline">¶</a></h2>
+<p>File name : Temperature dependent air properties
+Authors   : Alejandro Rios
+Email     : <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date      : September/2020
+Last edit : September/2020
+Language  : Python 3.8 or &gt;
+Aeronautical Institute of Technology - Airbus Brazil</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.AFPROP">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">AFPROP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em>, <em class="sig-param"><span class="n">A0</span></em>, <em class="sig-param"><span class="n">A1</span></em>, <em class="sig-param"><span class="n">A2</span></em>, <em class="sig-param"><span class="n">A3</span></em>, <em class="sig-param"><span class="n">A4</span></em>, <em class="sig-param"><span class="n">A5</span></em>, <em class="sig-param"><span class="n">A6</span></em>, <em class="sig-param"><span class="n">A7</span></em>, <em class="sig-param"><span class="n">h_ref</span></em>, <em class="sig-param"><span class="n">phi_ref</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#AFPROP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.AFPROP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.AFPROP_A">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">AFPROP_A</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#AFPROP_A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.AFPROP_A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.AFPROP_P">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">AFPROP_P</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#AFPROP_P"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.AFPROP_P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.FAIR">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">FAIR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">T</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">h</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">Pr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">phi</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#FAIR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.FAIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.find_Pr">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">find_Pr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#find_Pr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.find_Pr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.find_h">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">find_h</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#find_h"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.find_h" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.find_phi">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">find_phi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">T</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#find_phi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.find_phi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Attributes.Atmosphere.temperature_dependent_air_properties.unFAIR">
+<code class="sig-prename descclassname">framework.Attributes.Atmosphere.temperature_dependent_air_properties.</code><code class="sig-name descname">unFAIR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span></em>, <em class="sig-param"><span class="n">FAR</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Attributes/Atmosphere/temperature_dependent_air_properties.html#unFAIR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Attributes.Atmosphere.temperature_dependent_air_properties.unFAIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-framework.Attributes.Atmosphere">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-framework.Attributes.Atmosphere" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

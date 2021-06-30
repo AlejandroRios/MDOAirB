@@ -1,27 +1,20 @@
 """
-File name : aerodynamic coefficients
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module computes the wing aerodynamic coefficients using a neural network.
 
-Inputs:
-    - Vehicle dictionary
-    - Altitude [ft]
-    - Mach number
-    - CL or alpha_deg
-    - switch_neural_network - 0 for CL | 1 for alpha input
-Outputs:
-    - CD - Drag coefficient
-    - CL - Lift coefficient
 TODO's:
     - Rename variables
     - Check issue with dtype object
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -42,10 +35,11 @@ np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
 
 def loadmat(filename):
     '''
-    this function should be called instead of direct snp.pio.loadmat
-    as it cures the problem of not properly recovering python dictionaries
-    from mat files. It calls the function check keys to cure all entries
-    which are still mat-objects
+    Description:
+        this function should be called instead of direct snp.pio.loadmat
+        as it cures the problem of not properly recovering python dictionaries
+        from mat files. It calls the function check keys to cure all entries
+        which are still mat-objects
     '''
     data = spio.loadmat(filename, struct_as_record=False, squeeze_me=True)
     return _check_keys(data)
@@ -53,8 +47,9 @@ def loadmat(filename):
 
 def _check_keys(dict):
     '''
-    checks if entries in dictionary are mat-objects. If yes
-    todict is called to change them to nested dictionaries
+    Description:
+        checks if entries in dictionary are mat-objects. If yes
+        todict is called to change them to nested dictionaries
     '''
     for key in dict:
         if isinstance(dict[key], spio.matlab.mio5_params.mat_struct):
@@ -64,7 +59,8 @@ def _check_keys(dict):
 
 def _todict(matobj):
     '''
-    A recursive function which constructs from matobjects nested dictionaries
+    Description:
+        A recursive function which constructs from matobjects nested dictionaries
     '''
     dict = {}
     for strg in matobj._fieldnames:
@@ -85,6 +81,20 @@ def logical(varin):
 
 
 def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_neural_network):
+    '''
+    Description:
+        Update neural network parammeters to be used in ANN_aerodynamics_main
+    Inputs:
+        - Vehicle dictionary
+        - Altitude [ft]
+        - Mach number
+        - CL
+        - alpha [deg]
+        - switch_neural_network - 0 for CL | 1 for alpha input
+    Outputs:
+        - CD - Drag coefficient
+        - CL - Lift coefficient
+    '''
     CL_input = CL
 
     aircraft = vehicle['aircraft']
@@ -133,6 +143,9 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'tip_airfoil_maximum_camber_chordwise_position ': wing['maximum_camber_chordwise_position'][2]
     }
 
+    '''
+    If a new network is to be used from matlab database uncomment lines realted to .mat extensions
+    '''
     # NN_induced = loadmat('Aerodynamics/NN_CDind.mat')
     # np.save('NN_induced.npy', NN_induced)
     # NN_wave = loadmat('Aerodynamics/NN_CDwave.mat')
@@ -142,6 +155,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
     # NN_CL = loadmat('Aerodynamics/NN_CL.mat')
     # np.save('NN_CL.npy', NN_CL)
 
+    # Load the neural network weights for each of the NN
     NN_induced = np.load('Database/Neural_Network/NN_induced.npy',
                          allow_pickle=True).item()
     NN_wave = np.load('Database/Neural_Network/NN_wave.npy', allow_pickle=True).item()
@@ -157,7 +171,8 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         NN_cd0,
         NN_CL
     )
-
+    
+    # Total wing drag sum
     CDfp = 1.04*CDfp
     CDwing = CDfp + CDwave + CDind
 
@@ -172,9 +187,34 @@ def ANN_aerodynamics_main(
     NN_wave,
     NN_cd0,
     NN_CL,
-):
-    #  Soure: Ney Rafael Seccô and Bento Mattos
-    #  Aeronautical Institute of Technology
+    ):
+    '''
+    Description:
+        This function calculate the aerodynamic coefficients related to the NN's
+    Inputs:
+        - CL input
+        - inputs_neural_network
+        - switch_neural_network
+        - NN_ind
+        - NN_wave
+        - NN_cd0
+        - NN_CL
+    Outputs:
+        - CL
+        - Alpha
+        - CD_fp
+        - CD_wave
+        - CD_ind
+        - grad_CL
+        - grad_CD_fp
+        - grad_CD_wave
+        - grad_CD_ind
+
+    Translated to python from Matlab.    
+    | Soure: Ney Rafael Seccô and Bento Mattos
+    | Aeronautical Institute of Technology
+    '''
+
 
     sizes = len(inputs_neural_network)
     # if sizes != 40 :

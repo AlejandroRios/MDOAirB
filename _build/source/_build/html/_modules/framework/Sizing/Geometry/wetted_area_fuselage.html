@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry.wetted_area_fuselage &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry.wetted_area_fuselage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Sizing.Geometry.wetted_area_fuselage</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Function  : wetted_area_fuselage.py</span>
+<span class="sd">Title     : Wetted area fuselage</span>
+<span class="sd">Written by: Alejandro Rios</span>
+<span class="sd">Date      : November/2019</span>
+<span class="sd">Last edit : August/2020</span>
+<span class="sd">Language  : Python</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This module calculates the wetted area of the fuselage</span>
+
+<span class="sd">Future implementations:</span>
+<span class="sd">    - </span>
+
+<span class="sd">Inputs:</span>
+<span class="sd">    - Fuselage height</span>
+<span class="sd">    - Fuselage width</span>
+<span class="sd">    - Length front nose fuselage ???</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Total fuselage area</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">########################################################################################</span>
+<span class="sd">&quot;&quot;&quot;Importing Modules&quot;&quot;&quot;</span>
+<span class="c1">########################################################################################</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.area_triangle_3d</span> <span class="kn">import</span> <span class="n">area_triangle_3d</span>
+<span class="c1">########################################################################################</span>
+<span class="sd">&quot;&quot;&quot;Function definition&quot;&quot;&quot;</span>
+<span class="c1">########################################################################################</span>
+
+
+<div class="viewcode-block" id="wetted_area_forward_fuselage"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_forward_fuselage">[docs]</a><span class="k">def</span> <span class="nf">wetted_area_forward_fuselage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">stl</span> <span class="kn">import</span> <span class="n">mesh</span>
+    <span class="c1"># import meshio</span>
+
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">Mesh</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;Database/Fuselage/forwardfus_short.stl&#39;</span><span class="p">)</span>
+    <span class="c1"># mesh = meshio.read(&#39;forwardfus_short.stl&#39;)(&#39;forwardfus_short.stl&#39;)</span>
+
+    <span class="n">xmin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xmax</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ymin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ymax</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">zmin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">min_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">zmax</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">max_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># Proceed to scale the mesh to fit into the current airplane configuration</span>
+    <span class="c1">#xmed = 0.50*(xmin+xmax)</span>
+    <span class="n">ymed</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="p">(</span><span class="n">ymin</span><span class="o">+</span><span class="n">ymax</span><span class="p">)</span>
+    <span class="n">zmed</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="p">(</span><span class="n">zmin</span><span class="o">+</span><span class="n">zmax</span><span class="p">)</span>
+
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">xmax</span><span class="o">-</span><span class="n">xmin</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">ymax</span><span class="o">-</span><span class="n">ymin</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="n">zmax</span><span class="o">-</span><span class="n">zmin</span>
+
+    <span class="n">scalex</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;cockpit_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dx</span>
+    <span class="n">scaley</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dz</span>
+    <span class="n">scalez</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dy</span>
+
+    <span class="n">vertx</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">xmin</span>
+    <span class="n">vertx</span> <span class="o">=</span> <span class="n">vertx</span> <span class="o">*</span> <span class="n">scalex</span>
+
+    <span class="n">verty</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">ymed</span>
+    <span class="n">verty</span> <span class="o">=</span> <span class="n">verty</span> <span class="o">*</span> <span class="n">scalez</span>
+
+    <span class="n">vertz</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">zmed</span>
+    <span class="n">vertz</span> <span class="o">=</span> <span class="n">vertz</span> <span class="o">*</span> <span class="n">scaley</span>
+
+    <span class="c1"># verts = np.column_stack((vertx,vertz,verty))</span>
+    <span class="n">nfac</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vectors</span><span class="p">)</span>
+    <span class="n">areas</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># check this point</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nfac</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">vertx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">vertz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">z</span> <span class="o">=</span> <span class="n">verty</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">area</span> <span class="o">=</span> <span class="n">area_triangle_3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="n">areas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
+        <span class="c1"># print(areas)</span>
+    <span class="n">total_area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">total_area</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="wetted_area_tailcone_fuselage"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_tailcone_fuselage">[docs]</a><span class="k">def</span> <span class="nf">wetted_area_tailcone_fuselage</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+
+    <span class="n">ai</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">bi</span> <span class="o">=</span> <span class="mf">0.90</span><span class="o">*</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+    <span class="c1"># Ellipse do final da fuselagem</span>
+    <span class="n">af</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;af_ellipse&#39;</span><span class="p">]</span>  <span class="c1"># m</span>
+    <span class="n">bf</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;bf_ellipse&#39;</span><span class="p">]</span>   <span class="c1"># m</span>
+    <span class="n">z0f</span> <span class="o">=</span> <span class="n">bi</span><span class="o">-</span><span class="n">bf</span>
+    <span class="c1">#</span>
+    <span class="n">n_points</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">teta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_points</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="c1"># #</span>
+    <span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_points</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;tail_length&#39;</span><span class="p">])</span>
+    <span class="n">zi</span> <span class="o">=</span> <span class="n">bi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">teta</span><span class="p">)</span>
+    <span class="n">yi</span> <span class="o">=</span> <span class="n">ai</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">teta</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_points</span><span class="p">)</span><span class="o">*</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">z0f</span> <span class="o">+</span> <span class="n">bf</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">teta</span><span class="p">)</span>
+    <span class="n">yf</span> <span class="o">=</span> <span class="n">af</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">teta</span><span class="p">)</span>
+    <span class="n">SWET_TC</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">xe</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ye</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ze</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xt1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">yt1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">zt1</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">xt2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">yt2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">zt2</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">areas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ie</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_points</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">xe</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xi</span><span class="p">[</span><span class="n">ie</span><span class="p">])</span>
+        <span class="n">xe</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">xf</span><span class="p">[</span><span class="n">ie</span><span class="p">])</span>
+        <span class="n">xe</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">xf</span><span class="p">[</span><span class="n">ie</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">xe</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">xi</span><span class="p">[</span><span class="n">ie</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">xe</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">xe</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">ye</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">yi</span><span class="p">[</span><span class="n">ie</span><span class="p">])</span>
+        <span class="n">ye</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">yf</span><span class="p">[</span><span class="n">ie</span><span class="p">])</span>
+        <span class="n">ye</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">yf</span><span class="p">[</span><span class="n">ie</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ye</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">yi</span><span class="p">[</span><span class="n">ie</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ye</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">ye</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">ze</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">zi</span><span class="p">[</span><span class="n">ie</span><span class="p">])</span>
+        <span class="n">ze</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">zf</span><span class="p">[</span><span class="n">ie</span><span class="p">])</span>
+        <span class="n">ze</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">zf</span><span class="p">[</span><span class="n">ie</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ze</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">zi</span><span class="p">[</span><span class="n">ie</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ze</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">ze</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">xt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xe</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">xt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">xe</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">xt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">xe</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="n">yt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ye</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">yt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ye</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">yt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ye</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="n">zt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ze</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">zt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ze</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">zt1</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ze</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="n">A1</span> <span class="o">=</span> <span class="n">area_triangle_3d</span><span class="p">(</span><span class="n">xt1</span><span class="p">,</span> <span class="n">yt1</span><span class="p">,</span> <span class="n">zt1</span><span class="p">)</span>
+
+        <span class="n">xt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xe</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">xt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">xe</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">xt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">xe</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="n">yt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ye</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">yt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ye</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">yt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ye</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="n">zt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ze</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">zt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ze</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">zt2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ze</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="n">A2</span> <span class="o">=</span> <span class="n">area_triangle_3d</span><span class="p">(</span><span class="n">xt2</span><span class="p">,</span> <span class="n">yt2</span><span class="p">,</span> <span class="n">zt2</span><span class="p">)</span>
+
+        <span class="n">areas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A1</span><span class="o">+</span><span class="n">A2</span><span class="p">)</span>
+
+    <span class="n">total_area</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">areas</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">total_area</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

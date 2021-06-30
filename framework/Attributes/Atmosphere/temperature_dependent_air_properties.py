@@ -1,20 +1,23 @@
 """
-File name : Temperature dependent air properties
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - Calculates the temperature dependent properties, the specific heat Cp, 
+    the gas constant R, the ratio of specific heatsγand the speed of sound a
+
+Reference:
+    - Gordon 1976
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -31,6 +34,26 @@ from scipy import optimize
 
 
 def FAIR(item=None, f=None, T=None, h=None, Pr=None, phi=None):
+    """
+    Description:
+        Calculates the temperature dependent properties
+    Inputs:
+        - item
+        - f
+        - T
+        - h
+        - Pr
+        - phi
+    Outputs:
+        - T
+        - h
+        - Pr
+        - phi
+        - Cp
+        - R
+        - gamma
+        - a
+    """
     list_variables = [item, f, T, h, Pr, phi]
     nargin = sum(x is not None for x in list_variables)
 

@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry.landing_gear_layout &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry.landing_gear_layout</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Sizing.Geometry.landing_gear_layout</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File name : Landing gear layout function</span>
+<span class="sd">Authors   : Alejandro Rios</span>
+<span class="sd">Email     : aarc.88@gmail.com</span>
+<span class="sd">Date      : January 2021</span>
+<span class="sd">Last edit : February 2021</span>
+<span class="sd">Language  : Python 3.8 or &gt;</span>
+<span class="sd">Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">Description: This function creates the landing gear layout.</span>
+<span class="sd">References:</span>
+<span class="sd">    - ROSKAM, J. Airplane Design vol. IV - Layout of landing gear and systems. DARCorp, 2010.</span>
+<span class="sd">      TORENBEEK, E. Synthesis of subsonic airplane design. DUP / Kluwer, 1982.</span>
+<span class="sd">Inputs:</span>
+<span class="sd">    - Vehicle dictionary</span>
+<span class="sd">Outputs:</span>
+<span class="sd">    - Vehicle dictionary updated</span>
+<span class="sd">    - Min angle main gear to cg [deg]</span>
+<span class="sd">    - Pneu number by strut </span>
+<span class="sd">    - Pneu main gear diameter [m]</span>
+<span class="sd">    - Pneu main gear length [m]</span>
+<span class="sd">    - Min psiton length [m]</span>
+<span class="sd">    - Main gear shock absorber diameter [m]</span>
+<span class="sd">    - Nose gear piston length [m]</span>
+<span class="sd">    - Nose gear shock absorber diameter [m]</span>
+<span class="sd">    - Pneu nose gear length [m]</span>
+<span class="sd">    - Pneu nose gear diameter [m]</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    - Rename variables</span>
+<span class="sd">    - Update comments</span>
+<span class="sd">    - Update format to PEP8</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.tire_selection</span> <span class="kn">import</span> <span class="n">tire_selection</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<span class="k">global</span> <span class="n">GRAVITY</span>
+<span class="n">GRAVITY</span> <span class="o">=</span> <span class="mf">9.80665</span>
+<span class="n">kgf_to_lbf</span> <span class="o">=</span> <span class="mf">2.204622622</span>
+<span class="n">ms_to_mph</span> <span class="o">=</span> <span class="mf">2.236936292</span>
+<span class="n">in_to_m</span> <span class="o">=</span> <span class="mf">0.0254</span>
+<span class="n">ft_to_m</span> <span class="o">=</span> <span class="mf">0.3048</span>
+<span class="n">rad_to_deg</span> <span class="o">=</span> <span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+
+<div class="viewcode-block" id="landing_gear_layout"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.landing_gear_layout.landing_gear_layout">[docs]</a><span class="k">def</span> <span class="nf">landing_gear_layout</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+
+    <span class="n">nose_landing_gear</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;nose_landing_gear&#39;</span><span class="p">]</span>
+    <span class="n">main_landing_gear</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;main_landing_gear&#39;</span><span class="p">]</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+
+    <span class="c1"># CÁLCULOS</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Número de struts do trem de pouso principal</span>
+    <span class="n">pneu_number_by_strut</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Número de pneus por strut do trem principal</span>
+    <span class="n">nt_n</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Número de pneus por strut do trem secundario</span>
+    <span class="c1"># Pressao maxima do pneu do TDP principal</span>
+    <span class="n">psi_m</span> <span class="o">=</span> <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">]</span>
+    <span class="c1"># Pressao maxima do pneu do TDP do nariz</span>
+    <span class="n">psi_n</span> <span class="o">=</span> <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">]</span>
+    <span class="c1"># DIMENSÕES PRIMÁRIAS</span>
+    <span class="n">ln</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;forward_center_of_gravity_xposition&#39;</span><span class="p">]</span> <span class="o">-</span> \
+        <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;xpostion&#39;</span><span class="p">]</span>  <span class="c1"># Distância do tdp dianteiro ao CG [m]</span>
+    <span class="c1"># Distância do tdp principal ao CG [m]</span>
+    <span class="n">lm</span> <span class="o">=</span> <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;xpostion&#39;</span><span class="p">]</span> <span class="o">-</span> \
+        <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;forward_center_of_gravity_xposition&#39;</span><span class="p">]</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;xpostion&#39;</span><span class="p">]</span> <span class="o">-</span> \
+        <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;after_center_of_gravity_xposition&#39;</span><span class="p">]</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;xpostion&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;xpostion&#39;</span><span class="p">]</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;forward_center_of_gravity_xposition&#39;</span><span class="p">]</span> <span class="o">-</span> \
+        <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;xpostion&#39;</span><span class="p">]</span>
+    <span class="n">Fator</span> <span class="o">=</span> <span class="mf">1.07</span>  <span class="c1"># Fator de ajuste 14CFR25</span>
+
+    <span class="c1"># CARGAS</span>
+    <span class="c1"># Cargas estáticas</span>
+    <span class="n">OEW</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span>
+
+    <span class="n">fatrespdyn</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">mi</span> <span class="o">=</span> <span class="mf">0.80</span>  <span class="c1"># coef de fricção</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;zCG&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> \
+        <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;piston_length&#39;</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;tyre_diameter&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">fatdyn</span> <span class="o">=</span> <span class="n">fatrespdyn</span><span class="o">*</span><span class="n">mi</span><span class="o">*</span><span class="n">L</span><span class="o">*</span><span class="n">J</span><span class="o">/</span><span class="p">(</span><span class="n">F</span><span class="o">+</span><span class="n">mi</span><span class="o">*</span><span class="n">J</span><span class="p">)</span>
+    <span class="n">Pn_max</span> <span class="o">=</span> <span class="n">OEW</span><span class="o">*</span><span class="p">((</span><span class="n">F</span><span class="o">-</span><span class="n">L</span><span class="p">)</span> <span class="o">+</span> <span class="n">fatdyn</span><span class="p">)</span><span class="o">/</span><span class="n">F</span>
+    <span class="n">Pm_max</span> <span class="o">=</span> <span class="n">OEW</span><span class="o">*</span><span class="p">(</span><span class="n">F</span><span class="o">-</span><span class="n">M</span><span class="p">)</span><span class="o">/</span><span class="n">F</span>
+    <span class="c1"># Carga maxima por pneu no trem principal [lbf]</span>
+    <span class="n">LoadMax</span> <span class="o">=</span> <span class="n">Fator</span><span class="o">*</span><span class="p">(</span><span class="n">Pm_max</span><span class="o">*</span><span class="n">kgf_to_lbf</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ns</span><span class="o">*</span><span class="n">pneu_number_by_strut</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">LoadMax</span> <span class="o">&gt;</span> <span class="mi">59500</span><span class="p">:</span>  <span class="c1"># Verifica carga máxima por pneu e acerta número de pneus</span>
+        <span class="c1"># Define número de pneus requerido</span>
+        <span class="n">pneu_number_by_strut_req</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">LoadMax</span><span class="o">/</span><span class="mi">59500</span><span class="p">)</span>
+        <span class="c1"># Verifica se número requerido de pneus é multiplo de 4</span>
+        <span class="n">nwtest</span> <span class="o">=</span> <span class="n">pneu_number_by_strut_req</span> <span class="o">%</span> <span class="n">ns</span>
+        <span class="k">if</span> <span class="n">nwtest</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1">#    disp(&#39;passei por aqui como?&#39;)</span>
+            <span class="c1"># Define número de pneus como um número par</span>
+            <span class="n">pneu_number_by_strut</span> <span class="o">=</span> <span class="p">(</span><span class="n">nwtest</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
+
+    <span class="c1"># fprintf(&#39;\n MLG: Tyre number per strut #2i \n&#39;,pneu_number_by_strut)</span>
+
+    <span class="c1"># Cargas dinâmicas</span>
+    <span class="n">axg</span> <span class="o">=</span> <span class="mf">0.45</span>
+    <span class="n">Pn_dyn</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">((</span><span class="n">lm</span><span class="o">+</span><span class="n">axg</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;zCG&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span>
+        <span class="n">lm</span><span class="o">+</span><span class="n">ln</span><span class="o">+</span><span class="n">axg</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;zCG&#39;</span><span class="p">]))</span>  <span class="c1"># Carga no tdp dianteiro [kgf]</span>
+    <span class="c1"># Carga por pneu</span>
+    <span class="c1"># Carga estática por pneu no tdp principal [kgf]</span>
+    <span class="n">TL_m_static</span> <span class="o">=</span> <span class="n">LoadMax</span><span class="o">/</span><span class="n">kgf_to_lbf</span>
+    <span class="c1"># Carga estática por pneu no tdp dianteiro [kgf]</span>
+    <span class="n">TL_n_static</span> <span class="o">=</span> <span class="n">Pn_max</span><span class="o">/</span><span class="n">nt_n</span><span class="o">*</span><span class="n">Fator</span>
+    <span class="n">TL_n_dyn</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Carga dinâmica por pneu no tdp dianteiro [kgf]</span>
+    <span class="c1">#</span>
+    <span class="n">MLW</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.9</span>
+    <span class="n">v_tfo</span> <span class="o">=</span> <span class="mf">1.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;maximum_takeoff_weight&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">GRAVITY</span><span class="o">/</span><span class="p">(</span>
+        <span class="mf">1.225</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;CL_maximum_takeoff&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]))</span>  <span class="c1"># Velocidade máxima de lift-off [m/s]</span>
+    <span class="c1"># Velocidade máxima de toque no pouso [m/s]</span>
+    <span class="n">v_land</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">MLW</span><span class="o">*</span><span class="n">GRAVITY</span> <span class="o">/</span>
+                         <span class="p">(</span><span class="mf">1.225</span><span class="o">*</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;CL_maximum_landing&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]))</span>
+    <span class="c1"># Velocidade usada para dimensionamento dos pneus [m/s]</span>
+    <span class="n">v_qualified</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">v_tfo</span><span class="p">,</span> <span class="n">v_land</span><span class="p">)</span>
+    <span class="c1"># PNEUS</span>
+    <span class="n">vqualmph</span> <span class="o">=</span> <span class="n">v_qualified</span><span class="o">*</span><span class="n">ms_to_mph</span>
+    <span class="c1"># Pneu tdp principal</span>
+    <span class="n">loadM</span> <span class="o">=</span> <span class="n">TL_m_static</span><span class="o">*</span><span class="n">kgf_to_lbf</span>
+    <span class="c1">#fprintf(&#39;\n Tyre sizing for main landing gear ... &#39;)</span>
+    <span class="n">TDia</span><span class="p">,</span> <span class="n">TWid</span> <span class="o">=</span> <span class="n">tire_selection</span><span class="p">(</span><span class="n">loadM</span><span class="p">,</span> <span class="n">vqualmph</span><span class="p">,</span> <span class="n">psi_m</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+    <span class="c1"># print(&#39;\n Done! \n &#39;)</span>
+    <span class="n">pneu_main_gear_diameter</span> <span class="o">=</span> <span class="n">TDia</span>  <span class="c1"># Diâmetro máximo pneu tdp principal [m]</span>
+    <span class="c1"># fprintf(&#39;\n MLF tyre diameter: #5.2f m \n&#39;, pneu_main_gear_diameter)</span>
+    <span class="n">D0m_min</span> <span class="o">=</span> <span class="mf">0.96</span><span class="o">*</span><span class="n">TDia</span>  <span class="c1"># Diâmetro mínimo pneu tdp principal [m]</span>
+    <span class="n">pneu_main_gear_length</span> <span class="o">=</span> <span class="n">TWid</span>  <span class="c1"># Largura máxima pneu tdp principal [m]</span>
+    <span class="n">mstatic_load</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">TDia</span>  <span class="c1"># Raio do pneu, carregado [m]</span>
+    <span class="n">st_m</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.25</span><span class="o">*</span><span class="p">(</span><span class="n">pneu_main_gear_diameter</span><span class="o">+</span><span class="n">D0m_min</span><span class="p">)</span> <span class="o">-</span>
+            <span class="p">(</span><span class="n">mstatic_load</span><span class="p">))</span>  <span class="c1"># Deflexão permitida do pneu [m]</span>
+    <span class="c1"># Pneu tdp dianteiro (Tipo VII)</span>
+    <span class="n">loadN</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">TL_n_static</span><span class="p">,</span> <span class="n">TL_n_dyn</span><span class="p">])</span><span class="o">*</span><span class="n">kgf_to_lbf</span>
+    <span class="c1">#fprintf(&#39;\n Tyre sizing for nose landing gear ... &#39;)</span>
+    <span class="n">TDia</span><span class="p">,</span> <span class="n">TWid</span> <span class="o">=</span> <span class="n">t</span> <span class="o">=</span> <span class="n">tire_selection</span><span class="p">(</span><span class="n">loadN</span><span class="p">,</span> <span class="n">vqualmph</span><span class="p">,</span> <span class="n">psi_n</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">)</span>
+    <span class="c1">#fprintf(&#39;\n Done! \n &#39;)</span>
+    <span class="n">pneu_nose_gear_diameter</span> <span class="o">=</span> <span class="n">TDia</span>  <span class="c1"># Diâmetro máximo pneu tdp dianteiro [m]</span>
+    <span class="n">D0n_min</span> <span class="o">=</span> <span class="mf">0.96</span><span class="o">*</span><span class="n">TDia</span>  <span class="c1"># Diâmetro mínimo pneu tdp dianteiro [m]</span>
+    <span class="n">pneu_nose_gear_length</span> <span class="o">=</span> <span class="n">TWid</span>  <span class="c1"># Largura máxima pneu tdp dianteiro [m]</span>
+    <span class="n">nstatic_load</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">TDia</span>  <span class="c1"># Raio do pneu, carregado [m]</span>
+    <span class="n">st_n</span> <span class="o">=</span> <span class="p">((</span><span class="n">pneu_nose_gear_diameter</span><span class="o">+</span><span class="n">D0n_min</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="p">(</span><span class="n">nstatic_load</span><span class="p">))</span> <span class="o">*</span> \
+        <span class="n">in_to_m</span>          <span class="c1"># Deflexão permitida do pneu [m]</span>
+    <span class="c1"># SHOCK ABSORBERS (STRUTS)  - Mason</span>
+    <span class="c1"># Eficiência para absorção de energia, pneu</span>
+    <span class="n">ni_t</span> <span class="o">=</span> <span class="mf">0.47</span>
+    <span class="c1"># Eficiência para absorção de energia, shock absorber (considerado como oleo-pneumático)</span>
+    <span class="n">ni_s</span> <span class="o">=</span> <span class="mf">0.8</span>
+    <span class="c1"># Fator de carga 14CFR25 [g]</span>
+    <span class="n">Ng</span> <span class="o">=</span> <span class="mf">1.5</span>
+
+    <span class="c1"># TDP dianteiro</span>
+    <span class="n">vsink</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">ft_to_m</span>
+    <span class="n">Ss_n</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">Pn_max</span><span class="o">/</span><span class="n">GRAVITY</span><span class="o">*</span><span class="n">vsink</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="n">Pn_dyn</span><span class="p">)</span><span class="o">*</span><span class="n">Ng</span><span class="p">)</span><span class="o">-</span><span class="n">ni_t</span><span class="o">*</span><span class="n">st_n</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="n">ni_s</span>  <span class="c1"># Comprimento, shock absorber, tdp dianteiro [m]</span>
+    <span class="c1"># Comprimento de projeto, shock absorber, tdp dianteiro [m]</span>
+    <span class="n">Ss_n</span> <span class="o">=</span> <span class="n">Ss_n</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="n">in_to_m</span>
+    <span class="c1"># Diâmetro, shock absorber, tdp dianteiro [m]</span>
+    <span class="n">nose_gear_shock_absorber_diameter</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mf">0.041</span><span class="o">+</span><span class="mf">0.0025</span><span class="o">*</span><span class="p">(</span><span class="n">Pn_dyn</span><span class="o">/</span><span class="mf">0.4535</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="mf">3.28</span>
+
+    <span class="n">nose_gear_piston_length</span> <span class="o">=</span> <span class="n">Ss_n</span> <span class="o">+</span> <span class="mf">2.75</span><span class="o">*</span><span class="n">nose_gear_shock_absorber_diameter</span>
+    <span class="c1"># MIL-L-8552 - Minimum piston length</span>
+    <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;piston_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nose_gear_piston_length</span>
+    <span class="c1"># fprintf(&#39;\n Nose landing gear Minimum piston length: #5.2f m \n&#39;,Lmain_landing_gear[&#39;piston_length&#39;])</span>
+    <span class="c1"># - TDP Principal</span>
+
+    <span class="c1"># Energy calculation</span>
+    <span class="c1">#  At takeoff</span>
+    <span class="n">vsink</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="n">ft_to_m</span>  <span class="c1"># Velocidade de descida (FAR)</span>
+    <span class="n">Sst_ma</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.50</span><span class="o">*</span><span class="n">vsink</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ni_s</span><span class="o">*</span><span class="n">Ng</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">ni_t</span><span class="o">*</span><span class="n">st_m</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="n">ni_s</span>  <span class="c1"># Comprimento, shock absorber, tdp principal [m]</span>
+    <span class="n">Sst_ma</span> <span class="o">=</span> <span class="n">Sst_ma</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="n">in_to_m</span>  <span class="c1"># Comprimento de projeto, shock absorber</span>
+    <span class="c1">#  At landing</span>
+    <span class="n">vsink</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">ft_to_m</span>
+    <span class="n">Ssl_ma</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.50</span><span class="o">*</span><span class="n">vsink</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">ni_s</span><span class="o">*</span><span class="n">Ng</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span> <span class="o">-</span> <span class="n">ni_t</span><span class="o">*</span><span class="n">st_m</span><span class="p">)</span> <span class="o">/</span> \
+        <span class="n">ni_s</span>  <span class="c1"># Comprimento, shock absorber, tdp principal [m]</span>
+    <span class="n">Ssl_ma</span> <span class="o">=</span> <span class="n">Ssl_ma</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="n">in_to_m</span>  <span class="c1"># Comprimento de projeto, shock absorber [m]</span>
+
+    <span class="n">Ss_m</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Sst_ma</span><span class="p">,</span> <span class="n">Ssl_ma</span><span class="p">)</span>
+    <span class="n">Pm</span> <span class="o">=</span> <span class="n">Pm_max</span><span class="o">/</span><span class="n">ns</span>
+    <span class="c1"># Diâmetro, shock absorber, tdp principal [m]</span>
+    <span class="n">main_gear_shock_absorber_diameter</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.041</span><span class="o">+</span><span class="mf">0.0025</span><span class="o">*</span><span class="p">(</span><span class="n">Pm</span><span class="o">/</span><span class="mf">0.4535</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="mf">3.28</span>
+    <span class="c1"># MIL-L-8552 - Minimum piston length [m]</span>
+    <span class="n">min_psiton_length</span> <span class="o">=</span> <span class="n">Ss_m</span> <span class="o">+</span> <span class="mf">2.75</span><span class="o">*</span><span class="n">main_gear_shock_absorber_diameter</span>
+    <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;piston_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_psiton_length</span>
+    <span class="c1"># fprintf(&#39;\n Main landing gear Minimum piston length: #5.2f m \n&#39;,min_psiton_length)</span>
+    <span class="c1"># ÂNGULOS</span>
+    <span class="c1"># A (entre a vertical do tdp principal e o cg)</span>
+    <span class="c1"># valor para A mínimo [deg]</span>
+    <span class="n">min_angle_main_gear_to_cg</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">M</span><span class="o">/</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;zCG&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">rad_to_deg</span>
+    <span class="c1"># valor para A máximo [deg]</span>
+    <span class="n">max_angle_main_gear_to_cg</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">lm</span><span class="o">/</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;zCG&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">rad_to_deg</span>
+    <span class="c1"># Beta (clearance da cauda com o solo)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">((</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;zCG&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;zCG&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">-</span>
+                                                     <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;xpostion&#39;</span><span class="p">]))</span><span class="o">*</span><span class="n">rad_to_deg</span>  <span class="c1"># valor de beta</span>
+
+    <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;unit_wheels_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pneu_number_by_strut</span>
+
+    <span class="k">return</span> <span class="n">vehicle</span><span class="p">,</span> <span class="n">min_angle_main_gear_to_cg</span><span class="p">,</span> <span class="n">pneu_number_by_strut</span><span class="p">,</span> <span class="n">pneu_main_gear_diameter</span><span class="p">,</span> <span class="n">pneu_main_gear_length</span><span class="p">,</span> <span class="n">min_psiton_length</span><span class="p">,</span> <span class="n">main_gear_shock_absorber_diameter</span><span class="p">,</span> <span class="n">nose_gear_piston_length</span><span class="p">,</span> <span class="n">nose_gear_shock_absorber_diameter</span><span class="p">,</span> <span class="n">pneu_nose_gear_length</span><span class="p">,</span> <span class="n">pneu_nose_gear_diameter</span></div>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

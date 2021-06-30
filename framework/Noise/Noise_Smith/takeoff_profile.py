@@ -1,31 +1,32 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module performs the simulation of takeoff profile which outputs are used
+    to evaluate noise
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
+import numpy as np
+
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 from framework.Performance.Engine.engine_performance import turbofan
 from framework.Noise.Noise_Smith.takeoff_integration import takeoff_integration
-
-
-import numpy as np
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -38,6 +39,18 @@ GRAVITY = 9.81
 kt_to_ms = 0.514444
 
 def thrust_equation_coefficients(V,T):
+    """
+    Description:
+        - This function calculates the engine coefficientes to evaluate the thrust force as function of speed
+    Inputs:
+        - V
+        - T
+    Outputs:
+        - T0
+        - T1
+        - T2
+    """
+
     A = T[0]
     B = (T[1] - T[0])/(V[1]-V[0])
     C = ((T[2]-T[1])/(V[2]-V[1])-(T[1]-T[0])/(V[1]-V[0]))/(V[2]-V[0])
@@ -47,6 +60,27 @@ def thrust_equation_coefficients(V,T):
     return T0, T1, T2
 
 def takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,runaway_parameters,engine_parameters,vehicle):
+    """
+    Description:
+        - Performs the simulation of the takeoff and provides vectors containing the output information
+    Inputs:
+        - takeoff_parameters
+        - landing_parameters
+        - aircraft_parameters
+        - runaway_parameters
+        - engine_parameters
+        - vehicle
+    Outputs:
+        - time_vec
+        - velocity_vec
+        - distance_vec
+        - velocity_horizontal_vec
+        - altitude_vec
+        - velocity_vertical_vec
+        - trajectory_angle_vec
+        - fan_rotation_vec
+        - compressor_rotation_vec
+    """
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
     engine = vehicle['engine']
@@ -133,13 +167,6 @@ def takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,ru
         phase
         )
 
-    # time_vec = time_vec.tolist()
-
-    # time_vector.append(time_vec)
-    # altitude_vector.append(altitude_vec)
-
-
-    
     # ----- Run until V35 -----
     initial_block_altitude = 0 
     initial_block_distance = final_block_distance
@@ -152,7 +179,6 @@ def takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,ru
     initial_compressor_rotation = engine['compressor_rotation']
     
     stop_criteria = V_35
-
 
     phase = 'ground'
 
@@ -193,9 +219,7 @@ def takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,ru
         phase
         )
 
-
     # ----- Flare to 35 ft -----
-    
     initial_block_altitude = 0 
     initial_block_distance = final_block_distance
     initial_block_trajectory_angle = 0
@@ -247,9 +271,8 @@ def takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,ru
         phase
         )
 
-
     # ----- Flare to 2000 ft -----
-    
+
     initial_block_altitude = final_block_altitude 
     initial_block_distance = final_block_distance
     initial_block_trajectory_angle = final_block_trajectory_angle
@@ -300,12 +323,6 @@ def takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,ru
         stop_criteria,
         phase
         )
-
-    # time_vec1.reshape(-1)
-    # time_vec2.reshape(-1)
-    # time_vec3.reshape(-1)
-    # time_vec4 = np.asarray(time_vec4)
-    # time_vec4 
 
     time_vec = np.concatenate((time_vec1,time_vec2,time_vec3,time_vec4),axis=0)
     velocity_vec = np.concatenate((velocity_vec1,velocity_vec2,velocity_vec3,velocity_vec4),axis=0)

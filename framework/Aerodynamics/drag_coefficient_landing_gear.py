@@ -1,20 +1,20 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - Landing gear contribution to drag coefficient
+
+Reference:
+    - Drag Force and Drag Coefficient - Sadraey M., Aircraft Performance Analysis, VDM Verlag Dr. Müller, 2009
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -29,25 +29,15 @@ TODO's:
 # FUNCTIONS
 # =============================================================================
 def drag_coefficient_landing_gear(vehicle):
-    # Ref: Drag Force and Drag Coefficient
-    # Sadraey M., Aircraft Performance Analysis, VDM Verlag Dr. Müller, 2009
-    #
-    #****************************************************************************
-    #   Inputs:
-    #          Dmain = Diametro do pneu do trem de pouso principal [m]
-    #          nose_landing_gear['tyre_diameter'] = Diametro do pneu do trem de pouso do nariz [m]
-    #          Wmain = Largura do pneu do trem de pouso principal [m]
-    #          Wnose = Largura do pneu do trem de pouso do nariz [m]
-    #          Lstrutmain = Comprimento do munhao do TDP principal [m]
-    #          Lstrutnose = Comprimento do munhao do TDP do nariz [m]
-    #          Dstrutmain = Diametro do munhao do TDP principal [m]
-    #          Dstrutnose = Diametro do munhao do TDP do nariz [m]
-    #          nstrut     = número de munhoes do TDP principal
-    #          nmain      = numero d epneus do TDP principal por munhao
-    #          nnose      = numero d epneus do TDP do nariz 
-    #          wing['area']       = Wing reference area [m2]
-    #****************************************************************************
-
+    '''
+    Description:
+        This function estimates the contribution to drag related to landing gear (main and nose)
+    Inputs:
+        - vehicle
+    Outputs:
+        - CD_main
+        - CD_nose
+    '''
     main_landing_gear = vehicle['main_landing_gear']
     nose_landing_gear = vehicle['nose_landing_gear']
     wing = vehicle['wing']

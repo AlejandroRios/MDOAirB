@@ -1,22 +1,24 @@
 """
-File name : Crew salary function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This function calculate the crew salary based on  major US Airlines
     narrowbodies/single aisle, 95% significance
     https://www.airlinepilotcentral.com
-Inputs:
-    -MTOW
-Outputs:
-    -
+
+Reference: 
+    - Reference: 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -30,8 +32,17 @@ TODO's:
 # FUNCTIONS
 # =============================================================================
 
-
 def crew_salary(MTOW):
+    """
+    Description:
+        - Calculate the tripulation salary as function of MTOW
+    Inputs:
+        - MTOW
+    Outputs:
+        - captain_salary
+        - first_officer_salary
+        - flight_attendant_salary
+    """
     A0_captain = -2.2342E+03
     A1_captain = 3.3898E+00
     A0_first_officer = -1.9221E+04

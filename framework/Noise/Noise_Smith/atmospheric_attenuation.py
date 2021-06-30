@@ -1,20 +1,21 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module is used to estimate the atmospheric attenuation
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -31,6 +32,21 @@ from scipy import interpolate
 # =============================================================================
 
 def atmospheric_attenuation(T_source,noise_parameters,R,f):
+    """
+    Description:
+        - This function is used to estimate the atmospheric attenuation
+    Inputs:
+        - T_source
+        - noise_parameters
+        - R
+        - f
+    Outputs:
+        - ft
+        - alfaamortt
+        - amorttott
+        - amortatmt
+        - SPLrt
+    """
     HR = noise_parameters['relative_humidity']   
     T                   = T_source                                                   # temperatura para avaliação da atenuação [ºC]
     H                   = HR                                                   # umidade relativa do ar para avaliação da atenuação [#]

@@ -1,40 +1,36 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module computes airplane noise during takeoff and landing
+
+Reference:
+    - Smith
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
+import numpy as np
+from datetime import datetime
 
 from framework.Noise.Noise_Smith.takeoff_profile import takeoff_profile
 from framework.Noise.Noise_Smith.takeoff_EPNdB import takeoff_EPNdB
 from framework.Noise.Noise_Smith.sideline_EPNdB import sideline_EPNdB
 from framework.Noise.Noise_Smith.approach_profile import approach_profile
 from framework.Noise.Noise_Smith.approach_EPNdB import approach_EPNdB
-
-# from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
-# from framework.Performance.Engine.engine_performance import turbofan
-# from framework.Attributes.Airspeed.airspeed import V_cas_to_mach, mach_to_V_cas, crossover_altitude
-# from framework.Performance.Analysis.climb_to_altitude import rate_of_climb_calculation
-from datetime import datetime
 from framework.utilities.logger import get_logger
 
-import numpy as np
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -49,48 +45,56 @@ kt_to_ms = 0.514444
 deg_to_rad = np.pi/180
 
 
-
 def aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,aircraft_geometry,engine_parameters,runaway_parameters,noise_parameters,vehicle):
+    """
+    Description:
+        - This function calculates the takeoff, sideline and approach EPNdB noise
+    Inputs:
+        - takeoff_parameters
+        - landing_parameters
+        - aircraft_parameters
+        - aircraft_geometry
+        - engine_parameters
+        - runaway_parameters
+        - noise_parameters
+        - vehicle
+    Outputs:
+        - takeoff_noise
+        - sideline_noise
+        - landing_noise
+    """
+
     log.info('---- Start aircraft noise module ----')
     
     # ---- Takeoff noise ----
-
     # Takeoff flight path:
-    # start = time.time()
     time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec = takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,runaway_parameters,engine_parameters,vehicle)
-    # end = time.time()
-    # print("takeoff path = %s" % (end - start))
-
     throttle_position = 1
 
     # Noise calculation - EPNdB
-    # start = time.time()
     noise_parameters
-    TO_noise = takeoff_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
-    # end = time.time()
-    # print("takeoff noise = %s" % (end - start))
+    takeoff_noise = takeoff_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec, throttle_position, takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
 
-    # start = time.time()
+    # ---- Sideline noise ----
     sideline_noise,_ = sideline_EPNdB(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,altitude_vec,velocity_vertical_vec,trajectory_angle_vec,fan_rotation_vec,compressor_rotation_vec,throttle_position,takeoff_parameters,noise_parameters,aircraft_geometry,engine_parameters,vehicle)
-    # end = time.time()
-    # print("sideline noise = %s" % (end - start))
 
     # ---- Aproach and landing noise ----
-    # Takeoff flight path:
-    # start = time.time()
     t, d, h, FN, CD, CL, VT = approach_profile(takeoff_parameters,landing_parameters,aircraft_parameters,vehicle)
-    # end = time.time()
-    # print("approach path = %s" % (end - start))
-
-    # Noise calculation - EPNdB
-    # start = time.time()
     landing_noise = approach_EPNdB(t,VT,d,h,landing_parameters,noise_parameters,aircraft_geometry,vehicle)
-    # end = time.time()
-    # print("landing noise= %s" % (end - start))
-    return TO_noise, sideline_noise, landing_noise
 
+    return takeoff_noise, sideline_noise, landing_noise
 
 def noise_calculation(vehicle):
+    """
+    Description:
+        - This is the main function that calculates the noise of the aircraft
+    Inputs:
+        - vehicle
+    Outputs:
+        - takeoff_noise
+        - sideline_noise
+        - landing_noise
+    """
     start_time = datetime.now()
     GRAVITY = 9.8065
 

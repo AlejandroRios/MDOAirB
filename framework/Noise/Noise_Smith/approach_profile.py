@@ -1,20 +1,22 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module performs the simulation of approacg profile which outputs are used
+    to evaluate noise
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -32,6 +34,23 @@ import numpy as np
 # FUNCTIONS
 # =============================================================================
 def approach_profile(takeoff_parameters,landing_parameters,aircraft_parameters,vehicle):
+    """
+    Description:
+        - Performs the simulation of the approach and provides vectors containing the output information
+    Inputs:
+        - takeoff_parameters
+        - landing_parameters
+        - aircraft_parameters
+        - vehicle
+    Outputs:
+        - t
+        - d
+        - h
+        - FN
+        - CD
+        - CL
+        - VT
+    """
 
     GRAVITY = 9.81
     m_to_ft = 3.28084
