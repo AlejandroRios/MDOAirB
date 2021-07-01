@@ -285,7 +285,7 @@ def process_optimized_aircraft(design_variables, original_vehicle, computation_m
 	toolbox.register("select", tools.selNSGA2)
 	toolbox.register("population_guess", init_population, list, creator.Individual,original_population)
 
-	with multiprocessing.get_context('spawn').Pool(processes=1) as pool:
+	with multiprocessing.get_context('spawn').Pool(processes=8) as pool:
 		# pool = multiprocessing.Pool(processes=6)
 		# toolbox.register("map", pool.map)
 

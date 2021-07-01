@@ -412,6 +412,9 @@ def network_optimization(computation_mode, airports_keys, distances, demands, do
 
     list_airplanes_db = pd.DataFrame(list_of_airplanes_processed)
     list_airplanes_db.to_csv('Database/Network/frequencies.csv')
+    
+    airplanes_flatt = flatten_dict(airplanes_ik)
+    np.save('Database/Network/frequencies.npy', airplanes_flatt) 
 
     # airplanes_flatt = flatten_dict(airplanes_ik)
     
