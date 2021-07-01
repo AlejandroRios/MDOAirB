@@ -1,6 +1,6 @@
 """
 Function  : Wing structural layout
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : July 2020
 Last edit : February 2021
@@ -56,21 +56,25 @@ def wing_structural_layout(vehicle, xutip, yutip,
     # PSILE: Leading-edge sweepback angle
     # Aileron basis as semi-span fraction (posaileron)
     # Location of the kink station as semi-span fraction (wing.ybreak)
-  
+    
+    kg_l_to_kg_m3 = 1000
+    rad = np.pi/180
     # Initialization
 
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
     fuselage = vehicle['fuselage']
     engine = vehicle['engine']
+    operations = vehicle['operations']
+    nose_landing_gear = vehicle['nose_landing_gear']
 
-    rad = np.pi/180
+    
     wing['fuel_capacity'] = 0
     nukink = len(yukink)
     #
-    nervspacing = 22  # (pol) Roskam Vol III pg 220 suggests 24
-    nervspacm = nervspacing * 0.0254  # cm)
-    denquerosene = 803  # jet A1 density
+    ribs_spacing = wing['ribs_spacing']   # (pol) Roskam Vol III pg 220 suggests 24
+    nervspacm = ribs_spacing * 0.0254  # cm)
+    querosene_density = operations['fuel_density']*kg_l_to_kg_m3  # jet A1 density
 
     angquebralongtras = 0
     #
@@ -92,9 +96,9 @@ def wing_structural_layout(vehicle, xutip, yutip,
     limited = fraclongdi
 
     # Dados do trem de pouso:
-    pneu_diam = 0.80  # diam do pneu em metros
-    pneu_height = 0.25  # largura do pneu (m)
-    lmunhao = 1.3  # Comprimento do munhao (m)
+    pneu_diam = nose_landing_gear['tyre_diameter'] # diam do pneu em metros
+    pneu_height = nose_landing_gear['tyre_height']  # largura do pneu (m)
+    lmunhao = nose_landing_gear['trunnion_length']  # Comprimento do munhao (m)
 
     # Intersecao asa-fuselagem
     yfusjunc = diamfus/2
@@ -219,6 +223,8 @@ def wing_structural_layout(vehicle, xutip, yutip,
 
     nervkinknormal = 0  # a principio esta nervura nao existe
     nnervext = 1  # Por enquanto, apenas a nervura padrao da quebra eh levada em conta
+    angnev = 0 # REVIEEEEEEEEEEEEEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+    anglte = 0
     if x2aux == x1aux:
         anglte = np.pi/2
         angnev = 0
@@ -536,8 +542,8 @@ def wing_structural_layout(vehicle, xutip, yutip,
             icount = icount+1
             xpolyroot.append(xuroot[i])
             ypolyroot.append(yuperfilint[i])
-
-    for i in range(len(xuroot), 0, -1):
+    # CHECKKKKKKKKKK THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    for i in range(len(xuroot)-1, 0, -1):
 
         if xuperfilint[i-1] <= limitepi1 and xuperfilint[i-1] >= limitedr:
             icount = icount+1
@@ -555,8 +561,8 @@ def wing_structural_layout(vehicle, xutip, yutip,
             xpolyroot1.append(xuroot[i])
             ypolyroot1.append(yuroot[i])
 
-
-    for i in range(len(xuroot), 0, -1):
+    # CHECKKKKKKKKKK THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    for i in range(len(xuroot)-1, 0, -1):
         if xuroot[i-1] <= limitepi2 and xuroot[i-1] >= limitedr:
             icount = icount+1
             xpolyroot1.append(xuroot[i])
@@ -565,10 +571,15 @@ def wing_structural_layout(vehicle, xutip, yutip,
     def PolyArea(x, y):
         return 0.5*np.abs(np.dot(x, np.roll(y, 1))-np.dot(y, np.roll(x, 1)))
 
-    areae = PolyArea(xpolye, ypolye)*Cext*Cext
-    areai = PolyArea(xpolyi, ypolyi)*wing['kink_chord']*wing['kink_chord']
-    arearootsup = PolyArea(xpolyroot, ypolyroot)*Csupint*Csupint
-    arearootinf = PolyArea(xpolyroot1, ypolyroot1)*Cinter*Cinter
+    areae = PolyArea(xpolye, ypolye)
+    areae = areae*Cext*Cext
+    areai = PolyArea(xpolyi, ypolyi)
+    areai = areai*wing['kink_chord']*wing['kink_chord']
+
+    arearootsup = PolyArea(xpolyroot, ypolyroot)
+    arearootsup = arearootsup*Csupint*Csupint
+    arearootinf = PolyArea(xpolyroot1, ypolyroot1)
+    arearootinf = arearootinf*Cinter*Cinter
     # Calculo dos volumes
     # 2# de perdas devido a nervuras, revestimento e outros equip
     voltanqueext = 0.98*(heighte/3)*(areai + areae + np.sqrt(areai*areae))
@@ -576,7 +587,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
     voltanqueint = 0.98*(deltay/3)*(arearootinf +
                                     arearootsup + np.sqrt(arearootinf*arearootsup))
 
-    capacidadete = 2.*voltanqueext*denquerosene
+    capacidadete = 2*voltanqueext*querosene_density
 
     # Capacidade dos tanques da asa interna
     xcombi = []
@@ -604,7 +615,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
     xcgtqi = sum(xcombi)/4  # CG do tanque interno
     ycgtqi = sum(ycombi)/4
 
-    capacidadeti = 2*voltanqueint*denquerosene
+    capacidadeti = 2*voltanqueint*querosene_density
 
     # Capacidade total dos tanques
     # Considera perdas devido a nervuras, longarinas, revestimento, bombas
@@ -652,6 +663,8 @@ def wing_structural_layout(vehicle, xutip, yutip,
         return 0.5*np.abs(np.dot(x, np.roll(y, 1))-np.dot(y, np.roll(x, 1)))
 
     wing['flap_area'] = PolyArea(xflape, yflape)
+
+    wing['flap_chord'] = wing['flap_area']/(wing['flap_span']*(wing['span']/2))
 
 
     # Insere nervura auxiliar para o flape externo
@@ -709,4 +722,4 @@ def wing_structural_layout(vehicle, xutip, yutip,
     else:
         checkconsistency = 0  # ok
 
-    return(vehicle)
+    return vehicle

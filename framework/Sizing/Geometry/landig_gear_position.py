@@ -1,6 +1,6 @@
 """
 File name : Landing gear position function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : January 2021
 Last edit : February 2021
@@ -37,8 +37,8 @@ def landig_gear_position(vehicle):
 
     engine = vehicle['engine']
     wing = vehicle['wing']
-    nose_landing_gear = vehicle['nose_langing_gear']
-    main_landing_gear = vehicle['main_langing_gear']
+    nose_landing_gear = vehicle['nose_landing_gear']
+    main_landing_gear = vehicle['main_landing_gear']
 
     wing['semi_span'] = wing['span']/2
     wing['root_thickness'] = wing['thickness_ratio'][0]*wing['root_chord']

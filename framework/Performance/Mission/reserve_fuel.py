@@ -1,6 +1,6 @@
 """
 File name :
-Author    : 
+Authors   : 
 Email     : aarc.88@gmail.com
 Date      : 
 Last edit :
@@ -33,7 +33,7 @@ def reserve_fuel(landing_weight, alternative_airport_distance, holding_time, del
     reference_weight = 22000
     reference_mach = 0.78  # Mach 0.78 @ FL330
 
-    _, _, _, _, _, rho, a = atmosphere_ISA_deviation(
+    _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
         33000, delta_ISA)  # [kg/m3]
     reference_V_tas = reference_mach*a
     fuel_fraction_holding = 0.8*(reference_fuel_fraction/60)*(landing_weight/reference_weight)

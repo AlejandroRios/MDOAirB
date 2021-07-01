@@ -1,6 +1,6 @@
 """
 File name : aerodynamic coefficients
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : September/2020
 Last edit : September/2020
@@ -30,6 +30,7 @@ import numpy as np
 import array
 import scipy.io as spio
 from sklearn.preprocessing import normalize
+np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -106,7 +107,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'root_airfoil_leading_edge_radius': wing['leading_edge_radius'][0],
         'root_airfoil_thickness_ratio': wing['thickness_ratio'][0],
         'root_airfoil_thickness_line_angle_trailing_edge': wing['thickness_line_angle_trailing_edge'][0],
-        'root_airfoil_thickness_to_chord_maximum_ratio': wing['thickness_to_chord_maximum_ratio'][0],
+        'root_airfoil_maximum_thickness_chordwise_position': wing['maximum_thickness_chordwise_position'][0],
         'root_airfoil_camber_line_angle_leading_edge': wing['camber_line_angle_leading_edge'][0],
         'root_airfoil_camber_line_angle_trailing_edge': wing['camber_line_angle_trailing_edge'][0],
         'root_airfoil_maximum_camber': wing['maximum_camber'][0],
@@ -115,7 +116,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'break_airfoil_leading_edge_radius': wing['leading_edge_radius'][1],
         'break_airfoil_thickness_ratio': wing['thickness_ratio'][1],
         'break_airfoil_thickness_line_angle_trailing_edge': wing['thickness_line_angle_trailing_edge'][1],
-        'break_airfoil_maximum_thickness_chordwise_position': wing['thickness_to_chord_maximum_ratio'][1],
+        'break_airfoil_maximum_thickness_chordwise_position': wing['maximum_thickness_chordwise_position'][1],
         'break_airfoil_camber_line_angle_leading_edge': wing['camber_line_angle_leading_edge'][1],
         'break_airfoil_camber_line_angle_trailing_edge': wing['camber_line_angle_trailing_edge'][1],
         'break_airfoil_maximum_camber': wing['maximum_camber'][1],
@@ -124,7 +125,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'tip_airfoil_leading_edge_radius': wing['leading_edge_radius'][2],
         'tip_airfoil_thickness_ratio': wing['thickness_ratio'][2],
         'tip_airfoil_thickness_line_angle_trailing_edge': wing['thickness_line_angle_trailing_edge'][2],
-        'tip_airfoil_maximum_thickness_chordwise_position': wing['thickness_to_chord_maximum_ratio'][2],
+        'tip_airfoil_maximum_thickness_chordwise_position': wing['maximum_thickness_chordwise_position'][2],
         'tip_airfoil_camber_line_angle_leading_edge': wing['camber_line_angle_leading_edge'][2],
         'tip_airfoil_camber_line_angle_trailing_edge': wing['camber_line_angle_trailing_edge'][2],
         'tip_airfoil_maximum_camber': wing['maximum_camber'][2],

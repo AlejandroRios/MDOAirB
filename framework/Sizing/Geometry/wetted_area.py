@@ -1,6 +1,6 @@
 """
 File name : Wetted area function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : Dezember 2019
 Last edit : January 2021
@@ -43,6 +43,7 @@ log = get_logger(__file__.split('.')[0])
 
 global deg_to_rad
 deg_to_rad = np.pi/180
+N_to_lbf = 0.2248089431
 
 
 def wetted_area(vehicle):
@@ -59,14 +60,14 @@ def wetted_area(vehicle):
     pylon = vehicle['pylon']
     winglet = vehicle['winglet']
 
-    fileToRead1 = 'PR1'
-    fileToRead2 = 'PQ1'
-    fileToRead3 = 'PT4'
+    fileToRead1 = 'proot'
+    fileToRead2 = 'pkink'
+    fileToRead3 = 'ptip'
 
-    engine_thrust, _ = turbofan(
+    engine_thrust, _ , vehicle = turbofan(
         0, 0, 1, vehicle)  # force [N], fuel flow [kg/hr]
 
-    engine['maximum_thrust'] = engine_thrust*0.2248089431
+    engine_thrust_lbf= engine_thrust*N_to_lbf
 
     # Sizing
     fuselage['diameter'] = np.sqrt(fuselage['width']*fuselage['height'])
@@ -91,8 +92,6 @@ def wetted_area(vehicle):
 
     fuselage['tail_length'] = tailcone_sizing(
         aircraft['passenger_capacity'], engine['position'], fuselage['height'], fuselage['width'])
-
-    fuselage['cockpit_length'] = 3.7
 
     fuselage['length'] = fuselage['cabine_length'] + fuselage['tail_length'] + \
         fuselage['cockpit_length']  # comprimento fuselagem [m]
@@ -221,7 +220,7 @@ def wetted_area(vehicle):
     ############################# WING WETTED AREA ############################
     wing['semi_span'] = wing['span']/2
 
-    engine['diamater'] = engine['fan_diameter']/0.98  # [m]
+    # engine['diameter'] = engine['fan_diameter']/0.98  # [m]
     engine['yposition'] = wing['semi_span_kink']
 
     (vehicle, xutip, yutip, xltip, yltip,
@@ -262,8 +261,6 @@ def wetted_area(vehicle):
     # initial guess for VT area
     vertical_tail_surface_to_wing_area = vertical_tail['area'] / \
         wing['area']  # rela�ao de areas
-    vertical_tail['twist'] = 0  # torcao EV
-    vertical_tail['dihedral'] = 90  # diedro RV
     vertical_tail['span'] = np.sqrt(
         vertical_tail['aspect_ratio']*vertical_tail['area'])  # Envergadura EV (m)
     vertical_tail['center_chord'] = 2*vertical_tail['area'] / \
@@ -291,18 +288,14 @@ def wetted_area(vehicle):
     # vt.v=vertical_tail['area']*lv/(wingref.S*wing['span']) # volume de cauda
 
     ############################# VT wetted area ######################################
-    vertical_tail['thickness_ratio'][0] = 0.11  # [#]espessura relativa raiz
-    vertical_tail['thickness_ratio'][1] = 0.11  # [#]espessura relativa ponta
     vertical_tail_mean_chord_thickness = (
         vertical_tail['thickness_ratio'][0]+3*vertical_tail['thickness_ratio'][1])/4  # [#]espessura media
     vertical_tail_tau = vertical_tail['thickness_ratio'][1] / \
         vertical_tail['thickness_ratio'][0]
     # additional area due to the dorsal fin [m2]
-    vertical_tail['dorsalfin_wetted_area'] = 0.1
     vertical_tail['wetted_area'] = 2*vertical_tail['area']*(1+0.25*vertical_tail['thickness_ratio'][0] *
                                                             ((1+vertical_tail_tau*vertical_tail['taper_ratio'])/(1+vertical_tail['taper_ratio'])))  # [m2]
     # Read geometry of VT airfoil
-
     panel_number = 201
     airfoil_name = 'pvt'
     # airfoil_preprocessing(airfoil_name, panel_number)
@@ -328,7 +321,7 @@ def wetted_area(vehicle):
     ###################################ENGINE##################################
     ###########################################################################
 
-    engine['length'] = 2.22*((engine['maximum_thrust'])**0.4) * \
+    engine['length'] = 2.22*((engine_thrust_lbf)**0.4) * \
         (operations['mach_maximum_operating']**0.2) * \
         2.54/100  # [m] Raymer pg 19
 
@@ -342,7 +335,7 @@ def wetted_area(vehicle):
                    )  # corda da seccao do motor
     elif engine['position'] == 2:
         engine['yposition'] = fuselage['diameter']/2+0.65 * \
-            engine['diamater']*np.cos(15*deg_to_rad)
+            engine['diameter']*np.cos(15*deg_to_rad)
         wing_engine_external_yposition = engine['yposition']
     elif engine['position'] == 3:
         # livro 6 pag 111 fig 4.41 x/l=0.6
@@ -369,15 +362,15 @@ def wetted_area(vehicle):
 
     ########################## Engine #########################################
     # aux1=(1-2/auxdiv)**2/3
-    # engine.wing_wetted_area=pi*engine['diamater']*engine_length*aux1*(1+1/((engine_length/engine['diamater'])**2)) # [m2]
+    # engine.wing_wetted_area=pi*engine['diameter']*engine_length*aux1*(1+1/((engine_length/engine['diameter'])**2)) # [m2]
     ln = 0.50*engine['length']  # Fan cowling
     ll = 0.25*ln
     lg = 0.40*engine['length']  # Gas generator
     lp = 0.10*engine['length']  # Plug
     esp = 0.12
-    Dn = (1.+esp)*engine['diamater']
-    Dhl = engine['diamater']
-    Def = (1+esp/2)*engine['diamater']
+    Dn = (1.+esp)*engine['diameter']
+    Dhl = engine['diameter']
+    Def = (1+esp/2)*engine['diameter']
     Dg = 0.50*Dn
     Deg = 0.90*Dg
     Dp = lp/2
@@ -404,7 +397,7 @@ def wetted_area(vehicle):
             (1+pylon['taper_ratio']+pylon['taper_ratio']**2) / \
             (1+pylon['taper_ratio'])  # mac
         # x/l=-0.6 e z/d = 0.85 figure 4.41 pag 111
-        pylon['span'] = 0.85*engine['diamater'] - 0.5*engine['diamater']
+        pylon['span'] = 0.85*engine['diameter'] - 0.5*engine['diameter']
         pylon['xposition'] = 0.6*wing['engine_position_chord']
         pylon['aspect_ratio'] = pylon['span']/pylon['mean_geometrical_chord']
         pylon['area'] = pylon['span']*pylon['mean_geometrical_chord']
@@ -424,7 +417,7 @@ def wetted_area(vehicle):
             (1+pylon['taper_ratio']+pylon['taper_ratio']**2) / \
             (1+pylon['taper_ratio'])  # mac
         # t/d=0.65 figure 4.42 pag 113  ang=15
-        pylon['span'] = 0.65*engine['diamater']-engine['diamater']/2
+        pylon['span'] = 0.65*engine['diameter']-engine['diameter']/2
         pylon['aspect_ratio'] = pylon['span']/pylon['mean_geometrical_chord']
         pylon['area'] = pylon['span']*pylon['mean_geometrical_chord']
         pylon['sweep_c_4'] = 0
@@ -439,7 +432,7 @@ def wetted_area(vehicle):
             (1+pylon['taper_ratio']+pylon['taper_ratio']**2) / \
             (1+pylon['taper_ratio'])  # mac
         # t/d=0.65 figure 4.42 pag 113  ang=15
-        pylon['span'] = 0.65*engine['diamater']-engine['diamater']/2
+        pylon['span'] = 0.65*engine['diameter']-engine['diameter']/2
         pylon['aspect_ratio'] = pylon['span']/pylon['mean_geometrical_chord']
         pylon['area'] = pylon['span']*pylon['mean_geometrical_chord']
         pylon['sweep_c_4'] = 0
@@ -454,7 +447,7 @@ def wetted_area(vehicle):
             (1+pylon['taper_ratio']+pylon['taper_ratio']**2) / \
             (1+pylon['taper_ratio'])  # mac
         # x/l=-0.6 e z/d = 0.85 figure 4.41 pag 111
-        pylon['span'] = 0.85*engine['diamater'] - 0.5*engine['diamater']
+        pylon['span'] = 0.85*engine['diameter'] - 0.5*engine['diameter']
         pylon['xposition'] = 0.6*wing['engine_position_chord']
         pylon['aspect_ratio'] = pylon['span']/pylon['mean_geometrical_chord']
         pylon['area'] = pylon['span']*pylon['mean_geometrical_chord']
@@ -473,7 +466,7 @@ def wetted_area(vehicle):
             (1+pylon_out_taper_ratio+pylon_out_taper_ratio**2) / \
             (1+pylon_out_taper_ratio)  # mac
         # x/l=-0.6 e z/d = 0.85 figure 4.41 pag 111
-        ppylon_out_span = 0.85*engine['diamater'] - 0.5*engine['diamater']
+        ppylon_out_span = 0.85*engine['diameter'] - 0.5*engine['diameter']
         pylon_out_xposition = 0.6*wing_engine_external_position_chord
         pylon_out_aspect_ratio = ppylon_out_span/pylon_out_mean_geometrical_chord
         pylon_out_surface = ppylon_out_span*pylon_out_mean_geometrical_chord
@@ -484,8 +477,6 @@ def wetted_area(vehicle):
              (pylon_out_aspect_ratio*(1-pylon_out_taper_ratio)))
 
     #############################WETTED AREA###################################
-    pylon['thickness_ratio'][0] = 0.10  # [#]espessura relativa raiz
-    pylon['thickness_ratio'][1] = 0.10  # [#]espessura relativa ponta
     pylon_mean_thickness = (pylon['thickness_ratio'][0] +
                             pylon['thickness_ratio'][1])/2  # [#]espessura media
     if engine['position'] == 1 or engine['position'] == 2 or engine['position'] == 3:
@@ -502,7 +493,6 @@ def wetted_area(vehicle):
     #  *************** Definicoes adicionais **********************************
     # cg dos tanques de combust�vel da asa e posicao do trem d pouso principal
     # winglaywei2013
-    vertical_tail['dorsalfin_wetted_area'] = 0.1
     ################################TOTAL######################################
     aircraft['wetted_area'] = fuselage['wetted_area'] + wing['wetted_area'] + horizontal_tail['wetted_area'] + vertical_tail['wetted_area'] + \
         2*engine['wetted_area']+pylon['wetted_area'] + \

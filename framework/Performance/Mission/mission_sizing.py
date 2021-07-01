@@ -66,7 +66,7 @@ gallon_to_liter = 3.7852
 feet_to_nautical_miles = 0.000164579
 
 
-def mission_sizing(vehicle, airport_departure, airport_destination):
+def mission_sizing(vehicle):
     start_time = datetime.now()
     # log.info('---- Start mission sizing function ----')
 
@@ -78,6 +78,9 @@ def mission_sizing(vehicle, airport_departure, airport_destination):
     horizontal_tail = vehicle['horizontal_tail']
     vertical_tail = vehicle['vertical_tail']
     performance = vehicle['performance']
+
+    airport_departure = vehicle['airport_departure']
+    airport_destination = vehicle['airport_destination']
 
     operations = vehicle['operations']
     performance = vehicle['performance']

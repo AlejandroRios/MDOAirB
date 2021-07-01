@@ -52,128 +52,58 @@ import matplotlib.pyplot as plt
 global GRAVITY
 GRAVITY = 9.8067
 kghr_to_kgmin = 0.01667
+kghr_to_kgsec = 0.000277778
 
 
-def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_altitude, initial_altitude, vehicle):
+def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
+    
     rate_of_descent = -500
 
-    time_descent1 = 0
-    time_descent2 = 0
-    time_descent3 = 0
-
     transition_altitude = crossover_altitude(
-        mach_descent, descent_V_cas, delta_ISA)
+    mach_descent, descent_V_cas, delta_ISA)
 
-    time = 0
-    distance = 0
-    fuel1 = 0
-    fuel2 = 0
-    fuel3 = 0
 
-    if initial_altitude >= transition_altitude:
-        flag1 = 1
-        flag2 = 1
-        flag3 = 1
+    initial_block_distance = 0
+    initial_block_altitude = initial_altitude
+    initial_block_mass = mass
+    initial_block_time = 0
+    
+    distance_vec = []
+    time_vec = []
+    mass_vec = []
+    
+    for i in range(len(altitude_vec)-1):
 
-    if (initial_altitude >= 10000 and initial_altitude < transition_altitude):
-        flag1 = 0
-        flag2 = 1
-        flag3 = 1
+        descent_V_cas = (speed_vec[i+1] + speed_vec[i])/2
+        mach_descent = (mach_vec[i+1] + mach_vec[i])/2
+        if mach_descent <= 0.3:
+            mach_descent = 0.78
 
-    if initial_altitude < 10000:
-        flag1 = 0
-        flag2 = 0
-        flag3 = 1
 
-    total_burned_fuel = []
-    total_descent_time = []
+        initial_block_altitude = altitude_vec[i]
+        final_block_altitude = altitude_vec[i+1]
 
-    throttle_position = 0.3
+        distance_vec.append(initial_block_distance)
+        mass_vec.append(initial_block_mass)
+        time_vec.append(initial_block_time)
 
-    if flag1 == 1:
 
-        final_block_altitude = transition_altitude
-
-        initial_block_distance = 0
-        initial_block_altitude = initial_altitude
-        initial_block_mass = mass
-        initial_block_time = 0
-
-        final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
-            initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 0, mach_descent, delta_ISA, vehicle)
-       
-        delta_distance = 0
-        delta_time = 0
-        delta_altitude = 0
-        delta_fuel = 0
-
-        burned_fuel = initial_block_mass - final_block_mass
-        descent_time = final_block_time - initial_block_time
-        total_burned_fuel.append(burned_fuel)
-        total_descent_time.append(descent_time)
-
-    if flag2 == 1:
-
-        if flag1 == 0:
-            initial_block_distance = 0
-            initial_block_altitude = initial_altitude
-            initial_block_mass = mass
-            initial_block_time = 0
+        if initial_block_altitude <= transition_altitude:
+            final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
+                        initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, descent_V_cas, 0, delta_ISA, vehicle)
         else:
-            initial_block_distance = final_block_distance
-            initial_block_altitude = final_block_altitude
-            initial_block_mass = final_block_mass
-            initial_block_time = final_block_time
+            final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
+                initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 0, mach_descent, delta_ISA, vehicle)
 
-        final_block_altitude = 10000
+        initial_block_distance = final_block_distance
+        initial_block_altitude = final_block_altitude
+        initial_block_mass = final_block_mass
+        initial_block_time = final_block_time
 
-        final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
-            initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, descent_V_cas, 0, delta_ISA, vehicle)
-
-        delta_distance, delta_time, delta_altitude, delta_fuel = decelaration_to_250(
-            rate_of_descent, descent_V_cas, delta_ISA, vehicle)
-
-        burned_fuel = initial_block_mass - final_block_mass
-        descent_time = final_block_time - initial_block_time
-        total_burned_fuel.append(burned_fuel)
-        total_descent_time.append(descent_time)
-        # plt.plot(time_interval, state[:, 1])
-
-    if flag3 == 1:
-        if flag1 == 0 and flag2 == 0:
-            initial_block_distance = 0
-            initial_block_altitude = initial_altitude
-            initial_block_mass = mass
-            initial_block_time = 0
-
-        else:
-            initial_block_distance = final_block_distance
-            initial_block_altitude = final_block_altitude
-            initial_block_mass = final_block_mass
-            initial_block_time = final_block_time
-
-        final_block_altitude = 1500
-
-        final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
-            initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 250, 0, delta_ISA, vehicle)
-
-        delta_distance = 0
-        delta_time = 0
-        delta_altitude = 0
-        delta_fuel = 0
-
-        burned_fuel = initial_block_mass - final_block_mass
-        descent_time = final_block_time - initial_block_time
-        total_burned_fuel.append(burned_fuel)
-        total_descent_time.append(descent_time)
-
-        # plt.plot(time_interval, state[:, 1])
-
-    final_altitude = final_block_altitude
-
-    final_distance = final_block_distance + delta_distance
-    total_burned_fuel = sum(total_burned_fuel) + delta_fuel
-    total_descent_time = sum(total_descent_time) + delta_time
+    final_distance = distance_vec[-1] 
+    total_descent_time = time_vec[-1]
+    total_burned_fuel = mass_vec[0] - mass_vec[-1]
+    final_altitude = altitude_vec[-1]
 
     return final_distance, total_descent_time, total_burned_fuel, final_altitude
 
@@ -220,7 +150,7 @@ def climb(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria
     #     return
 
     _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
-    throttle_position = 0.4
+    throttle_position = 0.3
 
     if climb_V_cas > 0:
         mach = V_cas_to_mach(climb_V_cas, altitude, delta_ISA)

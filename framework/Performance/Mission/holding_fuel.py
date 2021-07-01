@@ -1,6 +1,6 @@
 """
 File name :
-Author    : 
+Authors   : 
 Email     : aarc.88@gmail.com
 Date      : 
 Last edit :
@@ -53,13 +53,15 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
     - Specify reference for this module
     - Change variable naming
     """
+    kt_to_ms = 0.514444
+    ft_to_m = 0.3048
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
 
     race_track_factor = 1.05
     bank_angle = 40
 
-    _, _, _, _, _, rho_ISA, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
 
     mach_initial = 0.10
     step = 0.001
@@ -80,9 +82,9 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
         switch_neural_network = 0
         alpha_deg = 1
         CD_wing, _ = aerodynamic_coefficients_ANN(
-            vehicle, h, mach, CL, alpha_deg, switch_neural_network)
+            vehicle, h*ft_to_m, mach, CL, alpha_deg, switch_neural_network)
 
-        friction_coefficient = 0.003
+        friction_coefficient = wing['friction_coefficient']
         CD_ubrige = friction_coefficient * \
             (aircraft['wetted_area'] - wing['wetted_area']) / \
             wing['area']
@@ -119,7 +121,7 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
     total_thrust_force = 0
 
     while (total_thrust_force < FnR and throttle_position <= 1):
-        thrust_force, fuel_flow = turbofan(
+        thrust_force, fuel_flow , vehicle = turbofan(
             altitude, mach, throttle_position, vehicle)  # force [N], fuel flow [kg/hr]
         TSFC = (fuel_flow*GRAVITY)/thrust_force
         total_thrust_force = aircraft['number_of_engines'] * thrust_force

@@ -48,7 +48,7 @@ def parametric_analysis(h, M0,
     # =========================================================================
     # --------------Flight and Atmosphere-------------------------
     delta_ISA = 0
-    _, _, _, T0, P0, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+    _, _, _, T0, P0, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
     # Flight parametres
     P0 = P0       # Pa
     T0 = T0            # K

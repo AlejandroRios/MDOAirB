@@ -1,6 +1,6 @@
 """
 File name : Landing gear layout function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : January 2021
 Last edit : February 2021
@@ -55,8 +55,8 @@ rad_to_deg = 180/np.pi
 
 def landing_gear_layout(vehicle):
 
-    nose_landing_gear = vehicle['nose_langing_gear']
-    main_landing_gear = vehicle['main_langing_gear']
+    nose_landing_gear = vehicle['nose_landing_gear']
+    main_landing_gear = vehicle['main_landing_gear']
     aircraft = vehicle['aircraft']
     fuselage = vehicle['fuselage']
     wing = vehicle['wing']
@@ -205,6 +205,8 @@ def landing_gear_layout(vehicle):
     # Beta (clearance da cauda com o solo)
     B = np.arctan((aircraft['zCG']-aircraft['zCG'])/(fuselage['length'] -
                                                      main_landing_gear['xpostion']))*rad_to_deg  # valor de beta
+
+    main_landing_gear['unit_wheels_number'] = pneu_number_by_strut
 
     return vehicle, min_angle_main_gear_to_cg, pneu_number_by_strut, pneu_main_gear_diameter, pneu_main_gear_length, min_psiton_length, main_gear_shock_absorber_diameter, nose_gear_piston_length, nose_gear_shock_absorber_diameter, pneu_nose_gear_length, pneu_nose_gear_diameter
 # =============================================================================

@@ -39,20 +39,21 @@ import numpy as np
 # =============================================================================
 
 
-def second_segment_climb(vehicle, airport_departure, weight_takeoff):
+def second_segment_climb(vehicle, weight_takeoff):
     '''
     '''
     kt_to_ms = 0.514444
     ft_to_m = 0.3048
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
+    airport_departure = vehicle['airport_departure']
 
     CL_maximum_takeoff = aircraft['CL_maximum_takeoff']
     wing_surface = wing['area']
     maximum_takeoff_weight = weight_takeoff  # [N]
 
     airfield_elevation = airport_departure['elevation']
-    airfield_delta_ISA = airport_departure['tref']
+    airfield_delta_ISA = airport_departure['delta_ISA']
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
         airfield_elevation, airfield_delta_ISA)  # [kg/m3]

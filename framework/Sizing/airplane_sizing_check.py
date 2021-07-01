@@ -73,6 +73,9 @@ lbf_to_N = 4.448
 
 def airplane_sizing(vehicle,x=None):
     log.info('---- Start aircraft sizing module ----')
+
+    if type(x) != 'list':
+        x = x.tolist()
     
 
     # Load nested dictionary vehicle
@@ -92,7 +95,6 @@ def airplane_sizing(vehicle,x=None):
     airport_destination = vehicle['airport_destination']
 
     friction_coefficient = wing['friction_coefficient']
-    print(x)
 
     # Upload dictionary variables with optimization variables input vector x
     if x != None:
@@ -108,10 +110,10 @@ def airplane_sizing(vehicle,x=None):
         performance['range'] = x[13]
         aircraft['winglet_presence'] = x[17]
         # aircraft['winglet_presence'] = 1
-        aircraft['slat_presence'] = x[18]
-        # aircraft['slat_presence'] = 1
-        horizontal_tail['position'] = x[19]
-        # horizontal_tail['position'] = 1
+        # aircraft['slat_presence'] = x[18]
+        aircraft['slat_presence'] = 1
+        # horizontal_tail['position'] = x[19]
+        horizontal_tail['position'] = 1
 
         engine['bypass'] = x[6]/10
         engine['diameter'] = x[7]/10
@@ -120,7 +122,8 @@ def airplane_sizing(vehicle,x=None):
         engine['fan_pressure_ratio'] = x[10]/10
         engine['design_point_pressure'] = x[14]
         engine['design_point_mach'] = x[15]/100
-        engine['position'] = x[16]
+        # engine['position'] = x[16]
+        engine['position'] = 1
     else:
         wing['area'] = wing['area']
         wing['aspect_ratio'] = wing['aspect_ratio']/10
@@ -131,12 +134,12 @@ def airplane_sizing(vehicle,x=None):
         aircraft['passenger_capacity'] = aircraft['passenger_capacity']
         fuselage['seat_abreast_number'] = fuselage['seat_abreast_number']
         performance['range'] = performance['range'] 
-        aircraft['winglet_presence'] = aircraft['winglet_presence']
-        # aircraft['winglet_presence'] = 1
+        # aircraft['winglet_presence'] = aircraft['winglet_presence']
+        aircraft['winglet_presence'] = 1
         aircraft['slat_presence'] = aircraft['slat_presence']
         # aircraft['slat_presence'] = 1
-        horizontal_tail['position'] =horizontal_tail['position']
-        # horizontal_tail['position'] = 1
+        # horizontal_tail['position'] =horizontal_tail['position']
+        horizontal_tail['position'] = 1
 
         engine['bypass'] = engine['bypass']/10
         engine['diameter'] = engine['diameter']/10
@@ -379,7 +382,7 @@ def airplane_sizing(vehicle,x=None):
         # Mission evaluation and tail sizing
     # try:
         vehicle, MTOW_calculated, fuel_mass, landing_weight = mission_sizing(
-            vehicle, airport_departure, airport_destination)
+            vehicle)
     # except:
         # log.error("Error at mission_sizing", exc_info = True)
     # end_time = datetime.now()
@@ -441,11 +444,11 @@ def airplane_sizing(vehicle,x=None):
 
 
     # Landing field length check
-    landing_field_length_required = airport_destination['lda']
+    landing_field_length_required = airport_destination['landing_field_length']
 
     k_L = 0.107
 
-    WtoS_landing = (k_L*airport_destination['lda']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
+    WtoS_landing = (k_L*airport_destination['landing_field_length']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
 
     if WtoS_landing < WoS:
         flag_landing = 1
@@ -456,7 +459,7 @@ def airplane_sizing(vehicle,x=None):
     # Takeoff field length check
     k_TO = 2.34
 
-    ToW_takeoff = (k_TO/(airport_departure['tora']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
+    ToW_takeoff = (k_TO/(airport_departure['takeoff_field_length']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
 
     if ToW_takeoff > ToW:
         flag_takeoff = 1
@@ -465,7 +468,7 @@ def airplane_sizing(vehicle,x=None):
     
         
     # Climb gradient in the Second segment check
-    ToW_second_segment =     second_segment_climb(vehicle, airport_departure, aircraft['maximum_takeoff_weight']*GRAVITY)
+    ToW_second_segment =     second_segment_climb(vehicle, aircraft['maximum_takeoff_weight']*GRAVITY)
 
 
     if ToW_second_segment > ToW:
@@ -475,7 +478,7 @@ def airplane_sizing(vehicle,x=None):
 
     
     # Climb gradient during missed approach check
-    ToW_missed_approach = missed_approach_climb_OEI(vehicle, airport_destination, aircraft['maximum_takeoff_weight']*GRAVITY,aircraft['maximum_takeoff_weight']*GRAVITY)
+    ToW_missed_approach = missed_approach_climb_OEI(vehicle, aircraft['maximum_takeoff_weight']*GRAVITY,aircraft['maximum_takeoff_weight']*GRAVITY)
 
     if ToW_missed_approach > ToW:
         flag_missed_approach = 1
@@ -488,7 +491,7 @@ def airplane_sizing(vehicle,x=None):
     engine_cruise_thrust, _ , vehicle = turbofan(
         ceiling,operations['mach_cruise'], 0.98, vehicle)
 
-    ToW_cruise = residual_rate_of_climb(vehicle, airport_departure, aircraft['maximum_takeoff_weight']*GRAVITY,engine_cruise_thrust)
+    ToW_cruise = residual_rate_of_climb(vehicle,aircraft['maximum_takeoff_weight']*GRAVITY,engine_cruise_thrust)
 
     if ToW_cruise > ToW:
         flag_cruise = 1
@@ -507,7 +510,7 @@ def airplane_sizing(vehicle,x=None):
     aircraft['CD0_landing'] = CD0_landing
 
 # try:
-    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle, airport_departure)
+    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle)
 # except:
 #         log.error("Error at noise_calculation", exc_info = True)
 

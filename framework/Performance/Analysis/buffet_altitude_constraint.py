@@ -38,6 +38,7 @@ GRAVITY = 9.80665
 
 
 def buffet_altitude(vehicle, mass, altitude, limit_altitude, mach_climb):
+    airport_departure = vehicle['airport_departure']
     wing = vehicle['wing']
     operations = vehicle['operations']
     

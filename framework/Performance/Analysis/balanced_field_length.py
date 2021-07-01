@@ -35,7 +35,7 @@ import numpy as np
 # =============================================================================
 
 
-def balanced_field_length(vehicle, airport_departure, weight_takeoff,gamma_2):
+def balanced_field_length(vehicle, weight_takeoff,gamma_2):
     '''
     Note: for project design the case of delta_gamma2 = 0 presents most
     interest, as the corresponding weight is limited by the second segment
@@ -44,6 +44,7 @@ def balanced_field_length(vehicle, airport_departure, weight_takeoff,gamma_2):
 
     wing = vehicle['wing']
     aircraft = vehicle['aircraft']
+    airport_departure = vehicle['airport_departure']
     engine = vehicle['engine']
 
 
@@ -55,7 +56,7 @@ def balanced_field_length(vehicle, airport_departure, weight_takeoff,gamma_2):
 
     # Airport data import
     airfield_elevation = airport_departure['elevation']  # [ft]
-    delta_ISA = airport_departure['tref']  # [deg C]
+    delta_ISA = airport_departure['delta_ISA']  # [deg C]
 
     # horizontal distance from airfield surface requirement according to FAR 25 - [m]
     h_takeoff = 10.7

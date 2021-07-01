@@ -57,7 +57,7 @@ GRAVITY = 9.80665
 gallon_to_liter = 3.7852
 feet_to_nautical_miles = 0.000164579
 
-def mission_alternative(vehicle, airport_departure, airport_destination, landing_weight):
+def mission_alternative(vehicle,landing_weight):
 
     performance = vehicle['performance']
 
@@ -66,6 +66,9 @@ def mission_alternative(vehicle, airport_departure, airport_destination, landing
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
     wing = vehicle['wing']
+
+    airport_departure = vehicle['airport_departure']
+    airport_destination = vehicle['airport_destination']
 
     operations = vehicle['operations']
     performance = vehicle['performance']

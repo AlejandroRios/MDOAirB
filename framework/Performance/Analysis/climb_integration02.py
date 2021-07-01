@@ -53,114 +53,65 @@ global GRAVITY
 GRAVITY = 9.8067
 kghr_to_kgmin = 0.01667
 kghr_to_kgsec = 0.000277778
+feet_to_nautical_miles = 0.000164579
 
-
-def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, final_altitude, initial_altitude, vehicle):
+def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
 
     rate_of_climb = 500
 
-    time_climb1 = 0
-    time_climb2 = 0
-    time_climb3 = 0
-
     transition_altitude = crossover_altitude(
-        mach_climb, climb_V_cas, delta_ISA)
+    mach_climb, climb_V_cas, delta_ISA)
 
-    time = 0
-    distance = 0
-    fuel1 = 0
-    fuel2 = 0
-    fuel3 = 0
 
-    if final_altitude >= transition_altitude:
-        flag1 = 1
-        flag2 = 1
-        flag3 = 1
+    initial_block_distance = 0
+    initial_block_altitude = initial_altitude
+    initial_block_mass = mass
+    initial_block_time = 0
+    
+    distance_vec = []
+    time_vec = []
+    mass_vec = []
+    
+    for i in range(len(altitude_vec)-1):
 
-    if (final_altitude >= 10000 and final_altitude < transition_altitude):
-        flag1 = 1
-        flag2 = 1
-        flag3 = 0
+        initial_block_altitude = altitude_vec[i]
+        final_block_altitude = altitude_vec[i+1]
 
-    if final_altitude < 10000:
-        flag1 = 1
-        flag2 = 0
-        flag3 = 0
+        distance_vec.append(initial_block_distance)
+        mass_vec.append(initial_block_mass)
+        time_vec.append(initial_block_time)
 
-    total_burned_fuel = []
-    total_climb_time = []
-
-    throttle_position = 0.95
-
-    if flag1 == 1:
-
-        # Climb to 10000 ft with 250 KCAS
-        if final_altitude <= 11000:
-            final_block_altitude = final_altitude
+        if i == 0:
+            climb_V_cas = speed_vec[i+1]
+            if climb_V_cas <= 100:
+                climb_V_cas = 280
         else:
-            final_block_altitude = 11000
+            climb_V_cas = (speed_vec[i+1] + speed_vec[i])/2
+            if climb_V_cas <= 100:
+                climb_V_cas = 280
 
-        initial_block_distance = 0
-        initial_block_altitude = initial_altitude
-        initial_block_mass = mass
-        initial_block_time = 0
+        mach_climb = (mach_vec[i+1] + mach_vec[i])/2
 
-        final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
-            initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle)
+        if mach_climb <= 0.3:
+            mach_climb = 0.78
 
-        _, _, delta_altitude, _ = acceleration_to_250(
-            rate_of_climb, climb_V_cas, delta_ISA, vehicle)
-        final_block_altitude = final_block_altitude + delta_altitude
 
-        burned_fuel = initial_block_mass - final_block_mass
-        climb_time = final_block_time - initial_block_time
-        total_burned_fuel.append(burned_fuel)
-        total_climb_time.append(climb_time)
-
-    if flag2 == 1:
+        if initial_block_altitude <= transition_altitude:
+            final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
+                        initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, 0, delta_ISA, vehicle)
+        else:
+            final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
+                initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 0, mach_climb, delta_ISA, vehicle)
 
         initial_block_distance = final_block_distance
         initial_block_altitude = final_block_altitude
         initial_block_mass = final_block_mass
         initial_block_time = final_block_time
 
-        if final_altitude <= transition_altitude:
-            final_block_altitude = final_altitude
-        else:
-            final_block_altitude = transition_altitude
-
-        final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
-            initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle)
-
-        burned_fuel = initial_block_mass - final_block_mass
-        climb_time = final_block_time - initial_block_time
-        total_burned_fuel.append(burned_fuel)
-        total_climb_time.append(climb_time)
-        # plt.plot(time_interval, state[:, 1])
-
-    if flag3 == 1:
-
-        initial_block_distance = final_block_distance
-        initial_block_altitude = final_block_altitude
-        initial_block_mass = final_block_mass
-        initial_block_time = final_block_time
-
-        final_block_altitude = final_altitude
-
-        final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
-            initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 0, mach_climb, delta_ISA, vehicle)
-
-        burned_fuel = initial_block_mass - final_block_mass
-
-        climb_time = final_block_time - initial_block_time
-        total_burned_fuel.append(burned_fuel)
-        total_climb_time.append(climb_time)
-
-    final_altitude = final_block_altitude
-
-    final_distance = final_block_distance
-    total_burned_fuel = sum(total_burned_fuel)
-    total_climb_time = sum(total_climb_time)
+    final_distance = distance_vec[-1] 
+    total_climb_time = time_vec[-1]
+    total_burned_fuel = mass_vec[0] - mass_vec[-1]
+    final_altitude = altitude_vec[-1]
 
     return final_distance, total_climb_time, total_burned_fuel, final_altitude
 
@@ -172,7 +123,7 @@ def climb_integrator(initial_block_distance, initial_block_altitude, initial_blo
 
     stop_criteria = final_block_altitude
     sol = solve_ivp(climb, [initial_block_time, Tsim], [initial_block_distance, initial_block_altitude, initial_block_mass],
-            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria))
+            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria), dense_output=True)
 
     distance = sol.y[0]
     altitude = sol.y[1]

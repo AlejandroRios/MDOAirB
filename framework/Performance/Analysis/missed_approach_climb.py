@@ -37,19 +37,20 @@ import numpy as np
 # =============================================================================
 
 
-def missed_approach_climb_OEI(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
+def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     '''
     '''
     ft_to_m = 0.3048
     kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
+    airport_destination = vehicle['airport_destination']
 
     maximum_landing_weight = weight_landing
     CL_maximum_landing = aircraft['CL_maximum_landing']
     wing_surface = wing['area']
     airfield_elevation = airport_destination['elevation']
-    airfield_delta_ISA = airport_destination['tref']
+    airfield_delta_ISA = airport_destination['delta_ISA']
     phase = 'climb'
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
@@ -89,13 +90,14 @@ def missed_approach_climb_OEI(vehicle, airport_destination, maximum_takeoff_weig
     return thrust_to_weight_landing
 
 
-def missed_approach_climb_AEO(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
+def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
     '''
     '''
     ft_to_m = 0.3048
     kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
+    airport_destination = vehicle['airport_destination']
 
     maximum_landing_weight = weight_landing
 
@@ -103,7 +105,7 @@ def missed_approach_climb_AEO(vehicle, airport_destination, maximum_takeoff_weig
     wing_surface = wing['area']
 
     airfield_elevation = airport_destination ['elevation']
-    airfield_delta_ISA = airport_destination ['tref']
+    airfield_delta_ISA = airport_destination ['delta_ISA']
     phase = 'descent'
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(

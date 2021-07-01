@@ -30,12 +30,13 @@ from framework.Attributes.Airspeed.airspeed import (V_cas_to_mach,
                                                     mach_to_V_cas)
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import \
     atmosphere_ISA_deviation
+from framework.Attributes.Mission.mission_parameters import actual_mission_range,climb_altitudes_vector,descent_altitudes_vector
 # from framework.baseline_aircraft_parameters import *
 from framework.Economics.crew_salary import crew_salary
 from framework.Economics.direct_operational_cost import direct_operational_cost
-from framework.Performance.Analysis.climb_integration import climb_integration
+from framework.Performance.Analysis.climb_integration02 import climb_integration
 from framework.Performance.Analysis.cruise_performance import *
-from framework.Performance.Analysis.descent_integration import \
+from framework.Performance.Analysis.descent_integration02 import \
     descent_integration
 from framework.Performance.Analysis.maximum_range_cruise import \
     maximum_range_mach
@@ -64,9 +65,11 @@ GRAVITY = 9.80665
 gallon_to_liter = 3.7852
 feet_to_nautical_miles = 0.000164579
 
-def mission(mission_range, heading, vehicle):
+def mission(departure,arrival, heading, vehicle):
     start_time = datetime.now()
     # log.info('---- Start DOC mission function ----')
+
+    mission_range = actual_mission_range(departure,arrival)
 
     performance = vehicle['performance']
 
@@ -226,6 +229,10 @@ def mission(mission_range, heading, vehicle):
                     even_flight_level, key=lambda x: abs(x-flight_level)
                 )
                 final_altitude = flight_level*100
+            
+            alt_climb,spds_climb,machs_climb,time_climb = climb_altitudes_vector(departure,arrival,max_altitude)
+
+            alt_descent,spds_descent,machs_descent,time_descent = descent_altitudes_vector(departure,arrival,max_altitude)
 
             # Initial climb fuel estimation
             initial_altitude = initial_altitude + 1500
@@ -234,7 +241,9 @@ def mission(mission_range, heading, vehicle):
                 mach_climb,
                 climb_V_cas,
                 delta_ISA,
-                final_altitude,
+                alt_climb,
+                spds_climb,
+                machs_climb,
                 initial_altitude,
                 vehicle
             )
@@ -256,7 +265,9 @@ def mission(mission_range, heading, vehicle):
                 mach_climb,
                 climb_V_cas,
                 delta_ISA,
-                final_altitude,
+                alt_climb,
+                spds_climb,
+                machs_climb,
                 initial_altitude,
                 vehicle
             )
@@ -322,7 +333,9 @@ def mission(mission_range, heading, vehicle):
                     mach_descent,
                     descent_V_cas,
                     delta_ISA,
-                    descent_altitude,
+                    alt_descent,
+                    spds_descent,
+                    machs_descent,
                     final_cruise_altitude,
                     vehicle
                 )
@@ -440,8 +453,7 @@ def mission(mission_range, heading, vehicle):
     # end_time = datetime.now()
     # log.info('DOC mission execution time: {}'.format(end_time - start_time))
 
-    return float(fuel_mass), float(complete_mission_flight_time),float(DOC),float(mach),float(passenger_capacity), float(SAR)
-
+    return float(fuel_mass), float(complete_mission_flight_time),float(DOC),float(mach),float(passenger_capacity), float(SAR), float(mission_range)
 
 # =============================================================================
 # MAIN
@@ -451,7 +463,8 @@ def mission(mission_range, heading, vehicle):
 # TEST
 # =============================================================================
 
-# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+# vehicle = initialize_aircraft_parameters()
 
 # performance = vehicle['performance']
 
@@ -460,6 +473,8 @@ def mission(mission_range, heading, vehicle):
 # aircraft = vehicle['aircraft']
 # engine = vehicle['engine']
 # wing = vehicle['wing']
+# fuselage = vehicle['fuselage']
+# horizontal_tail = vehicle['horizontal_tail']
 
 # airport_departure = vehicle['airport_departure']
 # airport_destination = vehicle['airport_destination']
@@ -506,8 +521,15 @@ def mission(mission_range, heading, vehicle):
 # vehicle = np.load('Database/Aircrafts/baseline_EMB.npy',allow_pickle = True)
 # vehicle = vehicle.item()
 
+# operations = vehicle['operations']
+
+# operations['flight_planning_delta_ISA'] = 0
+
 # heading = 180
 # mission_range = 355
-# print(mission(mission_range,heading,vehicle))
+
+# departure = 'AMS'
+# arrival = 'BCN'
+# print(mission(departure,arrival,heading,vehicle))
 
 
