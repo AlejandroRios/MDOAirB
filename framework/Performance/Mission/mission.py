@@ -115,6 +115,7 @@ def mission(vehicle, airport_departure, takeoff_runway, airport_destination, lan
     contingency_fuel_percent = operations['contingency_fuel_percent']
     min_cruise_time = operations['min_cruise_time']  # [min]
     go_around_allowance = operations['go_around_allowance']
+    route_computation_mode = operations['route_computation_mode']
 
     # Initial flight speed schedule
     climb_V_cas = operations['climb_V_cas']
@@ -126,8 +127,8 @@ def mission(vehicle, airport_departure, takeoff_runway, airport_destination, lan
     delta_ISA = operations['flight_planning_delta_ISA']
     captain_salary, first_officer_salary, flight_attendant_salary = crew_salary(aircraft['maximum_takeoff_weight'])
     
-    regulated_takeoff_mass = regulated_takeoff_weight(vehicle, airport_departure, takeoff_runway)
-    regulated_landing_mass = regulated_landing_weight(vehicle, airport_destination, landing_runway)
+    regulated_takeoff_mass = regulated_takeoff_weight(vehicle)
+    regulated_landing_mass = regulated_landing_weight(vehicle)
 
     max_takeoff_mass = regulated_takeoff_mass
     max_landing_mass = regulated_landing_mass

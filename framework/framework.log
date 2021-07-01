@@ -1,4 +1,25 @@
-2021-07-01 14:13:16,043 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-14:11:10,313 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 575.0098415552865
-2021-07-01 14:11:10,313 - c:\users\aarc8\documents\github\mdoairb\framew2021-07-01 14:11:10,458 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-07-01 14:13:15,959 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-07-01 16:03:27,751 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - ==== Start network optimization module ====
+2021-07-01 16:03:27,791 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
+2021-07-01 16:08:28,291 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - ==== Start PuLP optimization ====
+22021-07-01 16:08:28,850 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-07-01 16:08:33,605 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 660.224218167169
+2021-07-01 16:08:33,606 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
+: 3698, 'LHR': 0, 'CDG': 2562, 'AMS': 2630, 'MAD': 6121, 'BCN': 5667, 'FCO': 6888, 'DUB': 2960, 'VIE': 6172, 'ZRH': 4228}, 'CDG': {'FRA': 2924, 'LHR': 2550, 'CDG': 0, 'AMS': 2737, 'MAD': 5347, 'BCN': 4521, 'FCO': 5465, 'DUB': 4223, 'VIE': 5200, 'ZRH'2021-07-01 16:08:28,564 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 16:08:28,565 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 79, 26, 26, -3, 36, 64, 12, 28, 1448, 16, 116, 6, 1375, 41000, 78, 1, 1, 1, 1]
+2021-07-01 16:08:33,702 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+UB': {'FRA': 5414, 'LHR': 2940, 'CDG': 4215, 'AMS': 4075, 'MAD': 6924, 'BCN': 7054, 'FCO': 8707, 'DUB': 0, 'VIE': 7953, 'ZRH': 6015}, 'VIE': {'FRA': 3563, 'LHR': 6228, 'CDG': 5215, 'AMS': 4917, 'MAD': 8417, 'BCN': 6624, 'FCO': 4199, 'DUB': 7989, 'VIE': 0, 'ZRH': 3499}, 'ZRH': {'FRA': 2326, 'LHR': 4214, 'CDG': 3023, 'AMS': 3486, 'MAD': 6079, 'BCN': 4492, 'FCO': 3823, 'DUB': 6064, 'VIE': 3479, 'ZRH': 0}}
+2021-07-01 16:03:27,750 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start Network Optimization ----
+2021-07-01 16:08:28,468 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit [$USD]: 558090
+2021-07-01 16:08:28,524 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_optimal_results
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 264, in objective_function
+    write_optimal_results(list(airports.keys()), distances, demands, profit, DOC_ik, vehicle, kpi_df2, airplanes_ik)
+TypeError: write_optimal_results() takes 4 positional arguments but 8 were given
+2021-07-01 16:08:28,533 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_kml_results
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 269, in objective_function
+    write_kml_results(airports, profit, airplanes_ik)
+TypeError: write_kml_results() missing 1 required positional argument: 'vehicle'
+2021-07-01 16:08:28,555 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:48:56.061010
+2021-07-01 16:08:28,556 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 16:08:28,557 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====

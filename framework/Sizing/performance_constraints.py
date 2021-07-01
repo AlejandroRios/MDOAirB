@@ -46,7 +46,7 @@ def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
     aircraft = vehicle['aircraft']
     airport_departure = vehicle['airport_departure']
 
-    takeoff_field_length_required = airport_departure['takeoff_field_length']
+    takeoff_field_length_required = airport_departure['tora']
     # weight_takeoff = aircraft['maximum_takeoff_weight']
 
     flag = 0
@@ -89,7 +89,7 @@ def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
     wing = vehicle['wing']
     airport_destination = vehicle['airport_destination']
 
-    landing_field_length_required = airport_destination['landing_field_length']
+    landing_field_length_required = airport_destination['lda']
     wing_surface = wing['area']
 
     flag = 0
