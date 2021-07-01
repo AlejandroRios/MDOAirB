@@ -1,849 +1,885 @@
-2021-07-01 10:10:57,019 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-202021-07-01 10:10:57,022 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:23,748 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+202021-07-01 10:27:23,749 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
-  File "c:\users\aarc82021-07-01 10:10:57,076 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,077 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 89, 39, 25, -4, 26, 62, 18, 27, 1418, 15, 74, 5, 1225, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,119 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,126 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 79, 26, 26, -3, 36, 64, 12, 28, 1448, 16, 116, 6, 1375, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,163 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,165 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 34, 29, -3, 38, 54, 16, 29, 1372, 20, 60, 4, 2425, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,191 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,193 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 99, 46, 19, -4, 27, 46, 20, 30, 1402, 17, 102, 6, 1075, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,229 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,234 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 96, 36, 16, -5, 29, 50, 12, 30, 1462, 17, 68, 5, 1975, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,255 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,257 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [115, 91, 29, 20, -2, 39, 48, 14, 27, 1492, 19, 110, 4, 1525, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,307 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,308 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [91, 86, 31, 17, -2, 32, 58, 14, 28, 1432, 16, 54, 4, 2125, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,340 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,341 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 44, 22, -5, 33, 60, 18, 28, 1478, 18, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,382 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,384 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 28, -4, 35, 56, 16, 29, 1388, 14, 82, 5, 2275, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,452 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,457 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 89, 39, 25, -4, 26, 62, 18, 27, 1418, 15, 74, 6, 1375, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,492 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,493 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 79, 26, 26, -3, 36, 64, 12, 28, 1448, 16, 116, 5, 1225, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,540 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,542 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 44, 27, -5, 33, 60, 18, 28, 1478, 18, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,586 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,588 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 89, 39, 25, -4, 26, 62, 22, 29, 1418, 15, 74, 6, 1375, 39214, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,626 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,627 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [118, 79, 26, 26, -3, 39, 49, 12, 29, 1448, 16, 116, 5, 1225, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,669 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,670 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [115, 108, 29, 20, -2, 39, 48, 14, 29, 1492, 19, 110, 4, 1525, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,701 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,704 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [97, 76, 49, 18, -3, 30, 52, 10, 29, 1358, 18, 96, 6, 1675, 42273, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,743 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,744 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 44, 27, -5, 33, 60, 18, 28, 1478, 18, 82, 5, 2275, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,775 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,776 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 28, -4, 35, 53, 16, 29, 1388, 14, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,808 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,809 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 99, 46, 19, -4, 27, 46, 16, 30, 1493, 17, 102, 6, 1075, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,858 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,859 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 32, 29, -3, 38, 53, 16, 29, 1372, 20, 188, 4, 2425, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,889 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,890 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 99, 46, 19, -4, 27, 46, 16, 30, 1493, 17, 102, 6, 1075, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,919 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,920 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 96, 36, 16, -5, 29, 50, 12, 30, 1462, 17, 68, 5, 1975, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,952 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,953 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [72, 76, 49, 26, -4, 42, 52, 10, 29, 1358, 18, 96, 6, 1675, 39687, 78, 1, 1, 1, 1]
-2021-07-01 10:10:57,983 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:57,986 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 86, 31, 17, -2, 32, 58, 14, 28, 1432, 16, 54, 4, 2125, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,019 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,020 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 27, -2, 35, 53, 12, 29, 1362, 14, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,052 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,053 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [107, 79, 26, 26, -3, 39, 49, 12, 29, 1448, 16, 147, 5, 1225, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,075 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,076 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [100, 99, 46, 19, -4, 27, 46, 12, 30, 1493, 17, 102, 6, 1372, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,118 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,119 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [72, 76, 49, 26, -4, 42, 52, 10, 29, 1493, 17, 102, 6, 1372, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,160 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,161 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [100, 99, 46, 19, -4, 27, 46, 12, 30, 1358, 18, 96, 6, 1675, 39687, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,216 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,219 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 96, 36, 16, -5, 29, 50, 12, 29, 1492, 17, 68, 5, 1975, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,247 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,255 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [115, 108, 29, 20, -2, 39, 48, 14, 30, 1462, 19, 110, 4, 1525, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,281 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,285 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 89, 39, 25, -4, 39, 62, 22, 29, 1418, 15, 74, 6, 2626, 39214, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,319 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,322 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 32, 29, -3, 38, 53, 16, 29, 1439, 24, 188, 6, 2425, 41000, 79, 1, 1, 1, 1]
-2021-07-01 10:10:58,358 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,359 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 41, 27, -2, 35, 53, 12, 29, 1362, 14, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,388 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,390 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 44, 27, -5, 33, 60, 18, 28, 1478, 18, 82, 5, 2275, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,459 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,460 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 32, 29, -3, 38, 53, 16, 29, 1439, 24, 188, 6, 2425, 41000, 79, 1, 1, 1, 1]
-2021-07-01 10:10:58,515 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,525 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 86, 31, 17, -2, 32, 58, 14, 28, 1432, 16, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,611 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,612 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 41, 27, -2, 35, 53, 12, 29, 1362, 14, 54, 4, 2125, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,674 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,676 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 89, 39, 25, -4, 39, 62, 22, 29, 1418, 15, 74, 6, 2626, 39214, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,740 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,743 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 81, 44, 27, -5, 33, 60, 18, 28, 1478, 18, 82, 5, 2275, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,801 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,803 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 81, 44, 26, -5, 33, 60, 18, 28, 1478, 18, 82, 5, 2275, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,851 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,855 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 89, 39, 25, -4, 39, 62, 22, 29, 1418, 15, 74, 6, 2626, 39214, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,899 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,907 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [113, 76, 49, 26, -4, 42, 52, 10, 29, 1493, 15, 102, 6, 1372, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:58,946 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:58,949 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 32, 29, -3, 38, 53, 12, 30, 1358, 18, 96, 6, 1675, 39687, 78, 1, 1, 1, 1]
-2021-07-01 10:10:59,015 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:59,022 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [100, 99, 46, 19, -4, 27, 46, 16, 29, 1439, 24, 188, 6, 2425, 41000, 79, 1, 1, 1, 1]
-2021-07-01 10:10:59,077 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:59,078 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 96, 36, 16, -5, 29, 50, 12, 29, 1492, 17, 136, 5, 1618, 41000, 81, 1, 1, 1, 1]
-2021-07-01 10:10:59,154 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:59,161 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 86, 31, 17, -2, 32, 58, 12, 29, 1362, 14, 54, 4, 1825, 41000, 78, 1, 1, 1, 1]
-2021-07-01 10:10:59,210 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 10:10:59,211 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 41, 27, -2, 35, 53, 14, 28, 1432, 16, 88, 5, 2125, 41000, 78, 1, 1, 1, 1]
-\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
-Traceback (most recent call last):
-  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
-    if status == 0:
-UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,403 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,405 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,408 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.034982
-2021-07-01 10:10:57,409 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,428 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,462 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+  File "c:\users\aarc82021-07-01 10:27:23,780 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,781 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 89, 39, 25, -4, 26, 62, 18, 27, 1418, 15, 74, 5, 1225, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,795 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,796 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 79, 26, 26, -3, 36, 64, 12, 28, 1448, 16, 116, 6, 1375, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,827 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,828 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 34, 29, -3, 38, 54, 16, 29, 1372, 20, 60, 4, 2425, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,852 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,862 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 99, 46, 19, -4, 27, 46, 20, 30, 1402, 17, 102, 6, 1075, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,884 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,892 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 96, 36, 16, -5, 29, 50, 12, 30, 1462, 17, 68, 5, 1975, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,914 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,914 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [115, 91, 29, 20, -2, 39, 48, 14, 27, 1492, 19, 110, 4, 1525, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,939 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,940 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [91, 86, 31, 17, -2, 32, 58, 14, 28, 1432, 16, 54, 4, 2125, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,962 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,962 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 44, 22, -5, 33, 60, 18, 28, 1478, 18, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,975 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,975 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 28, -4, 35, 56, 16, 29, 1388, 14, 82, 5, 2275, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:23,986 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:23,990 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [97, 76, 49, 23, -3, 30, 56, 16, 29, 1358, 18, 96, 6, 1675, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,012 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,012 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 28, -4, 35, 52, 10, 29, 1388, 14, 176, 5, 2275, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,028 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,028 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 89, 39, 25, -4, 26, 62, 24, 29, 1418, 20, 74, 5, 1225, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,041 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,042 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 34, 29, -4, 27, 46, 20, 29, 1372, 20, 60, 4, 2425, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,051 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,052 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 99, 46, 19, -3, 38, 54, 16, 30, 1402, 17, 102, 6, 1075, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,069 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,074 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 91, 29, 20, -2, 39, 48, 14, 27, 1492, 17, 68, 5, 1975, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,102 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,109 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [115, 96, 36, 16, -5, 29, 50, 12, 30, 1462, 19, 110, 4, 1525, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,140 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,142 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [129, 108, 31, 17, -4, 32, 58, 14, 27, 1432, 23, 54, 4, 2125, 41000, 80, 1, 1, 1, 1]
+2021-07-01 10:27:24,154 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,158 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [97, 76, 49, 23, -3, 39, 56, 16, 29, 1358, 18, 96, 6, 1675, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,211 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,212 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 22, -4, 35, 52, 10, 29, 1388, 14, 207, 5, 2275, 42186, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,228 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,228 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [97, 76, 49, 23, -3, 29, 50, 12, 30, 1462, 19, 110, 4, 1525, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,238 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,239 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [115, 96, 36, 16, -5, 39, 56, 16, 29, 1358, 18, 96, 6, 1675, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,264 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,265 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [129, 102, 31, 27, -4, 32, 50, 13, 30, 1432, 23, 54, 6, 2125, 39050, 80, 1, 1, 1, 1]
+2021-07-01 10:27:24,295 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,298 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 44, 22, -5, 33, 58, 14, 28, 1478, 18, 88, 5, 1825, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,328 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,329 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 87, 26, 29, -3, 36, 52, 12, 27, 1448, 16, 151, 6, 1375, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,366 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,367 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 116, 29, 20, -2, 39, 48, 25, 27, 1420, 23, 104, 5, 1975, 41697, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,411 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,412 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [115, 96, 36, 16, -5, 39, 50, 13, 30, 1432, 23, 54, 6, 1675, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,429 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,429 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [129, 102, 31, 27, -4, 32, 56, 16, 29, 1358, 18, 96, 6, 2125, 39050, 80, 1, 1, 1, 1]
+2021-07-01 10:27:24,440 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,442 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 89, 39, 25, -3, 26, 62, 12, 29, 1418, 20, 74, 5, 3270, 41464, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,462 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,464 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 99, 46, 19, -3, 38, 55, 12, 30, 1402, 17, 120, 6, 1075, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,477 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,477 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [129, 102, 31, 27, -4, 33, 58, 14, 28, 1478, 18, 88, 5, 1825, 39050, 80, 1, 1, 1, 1]
+2021-07-01 10:27:24,486 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,487 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 44, 22, -5, 32, 56, 16, 29, 1358, 18, 96, 6, 2125, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,498 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,498 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 19, -4, 35, 52, 10, 29, 1388, 14, 174, 4, 2275, 42186, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,511 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,512 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 87, 26, 29, -3, 36, 52, 12, 29, 1372, 20, 60, 4, 2425, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,531 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,534 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 34, 29, -4, 27, 46, 20, 27, 1448, 16, 151, 6, 1375, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,569 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,571 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [97, 76, 49, 29, -4, 27, 46, 20, 30, 1462, 19, 110, 4, 1525, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,588 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,592 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 34, 23, -3, 29, 50, 12, 27, 1448, 16, 151, 6, 1375, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,601 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,602 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 99, 46, 19, -3, 38, 55, 12, 30, 1402, 17, 120, 6, 1075, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,626 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,628 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 116, 29, 20, -2, 39, 48, 25, 27, 1420, 23, 104, 5, 1975, 41697, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,652 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,664 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [73, 94, 44, 22, -5, 32, 56, 16, 29, 1358, 18, 96, 6, 2125, 42186, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,678 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,678 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 19, -4, 35, 48, 10, 29, 1388, 14, 174, 4, 2018, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,699 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,700 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [79, 114, 49, 29, -4, 27, 46, 20, 30, 1398, 19, 110, 4, 3446, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,733 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,736 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 99, 46, 19, -3, 38, 55, 12, 30, 1402, 17, 120, 6, 1075, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,798 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,800 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 98, 34, 30, -3, 29, 50, 14, 27, 1448, 20, 151, 6, 1375, 40675, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,826 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,827 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [100, 101, 45, 16, -5, 39, 50, 13, 30, 1432, 25, 54, 6, 1675, 41000, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,870 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,871 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 41, 15, -4, 35, 48, 25, 30, 1388, 14, 174, 6, 2018, 41561, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,901 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,902 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [127, 98, 34, 30, -3, 29, 50, 14, 27, 1448, 20, 151, 6, 1375, 40675, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,918 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,919 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [85, 116, 29, 20, -2, 39, 48, 25, 27, 1420, 23, 104, 5, 1975, 41697, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,939 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,941 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [103, 81, 31, 15, -4, 42, 48, 10, 30, 1388, 14, 195, 6, 2793, 41937, 78, 1, 1, 1, 1]
+2021-07-01 10:27:24,987 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:24,988 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [100, 102, 45, 30, -5, 39, 50, 13, 30, 1432, 25, 54, 6, 1675, 40416, 79, 1, 1, 1, 1]
+2021-07-01 10:27:25,002 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-07-01 10:27:25,003 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [129, 102, 31, 27, -4, 33, 52, 14, 28, 1478, 18, 88, 5, 1825, 39050, 80, 1, 1, 1, 1]
+aft not passed sizing and checks, profit: 0
+2021-07-01 10:27:23,981 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.007984
+2021-07-01 10:27:23,981 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:23,984 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:23,992 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,469 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:23,995 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,472 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,473 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,477 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.037487
-2021-07-01 10:10:57,478 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,480 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,495 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:23,998 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:23,999 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,002 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.017990
+2021-07-01 10:27:24,006 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,008 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,013 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,511 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,015 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,518 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,523 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,526 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.042967
-2021-07-01 10:10:57,528 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,530 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,545 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,017 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,018 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,019 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.008981
+2021-07-01 10:27:24,020 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,025 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,029 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,551 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,032 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,554 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,558 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,564 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.029973
-2021-07-01 10:10:57,567 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,578 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,589 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,033 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,034 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,035 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.008994
+2021-07-01 10:27:24,036 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,036 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,043 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,596 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,045 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,603 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,604 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,607 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.027984
-2021-07-01 10:10:57,609 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,614 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,630 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,046 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,047 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,048 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.008988
+2021-07-01 10:27:24,048 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,049 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,058 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,640 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,061 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,647 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,649 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,655 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.037977
-2021-07-01 10:10:57,657 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,660 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,671 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,062 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,063 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,066 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.016990
+2021-07-01 10:27:24,066 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,067 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,076 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,674 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,078 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,676 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,678 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,683 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.021987
-2021-07-01 10:10:57,683 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,690 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,706 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,080 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,082 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,093 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.024988
+2021-07-01 10:27:24,097 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,099 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,110 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,712 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,116 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,717 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,718 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,723 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.031982
-2021-07-01 10:10:57,723 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,724 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,744 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,127 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,128 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,131 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.028984
+2021-07-01 10:27:24,131 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,134 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,143 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,751 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,145 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,753 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,755 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,757 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.029980
-2021-07-01 10:10:57,758 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,762 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,776 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,147 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,147 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,148 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.012993
+2021-07-01 10:27:24,149 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,152 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,164 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,780 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,184 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,783 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,783 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,789 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.021993
-2021-07-01 10:10:57,791 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,796 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,811 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,194 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,196 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,208 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.055962
+2021-07-01 10:27:24,208 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,209 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,212 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,816 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,215 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,825 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,826 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,829 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.028986
-2021-07-01 10:10:57,830 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,848 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,861 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,216 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,216 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,218 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.007996
+2021-07-01 10:27:24,218 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,224 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,229 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,867 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,231 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,871 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,873 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,875 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.025985
-2021-07-01 10:10:57,877 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,877 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,891 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,232 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,233 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,234 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.007984
+2021-07-01 10:27:24,235 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,235 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,242 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,894 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,249 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,896 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,898 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,907 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.026984
-2021-07-01 10:10:57,907 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,908 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,922 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,258 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,259 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,261 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.024989
+2021-07-01 10:27:24,262 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,262 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,266 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,925 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,270 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,929 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,930 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,937 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.027983
-2021-07-01 10:10:57,937 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,943 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,955 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,279 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,281 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,285 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.021992
+2021-07-01 10:27:24,286 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,293 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,300 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,959 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,309 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,962 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:57,963 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:57,968 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.023989
-2021-07-01 10:10:57,969 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:57,971 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:57,987 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,311 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,312 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,315 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.020988
+2021-07-01 10:27:24,317 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,318 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,332 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:57,992 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,336 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:57,997 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,002 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,005 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.030977
-2021-07-01 10:10:58,006 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,007 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,021 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,344 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,345 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,348 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.021502
+2021-07-01 10:27:24,350 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,363 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,368 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,023 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,378 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,027 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,028 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,041 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.031982
-2021-07-01 10:10:58,042 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,043 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,054 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,380 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,381 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,384 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.018990
+2021-07-01 10:27:24,385 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,386 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,413 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,057 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,416 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,059 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,060 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,062 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.018989
-2021-07-01 10:10:58,063 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,063 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,078 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,418 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,418 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,426 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.016990
+2021-07-01 10:27:24,426 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,427 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,430 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,084 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,432 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,088 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,090 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,093 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.028985
-2021-07-01 10:10:58,097 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,106 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,121 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,433 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,433 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,435 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.007996
+2021-07-01 10:27:24,436 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,436 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,444 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,129 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,448 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,136 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,140 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,144 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.036979
-2021-07-01 10:10:58,147 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,149 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,164 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,449 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,450 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,452 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.014989
+2021-07-01 10:27:24,452 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,458 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,465 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,171 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,467 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,181 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,193 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,204 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.052974
-2021-07-01 10:10:58,205 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,206 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,220 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,468 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,469 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,470 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.009994
+2021-07-01 10:27:24,471 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,473 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,478 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,224 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,481 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,227 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,228 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,229 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.021987
-2021-07-01 10:10:58,235 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,237 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,257 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,482 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,482 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,484 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.008996
+2021-07-01 10:27:24,484 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,484 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,487 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,261 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,492 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,263 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,264 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,270 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.031978
-2021-07-01 10:10:58,271 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,272 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,286 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,494 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,494 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,495 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.009995
+2021-07-01 10:27:24,496 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,496 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,499 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,289 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,502 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,291 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,292 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,296 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.023989
-2021-07-01 10:10:58,297 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,306 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,325 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,503 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,503 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,508 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.012002
+2021-07-01 10:27:24,508 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,509 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,512 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,329 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,514 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,340 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,341 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,343 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.034978
-2021-07-01 10:10:58,344 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,346 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,360 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,515 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,516 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,517 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.007993
+2021-07-01 10:27:24,519 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,528 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,535 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,369 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,542 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,372 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,373 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,375 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.027983
-2021-07-01 10:10:58,376 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,377 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,392 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,548 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,552 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,561 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.031976
+2021-07-01 10:27:24,562 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,566 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,575 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,408 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,579 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,412 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,413 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,423 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.043544
-2021-07-01 10:10:58,425 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,437 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,463 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,581 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,582 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,585 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.017989
+2021-07-01 10:27:24,585 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,586 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,593 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,475 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,596 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,480 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,482 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,495 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.052498
-2021-07-01 10:10:58,496 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,497 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,529 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,597 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,597 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,599 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.012991
+2021-07-01 10:27:24,599 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,600 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,603 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,547 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,609 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,550 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,551 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,565 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.067963
-2021-07-01 10:10:58,574 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,585 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,614 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,612 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,612 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,617 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.016989
+2021-07-01 10:27:24,618 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,619 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,629 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,626 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,633 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,629 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,631 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,636 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.044029
-2021-07-01 10:10:58,640 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,644 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,678 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,636 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,643 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,646 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.026984
+2021-07-01 10:27:24,649 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,650 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,666 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,692 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,668 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,706 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,712 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,723 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.075465
-2021-07-01 10:10:58,724 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,725 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,747 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,669 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,670 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,673 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.021991
+2021-07-01 10:27:24,675 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,676 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,679 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,756 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,681 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,761 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,763 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,777 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.049972
-2021-07-01 10:10:58,780 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,787 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,805 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,683 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,684 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,693 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.015993
+2021-07-01 10:27:24,694 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,697 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,701 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,812 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,703 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,817 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,818 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,821 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.031980
-2021-07-01 10:10:58,825 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,837 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,859 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,715 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,719 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,729 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.030980
+2021-07-01 10:27:24,730 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,731 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,738 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,870 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,771 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,873 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,874 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,877 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.036981
-2021-07-01 10:10:58,878 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,887 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,909 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,779 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,783 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,787 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.055965
+2021-07-01 10:27:24,793 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,794 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,801 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,913 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,811 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,920 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,927 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,930 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.040977
-2021-07-01 10:10:58,932 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:58,936 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:58,953 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,815 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,815 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,818 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.021986
+2021-07-01 10:27:24,819 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,820 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,836 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:58,961 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,847 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:58,973 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:58,978 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:58,992 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.054968
-2021-07-01 10:10:58,994 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:59,004 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:59,023 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,853 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,854 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,863 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.041975
+2021-07-01 10:27:24,864 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,865 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,874 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:59,028 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,880 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:59,032 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:59,044 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:59,049 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.041977
-2021-07-01 10:10:59,053 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:59,060 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:59,080 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,883 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,885 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,888 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.020987
+2021-07-01 10:27:24,893 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,897 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,904 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:59,089 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,912 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:59,103 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:59,105 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:59,116 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.048978
-2021-07-01 10:10:59,121 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:59,128 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:59,165 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,913 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,914 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,915 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.016991
+2021-07-01 10:27:24,916 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,916 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,920 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:59,174 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,930 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:59,187 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:59,190 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:59,198 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.062957
-2021-07-01 10:10:59,199 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 10:10:59,199 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 10:10:59,212 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-01 10:27:24,933 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,933 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,935 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.018984
+2021-07-01 10:27:24,936 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,936 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,943 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
     vehicle = fuselage_cross_section(vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
-    seat_cushion_width_YC = fuselage['seat_width']
-KeyError: 'seat_width'
-2021-07-01 10:10:59,215 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,948 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-01 10:10:59,217 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-01 10:10:59,220 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-01 10:10:59,224 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.023985
-2021-07-01 10:10:59,225 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,951 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,954 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,978 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.041667
+2021-07-01 10:27:24,981 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:24,985 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:24,991 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
+    status, flags, vehicle = airplane_sizing(vehicle,x)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
+    vehicle = fuselage_cross_section(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:24,996 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-07-01 10:27:24,997 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:24,997 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:24,999 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.012993
+2021-07-01 10:27:25,000 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-01 10:27:25,000 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 10:27:25,004 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 81, in objective_function
+    status, flags, vehicle = airplane_sizing(vehicle,x)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 205, in airplane_sizing
+    vehicle = fuselage_cross_section(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\fuselage_sizing.py", line 46, in fuselage_cross_section
+    seat_cushion_width_YC = cabine['seat_width']
+NameError: name 'cabine' is not defined
+2021-07-01 10:27:25,011 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 92, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-07-01 10:27:25,013 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-01 10:27:25,013 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-01 10:27:25,015 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.013993
+2021-07-01 10:27:25,015 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
