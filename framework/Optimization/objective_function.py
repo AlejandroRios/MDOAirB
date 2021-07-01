@@ -96,6 +96,7 @@ def objective_function(x, original_vehicle, computation_mode, route_computation_
 
             results['nodes_number'] = len(airports)
 
+            pax_capacity = aircraft['passenger_capacity']  # Passenger capacity
             # =============================================================================
             log.info('---- Start DOC matrix calculation ----')
             # The DOC is estimated for each city pair and stored in the DOC dictionary
@@ -181,7 +182,7 @@ def objective_function(x, original_vehicle, computation_mode, route_computation_
             # Network optimization that maximizes the network profit
             try:
                 profit, vehicle, kpi_df1, kpi_df2, airplanes_ik = network_optimization(
-                        computation_mode, list(airports.keys()), distances, demands, DOC_ik, pax_capacity,  vehicle)
+                        computation_mode, list(airports.keys()), distances, demands, DOC_ik, vehicle)
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
                 profit = 0
