@@ -1,6 +1,6 @@
 """
 File name : weights function
-Author    : Alejandro Rios
+Authors   : Alejandro Rios
 Email     : aarc.88@gmail.com
 Date      : September/2020
 Last edit : September/2020
@@ -88,7 +88,7 @@ def wing_mass(vehicle, maximum_takeoff_weight, mach, altitude):
     landing_gear_position = wing['position']
     spoilers = aircraft['spoiler_presence']
     
-    _, _, _, _, _, _, a = atmosphere_ISA_deviation(
+    _, _, _, _, _, _, _, a = atmosphere_ISA_deviation(
         altitude, 0)
 
     V_MO = mach*a*kn_to_m_s  # Maximum operating speed [m/s]
@@ -553,7 +553,6 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
     systems['handling_gear'] = 3.0E-4 * maximum_takeoff_weight*kg_to_lb
 
     # Slats
-    aircraft['slat_presence'] = 1
     if aircraft['slat_presence'] == 1:
         if engine['position'] == 2:
             slats_span = 0.8
@@ -587,12 +586,12 @@ def aircraft_empty_weight(vehicle, maximum_takeoff_weight, fuel_mass, engine_sta
     fuselage = vehicle['fuselage']
     engine = vehicle['engine']
     nacelle = vehicle['nacelle']
-    nose_landing_gear = vehicle['nose_langing_gear']
-    main_landing_gear = vehicle['main_langing_gear']
+    nose_landing_gear = vehicle['nose_landing_gear']
+    main_landing_gear = vehicle['main_landing_gear']
     systems = vehicle['systems']
 
     # Dive speed
-    _, _, sigma, _, _, _, a = atmosphere_ISA_deviation(
+    _, _, sigma, _, _, _, _, a = atmosphere_ISA_deviation(
         altitude, 0)
 
     V_cruise = mach*a
