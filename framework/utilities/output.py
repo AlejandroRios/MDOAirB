@@ -34,7 +34,7 @@ from framework.utilities.logger import get_logger
 # =============================================================================
 log = get_logger(__file__.split('.')[0])
 
-def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
+def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, vehicle, kpi_df2, airplanes_ik):
 
     log.info('==== Start writing aircraft results ====')
 
