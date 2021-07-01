@@ -181,7 +181,7 @@ def objective_function(x, original_vehicle, computation_mode, route_computation_
             # Network optimization that maximizes the network profit
             try:
                 profit, vehicle, kpi_df1, kpi_df2, airplanes_ik = network_optimization(
-                        computation_mode, list(airports.keys()), distances, demands, DOC_ik, vehicle)
+                        computation_mode, list(airports.keys()), distances, demands, DOC_ik, pax_capacity,  vehicle)
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
                 profit = 0
