@@ -444,11 +444,11 @@ def airplane_sizing(vehicle,x=None):
 
 
     # Landing field length check
-    landing_field_length_required = airport_destination['landing_field_length']
+    landing_field_length_required = airport_destination['lda']
 
     k_L = 0.107
 
-    WtoS_landing = (k_L*airport_destination['landing_field_length']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
+    WtoS_landing = (k_L*airport_destination['lda']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
 
     if WtoS_landing < WoS:
         flag_landing = 1
@@ -459,7 +459,7 @@ def airplane_sizing(vehicle,x=None):
     # Takeoff field length check
     k_TO = 2.34
 
-    ToW_takeoff = (k_TO/(airport_departure['takeoff_field_length']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
+    ToW_takeoff = (k_TO/(airport_departure['tora']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
 
     if ToW_takeoff > ToW:
         flag_takeoff = 1

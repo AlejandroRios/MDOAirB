@@ -326,16 +326,16 @@ operations['passenger_mass'] = 100  # [kg]
 
 
 airport_departure = {}
-airport_departure['takeoff_field_length'] = 2500  # [m]
+airport_departure['tora'] = 2500  # [m]
 airport_departure['landing_field_length'] = 2000  # [m]
 airport_departure['elevation'] = 0*3.28084  # [m]
-airport_departure['delta_ISA'] = 19.95  # [deg C]
+airport_departure['tref'] = 19.95  # [deg C]
 
 airport_destination = {}
 airport_destination['takeoff_field_length'] = 2500  # [m]
-airport_destination['landing_field_length'] = 2000  # [m]
+airport_destination['lda'] = 2000  # [m]
 airport_destination['elevation'] = 0*3.28084  # [m]
-airport_destination['delta_ISA'] = 19.95  # [deg C]
+airport_destination['tref'] = 19.95  # [deg C]
 
 aircraft['maximum_engine_thrust'] = aircraft['number_of_engines'] * \
     0.95 * 16206 * (1**0.8) * lbf_to_N  # Rolls-Royce Tay 650 Thrust[N]

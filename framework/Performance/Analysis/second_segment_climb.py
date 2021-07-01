@@ -53,7 +53,7 @@ def second_segment_climb(vehicle, weight_takeoff):
     maximum_takeoff_weight = weight_takeoff  # [N]
 
     airfield_elevation = airport_departure['elevation']
-    airfield_delta_ISA = airport_departure['delta_ISA']
+    airfield_delta_ISA = airport_departure['tref']
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
         airfield_elevation, airfield_delta_ISA)  # [kg/m3]

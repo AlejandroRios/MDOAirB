@@ -90,5 +90,5 @@ def atmosphere_ISA_deviation(h, delta_ISA):
 # =============================================================================
 # h = 32808.4
 # delta_ISA = 0
-# # delta_ISA = airport_departure['delta_ISA']
+# # delta_ISA = airport_departure['tref']
 # print(atmosphere_ISA_deviation(h, delta_ISA))

@@ -50,7 +50,7 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     CL_maximum_landing = aircraft['CL_maximum_landing']
     wing_surface = wing['area']
     airfield_elevation = airport_destination['elevation']
-    airfield_delta_ISA = airport_destination['delta_ISA']
+    airfield_delta_ISA = airport_destination['tref']
     phase = 'climb'
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(

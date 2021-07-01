@@ -56,7 +56,7 @@ def balanced_field_length(vehicle, weight_takeoff,gamma_2):
 
     # Airport data import
     airfield_elevation = airport_departure['elevation']  # [ft]
-    delta_ISA = airport_departure['delta_ISA']  # [deg C]
+    delta_ISA = airport_departure['tref']  # [deg C]
 
     # horizontal distance from airfield surface requirement according to FAR 25 - [m]
     h_takeoff = 10.7

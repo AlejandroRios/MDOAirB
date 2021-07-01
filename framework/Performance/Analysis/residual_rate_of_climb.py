@@ -53,7 +53,7 @@ def residual_rate_of_climb(vehicle, weight_takeoff,engine_cruise_thrust):
     maximum_takeoff_weight = weight_takeoff  # [N]
 
     airfield_elevation = airport_departure['elevation']
-    airfield_delta_ISA = airport_departure['delta_ISA']
+    airfield_delta_ISA = airport_departure['tref']
     
     thrust_takeoff = engine['maximum_thrust']*0.98
 

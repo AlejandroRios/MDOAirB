@@ -155,7 +155,7 @@ def noise_calculation(vehicle):
     aircraft_geometry['main_landing_gear_position'] = noise['aircraft_geometry_main_landing_gear_position']
     aircraft_geometry['nose_landing_gear_position'] = noise['aircraft_geometry_nose_landing_gear_position']
     aircraft_geometry['altitude_retracted'] = noise['aircraft_geometry_altitude_retracted']
-    aircraft_geometry['delta_ISA_retracted'] =airport_departure['delta_ISA']
+    aircraft_geometry['delta_ISA_retracted'] =airport_departure['tref']
 
     engine_parameters = {}
     engine_parameters['throttle_position'] = noise['engine_parameters_throttle_position']

@@ -46,7 +46,7 @@ def landing_field_length(vehicle, weight_landing):
 
     # Airport data import
     airfield_elevation = airport_destination['elevation']  # [ft]
-    delta_ISA = airport_destination['delta_ISA']  # [deg C]
+    delta_ISA = airport_destination['tref']  # [deg C]
 
     _, _, sigma, _, _, rho, _, _ = atmosphere_ISA_deviation(
         airfield_elevation, delta_ISA)  # [kg/m3]
