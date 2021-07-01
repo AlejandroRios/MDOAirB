@@ -263,7 +263,7 @@ def initialize_aircraft_parameters():
     cabine['armrest_bottom'] = 7  # [inch]
     cabine['armrest_width'] = 2  # [inch]
     cabine['seat_cushion_thickness_YC'] = 0.14  # [m]
-    fuselage['seat_width'] = 0.46  # [m]
+    cabine['seat_width'] = 0.46  # [m]
     cabine['backrest_height'] = 0.59  # [m]
     cabine['floor_thickness'] = 0.117  # [m]
     cabine['pax_distance_head_wall'] = 0.06  # [m]
