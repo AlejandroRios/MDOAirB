@@ -1,44 +1,4 @@
-2021-07-01 11:42:48,924 - c:\users\aarc8\documents\github\mdoairb\framework\Network\network_optimization     - INFO - ==== Start network optimization module ====
-1-07-01 11:38:18,914 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
-2021-07-01 11:38:18,915 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit 2021-07-01 11:38:19,093 - 2021-07-01 11:39:52,256 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-07-01 11:42:48,919 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:02:56.2021-07-01 11:42:48,921 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO 2021-07-01 11:42:49,360 - c:\users\aarc8\documents\2021-07-01 11:45:25,521 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-2021-07-01 11:49:33,075 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - Noise check execution time: 0:04:07.554168
-2021-07-01 11:49:33,076 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\No2021-07-01 11:49:33,381 - c:\users\aarc8\documents\github\mdoairb\framework\Si2021-07-01 11:51:45,999 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
-ry\wetted_area     - INFO - Individual wetted area [m2]: 522.6539097980415
-2021-07-01 11:49:38,444 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- End wetted area module ----
-s 3 positional arguments but 6 were given
-2021-07-01 11:42:48,924 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft DOC matrix: {'FRA': {'FRA': 0, 'LHR': 0}}
-2021-07-01 11:42:48,924 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start Network Optimization ----
-2021-07-01 11:42:48,925 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>2021-07-01 11:42:49,015 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 11:42:49,016 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 79, 26, 26, -3, 36, 64, 12, 28, 1448, 16, 116, 6, 1375, 41000, 78, 1, 1, 1, 1]
-2021-07-01 11:42:54,509 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-07-01 11:45:25,457 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-07-01 11:49:33,076 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 1, 0, 0]
-2021-07-01 11:49:33,076 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 1
-2021-07-01 11:49:33,077 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
-2021-07-01 11:49:33,084 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
-2021-07-01 11:49:33,085 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [109, 84, 34, 29, -3, 38, 54, 16, 29, 1372, 20, 60, 4, 2425, 41000, 78, 1, 1, 1, 1]
-2021-07-01 11:49:38,547 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-07-01 11:51:45,925 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-
-Traceback (most recent call last):
-  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 264, in objective_function
-    write_optimal_results(list(airports.keys()), distances, demands, profit, DOC_ik, vehicle, kpi_df2, airplanes_ik)
-UnboundLocalError: local variable 'kpi_df2' referenced before assignment
-2021-07-01 11:42:49,009 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_kml_results
-Traceback (most recent call last):
-  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 269, in objective_function
-    write_kml_results(airports, profit, airplanes_ik)
-UnboundLocalError: local variable 'airplanes_ik' referenced before assignment
-2021-07-01 11:42:49,010 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_newtork_results
-Traceback (most recent call last):
-  File "c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function.py", line 274, in objective_function
-    write_newtork_results(profit,kpi_df1,kpi_df2)
-UnboundLocalError: local variable 'kpi_df1' referenced before assignment
-2021-07-01 11:42:49,012 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:04:30.096294
-2021-07-01 11:42:49,012 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 11:42:49,013 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
-2021-07-01 11:49:33,079 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft did not pass sizing and checks, profit: 0
-2021-07-01 11:49:33,080 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:06:44.066710
-2021-07-01 11:49:33,080 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
-2021-07-01 11:49:33,081 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ==== Start network profit module ====
+2021-07-01 14:13:16,043 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module ----
+14:11:10,313 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 575.0098415552865
+2021-07-01 14:11:10,313 - c:\users\aarc8\documents\github\mdoairb\framew2021-07-01 14:11:10,458 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-07-01 14:13:15,959 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
