@@ -34,7 +34,7 @@ from framework.utilities.logger import get_logger
 # =============================================================================
 log = get_logger(__file__.split('.')[0])
 
-def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, vehicle, kpi_df2, airplanes_ik):
+def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
 
     log.info('==== Start writing aircraft results ====')
 
@@ -55,6 +55,9 @@ def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, veh
     results = vehicle['results']
     performance = vehicle['performance']
     operations = vehicle['operations']
+
+    airport_departure = vehicle['airport_departure']
+    airport_destination = vehicle['airport_destination']
 
     # Creating data for output
     active_arcs = kpi_df2['active_arcs'].sum()
@@ -128,7 +131,7 @@ def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, veh
         output.write('Seats number: ' +
                      str("{:.2f}".format(fuselage['seat_abreast_number'])) + '\n')
         output.write('Seat width: ' +
-                     str("{:.2f}".format(fuselage['seat_width'])) + ' [m] \n')
+                     str("{:.2f}".format(cabine['seat_width'])) + ' [m] \n')
         output.write('Seat pitch: ' +
                      str("{:.2f}".format(fuselage['seat_pitch'])) + ' [m] \n')
         output.write('Cabine height: ' +
@@ -323,28 +326,17 @@ def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, veh
 
         # output.write('Airports array: ' + str(airport_departure['array']) + "\n")
 
-        # demand_db = pd.read_csv('Database/Demand/demand.csv')
-        # demand_db = round(market_share*(demand_db.T))
-        demand_array1 = []
-        for i in range(len(airports_keys)):
-        	demand_array2 = []
-        	for j in range(len(airports_keys)):
-        		demand_array2.append(demands[airports_keys[i]][airports_keys[j]]['demand'])
-        	demand_array1.append(demand_array2)
+        market_share = operations['market_share']
+
+        demand_db = pd.read_csv('Database/Demand/demand.csv')
+        demand_db = round(market_share*(demand_db.T))
         output.write('\nDaily demand: \n')
-        np.savetxt(output, demand_array1, fmt='%d')
+        np.savetxt(output, demand_db.values, fmt='%d')
 
-        # distances_db = pd.read_csv('Database/Distance/distance.csv')
-        # distances_db = (distances_db.T)
-        distances_array1 = []
-        for i in range(len(airports_keys)):
-        	distances_array2 = []
-        	for j in range(len(airports_keys)):
-        		distances_array2.append(distances[airports_keys[i]][airports_keys[j]])
-        	distances_array1.append(distances_array2)
-
+        distances_db = pd.read_csv('Database/Distance/distance.csv')
+        distances_db = (distances_db.T)
         output.write('\nDistances: \n')
-        np.savetxt(output, distances_array1, fmt='%d')
+        np.savetxt(output, distances_db.values, fmt='%d')
 
         # headings_db = pd.read_csv('Database/distabces/distance.csv')
         # headings_db = (headings_db.T)
@@ -355,17 +347,17 @@ def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, veh
         for key in DOC_ik.keys():
             output.write("%s,%s\n\n"%(key,DOC_ik[key]))
 
-        # frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
+        frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
         # frequencies = pd.DataFrame(frequencies_db, index=False, header=False )
 
-        # frequencies = np.array(frequencies_db)
+        frequencies = np.array(frequencies_db)
         
         # frequencies_db = pd.read_csv('Database/Network/frequencies.npy')
         # frequencies_db = (frequencies_db.T)
         output.write('\n\nFrequencies: \n')
         # np.savetxt(output, frequencies_db.values, fmt='%d')
 
-        output.write(str(airplanes_ik) + "\n")
+        output.write(str(frequencies) + "\n")
 
         output.write('\nNetwork Results: \n')
 
@@ -414,15 +406,15 @@ def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, veh
     return
 
 
-def write_kml_results(airports, profit, airplanes_ik):
+def write_kml_results(arrivals, departures, profit, vehicle):
     log.info('==== Start writing klm results ====')
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
-    # departures = departures
-    # arrivals = arrivals
+    departures = departures
+    arrivals = arrivals
 
-    # data_airports = pd.read_csv("Database/Airports/airports.csv")
-    # frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+    frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
     with open(r'Database/Results/Kml/acft_' + str(profit) + '_' + str(start_time) +'.kml','w') as output:
     # with open(r'Database/Results/Klm/acft_' + str(profit) + '.kml','w') as output:
 
@@ -439,17 +431,16 @@ def write_kml_results(airports, profit, airplanes_ik):
         # output.write('      <Placemark>\n')
 
         n = 0
-        airports_keys = list(airports.keys())
-        for i in range(len(airports)):
-            for k in range(len(airports)):
-                if (i != k) and (airplanes_ik[(airports_keys[i],airports_keys[k])] > 0):
+        for i in departures:
+            for k in arrivals:
+                if (i != k) and (frequencies_db[(i,k)] > 0):
                     output.write('      <Placemark>\n')
                     output.write('             <LineString>\n')
 
-                    dep_latitude = airports[airports_keys[i]]['latitude']
-                    dep_longitude = airports[airports_keys[i]]['longitude']
-                    des_latitude = airports[airports_keys[k]]['latitude']
-                    des_longitude = airports[airports_keys[k]]['longitude']
+                    dep_latitude = data_airports.loc[data_airports['APT2'] == i, 'LAT'].iloc[0]
+                    dep_longitude = data_airports.loc[data_airports['APT2'] == i, 'LON'].iloc[0]
+                    des_latitude = data_airports.loc[data_airports['APT2'] == k, 'LAT'].iloc[0]
+                    des_longitude = data_airports.loc[data_airports['APT2'] == k, 'LON'].iloc[0]
                     output.write('                <coordinates>' + str("{:.2f},".format(dep_longitude)) + str("{:.2f},".format(dep_latitude)) + '0,' + str("{:.2f},".format(des_longitude)) + str("{:.2f},".format(des_latitude))+ '0' +'</coordinates>\n')
                     output.write('             </LineString>\n')
                     output.write('     	</Placemark>\n')
@@ -463,6 +454,15 @@ def write_kml_results(airports, profit, airplanes_ik):
 
     return
 
+
+def write_newtork_results(profit,dataframe01,dataframe02):
+
+    start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
+
+    dataframe01.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'01.csv')
+    dataframe02.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'02.csv')
+
+    return
 
 def write_newtork_results(profit,dataframe01,dataframe02):
 
