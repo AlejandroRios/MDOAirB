@@ -35,6 +35,7 @@ in_to_m = 0.0254
 def fuselage_cross_section(vehicle):
 
     fuselage = vehicle['fuselage']
+    cabine = vehicle['cabine']
     # Seat dimensions economy class
     armrest_top = 22  # [inch]
     armrest_bottom = 7    # [inch]
@@ -43,7 +44,7 @@ def fuselage_cross_section(vehicle):
     armrest_bottom_height = armrest_bottom*in_to_m
 
     seat_cushion_thickness_YC = 0.14  # [m] YC - economy class
-    seat_cushion_width_YC = cabine['seat_width']
+    seat_cushion_width_YC = fuselage['seat_width']
     double_container = 'no'
     backrest_height = 0.59  # [m]
     floor_thickness = 0.117  # [m]

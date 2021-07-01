@@ -128,7 +128,7 @@ def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, veh
         output.write('Seats number: ' +
                      str("{:.2f}".format(fuselage['seat_abreast_number'])) + '\n')
         output.write('Seat width: ' +
-                     str("{:.2f}".format(cabine['seat_width'])) + ' [m] \n')
+                     str("{:.2f}".format(fuselage['seat_width'])) + ' [m] \n')
         output.write('Seat pitch: ' +
                      str("{:.2f}".format(fuselage['seat_pitch'])) + ' [m] \n')
         output.write('Cabine height: ' +

@@ -92,6 +92,7 @@ def airplane_sizing(vehicle,x=None):
     airport_destination = vehicle['airport_destination']
 
     friction_coefficient = wing['friction_coefficient']
+    print(x)
 
     # Upload dictionary variables with optimization variables input vector x
     if x != None:
