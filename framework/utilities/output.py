@@ -406,15 +406,15 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     return
 
 
-def write_kml_results(arrivals, departures, profit, vehicle):
+def write_kml_results(airports, profit, airplanes_ik):
     log.info('==== Start writing klm results ====')
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
-    departures = departures
-    arrivals = arrivals
+    # departures = departures
+    # arrivals = arrivals
 
-    data_airports = pd.read_csv("Database/Airports/airports.csv")
-    frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
+    # data_airports = pd.read_csv("Database/Airports/airports.csv")
+    # frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
     with open(r'Database/Results/Kml/acft_' + str(profit) + '_' + str(start_time) +'.kml','w') as output:
     # with open(r'Database/Results/Klm/acft_' + str(profit) + '.kml','w') as output:
 
@@ -431,16 +431,17 @@ def write_kml_results(arrivals, departures, profit, vehicle):
         # output.write('      <Placemark>\n')
 
         n = 0
-        for i in departures:
-            for k in arrivals:
-                if (i != k) and (frequencies_db[(i,k)] > 0):
+        airports_keys = list(airports.keys())
+        for i in range(len(airports)):
+            for k in range(len(airports)):
+                if (i != k) and (airplanes_ik[(airports_keys[i],airports_keys[k])] > 0):
                     output.write('      <Placemark>\n')
                     output.write('             <LineString>\n')
 
-                    dep_latitude = data_airports.loc[data_airports['APT2'] == i, 'LAT'].iloc[0]
-                    dep_longitude = data_airports.loc[data_airports['APT2'] == i, 'LON'].iloc[0]
-                    des_latitude = data_airports.loc[data_airports['APT2'] == k, 'LAT'].iloc[0]
-                    des_longitude = data_airports.loc[data_airports['APT2'] == k, 'LON'].iloc[0]
+                    dep_latitude = airports[airports_keys[i]]['latitude']
+                    dep_longitude = airports[airports_keys[i]]['longitude']
+                    des_latitude = airports[airports_keys[k]]['latitude']
+                    des_longitude = airports[airports_keys[k]]['longitude']
                     output.write('                <coordinates>' + str("{:.2f},".format(dep_longitude)) + str("{:.2f},".format(dep_latitude)) + '0,' + str("{:.2f},".format(des_longitude)) + str("{:.2f},".format(des_latitude))+ '0' +'</coordinates>\n')
                     output.write('             </LineString>\n')
                     output.write('     	</Placemark>\n')
