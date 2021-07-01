@@ -1,24 +1,22 @@
 """
-File name : Balanced field length function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - Balanced length field function
+    - Balanced length field module
+
+Reference:
     - Reference: Torenbeek. 1982 and Gudmunsson 2014
     - Chapter 5, page 169, equation 5-91 and Chapter 17 equation 17-1
-Inputs:
-    - aicraft data
-    - airport data
-Outputs:
-    -
+
 TODO's:
-    - where does Tmax and Tavg equations comes from?
-    - why no GRAVITY in eq. BLF?
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -37,6 +35,17 @@ import numpy as np
 
 def balanced_field_length(vehicle, weight_takeoff,gamma_2):
     '''
+    Description:
+        - This function performs the evaluation of the balanced field length
+
+    Inputs:
+        - vehicle
+        - weight_takeoff
+        - gamma_2ity
+
+    Outputs:
+        - balanced fiel length [m]
+        
     Note: for project design the case of delta_gamma2 = 0 presents most
     interest, as the corresponding weight is limited by the second segment
     climb requirement (Torenbeek, 1982)

@@ -1,30 +1,22 @@
 """
-File name : Climb integration
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This module calculates the aircraft performance during climb by integrating
-    in time the point mass equations of movement. 
-Inputs:
-    - initial mass [kg]
-    - mach_climb
-    - climb_V_cas [knots]
-    - delta_ISA [C deg]
-    - final_altitude [ft]
-    - initial_altitude [ft]
-    - vehicle dictionary
-Outputs:
-    - final_distance [ft]
-    - total_climb_time [min]
-    - total_burned_fuel [kg]
-    - final_altitude [ft]
+    - This function calculates the aircraft performance during climb by integrating
+        in time the point mass equations of movement. 
+
+Reference:
+    -
+
 TODO's:
-    - Include a better description of this module
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -54,9 +46,25 @@ GRAVITY = 9.8067
 kghr_to_kgmin = 0.01667
 kghr_to_kgsec = 0.000277778
 
-
 def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, final_altitude, initial_altitude, vehicle):
-
+    """
+    Description:
+        - This function calculates the aircraft performance during climb by integrating
+        in time the point mass equations of movement. 
+    Inputs:
+        - initial mass [kg]
+        - mach_climb
+        - climb_V_cas [knots]
+        - delta_ISA [C deg]
+        - final_altitude [ft]
+        - initial_altitude [ft]
+        - vehicle dictionary
+    Outputs:
+        - final_distance [ft]
+        - total_climb_time [min]
+        - total_burned_fuel [kg]
+        - final_altitude [ft]
+    """
     rate_of_climb = 500
 
     time_climb1 = 0
@@ -166,7 +174,25 @@ def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, final_altitude, 
 
 
 def climb_integrator(initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle):
-   
+    """
+    Description:
+        - This function sets the integration parameters. 
+    Inputs:
+        - initial_block_distance
+        - initial_block_altitude
+        - initial_block_mass
+        - initial_block_time
+        - final_block_altitude
+        - climb_V_cas
+        - mach_climb
+        - delta_ISA
+        - vehicle
+    Outputs:
+        - final_block_distance
+        - final_block_altitude
+        - final_block_mass
+        - final_block_time
+    """
     Tsim = initial_block_time + 40
     stop_condition.terminal = True
 
@@ -190,7 +216,20 @@ def stop_condition(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop
     return 0 if H>stop_criteria else 1
 
 def climb(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria):
-
+    """
+    Description:
+        - This function uses the mass-point equations of motion to evaluate the sates in time. 
+    Inputs:
+        - time
+        - state
+        - climb_V_cas
+        - mach_climb
+        - delta_ISA
+        - vehicle
+        - stop_criteria
+    Outputs:
+        - dout
+    """
     aircraft = vehicle['aircraft']
 
     distance = state[0]

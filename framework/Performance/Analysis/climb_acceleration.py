@@ -1,20 +1,21 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module estimate the climb acceleration
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -41,6 +42,22 @@ m_to_nm = 0.000539957
 m_to_ft = 3.281
 
 def acceleration_to_250(rate_of_climb, climb_V_cas, delta_ISA, vehicle):
+    '''
+    Description:
+        - This function performs the evaluationof the acceleration to 250 kt
+
+    Inputs:
+        - rate_of_climb
+        - climb_V_cas
+        - delta_ISA
+        - vehicle
+
+    Outputs:
+        - delta_distance
+        - delta_time
+        - delta_altitude
+        - delta_fuel
+    '''
     aircraft = vehicle['aircraft']
 
     delta_altitude_initial = 1000

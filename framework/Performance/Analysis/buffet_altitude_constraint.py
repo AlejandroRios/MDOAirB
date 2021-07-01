@@ -1,22 +1,22 @@
 """
-File name : Buffet altitude constraint
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module obtain the cruise altutude considering buffeting constraints
+
+Reference:
     - Reference: Ruijgrok, Elements of airplane performance
     - Chapter 10, pag 261
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -36,8 +36,21 @@ from framework.Attributes.Airspeed.airspeed import mach_to_V_tas
 global GRAVITY
 GRAVITY = 9.80665
 
-
 def buffet_altitude(vehicle, mass, altitude, limit_altitude, mach_climb):
+    '''
+    Description:
+        - This function performs the evaluation of the buffet altitude
+
+    Inputs:
+        - vehicle
+        - mass
+        - altitude
+        - limit_altitude
+        - mach_climb
+
+    Outputs:
+        - altitude
+    '''
     airport_departure = vehicle['airport_departure']
     wing = vehicle['wing']
     operations = vehicle['operations']
