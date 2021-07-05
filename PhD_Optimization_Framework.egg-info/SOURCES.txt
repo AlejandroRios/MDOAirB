@@ -23,6 +23,7 @@ framework/Attributes/Atmosphere/temperature_dependent_air_properties.py
 framework/Attributes/Geo/__init__.py
 framework/Attributes/Geo/bearing.py
 framework/CPACS2AVL/CPACS2AVL.py
+framework/CPACS2AVL/CPACS_updater.py
 framework/CPACS2AVL/__init__.py
 framework/CPACS2AVL/cpacsfunctions.py
 framework/CPACS2AVL/run_avl.py
@@ -74,6 +75,7 @@ framework/Optimization/main.py
 framework/Optimization/main_parallel.py
 framework/Optimization/main_parallel_de.py
 framework/Optimization/objective_function.py
+framework/Optimization/objective_function_real.py
 framework/Optimization/plot_results.py
 framework/Performance/__init__.py
 framework/Performance/Analysis/__init__.py
@@ -81,10 +83,12 @@ framework/Performance/Analysis/balanced_field_length.py
 framework/Performance/Analysis/buffet_altitude_constraint.py
 framework/Performance/Analysis/climb_acceleration.py
 framework/Performance/Analysis/climb_integration.py
+framework/Performance/Analysis/climb_integration02.py
 framework/Performance/Analysis/climb_to_altitude.py
 framework/Performance/Analysis/cruise_performance.py
 framework/Performance/Analysis/descent_deceleration.py
 framework/Performance/Analysis/descent_integration.py
+framework/Performance/Analysis/descent_integration02.py
 framework/Performance/Analysis/descent_to_altitude.py
 framework/Performance/Analysis/landing_field_length.py
 framework/Performance/Analysis/maximum_altitude.py
@@ -103,6 +107,7 @@ framework/Performance/Mission/__init__.py
 framework/Performance/Mission/holding_fuel.py
 framework/Performance/Mission/mission.py
 framework/Performance/Mission/mission_alternative.py
+framework/Performance/Mission/mission_real.py
 framework/Performance/Mission/mission_sizing.py
 framework/Performance/Mission/reserve_fuel.py
 framework/Sizing/__init__.py
