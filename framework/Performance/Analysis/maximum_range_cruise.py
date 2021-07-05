@@ -1,37 +1,34 @@
 """
-File name : Maximum range cruise
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module calculates the mach number for maximum range.
-Inputs:
-    - mass at top of climb [kg]
-    - cruise_altitude [ft]
-    - delta_ISA [C deg]
-    - vehicle dictionary
-Outputs:
-    - mach_maximum_cruise
+
+Reference:
+    -
+
 TODO's:
-    - Comments and References
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
+import numpy as np
+import matplotlib.pyplot as plt
+import operator
+
 # from framework.Aerodynamics.aerodynamic_coefficients import zero_fidelity_drag_coefficient
 from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coefficients_ANN
 from framework.Attributes.Airspeed.airspeed import V_cas_to_V_tas, mach_to_V_tas
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
-
-
-import numpy as np
-import matplotlib.pyplot as plt
-import operator
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -42,8 +39,18 @@ import operator
 global GRAVITY
 GRAVITY = 9.80665
 
-
 def maximum_range_mach(mass, cruise_altitude, delta_ISA, vehicle):
+    """
+    Description:
+        - This function calculates the maximum range mach number
+    Inputs:
+        - mass
+        - cruise_altitude
+        - delta_ISA
+        - vehicle
+    Outputs:
+        - mach_maximum_cruise
+    """
     knots_to_meters_second = 0.514444
     ft_to_m = 0.3048
     kt_to_ms = 0.514444

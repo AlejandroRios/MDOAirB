@@ -1,33 +1,46 @@
-"""" 
-Title     : Size Horizontal Tail 
-Written by: Alejandro Rios
-Date      : 30/10/19
-Language  : Python
-Aeronautical Institute of Technology
-
-
-Inputs:
-MTOW
-
-Outputs:
-Cap_Sal
-FO_Sal
 """
+MDOAirB
 
-########################################################################################
-"""Importing Modules"""
-########################################################################################
-########################################################################################
-"""Constants declaration"""
-########################################################################################
+Description:
+    - This module performs the sizing of the horizontal tail.
+Reference:
+    -
 
-########################################################################################
+TODO's:
+    -
 
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
+"""
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import numpy as np
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
+# =============================================================================
+# CLASSES
+# =============================================================================
 
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
 
 def sizing_horizontal_tail(vehicle, mach, ceiling):
+    """
+    Description:
+        - This function performs the sizing of the horizontal tail.
+    Inputs:
+        - vehicle
+        - mach
+        - ceiling
+    Outputs:
+        - vehicle
+    """
     deg_to_rad = np.pi/180
     m2_to_ft2 = (1/0.3048)**2
     kt_to_ms = 1/1.943844   # [kt] para [m/s]
@@ -121,3 +134,11 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
     # print('ht weight',horizontal_tail['weight'])
 
     return vehicle
+
+# =============================================================================
+# MAIN
+# =============================================================================
+
+# =============================================================================
+# TEST
+# =============================================================================

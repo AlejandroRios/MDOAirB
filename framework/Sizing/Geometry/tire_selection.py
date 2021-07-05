@@ -1,24 +1,20 @@
 """
-File name : Tire selection function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : January 2021
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function selects the tire as function of sizing parameters
-Inputs:
-    - Load [lbf]
-    - Speed qualified [mph]
-    - Pneu pressure [psi]
-    - Selection criteria
-Outputs:
-    - Tire_diameter [in]
-    - Tire width [in]
+    - This module selects the tire as function of sizing parameters.
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -37,6 +33,18 @@ in_to_m = 0.0254
 
 
 def tire_selection(load, V_qualified, pneu_pressure, selection_criteria):
+    """
+    Description:
+        - This module selects the tire as function of sizing parameters.
+    Inputs:
+        - load
+        - V_qualified
+        - pneu_pressure
+        - selection_criteria
+    Outputs:
+        - tire_diameter
+        - tire_width
+    """
 
     tire_database = {1: {'ply': 12.0, 'velocity': 210.0, 'load': 11200.0, 'pressure': 120.0, 'max_force': 16800.0, 'weight': 64.1, 'diameter': 32.0, 'width': 11.5, 'radius': 13.5, 'AR': 0.742},
                      2: {'ply': 12.0, 'velocity': 210.0, 'load': 11200.0, 'pressure': 120.0, 'max_force': 16800.0, 'weight': 70.6, 'diameter': 32.0, 'width': 11.5, 'radius': 13.5, 'AR': 0.742},

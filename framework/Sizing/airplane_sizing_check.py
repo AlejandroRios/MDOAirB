@@ -2,19 +2,15 @@
 MDOAirB: MDO 
 
 Description:
-    - This function performs the sizing and checks of the aicraft. It start calculationg the wetted area of the indivudual,
+    - This module performs the sizing and checks of the aicraft. It start calculationg the wetted area of the indivudual,
     then calculates the wing structural layout which provide the wing fuel capacity. A while loop is executed to iterate the 
     dimensions of the tail to adjust the máximum takeoff weight considering the mission with the máximum range. Finally, the 
     regulated takeoff and landing weight is calculated. In order to pass for the next step of the framework, the aircraft 
     should pass the checks of the regulated weights as well as the fuel capacity check.
-    
-    
-Inputs:
-    - Design variables vector [x]
-    - Vehicle dictionary
-Outputs:
-    - Checks status 
-    - Update vehicle dictionary
+
+Reference:
+    -
+
 TODO's:
     -
 
@@ -73,6 +69,17 @@ lbf_to_N = 4.448
 
 
 def airplane_sizing(vehicle,x=None):
+    """
+    Description:
+        - This function performs the sizing and checks of the aicraft.
+    Inputs:
+        - x - design variables vector
+        - vehicle
+    Outputs:
+        - status
+        - flags
+        - vehicle
+    """
     log.info('---- Start aircraft sizing module ----')
 
     if type(x) != 'list':

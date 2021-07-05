@@ -35,6 +35,14 @@ GRAVITY = 9.80665
 
 
 def center_of_gravity(vehicle):
+    """
+    Description:
+        - This mfunction computes the center of gravity x position
+    Inputs:
+        - vehicle
+    Outputs:
+        - vehicle
+    """
     # == wing ==
     # Wing mean aerodynamic chord 37 - 42 percent
 

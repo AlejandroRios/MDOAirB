@@ -1,25 +1,23 @@
 """
-File name : Pax cabine length
-Written by: Alejandro Rios
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : Octobe 2019
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This module calculates the pax cabine length
+    - This module calculates the pax cabine length.
 
-Inputs:
-    - Vehicle dictionary
-
-Outputs:
-    - pax cabine lenght [m]
+Reference:
+    - PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
 
 TODO's:
     - Clean code
     - Rename variables
+    - Review this code
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -36,6 +34,14 @@ import numpy as np
 
 
 def pax_cabine_length(vehicle):
+    """
+    Description:
+        - This module calculates the pax cabine length
+    Inputs:
+        - vehicle
+    Outputs:
+        - LenFus
+    """
     aircraft = vehicle['aircraft']
     fuselage = vehicle['fuselage']
     cabine = vehicle['cabine']
@@ -85,6 +91,17 @@ def pax_cabine_length(vehicle):
 
 
 def seattop_fileira(x0, fuselage, SeatProf,vehicle):
+    """
+    Description:
+        - This function calcute the seat top row
+    Inputs:
+        - x0
+        - fuselage
+        -  SeatProf
+        - vehicle
+    Outputs:
+        - ???
+    """
     cabine = vehicle['cabine']
 
     Naux1 = round(fuselage['seat_abreast_number']/2)

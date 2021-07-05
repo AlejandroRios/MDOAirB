@@ -1,20 +1,21 @@
 """
-File name : Mass flow parameters function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the mass flow parameters. 
+
+Reference:
+    - Aircraft Engine Design, 2003,  Jack Mattingly, William H. Heiser, David T. Pratt
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -33,8 +34,22 @@ from scipy import optimize
 
 
 def MASSFP(Tt=None, f=None, M=None, ht=None, Prt=None, gammat=None, at=None):
-    # Inputs: Case, Tt, f, and M
-    # Outputs: Tt/T, Pt/P, and MFP
+    """
+    Description:
+        - This function calculates the mass flow parameters.
+    Inputs:
+        - Tt
+        - f
+        - M
+        - ht
+        - Prt
+        - gammat
+        - at
+    Outputs:
+        - TtdT
+        - PtdP
+        - MFP
+    """
 
     list_variables = [Tt, f, M, ht, Prt, gammat, at]
     nargin = sum(x is not None for x in list_variables)

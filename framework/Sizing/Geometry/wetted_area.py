@@ -1,30 +1,30 @@
 """
-File name : Wetted area function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : Dezember 2019
-Last edit : January 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function calculates the wetted area of the principal components of the 
+    - This module calculates the wetted area of the principal components of the 
     aircraft.
-Inputs:
-    - Vehicle dictionaty
-Outputs:
-    - Updated vehicle dictionary
-    - x and y coordinates of wing chords 
+Reference:
+    -
+
 TODO's:
     - Split this function into functions for each component
     - Rename engine variables
     - x and y coordinates output into vehicle dictionary
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import numpy as np
+import os
 from framework.Sizing.Geometry.pax_cabine_length import pax_cabine_length
 from framework.Sizing.Geometry.tailcone_sizing import tailcone_sizing
 from framework.Sizing.Geometry.wetted_area_fuselage import *
@@ -33,7 +33,6 @@ from framework.Sizing.Geometry.sizing_horizontal_tail import *
 from framework.Performance.Engine.engine_performance import turbofan
 from framework.utilities.logger import get_logger
 
-import os
 from framework.CPACS_update.cpacsfunctions import *
 # import cpacsfunctions as cpsf
 # =============================================================================
@@ -51,6 +50,26 @@ N_to_lbf = 0.2248089431
 
 
 def wetted_area(vehicle):
+    """
+    Description:
+        - This function calculates the wetted area of the principal aircraft components
+    Inputs:
+        - vehicle
+    Outputs:
+        - vehicle
+        - xutip
+        - yutip
+        - xltip
+        - yltip
+        - xubreak
+        - yubreak
+        - xlbreak
+        - ylbreak
+        - xuraiz
+        - yuraiz
+        - xlraiz
+        - ylrai
+    """
 
     MODULE_DIR = 'c:/Users/aarc8/Documents/github\MDOAirB/framework/CPACS_update'
     cpacs_path = os.path.join(MODULE_DIR, 'ToolInput', 'Aircraft_In.xml')

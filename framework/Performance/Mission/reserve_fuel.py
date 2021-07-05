@@ -1,20 +1,22 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - Reserve fuel simplified calculation
-Inputs:
-    -
-Outputs:
-    -
+    - This module computes the reserve fuel simplified calculation.
+
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -29,6 +31,19 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_
 # FUNCTIONS
 # =============================================================================
 def reserve_fuel(landing_weight, alternative_airport_distance, holding_time, delta_ISA):
+    """
+    Description:
+        - This function computes the reserve fuel simplified calculation.
+ 
+    Inputs:
+        - landing_weight
+        - alternative_airport_distance
+        - holding_time
+        - delta_ISA
+    Outputs:
+        - fuel
+    """
+
     reference_fuel_fraction = 1000
     reference_weight = 22000
     reference_mach = 0.78  # Mach 0.78 @ FL330

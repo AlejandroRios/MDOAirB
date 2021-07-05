@@ -1,20 +1,21 @@
 """
-File name :High pressure turbine parameters function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the high pressure turbine parameters. 
+
+Reference:
+    - Aircraft Engine Design, 2003,  Jack Mattingly, William H. Heiser, David T. Pratt
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -33,9 +34,26 @@ from framework.Performance.Engine.mass_flow_parameter import MASSFP
 
 
 def TURBC(Tt4, f, A4dA4_5, M4, M4_5, eta_tH, Tt4_5_R, Tt3, beta, epsilon1, epsilon2):
-    # Inputs: Tt4, f, (A4/A4_5), M4, M4_5, eta_tH, Tt4_5_R, Tt3, beta,
-    # epsilon1, espilon2
-    # Outputs: pi_tH, tau_tH, Tt4_5
+    """
+    Description:
+        - This function calculates the high pressure turbine parameters. 
+    Inputs:
+        - Tt4
+        - f
+        - A4dA4_5
+        - M4
+        - M4_5
+        - eta_tH
+        - Tt4_5_R
+        - Tt3
+        - beta
+        - epsilon1
+        - epsilon2
+    Outputs:
+        - pi_tH
+        - Tau_tH
+        - Tt4_5
+    """
 
     _, ht4, _, _, _, _, _, _ = FAIR(item=1, f=f, T=Tt4)
     _, _, MFP4 = MASSFP(Tt=Tt4, f=f, M=M4)

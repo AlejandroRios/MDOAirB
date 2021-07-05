@@ -2,7 +2,7 @@
 MDOAirB
 
 Description:
-    - This function calculates the aircraft performance during climb by integrating
+    - This module calculates the aircraft performance during climb by integrating
         in time the point mass equations of movement. 
 
 Reference:
@@ -210,6 +210,85 @@ def climb_integrator(initial_block_distance, initial_block_altitude, initial_blo
     final_block_mass = mass[-1]
     final_block_time = time[-1]
     return final_block_distance, final_block_altitude, final_block_mass, final_block_time
+
+def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
+    """
+    Description:
+        - This function sets the integration parameters. 
+    Inputs:
+        - mass
+        - mach_climb
+        - climb_V_cas
+        - delta_ISA
+        - altitude_vec
+        - speed_vec
+        - mach_vec
+        - initial_altitude
+        - vehicle
+    Outputs:
+        - final_distance
+        - total_climb_time
+        - total_burned_fuel
+        - final_altitude
+    """
+    rate_of_climb = 500
+
+    transition_altitude = crossover_altitude(
+    mach_climb, climb_V_cas, delta_ISA)
+
+
+    initial_block_distance = 0
+    initial_block_altitude = initial_altitude
+    initial_block_mass = mass
+    initial_block_time = 0
+    
+    distance_vec = []
+    time_vec = []
+    mass_vec = []
+    
+    for i in range(len(altitude_vec)-1):
+
+        initial_block_altitude = altitude_vec[i]
+        final_block_altitude = altitude_vec[i+1]
+
+        distance_vec.append(initial_block_distance)
+        mass_vec.append(initial_block_mass)
+        time_vec.append(initial_block_time)
+
+        if i == 0:
+            climb_V_cas = speed_vec[i+1]
+            if climb_V_cas <= 100:
+                climb_V_cas = 280
+        else:
+            climb_V_cas = (speed_vec[i+1] + speed_vec[i])/2
+            if climb_V_cas <= 100:
+                climb_V_cas = 280
+
+        mach_climb = (mach_vec[i+1] + mach_vec[i])/2
+
+        if mach_climb <= 0.3:
+            mach_climb = 0.78
+
+
+        if initial_block_altitude <= transition_altitude:
+            final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
+                        initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, 0, delta_ISA, vehicle)
+        else:
+            final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
+                initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 0, mach_climb, delta_ISA, vehicle)
+
+        initial_block_distance = final_block_distance
+        initial_block_altitude = final_block_altitude
+        initial_block_mass = final_block_mass
+        initial_block_time = final_block_time
+
+    final_distance = distance_vec[-1] 
+    total_climb_time = time_vec[-1]
+    total_burned_fuel = mass_vec[0] - mass_vec[-1]
+    final_altitude = altitude_vec[-1]
+
+    return final_distance, total_climb_time, total_burned_fuel, final_altitude
+
 
 def stop_condition(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria):
     H = state[1]

@@ -1,35 +1,31 @@
 """
-File name :  Second segment climb function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function calculates the thrust to weight ratio following the requiremnts
-      of climb to second segment with one-engine-inoperative accoring to FAR 25.121.
-      For this case the climb gradient expressed as a percentage takes a value of 0.024 (for two engine aircraft).
-      The lading gear is up and takeoff flaps are deployed
-      References: FAR 25.121 and ROSKAM 1997 - Part 1, pag. 146
+    - This module calculates the residual rate of climb
 
-    -
-Inputs:
-    - aircraft_data
-Outputs:
-    -
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
+import numpy as np
+
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 # from framework.Aerodynamics.aerodynamic_coefficients import zero_fidelity_drag_coefficient
 from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coefficients_ANN
-import numpy as np
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -39,9 +35,17 @@ import numpy as np
 # =============================================================================
 ft_to_m = 0.3048
 kt_to_ms = 0.514444
-def residual_rate_of_climb(vehicle, weight_takeoff,engine_cruise_thrust):
-    '''
-    '''
+def residual_rate_of_climb(vehicle, weight_takeoff, engine_cruise_thrust):
+    """
+    Description:
+        - This function calculates the residual rate of climb
+    Inputs:
+        - vehicle
+        - weight_takeoff
+        - engine_cruise_thrust
+    Outputs:
+        - thrust_to_weight_residual
+    """
 
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']

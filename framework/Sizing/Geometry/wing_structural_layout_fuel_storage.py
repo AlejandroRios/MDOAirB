@@ -1,24 +1,23 @@
 """
-Function  : Wing structural layout
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : July 2020
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module computes the wing structural layout and calculates
     the fuel storage capacity in the wings
 
-Inputs:
-    - Vehicle dictionary
-    - x and y coordinates of wing chords 
-Outputs:
-    - Updated vehicle dictionary
+Reference:
+    - Prof. Bentos codfe
+
 TODO's:
     - Clean code
     - Rename variables
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -42,9 +41,25 @@ log = get_logger(__file__.split('.')[0])
 
 def wing_structural_layout(vehicle, xutip, yutip,
                            yltip, xukink, xlkink, yukink, ylkink, xuroot, xlroot, yuroot, ylroot):
-    # Generates wing structural layout and estimates fuel storage
-    # Author: Bento Mattos
-    # Version 2013R3b
+    """
+    Description:
+        - This function generates wing structural layout and estimates fuel storage.
+    Inputs:
+        - vehicle
+        - xutip
+        - yutip
+        - yltip
+        - xukink
+        - xlkink
+        - yukink
+        - ylkink
+        - xuroot
+        - xlroot
+        - yuroot
+        - ylroot
+    Outputs:
+        - vehicle
+    """
 
     # OBS: Wing leading edge must be of constant sweep
     # Input:

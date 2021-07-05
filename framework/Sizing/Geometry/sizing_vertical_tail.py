@@ -1,26 +1,27 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module performs the sizing of the horizontal tail.
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     - Review final results - the equations are in lb or kg?
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import numpy as np
+
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 # =============================================================================
 # CLASSES
@@ -33,10 +34,21 @@ global deg_to_rad
 deg_to_rad = np.pi/180
 kg_to_lb = 2.20462
 kt_to_ms = 0.514444
+
 def sizing_vertical_tail(vehicle,
     mach,
     altitude):
-
+    """
+    Description:
+        - This function performs the sizing of the vertical tail.
+ 
+    Inputs:
+        - vehicle
+        - mach
+        - altitude
+    Outputs:
+        - vehicle
+    """
     vertical_tail = vehicle['vertical_tail']
     horizontal_tail = vehicle['horizontal_tail']
 

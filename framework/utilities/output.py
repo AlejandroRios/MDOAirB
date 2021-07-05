@@ -1,20 +1,22 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module contains functions for the creation of output files for
+    the evaluated aicraft
+
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >v
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -35,6 +37,17 @@ from framework.utilities.logger import get_logger
 log = get_logger(__file__.split('.')[0])
 
 def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
+    """
+    Description:
+        - This function create a txt file containing principal results
+    Inputs:
+        - profit
+        - DOC_ik
+        - vehicle
+        - kpi_df2
+    Outputs:
+        - txt file
+    """
 
     log.info('==== Start writing aircraft results ====')
 
@@ -407,6 +420,17 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
 
 
 def write_kml_results(arrivals, departures, profit, vehicle):
+    """
+    Description:
+        - This function create a kml file containing the optimal network
+    Inputs:
+        - arrivals
+        - departures
+        - profit
+        - vehicle
+    Outputs:
+        - kml file
+    """
     log.info('==== Start writing klm results ====')
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
@@ -456,16 +480,16 @@ def write_kml_results(arrivals, departures, profit, vehicle):
 
 
 def write_newtork_results(profit,dataframe01,dataframe02):
-
-    start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
-
-    dataframe01.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'01.csv')
-    dataframe02.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'02.csv')
-
-    return
-
-def write_newtork_results(profit,dataframe01,dataframe02):
-
+    """
+    Description:
+        - This function create csv files relating to network results
+    Inputs:
+        - profit
+        - dataframe01
+        - dataframe02
+    Outputs:
+        - csv files
+    """
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     dataframe01.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'01.csv')
@@ -474,6 +498,16 @@ def write_newtork_results(profit,dataframe01,dataframe02):
     return
 
 def write_unfeasible_results(flags,x=None):
+    """
+    Description:
+        - This function a txt file with the results of unfeasible aircrafts (aircrafts
+        that didt pass the performance and noise checks)
+    Inputs:
+        - flags
+        - x - vector defining the design variables of the aircraft
+    Outputs:
+        - txt file
+    """
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     with open(r'Database/Results/Aircrafts_unfeasible/acft_' + str(start_time) +'.txt','w') as output:
@@ -492,6 +526,16 @@ def write_unfeasible_results(flags,x=None):
 
 
 def write_bad_results(error,x=None):
+    """
+    Description:
+        - This function a txt file with the results of aircraft that produced
+        any kind of error
+    Inputs:
+        - error
+        - x - vector defining the design variables of the aircraft
+    Outputs:
+        - txt file
+    """
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     with open(r'Database/Results/Aircrafts_with_error/acft_' + str(start_time) +'.txt','w') as output:

@@ -1,23 +1,23 @@
 """
-File name : Tail sizing function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : Dezember/2020
-Last edit : January/2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function performs an iterative cycle to re-size the vertical and 
+    - This module performs an iterative cycle to re-size the vertical and 
     horizontal stabilizer to decrease the whole airplane weight.
-Inputs:
-    - Vehicle dictionary
-    - Mach number
-    - Aaltitude [ft]
-Outputs:
-    - Vehicle dictionary with updated infortmation of tail sizing
+
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -40,6 +40,17 @@ deg_to_rad = np.pi/180
 
 
 def sizing_tail(vehicle, mach, altitude):
+    """
+    Description:
+        - This function performs an iterative cycle to re-size the vertical and 
+        horizontal stabilizer to decrease the whole airplane weight.
+    Inputs:
+        - vehicle
+        - mach
+        - altitude
+    Outputs:
+        - vehicle
+    """
 
     MODULE_DIR = 'c:/Users/aarc8/Documents/github\MDOAirB/framework/CPACS_update'
     cpacs_path = os.path.join(MODULE_DIR, 'ToolInput', 'Aircraft_In.xml')
@@ -181,8 +192,6 @@ def sizing_tail(vehicle, mach, altitude):
 
         tixi_out = close_tixi(tixi_out, cpacs_out_path)
 
-
-        
 
     return vehicle
 

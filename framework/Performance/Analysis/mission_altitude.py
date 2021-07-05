@@ -1,30 +1,24 @@
 """
-File name : Mission altitude
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module computes the required and optimum mission altitude
-Inputs:
-    - Vehicle dictionary
-    - Initial_altitude [ft]
-    - Limit_altitude [ft]
-    - Maximum takeoff mass [kg]
-    - Climb_V_cas [knots]
-    - Mach_climb
-    - delta_ISA [C degrees]
-Outputs:
-    - Final_altitude [ft]
-    - Rate_of_climb [ft/min]
+
+Reference:
+    -
+
 TODO's:
-    - Clean code
-    - 
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
+
 # =============================================================================
 # IMPORTS
 # =============================================================================
@@ -49,7 +43,21 @@ GRAVITY = 9.80665
 
 def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
                      climb_V_cas, mach_climb, delta_ISA):
-
+    """
+    Description:
+        - This function calculates the maximum altitude
+    Inputs:
+        - vehicle
+        - initial_altitude
+        - limit_altitude
+        - mass
+        - climb_V_cas
+        - mach_climb
+        - delta_ISA
+    Outputs:
+        - final_altitude
+        - rate_of_climb
+    """
     aircraft = vehicle['aircraft']
     performance = vehicle['performance']
 
@@ -152,7 +160,22 @@ def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
 
 def optimum_altitude(vehicle, initial_altitude, limit_altitude, mass,
                      climb_V_cas, mach_climb, delta_ISA):
-
+    """
+    Description:
+        - This function calculates the optimum altitude
+    Inputs:
+        - vehicle
+        - initial_altitude
+        - limit_altitude
+        - mass
+        - climb_V_cas
+        - mach_climb
+        - delta_ISA
+    Outputs:
+        - optimum_altitude
+        - rate_of_climb
+        - optimum_specific_rate
+    """
     aircraft = vehicle['aircraft']
     performance = vehicle['performance']
 

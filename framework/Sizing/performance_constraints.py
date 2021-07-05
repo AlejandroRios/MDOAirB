@@ -1,22 +1,21 @@
 """
-File name : Performance constraints
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module calculate the regulated takeoff and landing weight according to
     sizing restrictions
-Inputs:
-    - Vehicle dictionaty
-Outputs:
-    - Regulated takeoff weight [kg]
-    - Regulated landing weight [kg]
+Reference:
+    - Torenbeek
+
 TODO's:
-    -Add sigma effect of engine
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -42,6 +41,16 @@ lb_to_kg = 0.453592
 
 
 def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
+    """
+    Description:
+        - This function performs the takeoff field length check
+    Inputs:
+        - vehicle
+        - weight_takeoff
+        - gamma_2
+    Outputs:
+        - weight_takeoff
+    """
 
     aircraft = vehicle['aircraft']
     airport_departure = vehicle['airport_departure']
@@ -63,6 +72,16 @@ def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
 
 
 def second_segment_climb_check(vehicle, weight_takeoff):
+    """
+    Description:
+        - This function performs the second segment climb check
+    Inputs:
+        - vehicle
+        - weight_takeoff
+    Outputs:
+        - weight_takeoff
+        - thrust_to_weight_takeoff
+    """
 
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
@@ -84,6 +103,16 @@ def second_segment_climb_check(vehicle, weight_takeoff):
 
 
 def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
+    """
+    Description:
+        - This function performs the landing field length check
+    Inputs:
+        - vehicle
+        - maximum_takeoff_weight
+        - weight_landing
+    Outputs:
+        - weight_landing
+    """
 
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
@@ -114,6 +143,16 @@ def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
 
 
 def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
+    """
+    Description:
+        - This function performs the landing climb check
+    Inputs:
+        - vehicle
+        - maximum_takeoff_weight
+        - weight_landing
+    Outputs:
+        - weight_landing
+    """
 
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
@@ -135,6 +174,16 @@ def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
 
 
 def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
+    """
+    Description:
+        - This function performs the missed approach climb check
+    Inputs:
+        - vehicle
+        - maximum_takeoff_weight
+        - weight_landing
+    Outputs:
+        - weight_landing
+    """
 
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
@@ -158,6 +207,17 @@ def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing)
 
 
 def residual_rate_of_climb_check(vehicle, weight_takeoff,engine_cruise_thrust):
+    """
+    Description:
+        - This function performs the residual rate of climb check
+    Inputs:
+        - vehicle
+        - weight_takeoff
+        - engine_cruise_thrust
+    Outputs:
+        - weight_takeoff
+        - thrust_to_weight_takeoff
+    """
 
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
@@ -191,6 +251,14 @@ def drag_divergence_check():
 
 
 def regulated_takeoff_weight(vehicle):
+    """
+    Description:
+        - This function performs the calculation of the regulated takeoff weight
+    Inputs:
+        - vehicle
+    Outputs:
+        - regulated takeoff weight
+    """
 
     aircraft = vehicle['aircraft']
     airport_departure = vehicle['airport_departure']
@@ -212,6 +280,14 @@ def regulated_takeoff_weight(vehicle):
 
 
 def regulated_landing_weight(vehicle):
+    """
+    Description:
+        - This function performs the calculation of the regulated landing weight
+    Inputs:
+        - vehicle
+    Outputs:
+        - regulated landing weight
+    """
 
     aircraft = vehicle['aircraft']
     weight_landing = aircraft['maximum_landing_weight']*GRAVITY

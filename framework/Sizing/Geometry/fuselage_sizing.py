@@ -1,21 +1,21 @@
 """
-File name :
-Authors   :
-Email     : aarc.88@gmail.com
-Date      :
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function calculates the cabine dimensions
-    - Reference PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the cabine dimensions.
+
+Reference:
+    - PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -33,7 +33,14 @@ import numpy as np
 in_to_m = 0.0254
 
 def fuselage_cross_section(vehicle):
-
+    """
+    Description:
+        - This function calculates the cabine dimensions
+    Inputs:
+        - vehicle
+    Outputs:
+        - vehicle
+    """
     fuselage = vehicle['fuselage']
     cabine = vehicle['cabine']
     # Seat dimensions economy class

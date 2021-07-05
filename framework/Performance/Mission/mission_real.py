@@ -1,23 +1,24 @@
 """
-File name : Mission function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : January/2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function performs the mission analysis of the aircraft and computes the DOC.
-Inputs:
-    - Vehicle dictionary
-Outputs:
-    - Direct operational cost (DOC)
+    - This function performs the mission analysis (based on datadriven approach) 
+    of the aircraft and computes the DOC.
+
+Reference:
+    - 
+
 TODO's:
     -
-"""
 
-#  [120, 8.636673441923826, 0.29650319000289793, 18, -4, 0.37975827133924966, 5.65832918409639, 1.6822333661974933, 30, 1465, 1.6, 78, 5, 2162, 41000, 0.78, 1, 1, 1, 1]
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
+"""
 # =============================================================================
 # IMPORTS
 # =============================================================================
@@ -66,6 +67,24 @@ gallon_to_liter = 3.7852
 feet_to_nautical_miles = 0.000164579
 
 def mission(departure,arrival, heading, vehicle):
+    """
+    Description:
+        - This function performs the mission analysis (based on datadriven approach) of the aircraft and computes the DOC.
+ 
+    Inputs:
+        - departure,arrival
+        - heading
+        - vehicle
+    Outputs:
+        - fuel_mass
+        - complete_mission_flight_time
+        - DOC
+        - mach
+        - passenger_capacity
+        - SAR
+        - mission_range
+    """
+
     start_time = datetime.now()
     # log.info('---- Start DOC mission function ----')
 

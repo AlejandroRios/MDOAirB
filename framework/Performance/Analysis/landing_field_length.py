@@ -1,21 +1,21 @@
 """
-File name : Landig field length function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the landing field 
+
+Reference:
+    - Torenbeek
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -33,8 +33,15 @@ import numpy as np
 
 
 def landing_field_length(vehicle, weight_landing):
-    '''
-    '''
+    """
+    Description:
+        - This function calculates the landing fiel length required 
+    Inputs:
+        - vehicle
+        - weight_landing
+    Outputs:
+        - landing fiel length
+    """
     # Aircraft data import
 
     aircraft = vehicle['aircraft']

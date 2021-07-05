@@ -110,6 +110,16 @@ def rate_of_climb_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehicl
 
 
 def acceleration_factor_calculation(h, delta_ISA, mach):
+    """
+    Description:
+        - This function calculates the acceleration factor
+    Inputs:
+        - h
+        - delta_ISA
+        - mach
+    Outputs:
+        - acceleration factor
+    """
     lambda_rate = 0.0019812
     tropopause = (71.5 + delta_ISA)/lambda_rate
 

@@ -1,25 +1,26 @@
 """
-File name : Climb to altitude function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This function performs the calculation process to obtain the time, fuel
     anddistance for one altitude step og the step integration process
+
+Reference:
     - Reference: Blake, BOEING CO. Flight Operations Engineering -
     Jet Transport Performance Methods. 7th ed. Boeing Co., Everett,
     Estados Unidos, 1989
     - Chapter 30, page 30-11
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -43,6 +44,24 @@ GRAVITY = 9.80665
 
 
 def rate_of_descent_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehicle):
+    """
+    Description:
+        - This function calculates the aircraft performance during descent by integrating
+        in time the point mass equations of movement. 
+    Inputs:
+        - initial mass [kg]
+        - mach_climb
+        - climb_V_cas [knots]
+        - delta_ISA [C deg]
+        - final_altitude [ft]
+        - initial_altitude [ft]
+        - vehicle dictionary
+    Outputs:
+        - final_distance [ft]
+        - total_climb_time [min]
+        - total_burned_fuel [kg]
+        - final_altitude [ft]
+    """
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']   
     wing_surface = wing['area']
@@ -97,6 +116,16 @@ def rate_of_descent_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehi
 
 
 def acceleration_factor_calculation(h, delta_ISA, mach):
+    """
+    Description:
+        - This function calculates the acceleration factor
+    Inputs:
+        - h
+        - delta_ISA
+        - mach
+    Outputs:
+        - acceleration factor
+    """
     lambda_rate = 0.0019812
     tropopause = (71.5 + delta_ISA)/lambda_rate
 

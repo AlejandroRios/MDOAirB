@@ -1,20 +1,21 @@
 """
-File name : Maximum altitude function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module calculates the maximum altitude
+
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
-    -Informar Fregnani erro no código do matlab. V_CAS to mach dando valores incosistentes
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -42,6 +43,21 @@ GRAVITY = 9.80665
 
 def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
                      climb_V_cas, mach_climb, delta_ISA):
+    """
+    Description:
+        - This function calculates the maximum altitude
+    Inputs:
+        - vehicle
+        - initial_altitude
+        - limit_altitude
+        - mass
+        - climb_V_cas
+        - mach_climb
+        - delta_ISA
+    Outputs:
+        - final_altitude
+        - rate_of_climb
+    """
 
     aircraft = vehicle['aircraft']
     performance = vehicle['performance']

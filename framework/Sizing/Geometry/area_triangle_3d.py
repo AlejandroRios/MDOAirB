@@ -1,35 +1,47 @@
-"""" 
-Function  : area_triangle_3d.py
-Title     : Triangle area 3D
-Written by: Alejandro Rios
-Date      : November/2019
-Last edit : August/2020
-Language  : Python
-Aeronautical Institute of Technology - Airbus Brazil
+"""
+MDOAirB
 
 Description:
-    - This module calculate the area triangle for applications in 3D surfaces area calculation
+    - This module calculate the area triangle for applications in 3D surfaces area calculation.
 
-Future implementations:
-    - 
+Reference:
+    - https://math.stackexchange.com/questions/128991/how-to-calculate-area-of-3d-triangle
 
-Inputs:
-    - Triangle coordinates x, y, z
-Outputs:
-    - area 
+TODO's:
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
-########################################################################################
-"""Importing Modules"""
-########################################################################################
-########################################################################################
-"""Function definition"""
-########################################################################################
-
-
-
-
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import numpy as np
+
+# =============================================================================
+# CLASSES
+# =============================================================================
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
 def area_triangle_3d(x, y, z):
+    """
+    Description:
+        - This function calculate the area triangle for applications in 3D surfaces area calculation.
+ 
+    Inputs:
+        - x
+        - y
+        - z
+    Outputs:
+        - area
+    """
 
     x1 = x[0]
     x2 = x[1]
@@ -43,10 +55,17 @@ def area_triangle_3d(x, y, z):
     z2 = z[1]
     z3 = z[2]
     # A=sqrt(s*(s-a)*(s-b)*(s-c))
-    # Method  2
-    # https://math.stackexchange.com/questions/128991/how-to-calculate-area-of-3d-triangle
+
     T1 = (x2*y1 - x3*y1 - x1*y2 + x3*y2 + x1*y3 - x2*y3)**2
     T2 = (x2*z1 - x3*z1 - x1*z2 + x3*z2 + x1*z3 - x2*z3)**2
     T3 = (y2*z1 - y3*z1 - y1*z2 + y3*z2 + y1*z3 - y2*z3)**2
     area = (np.sqrt(T1+T2+T3)/2)
     return(area)
+
+# =============================================================================
+# MAIN
+# =============================================================================
+
+# =============================================================================
+# TEST
+# =============================================================================

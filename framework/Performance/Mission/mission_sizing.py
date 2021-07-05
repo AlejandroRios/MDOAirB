@@ -1,21 +1,23 @@
 """
-File name : Mission function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : January/2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function performs the mission analysis of the aircraft. It takes the
-    mission distance as input an computes the DOC.
-Inputs:
-    - origin-destination distance
-Outputs:
-    - direct operational cost
+    - This module performs the mission sizing analysis
+    of the aircraft. This mission consideres the maximum range as input.
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: February 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 import math
 
@@ -67,6 +69,20 @@ feet_to_nautical_miles = 0.000164579
 
 
 def mission_sizing(vehicle):
+    """
+    Description:
+        - This function performs the mission sizing analysis
+        of the aircraft. This mission consideres the maximum range as input.
+
+    Inputs:
+        - vehicle
+    Outputs:
+        - vehicle
+        - MTOW_calculated
+        - total_mission_burned_fuel_complete
+        - landing_weight
+    """
+
     start_time = datetime.now()
     # log.info('---- Start mission sizing function ----')
 
