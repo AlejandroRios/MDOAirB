@@ -45,19 +45,19 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
         - This function performs the network optimization using linear programming
     algorithm (1-stop model)
     Inputs:
-        - arrivals
-        - departures
-        - distances
-        - demand
-        - active_airports
-        - doc0
-        - pax_capacity
+        - arrivals - list containing the ICAO code for all the cosidered airports
+        - departures - list containing the ICAO code for all the cosidered airports
+        - distances - matrix containing the distances between O-D pairs [nm]
+        - demand - matrix containing the demand between O-D pairs
+        - active_airports - binary matrix (0 and 1 filled) indicating which O-D pairs to consider during the optimization
+        - doc0 - matrix containing the direct operation cost related to O-D pairs
+        - pax_capacity - aircraft passenger capacity
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - profit
+        - profit - total network profit
         - vehicle - dictionary containing aircraft parameters
-        - kpi_df1
-        - kpi_df2
+        - kpi_df1 - dataframe containing information related to network optimization
+        - kpi_df2 - dataframe containing information related design variables from network optimization
     """
 
     log.info('==== Start network optimization module ====')
@@ -538,6 +538,24 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
 
 
 def network_optimization_fix(arrivals, departures, distances, demand, active_airports, doc0, pax_capacity, vehicle):
+    """
+    Description:
+        - This function performs the fixed network profit computation.
+    Inputs:
+        - arrivals - list containing the ICAO code for all the cosidered airports
+        - departures - list containing the ICAO code for all the cosidered airports
+        - distances - matrix containing the distances between O-D pairs [nm]
+        - demand - matrix containing the demand between O-D pairs
+        - active_airports - binary matrix (0 and 1 filled) indicating which O-D pairs to consider during the optimization
+        - doc0 - matrix containing the direct operation cost related to O-D pairs
+        - pax_capacity - aircraft passenger capacity
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - profit - total network profit
+        - vehicle - dictionary containing aircraft parameters
+        - kpi_df1 - dataframe containing information related to network optimization
+        - kpi_df2 - dataframe containing information related design variables from network optimization
+    """
     log.info('==== Start network optimization module ====')
     # Definition of cities to be considered as departure_airport, first stop, final airport
     departure_airport = departures

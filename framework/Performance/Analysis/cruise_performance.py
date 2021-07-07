@@ -146,7 +146,7 @@ def specific_fuel_consumption(vehicle, mach, altitude, delta_ISA, mass):
         - TSFC
         - L_over_D
         - fuel_flow
-        - throttle_position
+        - throttle_position - throttle position [1.0 = 100%]
     """
     knots_to_meters_second = 0.514444
 

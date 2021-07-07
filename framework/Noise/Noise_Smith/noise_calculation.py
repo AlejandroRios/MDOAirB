@@ -50,18 +50,18 @@ def aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,ai
     Description:
         - This function calculates the takeoff, sideline and approach EPNdB noise
     Inputs:
-        - takeoff_parameters
-        - landing_parameters
-        - aircraft_parameters
-        - aircraft_geometry
-        - engine_parameters
-        - runaway_parameters
-        - noise_parameters
+        - takeoff_parameters - takeoff constant parameters
+        - landing_parameters - landing constant parameters
+        - aircraft_parameters - dictionary containing aircraft constant parameters
+        - aircraft_geometry - dictionary containing aircraft constant parameters
+        - engine_parameters - engine constant parameters
+        - runaway_parameters -  runaway constant parameters
+        - noise_parameters - noise constant parameters
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - takeoff_noise
-        - sideline_noise
-        - landing_noise
+        - takeoff_noise - aircraft noise during takeoff [EPNdB]
+        - sideline_noise - aircraft sideline noise during takeoff [EPNdB]
+        - landing_noise - aircraft noise during landing [EPNdB]
     """
 
     log.info('---- Start aircraft noise module ----')
@@ -91,9 +91,9 @@ def noise_calculation(vehicle):
     Inputs:
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - takeoff_noise
-        - sideline_noise
-        - landing_noise
+        - takeoff_noise - aircraft noise during takeoff [EPNdB]
+        - sideline_noise - aircraft sideline noise during takeoff [EPNdB]
+        - landing_noise - aircraft noise during landing [EPNdB]
     """
     start_time = datetime.now()
     GRAVITY = 9.8065

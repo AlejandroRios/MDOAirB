@@ -42,13 +42,13 @@ def revenue(demand, distance, pax_capacity, pax_number, average_ticket_price):
     Description:
         - Calculates revenue
     Inputs:
-        - demand
-        - distance
-        - pax_capacity
-        - pax_number
-        - average_ticket_price
+        - demand - demand of passengers between O-D pairs
+        - distance - distances between O-D pairs
+        - pax_capacity - aircraft passenger capacity number
+        - pax_number - number of actual passenger transported in O-D leg
+        - average_ticket_price - average ticket prince [US$]
     Outputs:
-        - revenue
+        - revenue - [US$]
     """
     RPM = pax_number*distance
     return demand*average_ticket_price

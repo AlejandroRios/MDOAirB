@@ -44,7 +44,7 @@ def turbofan(altitude, mach, throttle_position, vehicle):
     Inputs:
         - altitude
         - mach - mach number
-        - throttle_position
+        - throttle_position - throttle position [1.0 = 100%]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
         - force

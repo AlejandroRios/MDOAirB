@@ -36,11 +36,11 @@ def calculate_NOY(f, SPL):
     Description:
         - This function is used to convert SPL to NOY's
     Inputs:
-        - f
-        - SPL
+        - f - standard frequencies [Hz]
+        - SPL - noise level in relation to reference [dB]
     Outputs:
-        - f
-        - NOY
+        - f - standard frequencies [Hz]
+        - NOY - noise [NOY]
     """
 
     ## CORPO DA FUNÇÃO ##
@@ -99,10 +99,10 @@ def calculate_PNL(f,NOY):
     Description:
         - This function is used to calculate the Perceived Noise Levels
     Inputs:
-        - f
-        - NOY
+        - f - standard frequencies [Hz]
+        - NOY - noise [NOY]
     Outputs:
-        - PNL
+        -PNL - perceived noise level [PNdB]
     """
     ## CORPO DA FUNÇÃO ##
     ## Definições dos loops ##
@@ -130,10 +130,10 @@ def calculate_PNLT(f,SPL):
     Description:
         - This function is used to calculate the perceived noise level, tone corrected
     Inputs:
-        - f
-        - SPL
+        - f - standard frequencies [Hz]
+        - SPL - noise level in relation to reference [dB]
     Outputs:
-        - Cfin
+        - Cfin - noise correction [dB]
     """
     #step 1
     s = np.zeros(24)
@@ -254,9 +254,9 @@ def calculate_EPNdB(tempo,PNLT):
         - This function is used to calculate the effective prerceibed noise (EPNdB)
     Inputs:
         - tempo
-        - PNLT
+        -PNL - perceived noise level [PNdB]
     Outputs:
-        - EPNdB
+        - EPNdB - effectively perceived noise [EPNdB]
     """
 
     ## CORPO DA FUNÇÃO ##

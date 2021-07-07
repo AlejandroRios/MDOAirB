@@ -72,7 +72,7 @@ def takeoff_integration(
         - initial_fan_rotation
         - initial_compressor_rotation
         - aircraft_parameters
-        - takeoff_parameters
+        - takeoff_parameters - takeoff constant parameters
         - runaway_parameters
         - landing_parameters
         - vehicle - dictionary containing aircraft parameters
@@ -90,15 +90,15 @@ def takeoff_integration(
         - final_block_vertical_velocity
         - final_fan_rotation
         - final_compressor_rotation
-        - time_vec
-        - velocity_vec
-        - distance_vec
-        - velocity_horizontal_vec
-        - altitude_vec
-        - velocity_vertical_vec
-        - trajectory_angle_vec
-        - fan_rotation_vec
-        - compressor_rotation_vec
+        - time_vec - vector containing time [s]
+        - velocity_vec - vector containing speed [m/s]
+        - distance_vec - vector containing distances [m]
+        - velocity_horizontal_vec - vector containing horizontal speed [m/s]
+        - altitude_vec - vector containing altitude [m]
+        - velocity_vertical_vec - vector containing horizontal speed [m/s]
+        - trajectory_angle_vec - vector containing the trajectory angle [deg]
+        - fan_rotation_vec - vector containing the fan rotation [rpm]
+        - compressor_rotation_vec - vector containing the compressor rotation speed [rpm]
     """
     aircraft = vehicle['aircraft']
 
@@ -315,7 +315,7 @@ def ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,r
     Inputs:
         - time
         - state
-        - takeoff_parameters
+        - takeoff_parameters - takeoff constant parameters
         - runaway_parameters
         - landing_parameters
         - rho_ISA
@@ -358,7 +358,7 @@ def flare(time,state,aircraft_parameters,takeoff_parameters,runaway_parameters,l
         - time
         - state
         - aircraft_parameters
-        - takeoff_parameters
+        - takeoff_parameters - takeoff constant parameters
         - runaway_parameters
         - landing_parameters
         - rho_ISA

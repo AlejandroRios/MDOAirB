@@ -220,7 +220,7 @@ def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, sp
         - mach - mach number_climb
         - climb_V_cas
         - delta_ISA - ISA temperature deviation [deg C]
-        - altitude_vec
+        - altitude_vec - vector containing altitude [m]
         - speed_vec
         - mach - mach number_vec
         - initial_altitude

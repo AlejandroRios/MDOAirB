@@ -38,17 +38,17 @@ def approach_EPNdB(time_vec,velocity_vec,distance_vec,altitude_vec,landing_param
         -This function calculates the airplane effective percibed noise during approach
 
     Inputs:
-        - time_vec
-        - velocity_vec
-        - distance_vec
-        - altitude_vec
-        - landing_parameters
-        - noise_parameters
-        - aircraft_geometry
+        - time_vec - vector containing time [s]
+        - velocity_vec - vector containing speed [m/s]
+        - distance_vec - vector containing distances [m]
+        - altitude_vec - vector containing altitude [m]
+        - landing_parameters - landing constant parameters
+        - noise_parameters - noise constant parameters
+        - aircraft_geometry - dictionary containing aircraft constant parameters
         - vehicle - dictionary containing aircraft parameters
 
     Outputs:
-        - LDEPNdB
+        - LDEPNdB - aircraft noise during approach [EPNdB]
     """
     f, SPL, tetaout, time_vec, distance_vec, altitude_vec = approach_noise(time_vec,velocity_vec,distance_vec,altitude_vec,landing_parameters,noise_parameters,aircraft_geometry,vehicle)
 

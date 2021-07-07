@@ -40,29 +40,29 @@ def takeoff_noise(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,alt
         -This function calculates the noise during takeoff
 
     Inputs:
-        - time_vec
-        - velocity_vec
-        - distance_vec
-        - velocity_horizontal_vec
-        - altitude_vec
-        - velocity_vertical_vec
-        - trajectory_angle_vec
-        - fan_rotation_vec
-        - compressor_rotation_vec
-        - throttle_position
-        - takeoff_parameters
-        - noise_parameters
-        - aircraft_geometry
-        - engine_parameters
+        - time_vec - vector containing time [s]
+        - velocity_vec - vector containing speed [m/s]
+        - distance_vec - vector containing distances [m]
+        - velocity_horizontal_vec - vector containing horizontal speed [m/s]
+        - altitude_vec - vector containing altitude [m]
+        - velocity_vertical_vec - vector containing horizontal speed [m/s]
+        - trajectory_angle_vec - vector containing the trajectory angle [deg]
+        - fan_rotation_vec - vector containing the fan rotation [rpm]
+        - compressor_rotation_vec - vector containing the compressor rotation speed [rpm]
+        - throttle_position - throttle position [1.0 = 100%]
+        - takeoff_parameters - takeoff constant parameters
+        - noise_parameters - noise constant parameters
+        - aircraft_geometry - dictionary containing aircraft constant parameters
+        - engine_parameters - engine constant parameters
         - vehicle - dictionary containing aircraft parameters
 
     Outputs:
         - f
         - OASPLhistory
         - tetaout
-        - time_vec
-        - distance_vec
-        - altitude_vec
+        - time_vec - vector containing time [s]
+        - distance_vec - vector containing distances [m]
+        - altitude_vec - vector containing altitude [m]
     """
     aircraft = vehicle['aircraft']
 

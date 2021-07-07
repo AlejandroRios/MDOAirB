@@ -197,7 +197,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, altitude_v
         - mach - mach number_climb
         - descent_V_cas [knots]
         - delta_ISA - ISA temperature deviation [deg C] [C deg]
-        - altitude_vec [ft]
+        - altitude_vec - vector containing altitude [m] [ft]
         - speeds_vec [kt]
         - mach - mach number_vec
         - initial_altitude
