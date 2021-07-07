@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -60,16 +60,16 @@ def direct_operational_cost(
     Description:
         - DOC calculation
     Inputs:
-        - time_between_overhaul
-        - total_mission_flight_time
-        - fuel_mass
-        - operational_empty_weight
-        - total_mission_distance
-        - max_engine_thrust
+        - time_between_overhaul - [hr]
+        - total_mission_flight_time - [min]
+        - fuel_mass - [kg]
+        - operational_empty_weight - [kg]
+        - total_mission_distance - [nm]
+        - max_engine_thrust - maximum engine thrust [kg]
         - engines_number
-        - engines_weight
-        - max_takeoff_mass
-        - vehicle
+        - engines_weight - [kg]
+        - max_takeoff_mass - maximum takeoff weight [kg]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - DOC [US$]
     """

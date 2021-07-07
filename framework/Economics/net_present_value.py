@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -35,10 +35,10 @@ def aircraft_price():
     '''
     Methodology from Airbus price list (Narrow Bodies, 1 aisle) 2018
     Inputs:
-        - MTOW
-        - share
+        - MTOW - maximum takeoff weight - [kg]
+        - share - market share [%]
     Outputs:
-        - price
+        - price - [US$]
     TODO's:
         - ask for more especification of WTADJ_price - weight adjusted price
     '''

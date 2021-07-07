@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -51,11 +51,11 @@ def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle
         - This function sets the division of segments to perform the cruise calculation
     Inputs:
         - altitude
-        - delta_ISA
-        - mach
+        - delta_ISA - ISA temperature deviation [deg C]
+        - mach - mach number
         - mass
         - distance_cruise
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - time_cruise
         - final_mass
@@ -92,11 +92,11 @@ def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, 
         - This function calculates the cruise performance based on Breguet equations. 
     Inputs:
         - altitude
-        - delta_ISA
-        - mach
+        - delta_ISA - ISA temperature deviation [deg C]
+        - mach - mach number
         - mass
         - distance_cruise
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - time_cruise
         - final_mass
@@ -137,10 +137,10 @@ def specific_fuel_consumption(vehicle, mach, altitude, delta_ISA, mass):
     Description:
         - This function calculates the specific fuel consumption during cruise segment
     Inputs:
-        - vehicle
-        - mach
+        - vehicle - dictionary containing aircraft parameters
+        - mach - mach number
         - altitude
-        - delta_ISA
+        - delta_ISA - ISA temperature deviation [deg C]
         - mass
     Outputs:
         - TSFC
@@ -283,8 +283,8 @@ def breguet_simple(altitude, delta_ISA, mach, LD, SFC,step_cruise,W0):
         - This function calculates the simplified Breguet equation
     Inputs:
         - altitude
-        - delta_ISA
-        - mach
+        - delta_ISA - ISA temperature deviation [deg C]
+        - mach - mach number
         - LD
         - SFC
         - step_cruise

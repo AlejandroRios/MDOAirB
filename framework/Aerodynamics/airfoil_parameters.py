@@ -11,7 +11,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -36,7 +36,7 @@ def generate_sobieski_coefficients(rBA, phi, X_tcmax, t_c, theta, epsilon, X_Ycm
     Description:
         This function solve the system that geneterates the Sobieski coefficients
     Inputs:
-        - rBA
+        - rBA 
         - phi
         - X_tcmax
         - t_c
@@ -161,20 +161,20 @@ def airfoil_sobieski_coefficients(fileToRead1):
     Description:
         This is the main function for the estimation of sobieski coefficients
     Inputs:
-        - fileToRead1
+        - fileToRead1 - airfoil file name as specified in Database/Airfoils (withoud extension)
     Outputs:
-        - r0
-        - t_c
-        - phi
-        - X_tcmax
-        - theta
-        - epsilon
-        - Ycmax
-        - YCtcmax
-        - X_Ycmax
-        - xp
-        - yu
-        - yl
+        - r0 - airfoil leading edge radius [deg]
+        - t_c - thick to chord ratio
+        - phi - airfoil thickness line angle at trailing edge [deg]
+        - X_tcmax - x position of max thick to chord ratio
+        - theta - airfoil camber line angle at leading edge [deg]
+        - epsilon - airfoil camber line angle at trailing edge [deg]
+        - Ycmax - aifoil maximum camber
+        - YCtcmax - camber at maximum thickness chordwise position
+        - X_Ycmax - airfoil maximum camber position
+        - xp - airfoil x coordinate
+        - yu - airfoil upper surface coordinates
+        - yl - airfoil lower surface coordinates
     '''
     airfoil_names = [fileToRead1]
     # Load airfoil coordinates
@@ -282,9 +282,9 @@ def airfoil_parameters(vehicle):
         This function run the main function for all the airfoils that made part of the wing and 
         update the vehicle dictionary with the outputs
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     '''
     wing = vehicle['wing']
 

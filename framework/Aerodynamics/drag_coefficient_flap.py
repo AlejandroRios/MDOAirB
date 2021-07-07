@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -37,9 +37,9 @@ def drag_coefficient_flap(vehicle):
             - Internal flap: double slotted
             - External flap: single slotted
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - cd_flap
+        - cd_flap - drag coefficient associated to flap deflection 
     '''
     wing = vehicle['wing']
 

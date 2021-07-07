@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -54,7 +54,7 @@ def takeoff_noise(time_vec,velocity_vec,distance_vec,velocity_horizontal_vec,alt
         - noise_parameters
         - aircraft_geometry
         - engine_parameters
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
 
     Outputs:
         - f

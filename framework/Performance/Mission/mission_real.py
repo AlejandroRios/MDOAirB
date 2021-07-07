@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -74,12 +74,12 @@ def mission(departure,arrival, heading, vehicle):
     Inputs:
         - departure,arrival
         - heading
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - fuel_mass
         - complete_mission_flight_time
         - DOC
-        - mach
+        - mach - mach number
         - passenger_capacity
         - SAR
         - mission_range

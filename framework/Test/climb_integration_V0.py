@@ -12,12 +12,12 @@ Description:
     in time the point mass equations of movement. 
 Inputs:
     - initial mass [kg]
-    - mach_climb
+    - mach - mach number_climb
     - climb_V_cas [knots]
-    - delta_ISA [C deg]
+    - delta_ISA - ISA temperature deviation [deg C] [C deg]
     - final_altitude [ft]
     - initial_altitude [ft]
-    - vehicle dictionary
+    - vehicle - dictionary containing aircraft parameters dictionary
 Outputs:
     - final_distance [ft]
     - total_climb_time [min]

@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -37,9 +37,9 @@ def fuselage_cross_section(vehicle):
     Description:
         - This function calculates the cabine dimensions
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     """
     fuselage = vehicle['fuselage']
     cabine = vehicle['cabine']

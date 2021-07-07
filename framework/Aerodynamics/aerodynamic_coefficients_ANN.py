@@ -11,7 +11,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -85,15 +85,15 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
     Description:
         Update neural network parammeters to be used in ANN_aerodynamics_main
     Inputs:
-        - Vehicle dictionary
-        - Altitude [ft]
-        - Mach number
-        - CL
-        - alpha [deg]
-        - switch_neural_network - 0 for CL | 1 for alpha input
+        - vehicle - dictionary containing aircraft parameters - directory with all relevant information from aircraft
+        - altitude - [ft]
+        - mach - mach number - mach - mach number number
+        - CL - lift coefficient
+        - alpha - angle of attack [deg]
+        - switch_neural_network - switch to define analysis: 0 for CL | 1 for alpha input
     Outputs:
-        - CD - Drag coefficient
-        - CL - Lift coefficient
+        - CD - drag coefficient
+        - CL - lift coefficient
     '''
     CL_input = CL
 
@@ -192,23 +192,23 @@ def ANN_aerodynamics_main(
     Description:
         This function calculate the aerodynamic coefficients related to the NN's
     Inputs:
-        - CL input
-        - inputs_neural_network
-        - switch_neural_network
-        - NN_ind
-        - NN_wave
-        - NN_cd0
-        - NN_CL
+        - CL_input - lift coefficient
+        - inputs_neural_network - dictionary defining inputs for analysis
+        - switch_neural_network - switch to define analysis: 0 for CL | 1 for alpha input
+        - NN_ind - induced drag neural network weights
+        - NN_wave - wave drag neural network weights
+        - NN_cd0 - parasite drag neural network weights
+        - NN_CL - lift coefficient neural network weights
     Outputs:
-        - CL
-        - Alpha
-        - CD_fp
-        - CD_wave
-        - CD_ind
-        - grad_CL
-        - grad_CD_fp
-        - grad_CD_wave
-        - grad_CD_ind
+        - CL - lift coefficient
+        - alpha - angle of attack [deg]
+        - CD_fp - parasite drag coefficient
+        - CD_wave - wave drag coefficient
+        - CD_ind - indiced drag coefficient
+        - grad_CL - gradient of lift coefficient
+        - grad_CD_fp - gradient of parasite drag coefficient
+        - grad_CD_wave - gradientt of wave drag coefficient
+        - grad_CD_ind - gradient of induced drag coefficient
 
     Translated to python from Matlab.    
     | Soure: Ney Rafael Seccô and Bento Mattos

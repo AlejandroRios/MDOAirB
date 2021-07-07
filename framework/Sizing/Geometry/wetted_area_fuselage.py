@@ -12,7 +12,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -37,7 +37,7 @@ def wetted_area_forward_fuselage(vehicle):
     Description:
         - This function calculates the wetted area of the forward part of the fuselage.
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - total_area
     """
@@ -100,7 +100,7 @@ def wetted_area_tailcone_fuselage(vehicle):
     Description:
         - This function calculates the wetted area of the tailcone of the fuselage.
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - total_area
     """

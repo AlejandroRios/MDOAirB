@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -38,9 +38,9 @@ def holding_fuel(altitude, delta_ISA, holding_time, vehicle):
         - This function calculates the fuel spent during holding
     Inputs:
         - altitude
-        - delta_ISA
+        - delta_ISA - ISA temperature deviation [deg C]
         - holding_time
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - fuel_mass_holding
     """
@@ -59,8 +59,8 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
         - This function calculates the best holding speed.
     Inputs:
         - altitude
-        - delta_ISA
-        - vehicle
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - V_hold_kt
         - CL_to_CD

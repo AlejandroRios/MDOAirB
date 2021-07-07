@@ -12,7 +12,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -34,11 +34,11 @@ def haversine_distance(coordinates_departure,coordinates_arrival):
     Description:
         - Perform haversine distance calculation in nautical miles
     Inputs:
-        - coordinates_departure
-        - coordinates_arrival
+        - coordinates_departure - latitude and longitude coordinates departure
+        - coordinates_arrival - latitude and longitude coordinates arrival
 
     Outputs:
-        - distance
+        - distance - distance between points [nm]
     """
     # Perform haversine distance calculation in nautical miles
     distance = float(haversine(coordinates_departure,coordinates_arrival,unit='nmi'))

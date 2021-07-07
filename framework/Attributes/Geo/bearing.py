@@ -10,7 +10,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -36,10 +36,10 @@ def calculate_bearing(pointA, pointB):
         θ = atan2(sin(Δlong).cos(lat2),
                   cos(lat1).sin(lat2) − sin(lat1).cos(lat2).cos(Δlong))
     - Input:
-        - pointA
-        - pointB
+        - pointA - latitude and longitude from initial point 
+        - pointB - latitude and longitude from final point
     - Outputs:
-        - compass_bearing
+        - compass_bearing [deg]
     '''
 
     if (type(pointA) != tuple) or (type(pointB) != tuple):

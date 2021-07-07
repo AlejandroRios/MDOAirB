@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -46,10 +46,10 @@ def maximum_range_mach(mass, cruise_altitude, delta_ISA, vehicle):
     Inputs:
         - mass
         - cruise_altitude
-        - delta_ISA
-        - vehicle
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - mach_maximum_cruise
+        - mach - mach number_maximum_cruise
     """
     knots_to_meters_second = 0.514444
     ft_to_m = 0.3048

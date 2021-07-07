@@ -15,7 +15,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -45,7 +45,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
     Description:
         - This function generates wing structural layout and estimates fuel storage.
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - xutip
         - yutip
         - yltip
@@ -58,7 +58,7 @@ def wing_structural_layout(vehicle, xutip, yutip,
         - yuroot
         - ylroot
     Outputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     """
 
     # OBS: Wing leading edge must be of constant sweep

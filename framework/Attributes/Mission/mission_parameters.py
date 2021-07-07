@@ -17,7 +17,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -49,10 +49,10 @@ def actual_mission_range(departure,arrival):
     Description:
         - This function calculates the mission range based in actual lat lon flight data
     Inputs:
-        - departure
-        - arrival
+        - departure - departure airport IATA name
+        - arrival - arrival airport IATA name
     Outputs:
-        - distance
+        - distance - actual distance [nm]
     """
     listOfFiles = os.listdir('Database/Routes/'+ departure+'_'+arrival+'/.')  
     pattern = "*.csv"
@@ -103,14 +103,14 @@ def climb_altitudes_vector(departure,arrival,max_altitude):
         - This function take actual information of fligth (ADS-B) and create a vector
         that will be used into the climb mission integration function 
     Inputs:
-        - departure
-        - arrival
-        - max_altitude
+        - departure - departure airport IATA name
+        - arrival - arrival airport IATA name
+        - max_altitude - maximum computed flight altitude [ft]
     Outputs:
-        - alt_rz
-        - cas_spds_rz
-        - mach_rz
-        - time_rz
+        - alt_rz - vector containing altitudes [ft]
+        - cas_spds_rz - vectort containing calibrated airspeed [kt]
+        - mach_rz - vectort containing mach numbers
+        - time_rz - vector containing times [s]
     """
     listOfFiles = os.listdir('Database/Routes/'+ departure+'_'+arrival+'/.')  
     pattern = "*.csv"
@@ -191,14 +191,14 @@ def descent_altitudes_vector(departure,arrival,max_altitude):
         - This function take actual information of fligth (ADS-B) and create a vector
         that will be used into the descent mission integration function 
     Inputs:
-        - departure
-        - arrival
-        - max_altitude
+        - departure - departure airport IATA name
+        - arrival - arrival airport IATA name
+        - max_altitude - maximum computed flight altitude [ft]
     Outputs:
-        - alt_rz
-        - cas_spds_rz
-        - mach_rz
-        - time_rz
+        - alt_rz - vector containing altitudes [ft]
+        - cas_spds_rz - vectort containing calibrated airspeed [kt]
+        - mach_rz - vectort containing mach numbers
+        - time_rz - vector containing times [s]
     """
     listOfFiles = os.listdir('Database/Routes/'+ departure+'_'+arrival+'/.')  
     pattern = "*.csv"

@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Performance.Analysis.maximum_altitude &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Performance.Analysis.maximum_altitude</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Performance.Analysis.maximum_altitude</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">MDOAirB</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This module calculates the maximum altitude</span>
+
+<span class="sd">Reference:</span>
+<span class="sd">    -</span>
+
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">| Authors: Alejandro Rios</span>
+<span class="sd">| Email: aarc.88@gmail.com</span>
+<span class="sd">| Creation: January 2021</span>
+<span class="sd">| Last modification: July 2021</span>
+<span class="sd">| Language  : Python 3.8 or &gt;</span>
+<span class="sd">| Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.atmosphere_ISA_deviation</span> <span class="kn">import</span> <span class="n">atmosphere_ISA_deviation</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Airspeed.airspeed</span> <span class="kn">import</span> <span class="n">V_cas_to_mach</span><span class="p">,</span> <span class="n">mach_to_V_cas</span><span class="p">,</span> <span class="n">crossover_altitude</span>
+
+<span class="kn">from</span> <span class="nn">framework.Performance.Engine.engine_performance</span> <span class="kn">import</span> <span class="n">turbofan</span>
+
+<span class="kn">from</span> <span class="nn">framework.Performance.Analysis.climb_to_altitude</span> <span class="kn">import</span> <span class="n">rate_of_climb_calculation</span>
+<span class="kn">from</span> <span class="nn">framework.Performance.Analysis.buffet_altitude_constraint</span> <span class="kn">import</span> <span class="n">buffet_altitude</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="k">global</span> <span class="n">GRAVITY</span>
+<span class="n">GRAVITY</span> <span class="o">=</span> <span class="mf">9.80665</span>
+
+
+<div class="viewcode-block" id="maximum_altitude"><a class="viewcode-back" href="../../../../framework.Performance.Analysis.html#framework.Performance.Analysis.maximum_altitude.maximum_altitude">[docs]</a><span class="k">def</span> <span class="nf">maximum_altitude</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">initial_altitude</span><span class="p">,</span> <span class="n">limit_altitude</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span>
+                     <span class="n">climb_V_cas</span><span class="p">,</span> <span class="n">mach_climb</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        - This function calculates the maximum altitude</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - vehicle - dictionary containing aircraft parameters</span>
+<span class="sd">        - initial_altitude</span>
+<span class="sd">        - limit_altitude</span>
+<span class="sd">        - mass</span>
+<span class="sd">        - climb_V_cas</span>
+<span class="sd">        - mach - mach number_climb</span>
+<span class="sd">        - delta_ISA - ISA temperature deviation [deg C]</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - final_altitude</span>
+<span class="sd">        - rate_of_climb</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span>
+
+    <span class="n">transition_altitude</span> <span class="o">=</span> <span class="n">crossover_altitude</span><span class="p">(</span>
+        <span class="n">mach_climb</span><span class="p">,</span> <span class="n">climb_V_cas</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+    <span class="n">altitude_step</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">residual_rate_of_climb</span> <span class="o">=</span> <span class="n">performance</span><span class="p">[</span><span class="s1">&#39;residual_rate_of_climb&#39;</span><span class="p">]</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">fuel</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rate_of_climb</span> <span class="o">=</span> <span class="mi">9999</span>
+
+    <span class="c1"># Climb to 10000 ft with 250KCAS</span>
+    <span class="n">initial_altitude</span> <span class="o">=</span> <span class="n">initial_altitude</span> <span class="o">+</span> <span class="mi">1500</span>  <span class="c1"># 1500 [ft]</span>
+    <span class="n">altitude</span> <span class="o">=</span> <span class="n">initial_altitude</span>
+    <span class="n">final_altitude</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">throttle_position</span> <span class="o">=</span> <span class="mf">0.95</span>
+
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">rate_of_climb</span> <span class="o">&gt;</span> <span class="n">residual_rate_of_climb</span> <span class="ow">and</span> <span class="n">altitude</span> <span class="o">&lt;</span> <span class="n">final_altitude</span><span class="p">):</span>
+        <span class="n">V_cas</span> <span class="o">=</span> <span class="mi">250</span>
+        <span class="n">mach</span> <span class="o">=</span> <span class="n">V_cas_to_mach</span><span class="p">(</span><span class="n">V_cas</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+        <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span> <span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span>
+            <span class="n">altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">throttle_position</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>  <span class="c1"># force [N], fuel flow [kg/hr]</span>
+        <span class="n">thrust_to_weight</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">*</span><span class="n">thrust_force</span><span class="o">/</span><span class="p">(</span><span class="n">mass</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span>
+
+        <span class="n">rate_of_climb</span><span class="p">,</span> <span class="n">V_tas</span> <span class="o">=</span> <span class="n">rate_of_climb_calculation</span><span class="p">(</span>
+            <span class="n">thrust_to_weight</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">altitude_step</span><span class="o">/</span><span class="n">rate_of_climb</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="n">delta_time</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">+</span> <span class="p">(</span><span class="n">V_tas</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">delta_time</span>
+        <span class="n">delta_fuel</span> <span class="o">=</span> <span class="p">(</span><span class="n">fuel_flow</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">delta_time</span>
+        <span class="n">fuel</span> <span class="o">=</span> <span class="n">fuel</span><span class="o">+</span><span class="n">delta_fuel</span>
+        <span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span><span class="o">-</span><span class="n">delta_fuel</span>
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">altitude</span> <span class="o">+</span> <span class="n">altitude_step</span>
+
+    <span class="c1"># Climb to transition altitude at constat CAS</span>
+
+    <span class="n">delta_altitude</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">initial_altitude</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">+</span> <span class="n">delta_altitude</span>
+    <span class="n">altitude</span> <span class="o">=</span> <span class="n">initial_altitude</span>
+    <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">transition_altitude</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">rate_of_climb</span> <span class="o">&gt;</span> <span class="n">residual_rate_of_climb</span> <span class="ow">and</span> <span class="n">altitude</span> <span class="o">&lt;=</span> <span class="n">final_altitude</span><span class="p">):</span>
+        <span class="n">mach</span> <span class="o">=</span> <span class="n">V_cas_to_mach</span><span class="p">(</span><span class="n">V_cas</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+        <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span> <span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">throttle_position</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+        <span class="n">thrust_to_weight</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">*</span><span class="n">thrust_force</span><span class="o">/</span><span class="p">(</span><span class="n">mass</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span>
+
+        <span class="n">rate_of_climb</span><span class="p">,</span> <span class="n">V_tas</span> <span class="o">=</span> <span class="n">rate_of_climb_calculation</span><span class="p">(</span>
+            <span class="n">thrust_to_weight</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">altitude_step</span><span class="o">/</span><span class="n">rate_of_climb</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="n">delta_time</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">+</span> <span class="p">(</span><span class="n">V_tas</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">delta_time</span>
+        <span class="n">delta_fuel</span> <span class="o">=</span> <span class="p">(</span><span class="n">fuel_flow</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">delta_time</span>
+        <span class="n">fuel</span> <span class="o">=</span> <span class="n">fuel</span><span class="o">+</span><span class="n">delta_fuel</span>
+        <span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span><span class="o">-</span><span class="n">delta_fuel</span>
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">altitude</span> <span class="o">+</span> <span class="n">altitude_step</span>
+
+    <span class="c1"># Climb to transition altitude at constant mach</span>
+    <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">limit_altitude</span>
+    <span class="n">mach</span> <span class="o">=</span> <span class="n">mach_climb</span>
+
+    <span class="n">buffet_altitude_limit</span> <span class="o">=</span> <span class="n">buffet_altitude</span><span class="p">(</span>
+        <span class="n">vehicle</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">limit_altitude</span><span class="p">,</span> <span class="n">mach_climb</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">rate_of_climb</span> <span class="o">&gt;</span> <span class="n">residual_rate_of_climb</span> <span class="ow">and</span> <span class="n">altitude</span> <span class="o">&lt;=</span> <span class="n">final_altitude</span><span class="p">):</span>
+
+        <span class="n">V_cas</span> <span class="o">=</span> <span class="n">mach_to_V_cas</span><span class="p">(</span><span class="n">mach</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">)</span>
+        <span class="n">thrust_force</span><span class="p">,</span> <span class="n">fuel_flow</span> <span class="p">,</span> <span class="n">vehicle</span> <span class="o">=</span> <span class="n">turbofan</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">throttle_position</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+        <span class="n">thrust_to_weight</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">*</span><span class="n">thrust_force</span><span class="o">/</span><span class="p">(</span><span class="n">mass</span><span class="o">*</span><span class="n">GRAVITY</span><span class="p">)</span>
+
+        <span class="n">rate_of_climb</span><span class="p">,</span> <span class="n">V_tas</span> <span class="o">=</span> <span class="n">rate_of_climb_calculation</span><span class="p">(</span>
+            <span class="n">thrust_to_weight</span><span class="p">,</span> <span class="n">altitude</span><span class="p">,</span> <span class="n">delta_ISA</span><span class="p">,</span> <span class="n">mach</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">vehicle</span><span class="p">)</span>
+
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="n">altitude_step</span><span class="o">/</span><span class="n">rate_of_climb</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="n">delta_time</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">+</span> <span class="p">(</span><span class="n">V_tas</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">delta_time</span>
+        <span class="n">delta_fuel</span> <span class="o">=</span> <span class="p">(</span><span class="n">fuel_flow</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">*</span><span class="n">delta_time</span>
+        <span class="n">fuel</span> <span class="o">=</span> <span class="n">fuel</span><span class="o">+</span><span class="n">delta_fuel</span>
+        <span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span><span class="o">-</span><span class="n">delta_fuel</span>
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">altitude</span> <span class="o">+</span> <span class="n">altitude_step</span>
+
+    <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">altitude</span> <span class="o">-</span> <span class="n">altitude_step</span>
+
+    <span class="k">if</span> <span class="n">buffet_altitude_limit</span> <span class="o">&lt;</span> <span class="n">final_altitude</span><span class="p">:</span>
+        <span class="n">final_altitude</span> <span class="o">=</span> <span class="n">buffet_altitude_limit</span>
+
+    <span class="k">return</span> <span class="n">final_altitude</span><span class="p">,</span> <span class="n">rate_of_climb</span></div>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># initial_altitude = 0</span>
+<span class="c1"># limit_altitude = 41000</span>
+<span class="c1"># mass = 43112 # [kg]</span>
+<span class="c1"># climb_V_cas = 280</span>
+<span class="c1"># mach_climb = 0.78</span>
+<span class="c1"># delta_ISA = 0</span>
+
+<span class="c1"># altitude, roc =  maximum_altitude(initial_altitude, limit_altitude, mass,</span>
+<span class="c1">#     climb_V_cas, mach_climb, delta_ISA)</span>
+
+<span class="c1"># print(altitude, roc)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

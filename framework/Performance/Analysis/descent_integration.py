@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -53,12 +53,12 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
         in time the point mass equations of movement. 
     Inputs:
         - initial mass [kg]
-        - mach_climb
+        - mach - mach number_climb
         - climb_V_cas [knots]
-        - delta_ISA [C deg]
+        - delta_ISA - ISA temperature deviation [deg C] [C deg]
         - final_altitude [ft]
         - initial_altitude [ft]
-        - vehicle dictionary
+        - vehicle - dictionary containing aircraft parameters dictionary
     Outputs:
         - final_distance [ft]
         - total_climb_time [min]
@@ -194,14 +194,14 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, altitude_v
         in time the point mass equations of movement. 
     Inputs:
         - initial mass [kg]
-        - mach_climb
+        - mach - mach number_climb
         - descent_V_cas [knots]
-        - delta_ISA [C deg]
+        - delta_ISA - ISA temperature deviation [deg C] [C deg]
         - altitude_vec [ft]
         - speeds_vec [kt]
-        - mach_vec
+        - mach - mach number_vec
         - initial_altitude
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - final_distance
         - total_descent_time
@@ -269,9 +269,9 @@ def climb_integrator(initial_block_distance, initial_block_altitude, initial_blo
         - initial_block_time
         - final_block_altitude
         - climb_V_cas
-        - mach_climb
-        - delta_ISA
-        - vehicle
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - final_block_distance
         - final_block_altitude
@@ -310,9 +310,9 @@ def climb(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria
         - time
         - state
         - climb_V_cas
-        - mach_climb
-        - delta_ISA
-        - vehicle
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
         - stop_criteria
     Outputs:
         - dout

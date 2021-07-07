@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -52,10 +52,10 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
         - active_airports
         - doc0
         - pax_capacity
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - profit
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - kpi_df1
         - kpi_df2
     """

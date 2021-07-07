@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -49,8 +49,8 @@ def acceleration_to_250(rate_of_climb, climb_V_cas, delta_ISA, vehicle):
     Inputs:
         - rate_of_climb
         - climb_V_cas
-        - delta_ISA
-        - vehicle
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
 
     Outputs:
         - delta_distance

@@ -15,7 +15,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -38,7 +38,7 @@ def pax_cabine_length(vehicle):
     Description:
         - This module calculates the pax cabine length
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - LenFus
     """
@@ -98,7 +98,7 @@ def seattop_fileira(x0, fuselage, SeatProf,vehicle):
         - x0
         - fuselage
         -  SeatProf
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - ???
     """

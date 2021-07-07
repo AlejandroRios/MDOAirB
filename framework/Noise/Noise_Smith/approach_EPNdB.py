@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -45,7 +45,7 @@ def approach_EPNdB(time_vec,velocity_vec,distance_vec,altitude_vec,landing_param
         - landing_parameters
         - noise_parameters
         - aircraft_geometry
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
 
     Outputs:
         - LDEPNdB

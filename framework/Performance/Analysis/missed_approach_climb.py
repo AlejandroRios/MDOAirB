@@ -17,7 +17,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -44,7 +44,7 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     Description:
         - This function calculates the missed approach thrust to weight ratio with one enfine inoperative
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
         - weight_landing
     Outputs:
@@ -105,7 +105,7 @@ def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
     Description:
         - This function calculates the missed approach thrust to weight ratio with all engines operative
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
         - weight_landing
     Outputs:

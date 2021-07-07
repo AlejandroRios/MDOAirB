@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing package &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">framework.Sizing package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#framework-sizing-airplane-sizing-check-module">framework.Sizing.airplane_sizing_check module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.performance_constraints">framework.Sizing.performance_constraints module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>framework.Sizing package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/framework.Sizing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="framework-sizing-package">
+<h1>framework.Sizing package<a class="headerlink" href="#framework-sizing-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="framework.Sizing.Geometry.html">framework.Sizing.Geometry package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.airfoil_preprocessing">framework.Sizing.Geometry.airfoil_preprocessing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.area_triangle_3d">framework.Sizing.Geometry.area_triangle_3d module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.fuselage_sizing">framework.Sizing.Geometry.fuselage_sizing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.landig_gear_position">framework.Sizing.Geometry.landig_gear_position module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.landing_gear_layout">framework.Sizing.Geometry.landing_gear_layout module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.pax_cabine_length">framework.Sizing.Geometry.pax_cabine_length module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.sizing_horizontal_tail">framework.Sizing.Geometry.sizing_horizontal_tail module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.sizing_landing_gear">framework.Sizing.Geometry.sizing_landing_gear module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.sizing_tail">framework.Sizing.Geometry.sizing_tail module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.sizing_vertical_tail">framework.Sizing.Geometry.sizing_vertical_tail module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.tailcone_sizing">framework.Sizing.Geometry.tailcone_sizing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.tire_selection">framework.Sizing.Geometry.tire_selection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.wetted_area">framework.Sizing.Geometry.wetted_area module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.wetted_area_fuselage">framework.Sizing.Geometry.wetted_area_fuselage module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.wetted_area_wing">framework.Sizing.Geometry.wetted_area_wing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry.wing_structural_layout_fuel_storage">framework.Sizing.Geometry.wing_structural_layout_fuel_storage module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framework.Sizing.Geometry.html#module-framework.Sizing.Geometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="framework-sizing-airplane-sizing-check-module">
+<h2>framework.Sizing.airplane_sizing_check module<a class="headerlink" href="#framework-sizing-airplane-sizing-check-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-framework.Sizing.performance_constraints">
+<span id="framework-sizing-performance-constraints-module"></span><h2>framework.Sizing.performance_constraints module<a class="headerlink" href="#module-framework.Sizing.performance_constraints" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculate the regulated takeoff and landing weight according to</p></li>
+</ul>
+<p>sizing restrictions</p>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li><p>Torenbeek</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.drag_divergence_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">drag_divergence_check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#drag_divergence_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.drag_divergence_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.landing_climb_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">landing_climb_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">maximum_takeoff_weight</span></em>, <em class="sig-param"><span class="n">weight_landing</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#landing_climb_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.landing_climb_check" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the landing climb check</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>maximum_takeoff_weight</p></li>
+<li><p>weight_landing</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>weight_landing</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.landing_field_length_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">landing_field_length_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">maximum_takeoff_weight</span></em>, <em class="sig-param"><span class="n">weight_landing</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#landing_field_length_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.landing_field_length_check" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the landing field length check</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>maximum_takeoff_weight</p></li>
+<li><p>weight_landing</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>weight_landing</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.maximum_cruise_speed_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">maximum_cruise_speed_check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#maximum_cruise_speed_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.maximum_cruise_speed_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.missed_approach_climb_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">missed_approach_climb_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">maximum_takeoff_weight</span></em>, <em class="sig-param"><span class="n">weight_landing</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#missed_approach_climb_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.missed_approach_climb_check" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the missed approach climb check</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>maximum_takeoff_weight</p></li>
+<li><p>weight_landing</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>weight_landing</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.regulated_landing_weight">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">regulated_landing_weight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#regulated_landing_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.regulated_landing_weight" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the calculation of the regulated landing weight</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>regulated landing weight</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.regulated_takeoff_weight">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">regulated_takeoff_weight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#regulated_takeoff_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.regulated_takeoff_weight" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the calculation of the regulated takeoff weight</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>regulated takeoff weight</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.residual_rate_of_climb_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">residual_rate_of_climb_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">weight_takeoff</span></em>, <em class="sig-param"><span class="n">engine_cruise_thrust</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#residual_rate_of_climb_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.residual_rate_of_climb_check" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the residual rate of climb check</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>weight_takeoff</p></li>
+<li><p>engine_cruise_thrust</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>weight_takeoff</p></li>
+<li><p>thrust_to_weight_takeoff</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.second_segment_climb_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">second_segment_climb_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">weight_takeoff</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#second_segment_climb_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.second_segment_climb_check" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the second segment climb check</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>weight_takeoff</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>weight_takeoff</p></li>
+<li><p>thrust_to_weight_takeoff</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.performance_constraints.takeoff_field_length_check">
+<code class="sig-prename descclassname">framework.Sizing.performance_constraints.</code><code class="sig-name descname">takeoff_field_length_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">weight_takeoff</span></em>, <em class="sig-param"><span class="n">gamma_2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/performance_constraints.html#takeoff_field_length_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.performance_constraints.takeoff_field_length_check" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the takeoff field length check</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>weight_takeoff</p></li>
+<li><p>gamma_2</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>weight_takeoff</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-framework.Sizing" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

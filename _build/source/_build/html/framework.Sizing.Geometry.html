@@ -1,0 +1,1104 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry package &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">framework.Sizing.Geometry package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.airfoil_preprocessing">framework.Sizing.Geometry.airfoil_preprocessing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.area_triangle_3d">framework.Sizing.Geometry.area_triangle_3d module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.fuselage_sizing">framework.Sizing.Geometry.fuselage_sizing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.landig_gear_position">framework.Sizing.Geometry.landig_gear_position module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.landing_gear_layout">framework.Sizing.Geometry.landing_gear_layout module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.pax_cabine_length">framework.Sizing.Geometry.pax_cabine_length module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_horizontal_tail">framework.Sizing.Geometry.sizing_horizontal_tail module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_landing_gear">framework.Sizing.Geometry.sizing_landing_gear module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_tail">framework.Sizing.Geometry.sizing_tail module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.sizing_vertical_tail">framework.Sizing.Geometry.sizing_vertical_tail module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.tailcone_sizing">framework.Sizing.Geometry.tailcone_sizing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.tire_selection">framework.Sizing.Geometry.tire_selection module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wetted_area">framework.Sizing.Geometry.wetted_area module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wetted_area_fuselage">framework.Sizing.Geometry.wetted_area_fuselage module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wetted_area_wing">framework.Sizing.Geometry.wetted_area_wing module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry.wing_structural_layout_fuel_storage">framework.Sizing.Geometry.wing_structural_layout_fuel_storage module</a></li>
+<li><a class="reference internal" href="#module-framework.Sizing.Geometry">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/framework.Sizing.Geometry.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="framework-sizing-geometry-package">
+<h1>framework.Sizing.Geometry package<a class="headerlink" href="#framework-sizing-geometry-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.airfoil_preprocessing">
+<span id="framework-sizing-geometry-airfoil-preprocessing-module"></span><h2>framework.Sizing.Geometry.airfoil_preprocessing module<a class="headerlink" href="#module-framework.Sizing.Geometry.airfoil_preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module takes as input the airfoil cordinates .dat file an redefine number of panels</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.airfoil_preprocessing.airfoil_preprocessing">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.airfoil_preprocessing.</code><code class="sig-name descname">airfoil_preprocessing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">airfoil</span></em>, <em class="sig-param"><span class="n">panel_number</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/airfoil_preprocessing.html#airfoil_preprocessing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.airfoil_preprocessing.airfoil_preprocessing" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function takes as input the airfoil cordinates .dat file an redefine number of panels</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>airfoil</p></li>
+<li><p>panel_number</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>redefined coordinates</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.area_triangle_3d">
+<span id="framework-sizing-geometry-area-triangle-3d-module"></span><h2>framework.Sizing.Geometry.area_triangle_3d module<a class="headerlink" href="#module-framework.Sizing.Geometry.area_triangle_3d" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculate the area triangle for applications in 3D surfaces area calculation.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://math.stackexchange.com/questions/128991/how-to-calculate-area-of-3d-triangle">https://math.stackexchange.com/questions/128991/how-to-calculate-area-of-3d-triangle</a></p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.area_triangle_3d.area_triangle_3d">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.area_triangle_3d.</code><code class="sig-name descname">area_triangle_3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/area_triangle_3d.html#area_triangle_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.area_triangle_3d.area_triangle_3d" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculate the area triangle for applications in 3D surfaces area calculation.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>x</p></li>
+<li><p>y</p></li>
+<li><p>z</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>area</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.fuselage_sizing">
+<span id="framework-sizing-geometry-fuselage-sizing-module"></span><h2>framework.Sizing.Geometry.fuselage_sizing module<a class="headerlink" href="#module-framework.Sizing.Geometry.fuselage_sizing" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the cabine dimensions.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li><p>PreSTO-Cabin - <a class="reference external" href="https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf">https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf</a></p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.fuselage_sizing.fuselage_cross_section">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.fuselage_sizing.</code><code class="sig-name descname">fuselage_cross_section</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/fuselage_sizing.html#fuselage_cross_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.fuselage_sizing.fuselage_cross_section" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates the cabine dimensions</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.landig_gear_position">
+<span id="framework-sizing-geometry-landig-gear-position-module"></span><h2>framework.Sizing.Geometry.landig_gear_position module<a class="headerlink" href="#module-framework.Sizing.Geometry.landig_gear_position" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the calculation of the main landing gear position.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.landig_gear_position.landig_gear_position">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.landig_gear_position.</code><code class="sig-name descname">landig_gear_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/landig_gear_position.html#landig_gear_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.landig_gear_position.landig_gear_position" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the calculation of the main landing gear position</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>yc_trunnion</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.landing_gear_layout">
+<span id="framework-sizing-geometry-landing-gear-layout-module"></span><h2>framework.Sizing.Geometry.landing_gear_layout module<a class="headerlink" href="#module-framework.Sizing.Geometry.landing_gear_layout" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module creates the landing gear layout.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li><p>ROSKAM, J. Airplane Design vol. IV - Layout of landing gear and systems. DARCorp, 2010.
+TORENBEEK, E. Synthesis of subsonic airplane design. DUP / Kluwer, 1982.</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Rename variables</p></li>
+<li><p>Update comments</p></li>
+<li><p>Update format to PEP8</p></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.landing_gear_layout.landing_gear_layout">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.landing_gear_layout.</code><code class="sig-name descname">landing_gear_layout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/landing_gear_layout.html#landing_gear_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.landing_gear_layout.landing_gear_layout" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function creates the landing gear layout.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>min_angle_main_gear_to_cg</p></li>
+<li><p>pneu_number_by_strut</p></li>
+<li><p>pneu_main_gear_diameter</p></li>
+<li><p>pneu_main_gear_length</p></li>
+<li><p>min_psiton_length</p></li>
+<li><p>main_gear_shock_absorber_diameter</p></li>
+<li><p>nose_gear_piston_length</p></li>
+<li><p>nose_gear_shock_absorber_diameter</p></li>
+<li><p>pneu_nose_gear_length</p></li>
+<li><p>pneu_nose_gear_diameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.pax_cabine_length">
+<span id="framework-sizing-geometry-pax-cabine-length-module"></span><h2>framework.Sizing.Geometry.pax_cabine_length module<a class="headerlink" href="#module-framework.Sizing.Geometry.pax_cabine_length" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the pax cabine length.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li><p>PreSTO-Cabin - <a class="reference external" href="https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf">https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf</a></p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Clean code</p></li>
+<li><p>Rename variables</p></li>
+<li><p>Review this code</p></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.pax_cabine_length.pax_cabine_length">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.pax_cabine_length.</code><code class="sig-name descname">pax_cabine_length</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/pax_cabine_length.html#pax_cabine_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.pax_cabine_length.pax_cabine_length" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the pax cabine length</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>LenFus</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.pax_cabine_length.seattop_fileira">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.pax_cabine_length.</code><code class="sig-name descname">seattop_fileira</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x0</span></em>, <em class="sig-param"><span class="n">fuselage</span></em>, <em class="sig-param"><span class="n">SeatProf</span></em>, <em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/pax_cabine_length.html#seattop_fileira"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.pax_cabine_length.seattop_fileira" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calcute the seat top row</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>x0</p></li>
+<li><p>fuselage</p></li>
+<li><p>SeatProf</p></li>
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>???</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_horizontal_tail">
+<span id="framework-sizing-geometry-sizing-horizontal-tail-module"></span><h2>framework.Sizing.Geometry.sizing_horizontal_tail module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_horizontal_tail" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the sizing of the horizontal tail.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_horizontal_tail.sizing_horizontal_tail">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_horizontal_tail.</code><code class="sig-name descname">sizing_horizontal_tail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">mach</span></em>, <em class="sig-param"><span class="n">ceiling</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_horizontal_tail.html#sizing_horizontal_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_horizontal_tail.sizing_horizontal_tail" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the sizing of the horizontal tail.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>mach - mach number</p></li>
+<li><p>ceiling</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_landing_gear">
+<span id="framework-sizing-geometry-sizing-landing-gear-module"></span><h2>framework.Sizing.Geometry.sizing_landing_gear module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_landing_gear" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the landing gear sizing.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_landing_gear.sizing_landing_gear">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_landing_gear.</code><code class="sig-name descname">sizing_landing_gear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_landing_gear.html#sizing_landing_gear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_landing_gear.sizing_landing_gear" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the landing gear sizing.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_tail">
+<span id="framework-sizing-geometry-sizing-tail-module"></span><h2>framework.Sizing.Geometry.sizing_tail module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_tail" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs an iterative cycle to re-size the vertical and</p></li>
+</ul>
+<p>horizontal stabilizer to decrease the whole airplane weight.</p>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_tail.sizing_tail">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_tail.</code><code class="sig-name descname">sizing_tail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">mach</span></em>, <em class="sig-param"><span class="n">altitude</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_tail.html#sizing_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_tail.sizing_tail" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs an iterative cycle to re-size the vertical and</p></li>
+</ul>
+<p>horizontal stabilizer to decrease the whole airplane weight.</p>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>mach - mach number</p></li>
+<li><p>altitude</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.sizing_vertical_tail">
+<span id="framework-sizing-geometry-sizing-vertical-tail-module"></span><h2>framework.Sizing.Geometry.sizing_vertical_tail module<a class="headerlink" href="#module-framework.Sizing.Geometry.sizing_vertical_tail" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the sizing of the horizontal tail.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Review final results - the equations are in lb or kg?</p></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.sizing_vertical_tail.sizing_vertical_tail">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.sizing_vertical_tail.</code><code class="sig-name descname">sizing_vertical_tail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">mach</span></em>, <em class="sig-param"><span class="n">altitude</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/sizing_vertical_tail.html#sizing_vertical_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.sizing_vertical_tail.sizing_vertical_tail" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the sizing of the vertical tail.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>mach - mach number</p></li>
+<li><p>altitude</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.tailcone_sizing">
+<span id="framework-sizing-geometry-tailcone-sizing-module"></span><h2>framework.Sizing.Geometry.tailcone_sizing module<a class="headerlink" href="#module-framework.Sizing.Geometry.tailcone_sizing" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module performs the tailcone sizing.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.tailcone_sizing.tailcone_sizing">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.tailcone_sizing.</code><code class="sig-name descname">tailcone_sizing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NPax</span></em>, <em class="sig-param"><span class="n">PEng</span></em>, <em class="sig-param"><span class="n">fuse_height</span></em>, <em class="sig-param"><span class="n">fuse_width</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/tailcone_sizing.html#tailcone_sizing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.tailcone_sizing.tailcone_sizing" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function performs the tailcone sizing.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>NPax</p></li>
+<li><p>PEng</p></li>
+<li><p>fuse_height</p></li>
+<li><p>fuse_width</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>ltail</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.tire_selection">
+<span id="framework-sizing-geometry-tire-selection-module"></span><h2>framework.Sizing.Geometry.tire_selection module<a class="headerlink" href="#module-framework.Sizing.Geometry.tire_selection" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module selects the tire as function of sizing parameters.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.tire_selection.tire_selection">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.tire_selection.</code><code class="sig-name descname">tire_selection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">load</span></em>, <em class="sig-param"><span class="n">V_qualified</span></em>, <em class="sig-param"><span class="n">pneu_pressure</span></em>, <em class="sig-param"><span class="n">selection_criteria</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/tire_selection.html#tire_selection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.tire_selection.tire_selection" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module selects the tire as function of sizing parameters.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>load</p></li>
+<li><p>V_qualified</p></li>
+<li><p>pneu_pressure</p></li>
+<li><p>selection_criteria</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>tire_diameter</p></li>
+<li><p>tire_width</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wetted_area">
+<span id="framework-sizing-geometry-wetted-area-module"></span><h2>framework.Sizing.Geometry.wetted_area module<a class="headerlink" href="#module-framework.Sizing.Geometry.wetted_area" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the wetted area of the principal components of the</p></li>
+</ul>
+<p>aircraft.</p>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Split this function into functions for each component</p></li>
+<li><p>Rename engine variables</p></li>
+<li><p>x and y coordinates output into vehicle dictionary</p></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area.wetted_area">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area.</code><code class="sig-name descname">wetted_area</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area.html#wetted_area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area.wetted_area" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates the wetted area of the principal aircraft components</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>xutip</p></li>
+<li><p>yutip</p></li>
+<li><p>xltip</p></li>
+<li><p>yltip</p></li>
+<li><p>xubreak</p></li>
+<li><p>yubreak</p></li>
+<li><p>xlbreak</p></li>
+<li><p>ylbreak</p></li>
+<li><p>xuraiz</p></li>
+<li><p>yuraiz</p></li>
+<li><p>xlraiz</p></li>
+<li><p>ylrai</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wetted_area_fuselage">
+<span id="framework-sizing-geometry-wetted-area-fuselage-module"></span><h2>framework.Sizing.Geometry.wetted_area_fuselage module<a class="headerlink" href="#module-framework.Sizing.Geometry.wetted_area_fuselage" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the wetted area of the fuselage.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_forward_fuselage">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_fuselage.</code><code class="sig-name descname">wetted_area_forward_fuselage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_fuselage.html#wetted_area_forward_fuselage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_forward_fuselage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates the wetted area of the forward part of the fuselage.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>total_area</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_tailcone_fuselage">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_fuselage.</code><code class="sig-name descname">wetted_area_tailcone_fuselage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_fuselage.html#wetted_area_tailcone_fuselage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_fuselage.wetted_area_tailcone_fuselage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates the wetted area of the tailcone of the fuselage.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>total_area</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wetted_area_wing">
+<span id="framework-sizing-geometry-wetted-area-wing-module"></span><h2>framework.Sizing.Geometry.wetted_area_wing module<a class="headerlink" href="#module-framework.Sizing.Geometry.wetted_area_wing" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module calculates the wetted area of the wing.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_wing.calcareawet">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_wing.</code><code class="sig-name descname">calcareawet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xistosXper</span></em>, <em class="sig-param"><span class="n">xistosYper</span></em>, <em class="sig-param"><span class="n">xistosZper</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_wing.html#calcareawet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_wing.calcareawet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates the wetted area of the wing.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>xistosXper</p></li>
+<li><p>xistosYper</p></li>
+<li><p>xistosZper</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>total_area</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_wing.tri3darea">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_wing.</code><code class="sig-name descname">tri3darea</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x1</span></em>, <em class="sig-param"><span class="n">y1</span></em>, <em class="sig-param"><span class="n">z1</span></em>, <em class="sig-param"><span class="n">x2</span></em>, <em class="sig-param"><span class="n">y2</span></em>, <em class="sig-param"><span class="n">z2</span></em>, <em class="sig-param"><span class="n">x3</span></em>, <em class="sig-param"><span class="n">y3</span></em>, <em class="sig-param"><span class="n">z3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_wing.html#tri3darea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_wing.tri3darea" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function calculates area if the triangle from its vertex</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>x1</p></li>
+<li><p>y1</p></li>
+<li><p>z1</p></li>
+<li><p>x2</p></li>
+<li><p>y2</p></li>
+<li><p>z2</p></li>
+<li><p>x3</p></li>
+<li><p>y3</p></li>
+<li><p>z3</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>Stri</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wetted_area_wing.wetted_area_wing">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wetted_area_wing.</code><code class="sig-name descname">wetted_area_wing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">fileToRead1</span></em>, <em class="sig-param"><span class="n">fileToRead2</span></em>, <em class="sig-param"><span class="n">fileToRead3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wetted_area_wing.html#wetted_area_wing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wetted_area_wing.wetted_area_wing" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This is the main function for the wing wetted area calculation.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>fileToRead1</p></li>
+<li><p>fileToRead2</p></li>
+<li><p>fileToRead3</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>total_area</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry.wing_structural_layout_fuel_storage">
+<span id="framework-sizing-geometry-wing-structural-layout-fuel-storage-module"></span><h2>framework.Sizing.Geometry.wing_structural_layout_fuel_storage module<a class="headerlink" href="#module-framework.Sizing.Geometry.wing_structural_layout_fuel_storage" title="Permalink to this headline">¶</a></h2>
+<p>MDOAirB</p>
+<dl>
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This module computes the wing structural layout and calculates</p></li>
+</ul>
+<p>the fuel storage capacity in the wings</p>
+</dd>
+<dt>Reference:</dt><dd><ul class="simple">
+<li><p>Prof. Bentos codfe</p></li>
+</ul>
+</dd>
+<dt>TODO’s:</dt><dd><ul class="simple">
+<li><p>Clean code</p></li>
+<li><p>Rename variables</p></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Authors: Alejandro Rios</div>
+<div class="line">Email: <a class="reference external" href="mailto:aarc&#46;88&#37;&#52;&#48;gmail&#46;com">aarc<span>&#46;</span>88<span>&#64;</span>gmail<span>&#46;</span>com</a></div>
+<div class="line">Creation: January 2021</div>
+<div class="line">Last modification: July 2021</div>
+<div class="line">Language  : Python 3.8 or &gt;</div>
+<div class="line">Aeronautical Institute of Technology - Airbus Brazil</div>
+</div>
+<dl class="py function">
+<dt id="framework.Sizing.Geometry.wing_structural_layout_fuel_storage.wing_structural_layout">
+<code class="sig-prename descclassname">framework.Sizing.Geometry.wing_structural_layout_fuel_storage.</code><code class="sig-name descname">wing_structural_layout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vehicle</span></em>, <em class="sig-param"><span class="n">xutip</span></em>, <em class="sig-param"><span class="n">yutip</span></em>, <em class="sig-param"><span class="n">yltip</span></em>, <em class="sig-param"><span class="n">xukink</span></em>, <em class="sig-param"><span class="n">xlkink</span></em>, <em class="sig-param"><span class="n">yukink</span></em>, <em class="sig-param"><span class="n">ylkink</span></em>, <em class="sig-param"><span class="n">xuroot</span></em>, <em class="sig-param"><span class="n">xlroot</span></em>, <em class="sig-param"><span class="n">yuroot</span></em>, <em class="sig-param"><span class="n">ylroot</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/framework/Sizing/Geometry/wing_structural_layout_fuel_storage.html#wing_structural_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#framework.Sizing.Geometry.wing_structural_layout_fuel_storage.wing_structural_layout" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><ul class="simple">
+<li><p>This function generates wing structural layout and estimates fuel storage.</p></li>
+</ul>
+</dd>
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+<li><p>xutip</p></li>
+<li><p>yutip</p></li>
+<li><p>yltip</p></li>
+<li><p>xukink</p></li>
+<li><p>xlkink</p></li>
+<li><p>yukink</p></li>
+<li><p>ylkink</p></li>
+<li><p>xuroot</p></li>
+<li><p>xlroot</p></li>
+<li><p>yuroot</p></li>
+<li><p>ylroot</p></li>
+</ul>
+</dd>
+<dt>Outputs:</dt><dd><ul class="simple">
+<li><p>vehicle - dictionary containing aircraft parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.Sizing.Geometry">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-framework.Sizing.Geometry" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

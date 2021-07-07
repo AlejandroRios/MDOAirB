@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -75,7 +75,7 @@ def takeoff_integration(
         - takeoff_parameters
         - runaway_parameters
         - landing_parameters
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - rho_ISA
         - stop_criteria
         - phase
@@ -319,7 +319,7 @@ def ground(time,state,takeoff_parameters,runaway_parameters,landing_parameters,r
         - runaway_parameters
         - landing_parameters
         - rho_ISA
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - stop_criteria
 
     Outputs:
@@ -362,7 +362,7 @@ def flare(time,state,aircraft_parameters,takeoff_parameters,runaway_parameters,l
         - runaway_parameters
         - landing_parameters
         - rho_ISA
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - stop_criteria
 
     Outputs:
@@ -415,10 +415,10 @@ def climb(time, state, climb_V_cas, mach_climb, delta_ISA, final_block_altitude,
         - time
         - state
         - climb_V_cas
-        - mach_climb
-        - delta_ISA
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
         - final_block_altitude
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
 
     Outputs:
         - dout

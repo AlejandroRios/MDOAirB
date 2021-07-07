@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Aerodynamics.drag_coefficient_landing_gear &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Aerodynamics.drag_coefficient_landing_gear</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Aerodynamics.drag_coefficient_landing_gear</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">MDOAirB</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - Landing gear contribution to drag coefficient</span>
+
+<span class="sd">Reference:</span>
+<span class="sd">    - Drag Force and Drag Coefficient - Sadraey M., Aircraft Performance Analysis, VDM Verlag Dr. Müller, 2009</span>
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">| Authors: Alejandro Rios</span>
+<span class="sd">| Email: aarc.88@gmail.com</span>
+<span class="sd">| Creation: January 2021</span>
+<span class="sd">| Last modification: July 2021</span>
+<span class="sd">| Language  : Python 3.8 or &gt;</span>
+<span class="sd">| Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<div class="viewcode-block" id="drag_coefficient_landing_gear"><a class="viewcode-back" href="../../../framework.Aerodynamics.html#framework.Aerodynamics.drag_coefficient_landing_gear.drag_coefficient_landing_gear">[docs]</a><span class="k">def</span> <span class="nf">drag_coefficient_landing_gear</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        This function estimates the contribution to drag related to landing gear (main and nose)</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - vehicle - dictionary containing aircraft parameters</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - CD_main</span>
+<span class="sd">        - CD_nose</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">main_landing_gear</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;main_landing_gear&#39;</span><span class="p">]</span>
+    <span class="n">nose_landing_gear</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;nose_landing_gear&#39;</span><span class="p">]</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Constants</span>
+    <span class="n">nstrut</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">CDLGw</span> <span class="o">=</span> <span class="mf">0.30</span> <span class="c1">#(no fairing)</span>
+    <span class="n">CDLGs</span> <span class="o">=</span> <span class="mf">1.2</span>  <span class="c1"># vertical cylinder LD infinity (Table 3.1)</span>
+    <span class="c1">#</span>
+    <span class="n">Swheel_main</span> <span class="o">=</span> <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;tyre_diameter&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;tyre_width&#39;</span><span class="p">]</span>
+    <span class="n">Swheel_nose</span> <span class="o">=</span> <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;tyre_diameter&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;tyre_width&#39;</span><span class="p">]</span>
+    <span class="n">Sstrut_main</span> <span class="o">=</span> <span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;piston_length&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;piston_diameter&#39;</span><span class="p">]</span>
+    <span class="n">Sstrut_nose</span> <span class="o">=</span> <span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;piston_length&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;piston_diameter&#39;</span><span class="p">]</span>
+    <span class="c1"># TDP principal </span>
+    <span class="n">CD_wheel_main</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstrut</span><span class="p">):</span>
+        <span class="n">CD_wheel_main</span> <span class="o">=</span> <span class="n">CD_wheel_main</span><span class="o">+</span> <span class="n">CDLGw</span><span class="o">*</span><span class="n">main_landing_gear</span><span class="p">[</span><span class="s1">&#39;unit_wheels_number&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">Swheel_main</span><span class="o">/</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+
+    <span class="n">CD_strut_main</span> <span class="o">=</span> <span class="n">nstrut</span><span class="o">*</span><span class="n">CDLGs</span><span class="o">*</span><span class="n">Sstrut_main</span><span class="o">/</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+    <span class="n">CD_main</span>       <span class="o">=</span> <span class="n">CD_strut_main</span>  <span class="o">+</span> <span class="n">CD_wheel_main</span>
+    <span class="c1"># TDP nariz</span>
+    <span class="n">CD_wheel_nose</span> <span class="o">=</span> <span class="n">CDLGw</span><span class="o">*</span><span class="n">nose_landing_gear</span><span class="p">[</span><span class="s1">&#39;unit_wheels_number&#39;</span><span class="p">]</span> <span class="o">*</span><span class="n">Swheel_nose</span><span class="o">/</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+    <span class="n">CD_strut_nose</span> <span class="o">=</span> <span class="n">CDLGs</span><span class="o">*</span><span class="n">Sstrut_nose</span><span class="o">/</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+    <span class="n">CD_nose</span>       <span class="o">=</span> <span class="n">CD_strut_nose</span>  <span class="o">+</span> <span class="n">CD_wheel_nose</span>
+    <span class="c1"># Miscelleaneous drag</span>
+    <span class="n">CD_main</span> <span class="o">=</span> <span class="mf">1.10</span><span class="o">*</span><span class="n">CD_main</span>
+    <span class="n">CD_nose</span> <span class="o">=</span> <span class="mf">1.10</span><span class="o">*</span><span class="n">CD_nose</span>
+
+    <span class="k">return</span> <span class="n">CD_main</span><span class="p">,</span> <span class="n">CD_nose</span></div>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

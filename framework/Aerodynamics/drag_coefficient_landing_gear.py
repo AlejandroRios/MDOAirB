@@ -12,7 +12,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -33,7 +33,7 @@ def drag_coefficient_landing_gear(vehicle):
     Description:
         This function estimates the contribution to drag related to landing gear (main and nose)
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - CD_main
         - CD_nose

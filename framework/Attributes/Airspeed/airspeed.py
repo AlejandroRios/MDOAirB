@@ -20,7 +20,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -44,9 +44,9 @@ def mach_to_V_cas(mach, h, delta_ISA):
     Description:
         - Converts mach number to Calibrated AirSpeed
     Inputs:
-        - mach
-        - h
-        - delta_ISA
+        - mach - mach number
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
         - Calibated airspeed [knots]
     """
@@ -63,9 +63,9 @@ def mach_to_V_tas(mach, h, delta_ISA):
     Description:
         -  Converts mach number to True Air Speed
     Inputs:
-        - mach
-        - h
-        - delta_ISA
+        - mach - mach number
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
         - True airspeed [knots]
     """
@@ -79,11 +79,11 @@ def V_cas_to_V_tas(V_cas, h, delta_ISA):
     Description:
         -  Converts Calibrated Air Speed to True Air Speed
     Inputs:
-        - V_cas
-        - h
-        - delta_ISA
+        - V_cas - calibrated airspeed [kt]
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - True airspeed [knots]
+        - True airspeed [kt]
     """
     speed_of_sound = 661.4786  # sea level [knots]
     theta, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
@@ -97,11 +97,11 @@ def V_tas_to_V_cas(V_tas, h, delta_ISA):
     Description:
         -  Converts True Air Speed to Calibrated Air Speed
     Inputs:
-        - V_tas
-        - h
-        - delta_ISA
+        - V_tas - true airspeed [kt]
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - Calibrated airspeed [knots]
+        - Calibrated airspeed [kt]
     """
     speed_of_sound = 661.4786  # sea level [knots]
     theta, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
@@ -118,11 +118,11 @@ def V_cas_to_mach(V_cas, h, delta_ISA):
     Description:
         - Converts calibrated air speed to mach
     Inputs:
-        - V_cas
-        - h
-        - delta_ISA
+        - V_cas - calibrated airspeed [kt]
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - Mach number
+        - mach - mach number
     """
     _, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
     speed_of_sound = 661.4786  # sea level [knots]
@@ -140,11 +140,11 @@ def crossover_altitude(mach, V_cas, delta_ISA):
         The curves for constant CAS and constant Mach intersect at this
         point. Above this altitude the Mach number is used to reference speeds.
     Inputs:
-        - mach
-        - V_cas
-        - delta_ISA
+        - mach - mach number
+        - V_cas - calibrated airspeed [kt]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - crossover_altitude
+        - crossover_altitude [ft]
     """
     flag = 0
     h = 0

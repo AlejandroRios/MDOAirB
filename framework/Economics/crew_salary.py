@@ -15,7 +15,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -37,11 +37,11 @@ def crew_salary(MTOW):
     Description:
         - Calculate the tripulation salary as function of MTOW
     Inputs:
-        - MTOW
+        - MTOW - maximum takeoff weight [kg]
     Outputs:
-        - captain_salary
-        - first_officer_salary
-        - flight_attendant_salary
+        - captain_salary - [US$]
+        - first_officer_salary - [US$]
+        - flight_attendant_salary - [US$]
     """
     A0_captain = -2.2342E+03
     A1_captain = 3.3898E+00

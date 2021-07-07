@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -47,9 +47,9 @@ def wing_mass(vehicle, maximum_takeoff_weight, mach, altitude):
     Reference: 
         - Methodology from Isikveren 2002, pag. 56, eq. 84
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
-        - mach
+        - mach - mach number
         - altitude
     Outputs:
         - wing mass [kg]
@@ -125,7 +125,7 @@ def horizontal_tail_mass(V_dive, vehicle):
         - Methodology from Roskam-Torenbeek, pag. 74, eq. 5.19
     Inputs:
         - V_dive
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - horizontal tail mass [kg]
     """
@@ -153,7 +153,7 @@ def vertical_tail_mass(V_dive, vehicle):
         - Methodology from Roskam-Torenbeek, pag. 74, eq. 5.20
     Inputs:
         - V_dive
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - vertical tail mass [kg]
     """
@@ -183,7 +183,7 @@ def fuselage_mass(V_dive, vehicle):
         - Methodology from Roskam-Torenbeek, pag. 77, eq. 5.27
     Inputs:
         - V_dive
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - fuselage mass [kg]
     """
@@ -238,7 +238,7 @@ def nacelle_mass(vehicle):
     Reference: 
         - Methodology from Roskam-GD, pag. 79, eq. 5.35
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - nacelle mass [kg]
     """
@@ -257,7 +257,7 @@ def main_landig_gear_mass(maximum_takeoff_weight, vehicle):
         - Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
     Inputs:
         - maximum_takeoff_weight
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - main landing gear mass [kg]
     """
@@ -284,7 +284,7 @@ def nose_landig_gear_mass(maximum_takeoff_weight, vehicle):
         - Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
     Inputs:
         - maximum_takeoff_weight
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - nose landing gear mass [kg]
     """
@@ -311,7 +311,7 @@ def engine_mass(engine_static_thrust, vehicle):
 
     Inputs:
         - engine_static_thrust
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - engine mass [kg]
     """
@@ -328,7 +328,7 @@ def fuel_system_mass(vehicle):
         - Methodology from Roskam-Torenbeek, pag. 92, eq. 6.24
 
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - fuel system mass [kg]
     """
@@ -362,7 +362,7 @@ def propulsion_system_mass(vehicle, engine_weight):
         - Methodology from Roskam-Torenbeek, pag. 93, eq. 6.28 - 6.41
 
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - engine_weight
     Outputs:
         - propulsion system mass [kg]
@@ -429,7 +429,7 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
         - Methodology from Raymer, pag. 459, eq. 15.25 - 15.45 and Roskam-Torenbeek, pag. 105, eq. 7.31 - 7.45
 
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
         - fuel_weight
     Outputs:
@@ -529,14 +529,14 @@ def aircraft_empty_weight(vehicle, maximum_takeoff_weight, fuel_mass, engine_sta
         -
 
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
         - fuel_mass
         - engine_static_thrust
-        - mach
+        - mach - mach number
         - altitude
     Outputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     """
     aircraft = vehicle['aircraft']
 

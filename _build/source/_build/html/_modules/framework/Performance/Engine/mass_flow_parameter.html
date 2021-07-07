@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Performance.Engine.mass_flow_parameter &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Performance.Engine.mass_flow_parameter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Performance.Engine.mass_flow_parameter</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">MDOAirB</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This module calculates the mass flow parameters. </span>
+
+<span class="sd">Reference:</span>
+<span class="sd">    - Aircraft Engine Design, 2003,  Jack Mattingly, William H. Heiser, David T. Pratt</span>
+
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">| Authors: Alejandro Rios</span>
+<span class="sd">| Email: aarc.88@gmail.com</span>
+<span class="sd">| Creation: January 2021</span>
+<span class="sd">| Last modification: July 2021</span>
+<span class="sd">| Language  : Python 3.8 or &gt;</span>
+<span class="sd">| Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">framework.Attributes.Atmosphere.temperature_dependent_air_properties</span> <span class="kn">import</span> <span class="n">FAIR</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">optimize</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="MASSFP"><a class="viewcode-back" href="../../../../framework.Performance.Engine.html#framework.Performance.Engine.mass_flow_parameter.MASSFP">[docs]</a><span class="k">def</span> <span class="nf">MASSFP</span><span class="p">(</span><span class="n">Tt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ht</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Prt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gammat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        - This function calculates the mass flow parameters.</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - Tt</span>
+<span class="sd">        - f</span>
+<span class="sd">        - M</span>
+<span class="sd">        - ht</span>
+<span class="sd">        - Prt</span>
+<span class="sd">        - gammat</span>
+<span class="sd">        - at</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - TtdT</span>
+<span class="sd">        - PtdP</span>
+<span class="sd">        - MFP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">list_variables</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tt</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">ht</span><span class="p">,</span> <span class="n">Prt</span><span class="p">,</span> <span class="n">gammat</span><span class="p">,</span> <span class="n">at</span><span class="p">]</span>
+    <span class="n">nargin</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list_variables</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">nargin</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="c1"># in: T0 [K] f | out: ht [J/kg] Prt [Pa] R0 [J/KgK]</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">ht</span><span class="p">,</span> <span class="n">Prt</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gammat</span><span class="p">,</span> <span class="n">at</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">Tt</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">h_t</span><span class="p">,</span> <span class="n">g_c</span><span class="p">,</span> <span class="n">f_g</span><span class="p">,</span> <span class="n">M_g</span>
+    <span class="n">h_t</span> <span class="o">=</span> <span class="n">ht</span>
+    <span class="n">g_c</span> <span class="o">=</span> <span class="mi">1</span>             <span class="c1"># [m/s]</span>
+    <span class="n">f_g</span> <span class="o">=</span> <span class="n">f</span>
+    <span class="n">M_g</span> <span class="o">=</span> <span class="n">M</span>
+
+    <span class="n">Vguess</span> <span class="o">=</span> <span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">at</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">((</span><span class="n">gammat</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">M</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">Vguess</span><span class="p">)</span>
+    <span class="n">TtdT</span> <span class="o">=</span> <span class="n">Tt</span><span class="o">/</span><span class="n">T_g</span>
+    <span class="n">PtdP</span> <span class="o">=</span> <span class="n">Prt</span><span class="o">/</span><span class="n">Pr_g</span>
+    <span class="n">MFP</span> <span class="o">=</span> <span class="p">(</span><span class="n">M</span><span class="o">/</span><span class="n">PtdP</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">gamman_g</span><span class="o">*</span><span class="n">g_c</span><span class="p">)</span><span class="o">/</span><span class="n">R_g</span><span class="o">*</span><span class="n">TtdT</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">TtdT</span><span class="p">,</span> <span class="n">PtdP</span><span class="p">,</span> <span class="n">MFP</span></div>
+
+
+<div class="viewcode-block" id="vals"><a class="viewcode-back" href="../../../../framework.Performance.Engine.html#framework.Performance.Engine.mass_flow_parameter.vals">[docs]</a><span class="k">def</span> <span class="nf">vals</span><span class="p">(</span><span class="n">V</span><span class="p">):</span>
+
+    <span class="k">global</span> <span class="n">T_g</span><span class="p">,</span> <span class="n">Pr_g</span><span class="p">,</span> <span class="n">R_g</span><span class="p">,</span> <span class="n">gamman_g</span><span class="p">,</span> <span class="n">a_g</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">h_t</span> <span class="o">-</span> <span class="n">V</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g_c</span><span class="p">)</span>
+    <span class="n">T_g</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Pr_g</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">R_g</span><span class="p">,</span> <span class="n">gamman_g</span><span class="p">,</span> <span class="n">a_g</span> <span class="o">=</span> <span class="n">FAIR</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f_g</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="n">Vn</span> <span class="o">=</span> <span class="n">M_g</span><span class="o">*</span><span class="n">a_g</span>
+    <span class="k">if</span> <span class="n">V</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">Verror</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">V</span><span class="o">-</span><span class="n">Vn</span><span class="p">)</span><span class="o">/</span><span class="n">V</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Verror</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span><span class="o">-</span><span class="n">Vn</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Verror</span></div>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># import time</span>
+<span class="c1"># start_time = time.time()</span>
+<span class="c1"># print(MASSFP(Tt=1.4662e3, f=0.0222, M=1))</span>
+<span class="c1"># print(&quot;--- %s seconds ---&quot; % (time.time() - start_time))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

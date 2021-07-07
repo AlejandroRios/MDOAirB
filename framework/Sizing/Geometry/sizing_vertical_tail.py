@@ -12,7 +12,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -43,11 +43,11 @@ def sizing_vertical_tail(vehicle,
         - This function performs the sizing of the vertical tail.
  
     Inputs:
-        - vehicle
-        - mach
+        - vehicle - dictionary containing aircraft parameters
+        - mach - mach number
         - altitude
     Outputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     """
     vertical_tail = vehicle['vertical_tail']
     horizontal_tail = vehicle['horizontal_tail']

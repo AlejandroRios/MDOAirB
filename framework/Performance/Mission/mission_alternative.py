@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -66,7 +66,7 @@ def mission_alternative(vehicle,landing_weight):
         - This function performs the mission analysis of the aircraft for alternate airport.
  
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - landing_weight
     Outputs:
         - total_mission_burned_fuel

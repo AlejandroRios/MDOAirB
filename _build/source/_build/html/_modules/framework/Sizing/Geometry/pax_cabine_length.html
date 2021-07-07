@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry.pax_cabine_length &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry.pax_cabine_length</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Sizing.Geometry.pax_cabine_length</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">MDOAirB</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This module calculates the pax cabine length.</span>
+
+<span class="sd">Reference:</span>
+<span class="sd">    - PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf</span>
+
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    - Clean code</span>
+<span class="sd">    - Rename variables</span>
+<span class="sd">    - Review this code</span>
+
+<span class="sd">| Authors: Alejandro Rios</span>
+<span class="sd">| Email: aarc.88@gmail.com</span>
+<span class="sd">| Creation: January 2021</span>
+<span class="sd">| Last modification: July 2021</span>
+<span class="sd">| Language  : Python 3.8 or &gt;</span>
+<span class="sd">| Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="pax_cabine_length"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.pax_cabine_length.pax_cabine_length">[docs]</a><span class="k">def</span> <span class="nf">pax_cabine_length</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        - This module calculates the pax cabine length</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - vehicle - dictionary containing aircraft parameters</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - LenFus</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">aircraft</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;aircraft&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">cabine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;cabine&#39;</span><span class="p">]</span>
+
+    <span class="n">GalleyProf</span> <span class="o">=</span> <span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_prof&#39;</span><span class="p">]</span>
+    <span class="n">ToilletProf</span> <span class="o">=</span> <span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;toillet_prof&#39;</span><span class="p">]</span>
+    <span class="n">SeatProf</span> <span class="o">=</span> <span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_prof&#39;</span><span class="p">]</span>  <span class="c1"># [m]</span>
+
+    <span class="c1"># ---------------------------------- BEGIN -------------------------</span>
+    <span class="n">DeltaSeats</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_pitch&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">SeatProf</span>
+    <span class="n">N1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;passenger_capacity&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">])</span>
+    <span class="n">N2</span> <span class="o">=</span> <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;passenger_capacity&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">N1</span>
+    <span class="n">Nrow</span> <span class="o">=</span> <span class="n">N1</span>
+    <span class="k">if</span> <span class="n">N2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">Nrow</span> <span class="o">=</span> <span class="n">N1</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="n">x0</span> <span class="o">=</span> <span class="mf">1.7</span>  <span class="c1"># entrance area</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nrow</span><span class="p">):</span>
+        <span class="c1"># seattop_fileira(x0, fuselage, SeatProf,vehicle)</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span><span class="o">+</span><span class="n">SeatProf</span><span class="o">+</span><span class="n">DeltaSeats</span>
+    <span class="c1"># **** Desenha Toillet</span>
+    <span class="c1"># Descobre lado de maior largura</span>
+    <span class="n">Naux1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">Naux2</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">Naux1</span>
+    <span class="k">if</span> <span class="n">Naux2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">NseatG</span> <span class="o">=</span> <span class="n">Naux1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">NseatG</span><span class="o">=</span> <span class="n">Naux1</span>
+
+    <span class="n">x0T</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">-</span> <span class="n">DeltaSeats</span> <span class="o">+</span> <span class="mf">0.1</span>
+    <span class="c1">#LenFus = x0T</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x0T</span><span class="p">)</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Naux1</span><span class="o">*</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;aisle_width&#39;</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ToilletProf</span><span class="p">)</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">NseatG</span><span class="o">*</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="n">x0G</span> <span class="o">=</span> <span class="n">x0T</span> <span class="o">+</span> <span class="mf">1.</span> <span class="o">+</span> <span class="n">ToilletProf</span>  <span class="c1"># walking area with 1 m large</span>
+    <span class="n">LenFus</span> <span class="o">=</span> <span class="n">x0G</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">LenFus</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="seattop_fileira"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.pax_cabine_length.seattop_fileira">[docs]</a><span class="k">def</span> <span class="nf">seattop_fileira</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">fuselage</span><span class="p">,</span> <span class="n">SeatProf</span><span class="p">,</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        - This function calcute the seat top row</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - x0</span>
+<span class="sd">        - fuselage</span>
+<span class="sd">        -  SeatProf</span>
+<span class="sd">        - vehicle - dictionary containing aircraft parameters</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - ???</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cabine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;cabine&#39;</span><span class="p">]</span>
+
+    <span class="n">Naux1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">Naux2</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">Naux1</span>
+    <span class="k">if</span> <span class="n">Naux2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># numero impar de fileiras</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Naux1</span><span class="p">):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">SeatProf</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="c1"># fill(x,y,&#39;r&#39;)</span>
+            <span class="c1"># hold on</span>
+
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">Naux1</span><span class="o">*</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;aisle_width&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">Naux1</span><span class="p">)):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">SeatProf</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="c1"># fill(x,y,&#39;r&#39;)</span>
+            <span class="c1"># hold on</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># numero par de fileiras</span>
+        <span class="c1"># fprintf(&#39;\n fuselage[&#39;seat_abreast_number&#39;] � par \n&#39;)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">SeatProf</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="c1"># fill(x,y,&#39;r&#39;)</span>
+            <span class="c1"># hold on</span>
+
+        <span class="n">y0</span> <span class="o">=</span> <span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> \
+            <span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;aisle_width&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;seat_abreast_number&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">SeatProf</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">cabine</span><span class="p">[</span><span class="s1">&#39;seat_width&#39;</span><span class="p">])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="k">return</span></div>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># MAIN</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># TEST</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

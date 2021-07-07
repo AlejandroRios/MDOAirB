@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -45,11 +45,11 @@ def sizing_tail(vehicle, mach, altitude):
         - This function performs an iterative cycle to re-size the vertical and 
         horizontal stabilizer to decrease the whole airplane weight.
     Inputs:
-        - vehicle
-        - mach
+        - vehicle - dictionary containing aircraft parameters
+        - mach - mach number
         - altitude
     Outputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     """
 
     MODULE_DIR = 'c:/Users/aarc8/Documents/github\MDOAirB/framework/CPACS_update'

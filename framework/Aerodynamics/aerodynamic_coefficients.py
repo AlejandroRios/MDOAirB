@@ -9,12 +9,12 @@ Reference:
     - 
 
 TODO's:
-    -
+    - Update for last dictionaty version vehicle
 
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -38,11 +38,11 @@ def zero_fidelity_drag_coefficient(aircraft_data, CL, phase):
     Description:
         zero fidelity drag coefficient estimation
     Inputs:
-        - aircraft_data
-        - CL
-        - phase
+        - aircraft_data - dictionary containing aircraft data
+        - CL - lift coefficient
+        - phase - flight phase
     Outputs:
-        - CD
+        - CD - drag coefficient
     '''
 
     wing_aspect_ratio = wing['aspect_ratio']

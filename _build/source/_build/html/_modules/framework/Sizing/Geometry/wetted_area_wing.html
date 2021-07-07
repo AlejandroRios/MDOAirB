@@ -1,0 +1,641 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Sizing.Geometry.wetted_area_wing &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Sizing.Geometry.wetted_area_wing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Sizing.Geometry.wetted_area_wing</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">MDOAirB</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This module calculates the wetted area of the wing.</span>
+<span class="sd">Reference:</span>
+<span class="sd">    -</span>
+
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    -</span>
+
+<span class="sd">| Authors: Alejandro Rios</span>
+<span class="sd">| Email: aarc.88@gmail.com</span>
+<span class="sd">| Creation: January 2021</span>
+<span class="sd">| Last modification: July 2021</span>
+<span class="sd">| Language  : Python 3.8 or &gt;</span>
+<span class="sd">| Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+<span class="c1"># from framework.Sizing.Geometry.airfoil_preprocessing import airfoil_preprocessing</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">framework.Sizing.Geometry.area_triangle_3d</span> <span class="kn">import</span> <span class="n">area_triangle_3d</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+<div class="viewcode-block" id="wetted_area_wing"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.wetted_area_wing.wetted_area_wing">[docs]</a><span class="k">def</span> <span class="nf">wetted_area_wing</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">fileToRead1</span><span class="p">,</span> <span class="n">fileToRead2</span><span class="p">,</span> <span class="n">fileToRead3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        - This is the main function for the wing wetted area calculation.</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - vehicle - dictionary containing aircraft parameters</span>
+<span class="sd">        - fileToRead1</span>
+<span class="sd">        - fileToRead2</span>
+<span class="sd">        - fileToRead3</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - total_area</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wing</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;wing&#39;</span><span class="p">]</span>
+    <span class="n">fuselage</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;fuselage&#39;</span><span class="p">]</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">vehicle</span><span class="p">[</span><span class="s1">&#39;engine&#39;</span><span class="p">]</span>
+
+    <span class="n">semispan</span> <span class="o">=</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;span&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+    <span class="c1"># Calcula area exposta ada asa</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+    <span class="c1">#</span>
+    <span class="n">raio</span> <span class="o">=</span> <span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="n">tanaux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;sweep_leading_edge&#39;</span><span class="p">]</span> <span class="p">)</span>
+
+    <span class="n">airfoil_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">fileToRead1</span><span class="p">,</span> <span class="n">fileToRead2</span><span class="p">,</span> <span class="n">fileToRead3</span><span class="p">]</span>
+    <span class="n">airfoil_chords</span> <span class="o">=</span> <span class="p">[</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">],</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">],</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]]</span>
+
+    <span class="c1">########################################################################################</span>
+    <span class="c1"># Pre-processing airfoils</span>
+    <span class="c1">########################################################################################</span>
+    <span class="n">airfoils</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="p">{},</span>
+                <span class="mi">2</span><span class="p">:</span> <span class="p">{},</span>
+                <span class="mi">3</span><span class="p">:</span> <span class="p">{}}</span>
+
+    <span class="n">panel_number</span> <span class="o">=</span> <span class="mi">201</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">airfoils</span><span class="p">)):</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">airfoils</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airfoil_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">airfoils</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;chord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airfoil_chords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="c1"># for i in airfoils:</span>
+    <span class="c1">#     airfoil = i</span>
+    <span class="c1">#     airfoil_name = airfoils[airfoil][&#39;name&#39;]</span>
+    <span class="c1">#     airfoil_preprocessing(airfoil_name, panel_number)</span>
+
+    <span class="c1">########################################################################################</span>
+    <span class="c1"># Importing Data</span>
+    <span class="c1">########################################################################################</span>
+    <span class="c1"># Load airfoil coordinates</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="s2">&quot;Database/Airfoils/&quot;</span> <span class="o">+</span> <span class="n">airfoil_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.dat&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    <span class="n">df_head</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+    <span class="n">n_coordinates</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Compute distance between consecutive points</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds_vector</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_coordinates</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_coordinates</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">*</span><span class="n">dx</span><span class="o">+</span><span class="n">dy</span><span class="o">*</span><span class="n">dy</span><span class="p">)</span>
+
+    <span class="n">xa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Find leading edge index</span>
+    <span class="k">while</span> <span class="n">xb</span> <span class="o">&lt;</span> <span class="n">xa</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">xa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">xb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">n_panels_x</span> <span class="o">=</span> <span class="mi">51</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_panels_x</span><span class="p">)</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">xp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.5</span><span class="p">))</span>
+
+    <span class="c1"># Interpolate upper skin</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xaux</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dsaux</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+        <span class="n">xaux</span><span class="p">,</span> <span class="n">dsaux</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)(</span><span class="n">xp</span><span class="p">)</span>
+    <span class="n">yupp_root</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)(</span><span class="n">dsinterp</span><span class="p">)</span>
+
+    <span class="c1"># Interpolate lower skin</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">ind</span><span class="p">:</span><span class="n">n_coordinates</span><span class="p">]</span>
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xaux</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">:</span><span class="n">n_coordinates</span><span class="p">]</span>
+
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+        <span class="n">xaux</span><span class="p">,</span> <span class="n">dsaux</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)(</span><span class="n">xp</span><span class="p">)</span>
+    <span class="n">ylow_root</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)(</span><span class="n">dsinterp</span><span class="p">)</span>
+
+    <span class="n">xproot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">xp</span><span class="p">),</span> <span class="n">xp</span><span class="p">])</span>
+    <span class="n">xproot</span> <span class="o">=</span> <span class="n">xproot</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">yproot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">yupp_root</span><span class="p">),</span> <span class="n">ylow_root</span><span class="p">])</span>
+    <span class="n">yproot</span> <span class="o">=</span> <span class="n">yproot</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">esspraiz</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">yupp_root</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">ylow_root</span><span class="p">)</span>
+
+
+    <span class="c1"># plt.figure()</span>
+    <span class="c1"># plt.plot(xproot,yproot,&#39;bo&#39;)</span>
+
+    <span class="c1">########################################################################################</span>
+    <span class="c1"># Load airfoil coordinates</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="s2">&quot;Database/Airfoils/&quot;</span> <span class="o">+</span> <span class="n">airfoil_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.dat&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    <span class="n">df_head</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+    <span class="n">n_coordinates</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Compute distance between consecutive points</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds_vector</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_coordinates</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_coordinates</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">*</span><span class="n">dx</span><span class="o">+</span><span class="n">dy</span><span class="o">*</span><span class="n">dy</span><span class="p">)</span>
+
+    <span class="n">xa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Find leading edge index</span>
+    <span class="k">while</span> <span class="n">xb</span> <span class="o">&lt;</span> <span class="n">xa</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">xa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">xb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">n_panels_x</span> <span class="o">=</span> <span class="mi">51</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_panels_x</span><span class="p">)</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">xp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.5</span><span class="p">))</span>
+
+    <span class="c1"># Interpolate upper skin</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xaux</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dsaux</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+        <span class="n">xaux</span><span class="p">,</span> <span class="n">dsaux</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)(</span><span class="n">xp</span><span class="p">)</span>
+    <span class="n">yupp_kink</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)(</span><span class="n">dsinterp</span><span class="p">)</span>
+
+    <span class="c1"># Interpolate lower skin</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">ind</span><span class="p">:</span><span class="n">n_coordinates</span><span class="p">]</span>
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xaux</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">:</span><span class="n">n_coordinates</span><span class="p">]</span>
+
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+        <span class="n">xaux</span><span class="p">,</span> <span class="n">dsaux</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)(</span><span class="n">xp</span><span class="p">)</span>
+    <span class="n">ylow_kink</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)(</span><span class="n">dsinterp</span><span class="p">)</span>
+
+    <span class="n">xpkink</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">xp</span><span class="p">),</span> <span class="n">xp</span><span class="p">])</span>
+    <span class="n">xpkink</span> <span class="o">=</span> <span class="n">xpkink</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">ypkink</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">yupp_kink</span><span class="p">),</span> <span class="n">ylow_kink</span><span class="p">])</span>
+    <span class="n">ypkink</span> <span class="o">=</span> <span class="n">ypkink</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="c1"># plt.plot(xpkink,ypkink,&#39;ro&#39;)</span>
+    <span class="c1"># plt.show()</span>
+    <span class="c1">########################################################################################</span>
+    <span class="c1"># Load airfoil coordinates</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="s2">&quot;Database/Airfoils/&quot;</span> <span class="o">+</span> <span class="n">airfoil_names</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.dat&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    <span class="n">df_head</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+    <span class="n">n_coordinates</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Compute distance between consecutive points</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds_vector</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_coordinates</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_coordinates</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">*</span><span class="n">dx</span><span class="o">+</span><span class="n">dy</span><span class="o">*</span><span class="n">dy</span><span class="p">)</span>
+
+    <span class="n">xa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Find leading edge index</span>
+    <span class="k">while</span> <span class="n">xb</span> <span class="o">&lt;</span> <span class="n">xa</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">xa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">xb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">n_panels_x</span> <span class="o">=</span> <span class="mi">51</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_panels_x</span><span class="p">)</span>
+    <span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">xp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.5</span><span class="p">))</span>
+
+    <span class="c1"># Interpolate upper skin</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xaux</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dsaux</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+        <span class="n">xaux</span><span class="p">,</span> <span class="n">dsaux</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)(</span><span class="n">xp</span><span class="p">)</span>
+    <span class="n">yupp_tip</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)(</span><span class="n">dsinterp</span><span class="p">)</span>
+
+    <span class="c1"># Interpolate lower skin</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dsaux</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">ind</span><span class="p">:</span><span class="n">n_coordinates</span><span class="p">]</span>
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xaux</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">:</span><span class="n">n_coordinates</span><span class="p">]</span>
+
+    <span class="n">dsinterp</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span>
+        <span class="n">xaux</span><span class="p">,</span> <span class="n">dsaux</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)(</span><span class="n">xp</span><span class="p">)</span>
+    <span class="n">ylow_tip</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;slinear&#39;</span><span class="p">)(</span><span class="n">dsinterp</span><span class="p">)</span>
+
+    <span class="n">xptip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">xp</span><span class="p">),</span> <span class="n">xp</span><span class="p">])</span>
+    <span class="n">xptip</span> <span class="o">=</span> <span class="n">xptip</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">yptip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">yupp_tip</span><span class="p">),</span> <span class="n">ylow_tip</span><span class="p">])</span>
+    <span class="n">yptip</span> <span class="o">=</span> <span class="n">yptip</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="c1">########################################################################################</span>
+    <span class="c1">########################################################################################</span>
+    <span class="c1"># =====&gt; Wing</span>
+    <span class="k">if</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">wingpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.48</span><span class="o">*</span><span class="n">raio</span>
+        <span class="n">engzpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.485</span><span class="o">*</span><span class="n">raio</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">wingpos</span> <span class="o">=</span> <span class="n">raio</span><span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">1.15</span><span class="o">*</span><span class="mf">0.12</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">engzpos</span> <span class="o">=</span> <span class="n">wingpos</span><span class="o">-</span><span class="mf">0.10</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;fan_diameter&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="c1"># Rotate root section according to given incidence</span>
+    <span class="n">teta</span> <span class="o">=</span> <span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_incidence&#39;</span><span class="p">]</span>  <span class="c1"># - points sky + points ground</span>
+    <span class="n">tetar</span> <span class="o">=</span> <span class="n">teta</span><span class="o">*</span><span class="n">rad</span>
+    <span class="n">xproot</span> <span class="o">=</span> <span class="n">xproot</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span><span class="o">-</span><span class="n">yproot</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span>
+    <span class="n">yproot</span> <span class="o">=</span> <span class="n">xproot</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span><span class="o">+</span><span class="n">yproot</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span>
+
+    <span class="c1"># Rotates kink station airfoil</span>
+    <span class="n">teta</span> <span class="o">=</span> <span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_incidence&#39;</span><span class="p">]</span>
+    <span class="n">tetar</span> <span class="o">=</span> <span class="n">teta</span><span class="o">*</span><span class="n">rad</span>
+    <span class="n">xpkink</span> <span class="o">=</span> <span class="n">xpkink</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span><span class="o">-</span><span class="n">ypkink</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span>
+    <span class="n">ypkink</span> <span class="o">=</span> <span class="n">xpkink</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span><span class="o">+</span><span class="n">ypkink</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span>
+
+    <span class="c1"># Rotates tip airfoil</span>
+    <span class="n">teta</span> <span class="o">=</span> <span class="o">-</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_incidence&#39;</span><span class="p">]</span>
+    <span class="n">tetar</span> <span class="o">=</span> <span class="n">teta</span><span class="o">*</span><span class="n">rad</span>
+    <span class="n">xptip</span> <span class="o">=</span> <span class="n">xptip</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span><span class="o">-</span><span class="n">yptip</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span>
+    <span class="n">yptip</span> <span class="o">=</span> <span class="n">xptip</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span><span class="o">+</span><span class="n">yptip</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tetar</span><span class="p">)</span>
+    <span class="n">deltax</span> <span class="o">=</span> <span class="n">semispan</span><span class="o">*</span><span class="n">tanaux</span>
+
+    <span class="n">maxcota</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.48</span><span class="o">*</span><span class="p">(</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mf">1.15</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">esspraiz</span>
+    <span class="n">yraiz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">fuselage</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">maxcota</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">wing_leading_edge_xposition_ref</span>  <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">xleraiz</span> <span class="o">=</span> <span class="n">wing_leading_edge_xposition_ref</span> <span class="o">+</span><span class="n">yraiz</span><span class="o">*</span><span class="n">tanaux</span>
+    <span class="n">xlequebra</span> <span class="o">=</span> <span class="n">wing_leading_edge_xposition_ref</span> <span class="o">+</span><span class="n">semispan</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">tanaux</span>
+
+    <span class="n">xistosxper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">wing_leading_edge_xposition_ref</span> <span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">xproot</span><span class="p">],</span> <span class="p">[</span><span class="n">xleraiz</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">xproot</span><span class="p">],</span>
+                           <span class="p">[</span><span class="n">xlequebra</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">xpkink</span><span class="p">],</span> <span class="p">[</span><span class="n">wing_leading_edge_xposition_ref</span> <span class="o">+</span><span class="n">deltax</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;tip_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">xptip</span><span class="p">]])</span>
+
+    <span class="n">xistoszper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[(</span><span class="n">wingpos</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">yproot</span><span class="p">)],</span> <span class="p">[</span><span class="n">wingpos</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;root_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">yproot</span><span class="p">],</span> <span class="p">[(</span><span class="n">wingpos</span><span class="o">+</span><span class="p">(</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">semispan</span> <span class="o">*</span>
+                                                                                          <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;dihedral&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;kink_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">ypkink</span><span class="p">)],</span> <span class="p">[(</span><span class="n">semispan</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;dihedral&#39;</span><span class="p">])</span><span class="o">+</span><span class="n">wingpos</span><span class="o">+</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;center_chord&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">wing</span><span class="p">[</span><span class="s1">&#39;taper_ratio&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">yptip</span><span class="p">)]])</span>
+
+    <span class="n">sizex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xproot</span><span class="p">)</span>
+
+    <span class="n">yper1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sizex</span><span class="p">)</span>
+    <span class="n">yper2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">sizex</span><span class="p">)</span><span class="o">*</span><span class="n">yraiz</span>
+    <span class="n">yper3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">sizex</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">semispan</span><span class="o">*</span><span class="n">engine</span><span class="p">[</span><span class="s1">&#39;yposition&#39;</span><span class="p">])</span>
+    <span class="c1"># yper3(1:sizex(2))=semispan-df/2</span>
+    <span class="n">yper4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">sizex</span><span class="p">)</span><span class="o">*</span><span class="n">semispan</span>
+    <span class="n">xistosyper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">yper1</span><span class="p">],</span> <span class="p">[</span><span class="n">yper2</span><span class="p">],</span> <span class="p">[</span><span class="n">yper3</span><span class="p">],</span> <span class="p">[</span><span class="n">yper4</span><span class="p">]])</span>
+
+    <span class="c1"># C</span>
+    <span class="c1"># surface(xistosxper,xistosyper,xistoszper,&#39;FaceLighting&#39;,&#39;gouraud&#39;,&#39;EdgeColor&#39;,&#39;none&#39;,&#39;FaceColor&#39;,&#39;blue&#39;)</span>
+    <span class="c1"># surface(xistosxper,-xistosyper,xistoszper,&#39;FaceLighting&#39;,&#39;gouraud&#39;,&#39;EdgeColor&#39;,&#39;none&#39;,&#39;FaceColor&#39;,&#39;blue&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1"># === End wing</span>
+    <span class="c1"># axis equal</span>
+
+    <span class="n">xuroot</span> <span class="o">=</span> <span class="n">xp</span>
+    <span class="n">xlroot</span> <span class="o">=</span> <span class="n">xp</span>
+
+    <span class="n">xukink</span> <span class="o">=</span> <span class="n">xp</span>
+    <span class="n">xlkink</span> <span class="o">=</span> <span class="n">xp</span>
+
+    <span class="n">xutip</span> <span class="o">=</span> <span class="n">xp</span>
+    <span class="n">xltip</span> <span class="o">=</span> <span class="n">xp</span>
+
+    <span class="n">wing</span><span class="p">[</span><span class="s1">&#39;wetted_area&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">calcareawet</span><span class="p">(</span><span class="n">xistosxper</span><span class="p">,</span> <span class="n">xistosyper</span><span class="p">,</span> <span class="n">xistoszper</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">vehicle</span><span class="p">,</span> <span class="n">xutip</span><span class="p">,</span> <span class="n">yupp_tip</span><span class="p">,</span> <span class="n">xltip</span><span class="p">,</span> <span class="n">ylow_tip</span><span class="p">,</span>
+           <span class="n">xukink</span><span class="p">,</span> <span class="n">yupp_kink</span><span class="p">,</span> <span class="n">xlkink</span><span class="p">,</span> <span class="n">ylow_kink</span><span class="p">,</span> <span class="n">xuroot</span><span class="p">,</span> <span class="n">yupp_root</span><span class="p">,</span> <span class="n">xlroot</span><span class="p">,</span> <span class="n">ylow_root</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="calcareawet"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.wetted_area_wing.calcareawet">[docs]</a><span class="k">def</span> <span class="nf">calcareawet</span><span class="p">(</span><span class="n">xistosXper</span><span class="p">,</span> <span class="n">xistosYper</span><span class="p">,</span> <span class="n">xistosZper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        - This function calculates the wetted area of the wing.</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - xistosXper</span>
+<span class="sd">        - xistosYper</span>
+<span class="sd">        - xistosZper</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - total_area</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calcula área exposta da asa (m2)</span>
+    <span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">xistosXper</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="n">areas_aux1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">areas_aux2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">areawet1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">areawet2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># for j=2:(m-1):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># for i=1:(n-1):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">xistosXper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">xistosYper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">z1</span> <span class="o">=</span> <span class="n">xistosZper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">xistosXper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">xistosYper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">z2</span> <span class="o">=</span> <span class="n">xistosZper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">x3</span> <span class="o">=</span> <span class="n">xistosXper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">y3</span> <span class="o">=</span> <span class="n">xistosYper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">z3</span> <span class="o">=</span> <span class="n">xistosZper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">Stri1</span> <span class="o">=</span> <span class="n">tri3darea</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span>
+
+            <span class="n">areawet1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Stri1</span><span class="p">)</span>
+
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">xistosXper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">xistosYper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">z1</span> <span class="o">=</span> <span class="n">xistosZper</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">xistosXper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">xistosYper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">z2</span> <span class="o">=</span> <span class="n">xistosZper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+
+            <span class="n">x3</span> <span class="o">=</span> <span class="n">xistosXper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">y3</span> <span class="o">=</span> <span class="n">xistosYper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">z3</span> <span class="o">=</span> <span class="n">xistosZper</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">Stri2</span> <span class="o">=</span> <span class="n">tri3darea</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span>
+
+            <span class="n">areawet2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Stri2</span><span class="p">)</span>
+            <span class="n">areas_aux1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">areawet1</span><span class="p">)</span>
+            <span class="n">areas_aux2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">areawet2</span><span class="p">)</span>
+    
+    <span class="n">areas1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">areas_aux1</span><span class="p">)</span>
+    <span class="n">areas2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">areas_aux2</span><span class="p">)</span>
+
+    <span class="n">total_area</span> <span class="o">=</span> <span class="n">areas1</span><span class="o">+</span><span class="n">areas2</span>
+    <span class="n">total_area</span> <span class="o">=</span> <span class="n">total_area</span><span class="o">*</span><span class="mi">2</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">total_area</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tri3darea"><a class="viewcode-back" href="../../../../framework.Sizing.Geometry.html#framework.Sizing.Geometry.wetted_area_wing.tri3darea">[docs]</a><span class="k">def</span> <span class="nf">tri3darea</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">        - This function calculates area if the triangle from its vertex</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - x1</span>
+<span class="sd">        - y1</span>
+<span class="sd">        - z1</span>
+<span class="sd">        - x2</span>
+<span class="sd">        - y2</span>
+<span class="sd">        - z2</span>
+<span class="sd">        - x3</span>
+<span class="sd">        - y3</span>
+<span class="sd">        - z3</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - Stri</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">x1</span><span class="o">-</span><span class="n">x2</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="n">y1</span><span class="o">-</span><span class="n">y2</span>
+    <span class="n">a3</span> <span class="o">=</span> <span class="n">z1</span><span class="o">-</span><span class="n">z2</span>
+
+    <span class="n">b1</span> <span class="o">=</span> <span class="n">x3</span><span class="o">-</span><span class="n">x2</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">y3</span><span class="o">-</span><span class="n">y2</span>
+    <span class="n">b3</span> <span class="o">=</span> <span class="n">z3</span><span class="o">-</span><span class="n">z2</span>
+
+    <span class="n">axb1</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span><span class="o">*</span><span class="n">b3</span><span class="o">-</span><span class="n">a3</span><span class="o">*</span><span class="n">b2</span><span class="p">)</span>
+    <span class="n">axb2</span> <span class="o">=</span> <span class="p">(</span><span class="n">a3</span><span class="o">*</span><span class="n">b1</span><span class="o">-</span><span class="n">a1</span><span class="o">*</span><span class="n">b3</span><span class="p">)</span>
+    <span class="n">axb3</span> <span class="o">=</span> <span class="p">(</span><span class="n">a1</span><span class="o">*</span><span class="n">b2</span><span class="o">-</span><span class="n">a2</span><span class="o">*</span><span class="n">b1</span><span class="p">)</span>
+
+    <span class="n">Stri</span> <span class="o">=</span> <span class="mf">0.50</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">axb1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">axb2</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">axb3</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">Stri</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -39,7 +39,7 @@ def balanced_field_length(vehicle, weight_takeoff,gamma_2):
         - This function performs the evaluation of the balanced field length
 
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - weight_takeoff
         - gamma_2ity
 

@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -39,7 +39,7 @@ def reserve_fuel(landing_weight, alternative_airport_distance, holding_time, del
         - landing_weight
         - alternative_airport_distance
         - holding_time
-        - delta_ISA
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
         - fuel
     """

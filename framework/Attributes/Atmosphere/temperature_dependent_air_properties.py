@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -38,22 +38,23 @@ def FAIR(item=None, f=None, T=None, h=None, Pr=None, phi=None):
     Description:
         Calculates the temperature dependent properties
     Inputs:
-        - item
-        - f
-        - T
-        - h
-        - Pr
-        - phi
+        - item - computation mode
+        - f - fuel/air ratio
+        - T - temperature 
+        - h - static enthalpy
+        - Pr - relative pressure
+        - phi - temperature dependent portion of entropy
     Outputs:
-        - T
-        - h
-        - Pr
-        - phi
-        - Cp
-        - R
-        - gamma
-        - a
+        - T - temperature [K]
+        - h - static enthalpy [Jkg]
+        - Pr - relative pressure [pa]
+        - phi - temperature dependent portion of entropy [JK/gK]
+        - Cp - specific heat at constant pressure [JK/gK]
+        - R - gas constant [JK/gK]
+        - gamma - ratio of specific heats
+        - a - speed of sound [m/s]
     """
+    
     list_variables = [item, f, T, h, Pr, phi]
     nargin = sum(x is not None for x in list_variables)
 

@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -54,7 +54,7 @@ def noise_engine(noise_parameters,aircraft_geometry,altitude,delta_ISA,theta,fi,
         - N1
         - N2
         - vairp
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - ft
         - OASPLENG
@@ -147,7 +147,7 @@ def fan(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,engine_diameter,rat
 
     Inputs:
         - altitude
-        - delta_ISA
+        - delta_ISA - ISA temperature deviation [deg C]
         - noise_parameters
         - vairp
         - theta
@@ -384,7 +384,7 @@ def combustion_chamber(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,mdot
 
     Inputs:
         - altitude
-        - delta_ISA
+        - delta_ISA - ISA temperature deviation [deg C]
         - noise_parameters
         - vairp
         - theta
@@ -466,7 +466,7 @@ def turbine(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,mdot,nturb,Ttur
 
     Inputs:
         - altitude
-        - delta_ISA
+        - delta_ISA - ISA temperature deviation [deg C]
         - noise_parameters
         - vairp
         - theta
@@ -606,7 +606,7 @@ def nozzle(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,plug,coaxial,ACJ
 
     Inputs:
         - altitude
-        - delta_ISA
+        - delta_ISA - ISA temperature deviation [deg C]
         - noise_parameters
         - vairp
         - theta

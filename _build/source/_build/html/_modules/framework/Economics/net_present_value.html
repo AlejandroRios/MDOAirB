@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>framework.Economics.net_present_value &mdash; sphinx-multimodule-docexample u&#39;0.0.1&#39; documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sphinx-multimodule-docexample
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sphinx-multimodule-docexample</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>framework.Economics.net_present_value</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for framework.Economics.net_present_value</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">MDOAirB</span>
+
+<span class="sd">Description:</span>
+<span class="sd">    - This functions calculates the net present value. Methodology from Fregnani 2020</span>
+
+<span class="sd">Reference: </span>
+<span class="sd">    - Reference: Roskam</span>
+
+<span class="sd">TODO&#39;s:</span>
+<span class="sd">    - Finish and include this function</span>
+
+<span class="sd">| Authors: Alejandro Rios</span>
+<span class="sd">| Email: aarc.88@gmail.com</span>
+<span class="sd">| Creation: January 2021</span>
+<span class="sd">| Last modification: July 2021</span>
+<span class="sd">| Language  : Python 3.8 or &gt;</span>
+<span class="sd">| Aeronautical Institute of Technology - Airbus Brazil</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># IMPORTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># CLASSES</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># FUNCTIONS</span>
+<span class="c1"># =============================================================================</span>
+
+<div class="viewcode-block" id="aircraft_price"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.aircraft_price">[docs]</a><span class="k">def</span> <span class="nf">aircraft_price</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Methodology from Airbus price list (Narrow Bodies, 1 aisle) 2018</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        - MTOW</span>
+<span class="sd">        - share</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        - price</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - ask for more especification of WTADJ_price - weight adjusted price</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">x_ref</span> <span class="o">=</span> <span class="mf">0.6</span>
+    <span class="n">y_ref</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+    <span class="n">y0</span> <span class="o">=</span> <span class="mf">3.3383</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="mf">0.0013</span>
+
+    <span class="n">WTADJ_price</span> <span class="o">=</span> <span class="n">y0</span><span class="o">+</span><span class="n">mu</span><span class="o">*</span><span class="n">MTOW</span>
+    <span class="n">discount</span> <span class="o">=</span> <span class="n">y_ref</span><span class="o">/</span><span class="n">x_ref</span><span class="o">*</span><span class="n">share</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">WTADJ_price</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">discount</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">price</span><span class="o">*</span><span class="mf">1e6</span></div>
+
+
+<div class="viewcode-block" id="market_info"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.market_info">[docs]</a><span class="k">def</span> <span class="nf">market_info</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Methodology from</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">share_reference</span> <span class="o">=</span> <span class="mf">0.6</span>
+    <span class="n">share_factor</span> <span class="o">=</span> <span class="n">share</span><span class="o">/</span><span class="n">share_reference</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">aircraft_price</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">share_reference</span><span class="p">,</span> <span class="n">share_factor</span><span class="p">,</span> <span class="n">price</span></div>
+
+
+<div class="viewcode-block" id="delivery_forecast"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.delivery_forecast">[docs]</a><span class="k">def</span> <span class="nf">delivery_forecast</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Methodology from</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">share_factor</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">market_info</span><span class="p">()</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+    <span class="n">deliveries_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+    <span class="n">deliveries</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">deliveries_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">deliveries_aux</span> <span class="o">=</span> <span class="n">share_factor</span><span class="o">*</span><span class="n">deliveries_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">deliveries_aux</span> <span class="o">=</span> <span class="n">deliveries_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">deliveries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deliveries_aux</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">deliveries</span></div>
+
+<span class="c1"># year, deliveries = delivery_forecast()</span>
+<span class="c1"># plt.plot(year, deliveries)</span>
+<span class="c1"># plt.show()</span>
+
+
+<div class="viewcode-block" id="program_share"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.program_share">[docs]</a><span class="k">def</span> <span class="nf">program_share</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Methodology from</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">manufacturer</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="n">partner</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">manufacturer</span>
+    <span class="n">man_power_cost_manufacturer</span> <span class="o">=</span> <span class="mf">41.72</span>
+    <span class="n">man_power_cost_partner</span> <span class="o">=</span> <span class="mf">83.44</span>
+    <span class="n">man_power_cost_average</span> <span class="o">=</span> <span class="n">manufacturer</span> <span class="o">*</span> \
+        <span class="n">man_power_cost_manufacturer</span> <span class="o">+</span> <span class="n">partner</span><span class="o">*</span><span class="n">man_power_cost_partner</span>
+    <span class="k">return</span> <span class="n">manufacturer</span><span class="p">,</span> <span class="n">man_power_cost_average</span></div>
+
+
+<div class="viewcode-block" id="product_development_cost"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.product_development_cost">[docs]</a><span class="k">def</span> <span class="nf">product_development_cost</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Product Development Cost</span>
+<span class="sd">    Methodology from</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Man Power Distribution</span>
+    <span class="n">man_power_distribution</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+    <span class="c1"># Infrastructure Distribution</span>
+    <span class="n">infrastructure_distribution</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]</span>
+    <span class="c1"># Generic Cost Distribution</span>
+    <span class="n">generic_cost_distribution</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">man_power_distribution</span><span class="p">,</span> <span class="n">infrastructure_distribution</span><span class="p">,</span> <span class="n">generic_cost_distribution</span></div>
+
+
+<div class="viewcode-block" id="complexity_factor"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.complexity_factor">[docs]</a><span class="k">def</span> <span class="nf">complexity_factor</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Production Cost - Complexity factor</span>
+<span class="sd">    Methodology from</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">complexity_factors</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;landing_gear&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;flight_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.4</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;engines&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.1</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;nacelles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;interior&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;electrical&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.3</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;avionics&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.9</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;structures&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;fuel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">complexity_factors</span></div>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># NON-RECURRING COSTS&quot;&quot;&quot;</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="manegment_and_administration_hours"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.manegment_and_administration_hours">[docs]</a><span class="k">def</span> <span class="nf">manegment_and_administration_hours</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Man Power - Management and Administration hours</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">MTOW_factor</span><span class="p">,</span> <span class="n">thrust_factor</span> <span class="o">=</span> <span class="n">baseline_aircraft</span><span class="p">()</span>
+    <span class="n">preliminar_design_baseline</span> <span class="o">=</span> <span class="mi">27983</span>
+    <span class="n">interior_baseline</span> <span class="o">=</span> <span class="mi">229950</span>
+    <span class="n">structures_baseline</span> <span class="o">=</span> <span class="mi">279833</span>
+    <span class="n">electrics_baseline</span> <span class="o">=</span> <span class="mi">365000</span>
+    <span class="n">mechanics_baseline</span> <span class="o">=</span> <span class="mi">121667</span>
+    <span class="n">hidrahulics_baseline</span> <span class="o">=</span> <span class="mi">60833</span>
+    <span class="n">propulsion_baseline</span> <span class="o">=</span> <span class="mi">51100</span>
+    <span class="n">man_power_managment_and_administration</span> <span class="o">=</span> <span class="p">(</span><span class="n">preliminar_design_baseline</span>
+                                              <span class="o">+</span> <span class="n">interior_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                                              <span class="o">+</span> <span class="n">structures_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                                              <span class="o">+</span> <span class="n">electrics_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                                              <span class="o">+</span> <span class="n">mechanics_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                                              <span class="o">+</span> <span class="n">hidrahulics_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                                              <span class="o">+</span> <span class="n">propulsion_baseline</span> <span class="o">*</span> <span class="n">thrust_factor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">man_power_managment_and_administration</span></div>
+
+
+<div class="viewcode-block" id="engineering_hours"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.engineering_hours">[docs]</a><span class="k">def</span> <span class="nf">engineering_hours</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Man Power - Engineering hours</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">MTOW_factor</span><span class="p">,</span> <span class="n">thrust_factor</span> <span class="o">=</span> <span class="n">baseline_aircraft</span><span class="p">()</span>
+
+    <span class="n">aerodinamics_baseline</span> <span class="o">=</span> <span class="mi">135050</span>
+    <span class="n">aeroelasticity_baseline</span> <span class="o">=</span> <span class="mi">237250</span>
+    <span class="n">performance_baseline</span> <span class="o">=</span> <span class="mi">76650</span>
+    <span class="n">structures_baseline</span> <span class="o">=</span> <span class="mi">365000</span>
+    <span class="n">interiors_baseline</span> <span class="o">=</span> <span class="mi">92467</span>
+    <span class="n">electrics_baseline</span> <span class="o">=</span> <span class="mi">365000</span>
+    <span class="n">mechanics_baseline</span> <span class="o">=</span> <span class="mi">399067</span>
+    <span class="n">hydraulics_baseline</span> <span class="o">=</span> <span class="mi">97333</span>
+    <span class="n">propulsion_baseline</span> <span class="o">=</span> <span class="mi">121667</span>
+    <span class="n">cetification_baseline</span> <span class="o">=</span> <span class="mi">121667</span>
+    <span class="n">configuration_baseline</span> <span class="o">=</span> <span class="mi">62050</span>
+    <span class="n">documents_baseline</span> <span class="o">=</span> <span class="mi">115583</span>
+
+    <span class="n">engineering_hours</span> <span class="o">=</span> <span class="p">(</span><span class="n">aerodinamics_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">aeroelasticity_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">performance_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">structures_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">interiors_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">electrics_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">mechanics_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">hydraulics_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">propulsion_baseline</span> <span class="o">*</span> <span class="n">thrust_factor</span>
+                         <span class="o">+</span> <span class="n">cetification_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                         <span class="o">+</span> <span class="n">configuration_baseline</span>
+                         <span class="o">+</span> <span class="n">documents_baseline</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">engineering_hours</span></div>
+
+
+<div class="viewcode-block" id="test_and_validation"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.test_and_validation">[docs]</a><span class="k">def</span> <span class="nf">test_and_validation</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Man Power - Test and Validation</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">MTOW_factor</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">baseline_aircraft</span><span class="p">()</span>
+    <span class="n">ground_testing_baseline</span> <span class="o">=</span> <span class="mi">208050</span>
+    <span class="n">systems_testing_baseline</span> <span class="o">=</span> <span class="mi">111933</span>
+    <span class="n">flight_test_baseline</span> <span class="o">=</span> <span class="mi">160600</span>
+    <span class="n">instrumentation_baseline</span> <span class="o">=</span> <span class="mi">122883</span>
+    <span class="n">pilots_baseline</span> <span class="o">=</span> <span class="mi">48667</span>
+    <span class="n">prototype_baseline</span> <span class="o">=</span> <span class="mi">2828750</span>
+    <span class="n">rigs_baseline</span> <span class="o">=</span> <span class="mi">60833</span>
+    <span class="n">body_baseline</span> <span class="o">=</span> <span class="mi">97333</span>
+    <span class="n">prototypes_maintenance_baseline</span> <span class="o">=</span> <span class="mi">585217</span>
+    <span class="n">manufacturing_tooling_baseline</span> <span class="o">=</span> <span class="mi">526817</span>
+    <span class="n">methods_process_baseline</span> <span class="o">=</span> <span class="mi">784750</span>
+    <span class="n">quality_control_baseline</span> <span class="o">=</span> <span class="mi">138700</span>
+
+    <span class="n">test_hours</span> <span class="o">=</span> <span class="p">(</span><span class="n">ground_testing_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">systems_testing_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">flight_test_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">instrumentation_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">pilots_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">prototype_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">rigs_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">body_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">prototypes_maintenance_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">manufacturing_tooling_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                  <span class="o">+</span> <span class="n">methods_process_baseline</span>
+                  <span class="o">+</span> <span class="n">quality_control_baseline</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">test_hours</span></div>
+
+
+<div class="viewcode-block" id="support_hours"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.support_hours">[docs]</a><span class="k">def</span> <span class="nf">support_hours</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Man Power - Support hours</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - service_bul_baseline - Trabalho de documentação manuais etc.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">MTOW_factor</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">baseline_aircraft</span><span class="p">()</span>
+    <span class="n">service_bul_baseline</span> <span class="o">=</span> <span class="mi">19467</span>
+    <span class="n">spare_parts_baseline</span> <span class="o">=</span> <span class="mi">103417</span>
+    <span class="n">operations_manuals_baseline</span> <span class="o">=</span> <span class="mi">203183</span>
+    <span class="n">custumer_services_baseline</span> <span class="o">=</span> <span class="mi">6083</span>
+    <span class="n">documentation_baseline</span> <span class="o">=</span> <span class="mi">128967</span>
+    <span class="n">technical_support_baseline</span> <span class="o">=</span> <span class="mi">77867</span>
+    <span class="n">maintenance_plan_baseline</span> <span class="o">=</span> <span class="mi">96117</span>
+
+    <span class="n">support_hours</span> <span class="o">=</span> <span class="p">(</span><span class="n">service_bul_baseline</span>
+                     <span class="o">+</span> <span class="n">spare_parts_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                     <span class="o">+</span> <span class="n">operations_manuals_baseline</span>
+                     <span class="o">+</span> <span class="n">custumer_services_baseline</span>
+                     <span class="o">+</span> <span class="n">documentation_baseline</span>
+                     <span class="o">+</span> <span class="n">technical_support_baseline</span>
+                     <span class="o">+</span> <span class="n">maintenance_plan_baseline</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">support_hours</span></div>
+
+<span class="c1"># Infrastructure Cost</span>
+
+
+<div class="viewcode-block" id="infrastructure"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.infrastructure">[docs]</a><span class="k">def</span> <span class="nf">infrastructure</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Infrastructure Cost</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - FSW - factory shop and warehouse</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">MTOW_factor</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">baseline_aircraft</span><span class="p">()</span>
+    <span class="n">machine_equipement_baseline</span> <span class="o">=</span> <span class="mi">17880000</span>
+    <span class="n">FSW_baseline</span> <span class="o">=</span> <span class="mi">9536000</span>
+    <span class="n">prototypes_baseline</span> <span class="o">=</span> <span class="mi">35760000</span>
+    <span class="n">assembly_line_baseline</span> <span class="o">=</span> <span class="mi">1192000</span>
+    <span class="n">computer_resources_baseline</span> <span class="o">=</span> <span class="mi">6913600</span>
+    <span class="n">instruments_baseline</span> <span class="o">=</span> <span class="mi">596000</span>
+    <span class="n">office_supplies_baseline</span> <span class="o">=</span> <span class="mi">596000</span>
+    <span class="n">software_baseline</span> <span class="o">=</span> <span class="mi">1788000</span>
+    <span class="n">others_baseline</span> <span class="o">=</span> <span class="mi">596000</span>
+
+    <span class="n">infrastructure_cost</span> <span class="o">=</span> <span class="p">(</span><span class="n">machine_equipement_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                           <span class="o">+</span> <span class="n">FSW_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                           <span class="o">+</span> <span class="n">prototypes_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                           <span class="o">+</span> <span class="n">assembly_line_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span>
+                           <span class="o">+</span> <span class="n">computer_resources_baseline</span>
+                           <span class="o">+</span> <span class="n">instruments_baseline</span>
+                           <span class="o">+</span> <span class="n">office_supplies_baseline</span>
+                           <span class="o">+</span> <span class="n">software_baseline</span>
+                           <span class="o">+</span> <span class="n">others_baseline</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">infrastructure_cost</span></div>
+
+<span class="c1"># General Cost</span>
+
+
+<div class="viewcode-block" id="general"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.general">[docs]</a><span class="k">def</span> <span class="nf">general</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    General costs</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - instrFT_baseline - intrumentation and flight test</span>
+<span class="sd">        - TPMP_baseline - third part men-power</span>
+<span class="sd">        - TPMPP_baseline - third part men-power partner</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">MTOW_factor</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">baseline_aircraft</span><span class="p">()</span>
+
+    <span class="n">communications_baseline</span> <span class="o">=</span> <span class="mi">834400</span>
+    <span class="n">instrFT_baseline</span> <span class="o">=</span> <span class="mi">4529600</span>
+    <span class="n">tooling_baseline</span> <span class="o">=</span> <span class="mi">2980000</span>
+    <span class="n">traveling_baseline</span> <span class="o">=</span> <span class="mi">5006400</span>
+    <span class="n">TPMP_baseline</span> <span class="o">=</span> <span class="mi">23840000</span>
+    <span class="n">TPMPP_baseline</span> <span class="o">=</span> <span class="mi">27416000</span>
+    <span class="n">fuel_baseline</span> <span class="o">=</span> <span class="mi">4872900</span>
+
+    <span class="n">general_cost</span> <span class="o">=</span> <span class="p">(</span><span class="n">communications_baseline</span>
+                    <span class="o">+</span> <span class="n">instrFT_baseline</span>
+                    <span class="o">+</span> <span class="n">tooling_baseline</span>
+                    <span class="o">+</span> <span class="n">traveling_baseline</span>
+                    <span class="o">+</span> <span class="n">TPMP_baseline</span>
+                    <span class="o">+</span> <span class="n">TPMPP_baseline</span>
+                    <span class="o">+</span> <span class="n">fuel_baseline</span> <span class="o">*</span> <span class="n">MTOW_factor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">general_cost</span></div>
+
+
+<div class="viewcode-block" id="total_non_recurrig_year_cost"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.total_non_recurrig_year_cost">[docs]</a><span class="k">def</span> <span class="nf">total_non_recurrig_year_cost</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    TOTAL NON RECURRING COST PER YEAR</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">manufacturer</span><span class="p">,</span> <span class="n">man_power_cost_average</span> <span class="o">=</span> <span class="n">program_share</span><span class="p">()</span>
+    <span class="n">total_hours</span> <span class="o">=</span> <span class="n">manegment_and_administration_hours</span><span class="p">()</span> <span class="o">+</span> <span class="n">engineering_hours</span><span class="p">()</span> <span class="o">+</span> \
+        <span class="n">test_and_validation</span><span class="p">()</span> <span class="o">+</span> <span class="n">support_hours</span><span class="p">()</span>
+
+    <span class="n">hour_cost</span> <span class="o">=</span> <span class="n">total_hours</span><span class="o">*</span><span class="n">man_power_cost_average</span>
+
+    <span class="n">man_power_distribution</span><span class="p">,</span> <span class="n">infrastructure_distribution</span><span class="p">,</span> <span class="n">generic_cost_distribution</span> <span class="o">=</span> <span class="n">product_development_cost</span><span class="p">()</span>
+    <span class="n">man_power_cost_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">hour_cost</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">man_power_distribution</span><span class="p">]</span>
+
+    <span class="n">infrastructure_cost</span> <span class="o">=</span> <span class="n">infrastructure</span><span class="p">()</span>
+    <span class="n">infrastructure_cost_vector</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">i</span> <span class="o">*</span> <span class="n">infrastructure_cost</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">infrastructure_distribution</span><span class="p">]</span>
+
+    <span class="n">general_cost</span> <span class="o">=</span> <span class="n">general</span><span class="p">()</span>
+    <span class="n">general_cost_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">general_cost</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">generic_cost_distribution</span><span class="p">]</span>
+
+    <span class="n">total_non_recurrig_year_cost</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">general_cost_vector</span><span class="p">)):</span>
+        <span class="n">total_non_recurring_cost_aux</span> <span class="o">=</span> <span class="n">manufacturer</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="n">man_power_cost_vector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span>
+             <span class="n">infrastructure_cost_vector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">general_cost_vector</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">total_non_recurrig_year_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_non_recurring_cost_aux</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">total_non_recurrig_year_cost</span></div>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># RECURRING COSTS</span>
+<span class="c1"># =============================================================================</span>
+
+
+<div class="viewcode-block" id="material"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.material">[docs]</a><span class="k">def</span> <span class="nf">material</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    MATERIAL COSTS</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">complexity_factors</span> <span class="o">=</span> <span class="n">complexity_factor</span><span class="p">()</span>
+    <span class="n">materials</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;landing_gear&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;flight_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">834</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;engines&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000000</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;naceles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11920</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;interior&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">19072</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;electrical_system&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8940</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;avionics&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">953600</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;structures&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">143</span>
+    <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;fuel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">119</span>
+
+    <span class="n">materials_cost</span> <span class="o">=</span> <span class="p">(</span><span class="n">materials</span><span class="p">[</span><span class="s1">&#39;landing_gear&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;landing_gear&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">MTOW</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;flight_controls&#39;</span><span class="p">]</span> <span class="o">*</span>
+                      <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;flight_controls&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">wing_surface_ft</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;engines&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;engines&#39;</span><span class="p">]</span> <span class="o">*</span>
+                      <span class="n">aircraft</span><span class="p">[</span><span class="s1">&#39;number_of_engines&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">thrust_factor</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;naceles&#39;</span><span class="p">]</span> <span class="o">*</span>
+                      <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;nacelles&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">engine_diameter_in</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;interior&#39;</span><span class="p">]</span> <span class="o">*</span>
+                      <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;interior&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">pax_number</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;electrical_system&#39;</span><span class="p">]</span> <span class="o">*</span>
+                      <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;electrical&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">KVA</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;avionics&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;avionics&#39;</span><span class="p">]</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;structures&#39;</span><span class="p">]</span> <span class="o">*</span>
+                      <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;structures&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">MTOW</span>
+                      <span class="o">+</span> <span class="n">materials</span><span class="p">[</span><span class="s1">&#39;fuel&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">complexity_factors</span><span class="p">[</span><span class="s1">&#39;fuel&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">wing_surface_ft</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">materials_cost</span></div>
+
+
+<div class="viewcode-block" id="man_power"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.man_power">[docs]</a><span class="k">def</span> <span class="nf">man_power</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    MANPOWER COST</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - LCPH - labour cost per hour</span>
+<span class="sd">        - Baseline&#39;s ???</span>
+<span class="sd">        - why p = 14 - ciclo e 145</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">delivers</span> <span class="o">=</span> <span class="n">delivery_forecast</span><span class="p">()</span>
+    <span class="n">LCPH</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="n">baseline</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">36714</span><span class="p">,</span> <span class="mi">26452</span><span class="p">,</span> <span class="mi">23363</span><span class="p">,</span> <span class="mi">21451</span><span class="p">,</span>
+                <span class="mi">20218</span><span class="p">,</span> <span class="mi">19416</span><span class="p">,</span> <span class="mi">18899</span><span class="p">,</span> <span class="mi">18581</span><span class="p">,</span> <span class="mi">18389</span><span class="p">,</span> <span class="mi">18281</span><span class="p">,</span> <span class="mi">18173</span><span class="p">]</span>
+
+    <span class="n">recurring_man_power_cost</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+        <span class="n">recurring_man_power_cost_aux</span> <span class="o">=</span> <span class="n">baseline</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">delivers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">MTOW_factor</span> <span class="o">*</span> <span class="n">LCPH</span>
+        <span class="n">recurring_man_power_cost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recurring_man_power_cost_aux</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">recurring_man_power_cost</span></div>
+
+
+<div class="viewcode-block" id="cost_matrix"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.cost_matrix">[docs]</a><span class="k">def</span> <span class="nf">cost_matrix</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Cost Matrix</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        -</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">total_non_recurring_cost</span> <span class="o">=</span> <span class="n">total_non_recurrig_year_cost</span><span class="p">()</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">deliveries</span> <span class="o">=</span> <span class="n">delivery_forecast</span><span class="p">()</span>
+    <span class="n">material_costs</span> <span class="o">=</span> <span class="n">material</span><span class="p">()</span>
+    <span class="n">recurring_man_power_cost</span> <span class="o">=</span> <span class="n">man_power</span><span class="p">()</span>
+
+    <span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">costs_aux</span> <span class="o">=</span> <span class="n">total_non_recurring_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">C1</span> <span class="o">=</span> <span class="n">deliveries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">material_costs</span>
+            <span class="n">C2</span> <span class="o">=</span> <span class="n">recurring_man_power_cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">C3</span> <span class="o">=</span> <span class="p">(</span><span class="n">C1</span> <span class="o">+</span> <span class="n">C2</span><span class="p">)</span><span class="o">*</span><span class="mf">0.17</span>
+            <span class="n">C4</span> <span class="o">=</span> <span class="p">(</span><span class="n">C1</span> <span class="o">+</span> <span class="n">C2</span><span class="p">)</span><span class="o">*</span><span class="mf">0.08</span>
+            <span class="n">C5</span> <span class="o">=</span> <span class="n">C1</span><span class="o">*</span><span class="mf">0.05</span>
+            <span class="n">costs_aux</span> <span class="o">=</span> <span class="n">C1</span> <span class="o">+</span> <span class="n">C2</span> <span class="o">+</span> <span class="n">C3</span> <span class="o">+</span> <span class="n">C4</span> <span class="o">+</span> <span class="n">C5</span>
+        <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">costs_aux</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">costs</span></div>
+
+
+<div class="viewcode-block" id="cash_flow_matrix"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.cash_flow_matrix">[docs]</a><span class="k">def</span> <span class="nf">cash_flow_matrix</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Cash Flow Matrix</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - This shouldnt perform a summatory? - ans yes!</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">aircraft_price</span><span class="p">()</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">deliveries</span> <span class="o">=</span> <span class="n">delivery_forecast</span><span class="p">()</span>
+    <span class="n">costs</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="p">()</span>
+
+    <span class="n">total_net_present_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cash_flow</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">present_value</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+        <span class="n">sales</span> <span class="o">=</span> <span class="n">deliveries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">price</span>
+        <span class="n">cash_flow_aux</span> <span class="o">=</span> <span class="n">sales</span> <span class="o">-</span> <span class="n">costs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">present_value_aux</span> <span class="o">=</span> <span class="n">cash_flow_aux</span><span class="o">/</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">IR</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="n">total_net_present_value</span> <span class="o">=</span> <span class="n">total_net_present_value</span><span class="o">+</span><span class="n">present_value_aux</span>
+
+        <span class="n">cash_flow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cash_flow_aux</span><span class="p">)</span>
+        <span class="n">present_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">present_value_aux</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">total_net_present_value</span><span class="p">,</span> <span class="n">cash_flow</span><span class="p">,</span> <span class="n">present_value</span></div>
+
+
+<div class="viewcode-block" id="IRR"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.IRR">[docs]</a><span class="k">def</span> <span class="nf">IRR</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    IRR function</span>
+<span class="sd">    Methodology from Roskam???</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - Test with other values</span>
+<span class="sd">        - Reference?</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">cash_flow</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cash_flow_matrix</span><span class="p">()</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cash_flow</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">f</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">C</span> <span class="o">=</span> <span class="n">cash_flow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="n">i</span>
+            <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="o">+</span><span class="n">C</span>
+        <span class="k">if</span> <span class="nb">sum</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">+</span><span class="mf">0.001</span>
+    <span class="k">return</span> <span class="n">r</span></div>
+
+
+<div class="viewcode-block" id="break_even"><a class="viewcode-back" href="../../../framework.Economics.html#framework.Economics.net_present_value.break_even">[docs]</a><span class="k">def</span> <span class="nf">break_even</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Break even calculation</span>
+<span class="sd">    Methodology from Roskam???</span>
+
+<span class="sd">    Inputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        -</span>
+<span class="sd">    TODO&#39;s:</span>
+<span class="sd">        - Test other cases</span>
+<span class="sd">        - This perform a interpolation</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">present_value</span> <span class="o">=</span> <span class="n">cash_flow_matrix</span><span class="p">()</span>
+    <span class="n">break_even</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">present_value</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">present_value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span><span class="o">-</span><span class="n">y1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">x1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y1</span><span class="o">*</span><span class="n">y2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">break_even</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">break_even</span></div>
+
+
+<span class="c1"># &quot;&quot;&quot;</span>
+<span class="c1"># TEST</span>
+
+<span class="c1"># TODO&#39;s:</span>
+<span class="c1">#     - This part should be inputed in a different way when integrated</span>
+<span class="c1"># &quot;&quot;&quot;</span>
+<span class="c1"># global MTOW, thrust_maximum, wing_surface, engine_diameter, engines_number, pax_number, KVA, p, share, IR</span>
+
+<span class="c1"># MTOW_baseline = 22010</span>
+<span class="c1"># wing_surface_baseline = 52</span>
+<span class="c1"># engines_number_baseline = 2</span>
+<span class="c1"># engine_diameter_baseline = 1.52</span>
+<span class="c1"># pax_number_baseline = 50</span>
+<span class="c1"># thrust_maximum_baseline = 8895</span>
+<span class="c1"># KVA_baseline = 75</span>
+<span class="c1"># p = 14</span>
+<span class="c1"># share = 0.6</span>
+<span class="c1"># IR = 0.05</span>
+
+<span class="c1"># MTOW = 22000</span>
+<span class="c1"># thrust_maximum = (MTOW/22000)*8895</span>
+<span class="c1"># wing_surface = 50</span>
+<span class="c1"># wing_surface_ft = wing_surface * 10.764</span>
+<span class="c1"># engine_diameter = 1.11</span>
+<span class="c1"># engine_diameter_in = engine_diameter * 39.3701</span>
+<span class="c1"># engines_number = 2</span>
+<span class="c1"># pax_number = 44</span>
+<span class="c1"># KVA = 75</span>
+
+
+<span class="c1"># MTOW_factor = MTOW/MTOW_baseline</span>
+<span class="c1"># thrust_factor = thrust_maximum/thrust_maximum_baseline</span>
+<span class="c1"># wing_surface_ft2 = wing_surface*3.28**2</span>
+<span class="c1"># engine_diameter_in = engine_diameter*39.37</span>
+
+<span class="c1"># total  = total_non_recurrig_year_cost()</span>
+<span class="c1"># print(&#39;Total non recurring year cost: &#39;, total)</span>
+
+<span class="c1"># material_costs = material()</span>
+<span class="c1"># print(&#39;Material cost: &#39;, material_costs)</span>
+
+<span class="c1"># print(&#39;Man power cost:&#39;, man_power())</span>
+
+<span class="c1"># print(delivery_forecast())</span>
+<span class="c1"># print(&#39;Matrix cost:&#39;, cost_matrix())</span>
+
+<span class="c1"># print(&#39;Total net present value: &#39;, cash_flow_matrix())</span>
+
+<span class="c1"># print(&#39;IRR: &#39;, IRR())</span>
+<span class="c1"># print(&#39;Break even: &#39;, break_even())</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, gitificial.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

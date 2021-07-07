@@ -16,7 +16,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -39,9 +39,9 @@ def atmosphere_ISA_deviation(h, delta_ISA):
     Description:
         - Obtains the atmosphere properties considering ISA deviation
     Inputs:
-        - mach
-        - h
-        - delta_ISA
+        - mach - mach number
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
         - Calibated airspeed [knots]
     """

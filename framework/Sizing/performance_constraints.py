@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -45,7 +45,7 @@ def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
     Description:
         - This function performs the takeoff field length check
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - weight_takeoff
         - gamma_2
     Outputs:
@@ -76,7 +76,7 @@ def second_segment_climb_check(vehicle, weight_takeoff):
     Description:
         - This function performs the second segment climb check
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - weight_takeoff
     Outputs:
         - weight_takeoff
@@ -107,7 +107,7 @@ def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
     Description:
         - This function performs the landing field length check
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
         - weight_landing
     Outputs:
@@ -147,7 +147,7 @@ def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
     Description:
         - This function performs the landing climb check
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
         - weight_landing
     Outputs:
@@ -178,7 +178,7 @@ def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing)
     Description:
         - This function performs the missed approach climb check
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - maximum_takeoff_weight
         - weight_landing
     Outputs:
@@ -211,7 +211,7 @@ def residual_rate_of_climb_check(vehicle, weight_takeoff,engine_cruise_thrust):
     Description:
         - This function performs the residual rate of climb check
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
         - weight_takeoff
         - engine_cruise_thrust
     Outputs:
@@ -255,7 +255,7 @@ def regulated_takeoff_weight(vehicle):
     Description:
         - This function performs the calculation of the regulated takeoff weight
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - regulated takeoff weight
     """
@@ -284,7 +284,7 @@ def regulated_landing_weight(vehicle):
     Description:
         - This function performs the calculation of the regulated landing weight
     Inputs:
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - regulated landing weight
     """

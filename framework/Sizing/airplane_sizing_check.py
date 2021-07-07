@@ -17,7 +17,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -74,11 +74,11 @@ def airplane_sizing(vehicle,x=None):
         - This function performs the sizing and checks of the aicraft.
     Inputs:
         - x - design variables vector
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - status
         - flags
-        - vehicle
+        - vehicle - dictionary containing aircraft parameters
     """
     log.info('---- Start aircraft sizing module ----')
 

@@ -9,7 +9,7 @@ Aeronautical Institute of Technology - Airbus Brazil
 
 Description:
     - This module calculates the network profit following the following steps:
-        - Vehicle sizing and checks (airplane_sizing)
+        - vehicle - dictionary containing aircraft parameters sizing and checks (airplane_sizing)
         - Revenue calculation (reveneu)
         - Direct operational cost calculation (mission)
         - Profit calculation (network_optimization)
