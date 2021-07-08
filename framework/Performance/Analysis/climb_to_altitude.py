@@ -51,7 +51,7 @@ def rate_of_climb_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehicl
     Inputs:
         - initial mass [kg]
         - mach - mach number_climb
-        - climb_V_cas [knots]
+        - climb_V_cas - calibrated airspeed during climb [kt]
         - delta_ISA - ISA temperature deviation [deg C] [C deg]
         - final_altitude [ft]
         - initial_altitude [ft]

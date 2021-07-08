@@ -45,8 +45,8 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
         - This function calculates the missed approach thrust to weight ratio with one enfine inoperative
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - maximum_takeoff_weight
-        - weight_landing
+        - maximum_takeoff_weight - maximum takeoff weight[kg]
+        - weight_landing - maximum landing weight [kg]
     Outputs:
         - thrust_to_weight_landing
     """
@@ -106,8 +106,8 @@ def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
         - This function calculates the missed approach thrust to weight ratio with all engines operative
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - maximum_takeoff_weight
-        - weight_landing
+        - maximum_takeoff_weight - maximum landing weight [kg]
+        - weight_landing - landing weight [kg]
     Outputs:
         - thrust_to_weight_landing
     """

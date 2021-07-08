@@ -53,12 +53,12 @@ def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle
         - altitude
         - delta_ISA - ISA temperature deviation [deg C]
         - mach - mach number
-        - mass
-        - distance_cruise
+        - mass - aircraft mass [kg]
+        - distance_cruise - cruise distance [nm]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - time_cruise
-        - final_mass
+        - time_cruise - time spent during cruise phase [min]
+        - final_mass - aircraft mass at the end of cruise [kg]
     """
     n = 10
     step_cruise = distance_cruise/n
@@ -91,15 +91,15 @@ def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, 
     Description:
         - This function calculates the cruise performance based on Breguet equations. 
     Inputs:
-        - altitude
+        - altitude - [ft]
         - delta_ISA - ISA temperature deviation [deg C]
         - mach - mach number
-        - mass
-        - distance_cruise
+        - mass - aircraft mass [kg]
+        - distance_cruise - cruise distance [nm]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - time_cruise
-        - final_mass
+        - time_cruise - time spent during cruise phase [min]
+        - final_mass - aircraft mass at the end of cruise [kg]
     """
     n = 4
     step_cruise = distance_cruise/n
@@ -139,13 +139,13 @@ def specific_fuel_consumption(vehicle, mach, altitude, delta_ISA, mass):
     Inputs:
         - vehicle - dictionary containing aircraft parameters
         - mach - mach number
-        - altitude
+        - altitude - [ft]
         - delta_ISA - ISA temperature deviation [deg C]
-        - mass
+        - mass - aircraft mass [kg]
     Outputs:
-        - TSFC
-        - L_over_D
-        - fuel_flow
+        - TSFC - thrust specific fuel consumption [(kg/hr)/N] 
+        - L_over_D - lift to drag ratio
+        - fuel_flow - engine fuel flow [kg/hr]
         - throttle_position - throttle position [1.0 = 100%]
     """
     knots_to_meters_second = 0.514444
@@ -206,14 +206,14 @@ def mission_segment(mass_0, step_cruise, L_over_D, TSFC, V_tas):
     Description:
         - This function calculates the mission segment fuel burn
     Inputs:
-        - mass_0
-        - step_cruise
-        - L_over_D
-        - TSFC
-        - V_tas
+        - mass_0 - initial mass [kg]
+        - step_cruise - number of segments in which the cruise phase is divided
+        - L_over_D - lift over drag ratio 
+        - TSFC - thrust specific fuel consumption [(kg/hr)/N] 
+        - V_tas - true airspeed [kt]
     Outputs:
-        - mass_fuel
-        - time
+        - mass_fuel - fuel mass [kg]
+        - time - time [min]
     """
     knots_to_meters_second = 0.514444
     second_to_miniute = 0.01667
@@ -243,12 +243,12 @@ def breguet(type, task, E_R_or_frac, LD, SFC, V, eta_p):
     Description:
         - This function calculates the Breguet equation
     Inputs:
-        - type
-        - task
+        - type - type of analysis
+        - task - task analysis
         - E_R_or_frac
-        - LD
-        - SFC
-        - V
+        - LD - lift over drag ratio
+        - SFC - specific fuel consumption [(kg/hr)/N]
+        - V - aircraft speed
         - eta_p
     Outputs:
         - varargout
@@ -282,16 +282,16 @@ def breguet_simple(altitude, delta_ISA, mach, LD, SFC,step_cruise,W0):
     Description:
         - This function calculates the simplified Breguet equation
     Inputs:
-        - altitude
+        - altitude - [ft]
         - delta_ISA - ISA temperature deviation [deg C]
         - mach - mach number
-        - LD
-        - SFC
-        - step_cruise
-        - W0
+        - LD - lift over drag ratio
+        - SFC - specific fuel consumption [(kg/hr)/N]
+        - step_cruise 
+        - W0 - initial weight [N]
     Outputs:
-        - mass_fuel
-        - time
+        - mass_fuel - fuel mass [kg]
+        - time - time [min]
     """
     second_to_miniute = 0.01667
     _, _, _, _, _, _, _, a = atmosphere_ISA_deviation(altitude, delta_ISA)

@@ -47,16 +47,16 @@ def decelaration_to_250(rate_of_climb, descent_V_cas, delta_ISA, vehicle):
         - This function performs the evaluation of the desceleration to 250 kt
 
     Inputs:
-        - rate_of_climb
+        - rate_of_climb - aircraft rate of climb [ft/min]
         - descent_V_cas
         - delta_ISA - ISA temperature deviation [deg C]
         - vehicle - dictionary containing aircraft parameters
 
     Outputs:
-        - delta_distance,
-        - delta_time
-        - delta_altitude
-        - delta_fuel
+        - delta_distance - increase in distances [m],
+        - delta_time - increase in time [s]
+        - delta_altitude - increase in altitude [ft]
+        - delta_fuel - decrease in fuel [kg]
     '''
     aircraft = vehicle['aircraft']
 
@@ -95,7 +95,7 @@ def decelaration_to_250(rate_of_climb, descent_V_cas, delta_ISA, vehicle):
         average_fuel_flow = (fuel_flow_1+fuel_flow_2)/2  # [kg/hr]
 
         delta_distance = ((V_2**2 - V_1**2)/(2*average_a))*m_to_ft  # [ft]
-        delta_time = ((V_2-V_1)/average_a)/60  # [min]
+        delta_time - increase in time [s] = ((V_2-V_1)/average_a)/60  # [min]
         delta_altitude = (rate_of_climb/fpm_to_mps)*delta_time  # [ft]
         delta_fuel = aircraft['number_of_engines'] * \
             (average_fuel_flow/60)*delta_time  # [kg]
@@ -103,7 +103,7 @@ def decelaration_to_250(rate_of_climb, descent_V_cas, delta_ISA, vehicle):
         delta_altitude_initial = delta_altitude
 
 
-    return delta_distance, delta_time, delta_altitude, delta_fuel
+    return delta_distance, delta_time - increase in time [s], delta_altitude, delta_fuel
 
 
 # =============================================================================

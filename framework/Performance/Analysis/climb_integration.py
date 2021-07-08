@@ -54,7 +54,7 @@ def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, final_altitude, 
     Inputs:
         - initial mass [kg]
         - mach - mach number_climb
-        - climb_V_cas [knots]
+        - climb_V_cas - calibrated airspeed during climb [kt] [knots]
         - delta_ISA - ISA temperature deviation [deg C] [C deg]
         - final_altitude [ft]
         - initial_altitude [ft]
@@ -183,7 +183,7 @@ def climb_integrator(initial_block_distance, initial_block_altitude, initial_blo
         - initial_block_mass
         - initial_block_time
         - final_block_altitude
-        - climb_V_cas
+        - climb_V_cas - calibrated airspeed during climb [kt]
         - mach - mach number_climb
         - delta_ISA - ISA temperature deviation [deg C]
         - vehicle - dictionary containing aircraft parameters
@@ -218,7 +218,7 @@ def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, sp
     Inputs:
         - mass
         - mach - mach number_climb
-        - climb_V_cas
+        - climb_V_cas - calibrated airspeed during climb [kt]
         - delta_ISA - ISA temperature deviation [deg C]
         - altitude_vec - vector containing altitude [m]
         - speed_vec
@@ -301,7 +301,7 @@ def climb(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria
     Inputs:
         - time
         - state
-        - climb_V_cas
+        - climb_V_cas - calibrated airspeed during climb [kt]
         - mach - mach number_climb
         - delta_ISA - ISA temperature deviation [deg C]
         - vehicle - dictionary containing aircraft parameters

@@ -46,10 +46,10 @@ def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
         - This function performs the takeoff field length check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - weight_takeoff
-        - gamma_2
+        - weight_takeoff - takeoff weight [N]
+        - gamma_2 - second segment climb gradient
     Outputs:
-        - weight_takeoff
+        - weight_takeoff - takeoff weight [N]
     """
 
     aircraft = vehicle['aircraft']
@@ -77,9 +77,9 @@ def second_segment_climb_check(vehicle, weight_takeoff):
         - This function performs the second segment climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - weight_takeoff
+        - weight_takeoff - takeoff weight [N]
     Outputs:
-        - weight_takeoff
+        - weight_takeoff - takeoff weight [N]
         - thrust_to_weight_takeoff
     """
 
@@ -212,10 +212,10 @@ def residual_rate_of_climb_check(vehicle, weight_takeoff,engine_cruise_thrust):
         - This function performs the residual rate of climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - weight_takeoff
+        - weight_takeoff - takeoff weight [N]
         - engine_cruise_thrust
     Outputs:
-        - weight_takeoff
+        - weight_takeoff - takeoff weight [N]
         - thrust_to_weight_takeoff
     """
 

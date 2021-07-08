@@ -41,8 +41,8 @@ def residual_rate_of_climb(vehicle, weight_takeoff, engine_cruise_thrust):
         - This function calculates the residual rate of climb
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - weight_takeoff
-        - engine_cruise_thrust
+        - weight_takeoff - takeoff weight [N]
+        - engine_cruise_thrust - [N]
     Outputs:
         - thrust_to_weight_residual
     """

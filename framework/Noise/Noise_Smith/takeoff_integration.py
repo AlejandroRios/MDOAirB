@@ -414,7 +414,7 @@ def climb(time, state, climb_V_cas, mach_climb, delta_ISA, final_block_altitude,
     Inputs:
         - time
         - state
-        - climb_V_cas
+        - climb_V_cas - calibrated airspeed during climb [kt]
         - mach - mach number_climb
         - delta_ISA - ISA temperature deviation [deg C]
         - final_block_altitude

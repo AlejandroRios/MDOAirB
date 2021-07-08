@@ -51,7 +51,7 @@ def rate_of_descent_calculation(thrust_to_weight, h, delta_ISA, mach, mass, vehi
     Inputs:
         - initial mass [kg]
         - mach - mach number_climb
-        - climb_V_cas [knots]
+        - climb_V_cas - calibrated airspeed during climb [kt]
         - delta_ISA - ISA temperature deviation [deg C] [C deg]
         - final_altitude [ft]
         - initial_altitude [ft]
@@ -120,7 +120,7 @@ def acceleration_factor_calculation(h, delta_ISA, mach):
     Description:
         - This function calculates the acceleration factor
     Inputs:
-        - h
+        - h - altitude [ft]
         - delta_ISA - ISA temperature deviation [deg C]
         - mach - mach number
     Outputs:

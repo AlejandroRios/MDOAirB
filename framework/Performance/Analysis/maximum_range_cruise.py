@@ -44,8 +44,8 @@ def maximum_range_mach(mass, cruise_altitude, delta_ISA, vehicle):
     Description:
         - This function calculates the maximum range mach number
     Inputs:
-        - mass
-        - cruise_altitude
+        - mass - aircraft mass [kg]
+        - cruise_altitude - cruise altitude [ft]
         - delta_ISA - ISA temperature deviation [deg C]
         - vehicle - dictionary containing aircraft parameters
     Outputs:

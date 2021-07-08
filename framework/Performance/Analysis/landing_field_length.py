@@ -38,9 +38,9 @@ def landing_field_length(vehicle, weight_landing):
         - This function calculates the landing fiel length required 
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - weight_landing
+        - weight_landing - [N]
     Outputs:
-        - landing fiel length
+        - landing fiel length - [m]
     """
     # Aircraft data import
 

@@ -40,8 +40,8 @@ def balanced_field_length(vehicle, weight_takeoff,gamma_2):
 
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - weight_takeoff
-        - gamma_2ity
+        - weight_takeoff - takeoff weight [N]
+        - gamma_2 - second segment climb gradient
 
     Outputs:
         - balanced fiel length [m]

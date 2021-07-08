@@ -44,7 +44,7 @@ def second_segment_climb(vehicle, weight_takeoff):
         - This function calculates the second segment climb thrust to weight ratio
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - weight_takeoff
+        - weight_takeoff - takeoff weight [N]
     Outputs:
         - thrust_to_weight_takeoff
     """

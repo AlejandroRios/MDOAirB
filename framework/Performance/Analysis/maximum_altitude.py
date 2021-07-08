@@ -48,15 +48,15 @@ def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
         - This function calculates the maximum altitude
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - initial_altitude
-        - limit_altitude
-        - mass
-        - climb_V_cas
+        - initial_altitude - [ft]
+        - limit_altitude - maximum altitude [ft]
+        - mass - aircraft mass [kg]
+        - climb_V_cas - calibrated airspeed during climb [kt]
         - mach - mach number_climb
         - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - final_altitude
-        - rate_of_climb
+        - final_altitude - [ft]
+        - rate_of_climb - aircraft rate of climb [ft/min]
     """
 
     aircraft = vehicle['aircraft']
@@ -89,8 +89,8 @@ def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
         rate_of_climb, V_tas = rate_of_climb_calculation(
             thrust_to_weight, altitude, delta_ISA, mach, mass, vehicle)
 
-        delta_time = altitude_step/rate_of_climb
-        time = time + delta_time
+        delta_time - increase in time [s] = altitude_step/rate_of_climb
+        time = time + delta_time - increase in time [s]
         distance = distance + (V_tas/60)*delta_time
         delta_fuel = (fuel_flow/60)*delta_time
         fuel = fuel+delta_fuel
@@ -112,8 +112,8 @@ def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
         rate_of_climb, V_tas = rate_of_climb_calculation(
             thrust_to_weight, altitude, delta_ISA, mach, mass, vehicle)
 
-        delta_time = altitude_step/rate_of_climb
-        time = time + delta_time
+        delta_time - increase in time [s] = altitude_step/rate_of_climb
+        time = time + delta_time - increase in time [s]
         distance = distance + (V_tas/60)*delta_time
         delta_fuel = (fuel_flow/60)*delta_time
         fuel = fuel+delta_fuel
@@ -136,8 +136,8 @@ def maximum_altitude(vehicle, initial_altitude, limit_altitude, mass,
         rate_of_climb, V_tas = rate_of_climb_calculation(
             thrust_to_weight, altitude, delta_ISA, mach, mass, vehicle)
 
-        delta_time = altitude_step/rate_of_climb
-        time = time + delta_time
+        delta_time - increase in time [s] = altitude_step/rate_of_climb
+        time = time + delta_time - increase in time [s]
         distance = distance + (V_tas/60)*delta_time
         delta_fuel = (fuel_flow/60)*delta_time
         fuel = fuel+delta_fuel

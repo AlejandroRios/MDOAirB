@@ -13,7 +13,7 @@ Description:
 Inputs:
     - initial mass [kg]
     - mach - mach number_climb
-    - climb_V_cas [knots]
+    - climb_V_cas - calibrated airspeed during climb [kt]
     - delta_ISA - ISA temperature deviation [deg C] [C deg]
     - final_altitude [ft]
     - initial_altitude [ft]
@@ -125,7 +125,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
         final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
             initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, descent_V_cas, 0, delta_ISA, vehicle)
 
-        delta_distance, delta_time, delta_altitude, delta_fuel = decelaration_to_250(
+        delta_distance, delta_time - increase in time [s], delta_altitude, delta_fuel = decelaration_to_250(
             rate_of_descent, descent_V_cas, delta_ISA, vehicle)
 
         burned_fuel = initial_block_mass - final_block_mass
@@ -164,7 +164,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
 
     final_distance = final_block_distance + delta_distance
     total_burned_fuel = sum(total_burned_fuel) + delta_fuel
-    total_descent_time = sum(total_descent_time) + delta_time
+    total_descent_time = sum(total_descent_time) + delta_time - increase in time [s]
 
     return final_distance, total_descent_time, total_burned_fuel, final_altitude
 

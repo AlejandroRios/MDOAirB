@@ -43,13 +43,13 @@ def buffet_altitude(vehicle, mass, altitude, limit_altitude, mach_climb):
 
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - mass
-        - altitude
-        - limit_altitude
+        - mass - aircraft maximum mass [kg]
+        - altitude - [ft]
+        - limit_altitude - [ft]
         - mach - mach number_climb
 
     Outputs:
-        - altitude
+        - altitude - [ft]
     '''
     airport_departure = vehicle['airport_departure']
     wing = vehicle['wing']
