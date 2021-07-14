@@ -78,9 +78,9 @@ def mission_sizing(vehicle):
         - vehicle - dictionary containing aircraft parameters
     Outputs:
         - vehicle - dictionary containing aircraft parameters
-        - MTOW_calculated
-        - total_mission_burned_fuel_complete
-        - landing_weight
+        - MTOW_calculated - [kg]
+        - total_mission_burned_fuel_complete - [´kg]
+        - landing_weight - [kg]
     """
 
     start_time = datetime.now()

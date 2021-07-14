@@ -70,16 +70,16 @@ def mission(mission_range, heading, vehicle):
         - This function performs the mission analysis of the aircraft and computes the DOC.
  
     Inputs:
-        - mission_range
-        - heading
+        - mission_range - [nm]
+        - heading - [deg]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - fuel_mass
-        - complete_mission_flight_time
-        - DOC
+        - fuel_mass - [kg]
+        - complete_mission_flight_time - [min]
+        - DOC - direct operational cost [US$]
         - mach - mach number
-        - passenger_capacity
-        - SAR
+        - passenger_capacity - passenger capacity
+        - SAR - cruise average specific air range [nm/kg]
     """
     
     start_time = datetime.now()

@@ -38,18 +38,18 @@ def RGCOMPR(item=None, Tt=None, M=None, f=None, TtdT=None, PtdP=None, MFP=None):
     Description:
         - This function calculates the compressible flow parameters. 
     Inputs:
-        - item
-        - Tt
-        - M
-        - f
-        - TtdT
-        - PtdP
-        - MFP
+        - item - computation mode
+        - Tt - Total temperature [K]
+        - M - Mach number
+        - f - fuel/air ratio
+        - TtdT - temperature ratio
+        - PtdP - pressure ratio
+        - MFP - mass flow parameter
     Outputs:
-        - M
-        - TtdT
-        - PtdP
-        - MFP
+        - M - Mach number
+        - TtdT - temperature ratio
+        - PtdP - pressure ratio
+        - MFP - mass flow parameter
     """
 
     BTU_to_ft_lb = 780

@@ -38,21 +38,21 @@ def TURBC(Tt4, f, A4dA4_5, M4, M4_5, eta_tH, Tt4_5_R, Tt3, beta, epsilon1, epsil
     Description:
         - This function calculates the high pressure turbine parameters. 
     Inputs:
-        - Tt4
-        - f
-        - A4dA4_5
-        - M4
-        - M4_5
-        - eta_tH
-        - Tt4_5_R
-        - Tt3
-        - beta
-        - epsilon1
-        - epsilon2
+        - Tt4 - turbine entry total temperature [K]
+        - f - fuel/air ratio
+        - A4dA4_5 - area ratio
+        - M4 - mach number at station 4
+        - M4_5 - mach number at station 4_5
+        - eta_tH - engine termal efficiency
+        - Tt4_5_R - reference total temperature station 4_5 [K]
+        - Tt3 - total temperature at station 3
+        - beta - beed air fraction
+        - epsilon1 - cooling air #1 mass flow rate
+        - epsilon2 - cooling air #2 mass flow rate
     Outputs:
-        - pi_tH
-        - Tau_tH
-        - Tt4_5
+        - pi_tH - total pressure ratio high pressure turbine
+        - Tau_tH - total enthalpy ration high pressure turbine
+        - Tt4_5 - total temperature at station 4_5
     """
 
     _, ht4, _, _, _, _, _, _ = FAIR(item=1, f=f, T=Tt4)

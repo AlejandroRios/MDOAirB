@@ -38,17 +38,17 @@ def TURB(Tti, f, AidAe, Mi, Me, eta_ti, TteR):
     Description:
         - This function calculates the low pressure turbine parameters. 
     Inputs:
-        - Tti
-        - f
-        - AidAe
-        - Mi
-        - Me
-        - eta_ti
-        - TteR
+        - Tti - total temperature at station i
+        - f - fuel/air ratio
+        - AidAe - in/exit area ratio
+        - Mi - entry mach number
+        - Me - exist mach number 
+        - eta_ti - engine termal efficiency
+        - TteR - exit reference total temperature [K]
     Outputs:
-        - pi_t
-        - Tau_t
-        - T_te
+        - pi_t - total pressure ratio low pressure turbine
+        - Tau_t - total enthalpy ration low pressure turbine
+        - T_te - total temperature at turbine exit
     """
 
     _, hti, Prti, phiti, cpti, Rti, gammati, ati = FAIR(item=1, f=f, T=Tti)

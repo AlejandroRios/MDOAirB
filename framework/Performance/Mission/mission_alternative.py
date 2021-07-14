@@ -67,9 +67,9 @@ def mission_alternative(vehicle,landing_weight):
  
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - landing_weight
+        - landing_weight - [kg]
     Outputs:
-        - total_mission_burned_fuel
+        - total_mission_burned_fuel - [kg]
     """
 
     performance = vehicle['performance']

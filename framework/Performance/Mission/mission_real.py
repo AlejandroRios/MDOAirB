@@ -72,17 +72,18 @@ def mission(departure,arrival, heading, vehicle):
         - This function performs the mission analysis (based on datadriven approach) of the aircraft and computes the DOC.
  
     Inputs:
-        - departure,arrival
-        - heading
+        - departure - departure airport IATA name
+        - arrival - arrival airport IATA name
+        - heading -[deg]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - fuel_mass
-        - complete_mission_flight_time
-        - DOC
+        - fuel_mass - [kg]
+        - complete_mission_flight_time [min]
+        - DOC - direct operational cost [US$]
         - mach - mach number
-        - passenger_capacity
-        - SAR
-        - mission_range
+        - passenger_capacity - passenger capacity
+        - SAR - cruise average specific air range [nm/kg]
+        - mission_range - [nm]
     """
 
     start_time = datetime.now()

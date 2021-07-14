@@ -36,12 +36,12 @@ def reserve_fuel(landing_weight, alternative_airport_distance, holding_time, del
         - This function computes the reserve fuel simplified calculation.
  
     Inputs:
-        - landing_weight
-        - alternative_airport_distance
-        - holding_time
+        - landing_weight - [kg]
+        - alternative_airport_distance - [nm]
+        - holding_time - [min]
         - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - fuel
+        - fuel - [kg]
     """
 
     reference_fuel_fraction = 1000

@@ -38,17 +38,17 @@ def MASSFP(Tt=None, f=None, M=None, ht=None, Prt=None, gammat=None, at=None):
     Description:
         - This function calculates the mass flow parameters.
     Inputs:
-        - Tt
-        - f
-        - M
-        - ht
-        - Prt
-        - gammat
-        - at
+        - Tt - Total temperature
+        - f - fuel/air ratio
+        - M - Mach number
+        - ht - static enthalpy [Jkg]
+        - Prt - relative pressure [pa]
+        - gammat - ratio of specific heats
+        - at - speed of sound [m/s]
     Outputs:
-        - TtdT
-        - PtdP
-        - MFP
+        - TtdT - temperature ratio
+        - PtdP - pressure ratio
+        - MFP - mass flow parameter
     """
 
     list_variables = [Tt, f, M, ht, Prt, gammat, at]

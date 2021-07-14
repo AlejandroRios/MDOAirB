@@ -37,12 +37,12 @@ def holding_fuel(altitude, delta_ISA, holding_time, vehicle):
     Description:
         - This function calculates the fuel spent during holding
     Inputs:
-        - altitude
+        - altitude - [ft]
         - delta_ISA - ISA temperature deviation [deg C]
-        - holding_time
+        - holding_time [min]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - fuel_mass_holding
+        - fuel_mass_holding [kg]
     """
 
     altitude = altitude + 1500
@@ -58,13 +58,13 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
     Description:
         - This function calculates the best holding speed.
     Inputs:
-        - altitude
+        - altitude - [ft]
         - delta_ISA - ISA temperature deviation [deg C]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - V_hold_kt
-        - CL_to_CD
-        - fuel_flow_holding
+        - V_hold_kt - hold velocity [kt]
+        - CL_to_CD - lift to drag ration
+        - fuel_flow_holding - fuel flow spent during holding [kg]
     """
 
     kt_to_ms = 0.514444

@@ -42,13 +42,13 @@ def turbofan(altitude, mach, throttle_position, vehicle):
     Description:
         - This functioncaculates the turbofan performance based in EngineSim from NASA
     Inputs:
-        - altitude
+        - altitude - [ft]
         - mach - mach number
         - throttle_position - throttle position [1.0 = 100%]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - force
-        - fuel_flow
+        - force - [N]
+        - fuel_flow - [kg/hr]
         - vehicle - dictionary containing aircraft parameters
     """
     engine = vehicle['engine']
