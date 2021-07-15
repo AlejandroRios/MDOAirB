@@ -37,7 +37,7 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
     Inputs:
         - vehicle - dictionary containing aircraft parameters
         - mach - mach number
-        - ceiling
+        - ceiling - [ft]
     Outputs:
         - vehicle - dictionary containing aircraft parameters
     """

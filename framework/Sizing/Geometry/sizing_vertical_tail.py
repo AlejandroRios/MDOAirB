@@ -45,7 +45,7 @@ def sizing_vertical_tail(vehicle,
     Inputs:
         - vehicle - dictionary containing aircraft parameters
         - mach - mach number
-        - altitude
+        - altitude - [ft]
     Outputs:
         - vehicle - dictionary containing aircraft parameters
     """

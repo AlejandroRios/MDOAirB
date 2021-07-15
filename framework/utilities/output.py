@@ -41,12 +41,12 @@ def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
     Description:
         - This function create a txt file containing principal results
     Inputs:
-        - profit
-        - DOC_ik
+        - profit - [US$]
+        - DOC_ik - doc matrix [US$]
         - vehicle - dictionary containing aircraft parameters
-        - kpi_df2
+        - kpi_df2 - dictionary containing network oprimization parameters
     Outputs:
-        - txt file
+        - txt file - output information text file
     """
 
     log.info('==== Start writing aircraft results ====')
@@ -424,12 +424,12 @@ def write_kml_results(arrivals, departures, profit, vehicle):
     Description:
         - This function create a kml file containing the optimal network
     Inputs:
-        - arrivals
-        - departures
-        - profit
+        - arrivals - list containing the ICAO code for all the cosidered airports
+        - departures - list containing the ICAO code for all the cosidered airports
+        - profit - [US$]
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - kml file
+        - kml file - kml file to be open in google earth showing the network connections
     """
     log.info('==== Start writing klm results ====')
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
@@ -484,11 +484,11 @@ def write_newtork_results(profit,dataframe01,dataframe02):
     Description:
         - This function create csv files relating to network results
     Inputs:
-        - profit
-        - dataframe01
-        - dataframe02
+        - profit - [US$]
+        - dataframe01 - dictionary containg network optimization results
+        - dataframe02- dictionary containg network optimization results
     Outputs:
-        - csv files
+        - csv files - csv containing network results
     """
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 

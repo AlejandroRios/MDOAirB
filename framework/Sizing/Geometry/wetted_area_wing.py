@@ -41,11 +41,11 @@ def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
         - This is the main function for the wing wetted area calculation.
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - fileToRead1
-        - fileToRead2
-        - fileToRead3
+        - fileToRead1 - root airfoil name (without .dat extension) [string]
+        - fileToRead2 - kink airfoil name (without .dat extension) [string]
+        - fileToRead3 - tip airfoil name (without .dat extension) [string]
     Outputs:
-        - total_area
+        - total_area - wing wetted area [m2]
     """
     wing = vehicle['wing']
     fuselage = vehicle['fuselage']

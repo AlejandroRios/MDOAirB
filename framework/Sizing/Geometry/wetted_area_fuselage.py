@@ -39,7 +39,7 @@ def wetted_area_forward_fuselage(vehicle):
     Inputs:
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - total_area
+        - total_area - [m2]
     """
 
     fuselage = vehicle['fuselage']

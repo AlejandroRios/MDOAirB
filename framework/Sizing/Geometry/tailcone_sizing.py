@@ -30,12 +30,12 @@ def tailcone_sizing(NPax, PEng, fuse_height, fuse_width):
     Description:
         - This function performs the tailcone sizing.
     Inputs:
-        - NPax
-        - PEng
-        - fuse_height
-        - fuse_width
+        - NPax - number of passengers
+        - PEng - engine position
+        - fuse_height - fuselage height [m]
+        - fuse_width - fuselage width [m]
     Outputs:
-        - ltail
+        - ltail - tail length [m]
     """
     #  Provide a sizing of the tailcone
     fusext = 0

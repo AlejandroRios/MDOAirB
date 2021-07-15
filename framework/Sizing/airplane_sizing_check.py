@@ -76,8 +76,8 @@ def airplane_sizing(vehicle,x=None):
         - x - design variables vector
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - status
-        - flags
+        - status - flag check status: 0 = passed all checks | 1 = one or more checks not passed
+        - flags - flags corresponding to performance and noise constraints
         - vehicle - dictionary containing aircraft parameters
     """
     log.info('---- Start aircraft sizing module ----')

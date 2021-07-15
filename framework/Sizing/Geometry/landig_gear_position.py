@@ -41,7 +41,7 @@ def landig_gear_position(vehicle):
         - vehicle - dictionary containing aircraft parameters
     Outputs:
         - vehicle - dictionary containing aircraft parameters
-        - yc_trunnion
+        - yc_trunnion - y trunnion position along the wing semi-span [m]
     """
     engine = vehicle['engine']
     wing = vehicle['wing']

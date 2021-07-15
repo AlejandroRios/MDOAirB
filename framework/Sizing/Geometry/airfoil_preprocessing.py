@@ -45,8 +45,8 @@ def airfoil_preprocessing(airfoil, panel_number):
         - This function takes as input the airfoil cordinates .dat file an redefine number of panels
  
     Inputs:
-        - airfoil
-        - panel_number
+        - airfoil - airfoil name as specified in Database/Airfoils without the extesion (.dat) [string]
+        - panel_number - number of panels to redefine the discretization of the airfoil
     Outputs:
         - redefined coordinates
     """

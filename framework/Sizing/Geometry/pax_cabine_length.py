@@ -40,7 +40,7 @@ def pax_cabine_length(vehicle):
     Inputs:
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - LenFus
+        - LenFus - fuselage length - [m]
     """
     aircraft = vehicle['aircraft']
     fuselage = vehicle['fuselage']

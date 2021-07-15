@@ -46,17 +46,18 @@ def wing_structural_layout(vehicle, xutip, yutip,
         - This function generates wing structural layout and estimates fuel storage.
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - xutip
-        - yutip
-        - yltip
-        - xukink
-        - xlkink
-        - yukink
-        - ylkink
-        - xuroot
-        - xlroot
-        - yuroot
-        - ylroot
+        - xutip - upper surface x tip chord coordinate
+        - yutip - upper surface y tip chord coordinate
+        - xltip - lower surface x tip chord coordinate
+        - yltip - lower surface y tip chord coordinate
+        - xubreak - upper surface x break chord coordinate
+        - yubreak - upper surface y break chord coordinate
+        - xlbreak - lower surface x break chord coordinate
+        - ylbreak - lower surface y break chord coordinate
+        - xuroot - upper surface x root chord coordinate
+        - yuroot - upper surface y root chord coordinate
+        - xlroot - lower surface x root chord coordinate
+        - ylroot - lower surface y root chord coordinate
     Outputs:
         - vehicle - dictionary containing aircraft parameters
     """

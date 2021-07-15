@@ -57,18 +57,18 @@ def wetted_area(vehicle):
         - vehicle - dictionary containing aircraft parameters
     Outputs:
         - vehicle - dictionary containing aircraft parameters
-        - xutip
-        - yutip
-        - xltip
-        - yltip
-        - xubreak
-        - yubreak
-        - xlbreak
-        - ylbreak
-        - xuraiz
-        - yuraiz
-        - xlraiz
-        - ylrai
+        - xutip - upper surface x tip chord coordinate
+        - yutip - upper surface y tip chord coordinate
+        - xltip - lower surface x tip chord coordinate
+        - yltip - lower surface y tip chord coordinate
+        - xubreak - upper surface x break chord coordinate
+        - yubreak - upper surface y break chord coordinate
+        - xlbreak - lower surface x break chord coordinate
+        - ylbreak - lower surface y break chord coordinate
+        - xuraiz - upper surface x root chord coordinate
+        - yuraiz - upper surface y root chord coordinate
+        - xlraiz - lower surface x root chord coordinate
+        - ylraiz - lower surface y root chord coordinate
     """
 
     MODULE_DIR = 'c:/Users/aarc8/Documents/github\MDOAirB/framework/CPACS_update'

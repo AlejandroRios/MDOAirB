@@ -36,11 +36,11 @@ def area_triangle_3d(x, y, z):
         - This function calculate the area triangle for applications in 3D surfaces area calculation.
  
     Inputs:
-        - x
-        - y
-        - z
+        - x - vector containing x coordinates of the triangle
+        - y - vector containing y coordinates of the triangle
+        - z - vector containing z coordinates of the triangle
     Outputs:
-        - area
+        - area - triangle area
     """
 
     x1 = x[0]
