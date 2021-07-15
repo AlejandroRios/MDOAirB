@@ -108,10 +108,10 @@ def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
         - This function performs the landing field length check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - maximum_takeoff_weight
-        - weight_landing
+        - maximum_takeoff_weight - [N]
+        - weight_landing - [N]
     Outputs:
-        - weight_landing
+        - weight_landing - [N]
     """
 
     aircraft = vehicle['aircraft']
@@ -148,10 +148,10 @@ def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
         - This function performs the landing climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - maximum_takeoff_weight
-        - weight_landing
+        - maximum_takeoff_weight - [N]
+        - weight_landing [N]
     Outputs:
-        - weight_landing
+        - weight_landing - [N]
     """
 
     aircraft = vehicle['aircraft']
@@ -179,10 +179,10 @@ def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing)
         - This function performs the missed approach climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
-        - maximum_takeoff_weight
-        - weight_landing
+        - maximum_takeoff_weight - [N]
+        - weight_landing - [N]
     Outputs:
-        - weight_landing
+        - weight_landing - [N]
     """
 
     aircraft = vehicle['aircraft']
@@ -257,7 +257,7 @@ def regulated_takeoff_weight(vehicle):
     Inputs:
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - regulated takeoff weight
+        - regulated takeoff weight - [kg]
     """
 
     aircraft = vehicle['aircraft']
@@ -286,7 +286,7 @@ def regulated_landing_weight(vehicle):
     Inputs:
         - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - regulated landing weight
+        - regulated landing weight - [kg]
     """
 
     aircraft = vehicle['aircraft']
