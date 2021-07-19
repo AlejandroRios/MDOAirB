@@ -1,11 +1,5 @@
 """
-File name : Network profit function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : July 2020
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module calculates the network profit following the following steps:
@@ -13,15 +7,18 @@ Description:
         - Revenue calculation (reveneu)
         - Direct operational cost calculation (mission)
         - Profit calculation (network_optimization)
+Reference: 
+    - Reference:
 
-Inputs:
-    - Optimization variables (array x)
-    - Mutable dictionary with aircraft, perfomance, operations and airports
-    departure and destiny information
-Outputs:
-    - Profit wich is the objective function
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -53,7 +50,18 @@ from framework.Attributes.Geo.bearing import calculate_bearing
 log = get_logger(__file__.split('.')[0])
 
 def objective_function_0(vehicle,x=None):
+    '''
+    Description:
+        - This function performs the evaluation of the buffet altitude
 
+    Inputs:
+        - Mutable dictionary with aircraft, perfomance, operations and airports
+        departure and destiny information
+        - Optimization variables (array x)
+
+    Outputs:
+        - Profit wich is the objective function
+    '''
     log.info('==== Start network profit module ====')
     start_time = datetime.now()
 

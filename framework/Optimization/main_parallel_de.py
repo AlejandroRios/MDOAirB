@@ -1,29 +1,28 @@
 """
-File name : Optimization function
-Authors   : Alejandro Rios
-            Lionel Guerin
-Email     : aarc.88@gmail.com
-Date      : Dezember 2020
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function configurate the genetic algorithm for the aircraft and
+    - This module configurate the genetic algorithm for the aircraft and
     network optimization. 
-Inputs:
-    -
-Outputs:
-    -
+
+Reference: 
+    - Reference: ROSKAM
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import multiprocessing
-
 
 import json
 import jsonschema
@@ -160,18 +159,36 @@ def RegisterVariables(toolbox, design_variables):
 
 # # Declaration of the objective function (network profit)
 def obj_function(individual):
-    # This function takes as inputs the current individual (vector of design variavbles) and
-    # a predefined dictionary with pre-stored information of the vehicle (aircraft)
+    '''
+    Description:
+        - This function takes as inputs the current individual (vector of design variables) and
+          a predefined dictionary with pre-stored information of the vehicle (aircraft)
+
+    Inputs:
+        - individual - array containing the design variables of the individual to be analysed
+    Outputs:
+        - network profit
+    '''
     vehicle = initialize_aircraft_parameters()
     vehicle = UpdateVehicle(vehicle, fixed_parameters)
     net_profit = objective_function(vehicle,individual)
     vehicle.clear()
     return -net_profit,
 
-def initPopulation(pcls, ind_init, file):    
+def initPopulation(pcls, ind_init, file):
     return pcls(ind_init(c) for c in file)
 
 def first_generation_create(individuas_number,lower_bounds,upper_bounds):
+    '''
+    Description:
+        - This function create the first generation to be analysed via latin-hypercube sampling
+    Inputs:
+        - individual_number - number of individual to compose the first generation
+		- lower_bounds - design variables lower bounds
+		- upper_bounds - design varaibles upper bounds
+    Outputs:
+        - Initial_population - array containning the initial population individuals
+    '''
 	xlimits = np.asarray(list(zip(lower_bounds, upper_bounds)))
 	sampling = LHS(xlimits=xlimits)
 	Initial_population = sampling(individuas_number)
@@ -202,7 +219,6 @@ if os.path.isfile(FIXED_PARAMETERS_PATH):
 # UpdateVehicle(vehicle, fixed_parameters)
 individuas_number = 10
 # init_Population = first_generation_create(individuas_number,lower_bounds,upper_bounds)
-
 
 init_Population = [[97, 76, 49, 23, -3, 30, 52, 10, 29, 1358, 18, 96, 6, 1675, 41000, 78, 1, 1, 1, 1], 
 [79, 89, 39, 25, -4, 26, 62, 18, 27, 1418, 15, 74, 5, 1225, 41000, 78, 1, 1, 1, 1], 
