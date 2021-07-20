@@ -12,12 +12,12 @@ Reference:
 TODO's:
     -
 
-| Authors: Alejandro Rios
-| Email: aarc.88@gmail.com
-| Creation: January 2021
-| Last modification: February 2021
+| Authors: CEASIOM team
+| Email: 
+| Creation: 
+| Last modification: 
 | Language  : Python 3.8 or >
-| Aeronautical Institute of Technology - Airbus Brazil
+| 
 """
 
 #==============================================================================
