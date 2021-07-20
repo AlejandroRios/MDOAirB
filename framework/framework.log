@@ -1,8 +1,0 @@
-2021-07-20 09:56:01,269 - c:\users\aarc8\documents\github\mdoairb\framework\Noise\Noise_Smith\noise_calculation     - INFO - ---- Start aircraft noise module --2021-07-20 09:58:06,944 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - Aircraft passed sizing and checks status: 0
-2021-07-20 09:58:06,944 - c:\users\aarc8\documents\github\mdoairb\framework\Optimization\objective_function     - INFO - ---- Start DOC matrix calculation ----
-e ----
-    - INFO - ---- Start sizing loop for tail sizing ----
-2021-07-20 09:56:01,201 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
-2021-07-20 09:58:06,943 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft flags: [0, 0, 0, 0, 0, 0, 0]
-2021-07-20 09:58:06,943 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Aircraft status (pass = 0, no pass =1): 0
-2021-07-20 09:58:06,944 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End aircraft sizing module ----
