@@ -1,26 +1,30 @@
 """
-File name : aerodynamic coefficients
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module computes zero fidelity drag coefficient's for the 
+    different flight phases
+
+Reference:
+    - 
+
 TODO's:
-    -
+    - Update for last dictionaty version vehicle
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import numpy as np
-from framework.baseline_aircraft_parameters import *
+
+# from framework.baseline_aircraft_parameters import *
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -29,8 +33,17 @@ from framework.baseline_aircraft_parameters import *
 # FUNCTIONS
 # =============================================================================
 
-
 def zero_fidelity_drag_coefficient(aircraft_data, CL, phase):
+    '''
+    Description:
+        zero fidelity drag coefficient estimation
+    Inputs:
+        - aircraft_data - dictionary containing aircraft data
+        - CL - lift coefficient
+        - phase - flight phase
+    Outputs:
+        - CD - drag coefficient
+    '''
 
     wing_aspect_ratio = wing['aspect_ratio']
     e = 0.7

@@ -1,20 +1,19 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates airfoil parameters based in Sobieski approach
+
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -32,12 +31,29 @@ from scipy.optimize import minimize
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-# warnings.filterwarnings('ignore')  # Be careful with this line
-
 def generate_sobieski_coefficients(rBA, phi, X_tcmax, t_c, theta, epsilon, X_Ycmax, Ycmax, YCtcmax, Hte, EspBF):
+    '''
+    Description:
+        This function solve the system that geneterates the Sobieski coefficients
+    Inputs:
+        - rBA 
+        - phi
+        - X_tcmax
+        - t_c
+        - theta
+        - epsilon
+        - X_Ycmax
+        - Ycmax
+        - YCtcmax
+        - Hte
+        - EspBF
+    Outputs:
+        - mat A solved
+        - mat B solved
+        '''
     # These are constant parameters
-    #EspBF = 0.0025 # Trailing edge thickness
-    #Hte = 0.0 # Trailing edge height (distance to the chord-line)
+    # EspBF = 0.0025 # Trailing edge thickness
+    # Hte = 0.0 # Trailing edge height (distance to the chord-line)
 
     #Thickness matrix
     Mt = np.array([[1, 0, 0, 0, 0],
@@ -65,8 +81,26 @@ def generate_sobieski_coefficients(rBA, phi, X_tcmax, t_c, theta, epsilon, X_Ycm
     return A_rev, B_rev
 
 def generate_sobieski_coordinates(a,b,x):
+    '''
+    Description:
+        This function generates the Sobieski coordinates
+    Inputs:
+        - a
+        - b
+        - x
+    Outputs:
+        - yu
+        - yl
+        - xsing
+        - ysing
+        - trail
+        - slopt
+        - radius
+        - t_c
+        - Hte
+        - yc
+    '''
 
-        
     yt  = a[0]*x**0.5 + a[1]*x + a[2]*x**2 + a[3]*x**3 + a[4]*x**4
     yc = b[0]*x + b[1]*x**2 + b[2]*x**3 + b[3]*x**4  + b[4]*x**5 + b[5]*x**6
 
@@ -88,7 +122,19 @@ def generate_sobieski_coordinates(a,b,x):
     return yu, yl, xsing, ysing, trail, slopt, radius, t_c, Hte, yc
 
 def solve_coefficients(airfoil_params,xp,ysup,yinf,Hte,EspBF):
-
+    '''
+    Description:
+        This function uses the generate_sobieski_coefficients function to estimate the error 
+    Inputs:
+        - airfoil_params
+        - xp 
+        - ysup
+        - yinf
+        - Hte
+        - EspBF
+    Outputs:
+        - error
+    '''
     r0      = airfoil_params[0]
     t_c     = airfoil_params[1]
     phi     = airfoil_params[2]
@@ -111,7 +157,25 @@ def solve_coefficients(airfoil_params,xp,ysup,yinf,Hte,EspBF):
     return error
 
 def airfoil_sobieski_coefficients(fileToRead1):
-
+    '''
+    Description:
+        This is the main function for the estimation of sobieski coefficients
+    Inputs:
+        - fileToRead1 - airfoil file name as specified in Database/Airfoils (withoud extension)
+    Outputs:
+        - r0 - airfoil leading edge radius [deg]
+        - t_c - thick to chord ratio
+        - phi - airfoil thickness line angle at trailing edge [deg]
+        - X_tcmax - x position of max thick to chord ratio
+        - theta - airfoil camber line angle at leading edge [deg]
+        - epsilon - airfoil camber line angle at trailing edge [deg]
+        - Ycmax - aifoil maximum camber
+        - YCtcmax - camber at maximum thickness chordwise position
+        - X_Ycmax - airfoil maximum camber position
+        - xp - airfoil x coordinate
+        - yu - airfoil upper surface coordinates
+        - yl - airfoil lower surface coordinates
+    '''
     airfoil_names = [fileToRead1]
     # Load airfoil coordinates
     df = pd.read_csv('Database/Airfoils/' +
@@ -210,10 +274,18 @@ def airfoil_sobieski_coefficients(fileToRead1):
     #Regenerating airfoil coordinates
     yu, yl,_, _, _, _, _, _, _, _= generate_sobieski_coordinates(A,B,xp)
 
-    return r0, t_c, phi, X_tcmax, theta, epsilon, Ycmax, YCtcmax, X_Ycmax, xp, yu, yl 
+    return r0, t_c, phi, X_tcmax, theta, epsilon, Ycmax, YCtcmax, X_Ycmax, xp, yu, yl
 
 def airfoil_parameters(vehicle):
-
+    '''
+    Description:
+        This function run the main function for all the airfoils that made part of the wing and 
+        update the vehicle dictionary with the outputs
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+    '''
     wing = vehicle['wing']
 
     airfoil_file = np.array(['PR1','PQ1','PT4'])
