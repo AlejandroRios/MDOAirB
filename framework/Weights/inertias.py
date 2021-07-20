@@ -1,20 +1,22 @@
 """
-File name : Inertias function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This code obtain the inertias based on the class II method from Torenbeek
-Future implementations:
-    - 
-Inputs:
     -
-Outputs:
-    - 
+
+Reference:
+    -
+
+TODO's:
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS

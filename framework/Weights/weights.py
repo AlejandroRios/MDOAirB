@@ -1,33 +1,21 @@
 """
-File name : weights function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This code describe the class to obtain the aircraft weight for the following groups:
-        - Wing
-        - Tail
-        - Body
-        - Alighting gear
-        - Alighting water
-        - Surface controls
-        - Engine
+    - This code describe the module to obtain the aircraft weight for the following groups:
 
-Inputs:
-    - Vehicle dictionary
-    - Maximum takeoff weight [kg]
-    - Fuel mass [kg]
-    - Engine static thrust [N]
-    - Mach number
-    - Altitude [ft]
-Outputs:
-    - Vehicle dictionary - weights updated
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -54,20 +42,15 @@ N_to_lbf = 0.2248
 
 def wing_mass(vehicle, maximum_takeoff_weight, mach, altitude):
     """
-    Description: Methodology from Isikveren 2002, pag. 56, eq. 84
+    Description: 
         - Calculates the wing mass in kg
+    Reference: 
+        - Methodology from Isikveren 2002, pag. 56, eq. 84
     Inputs:
-        - maximum takeoff weight [kg]
-        - wing position
-        - landing gear position
-        - spoilers presence
-        - wing aspect ratio
-        - wing area [m2]
-        - wing taper ration
-        - wing sweep at c/4
-        - mach number
-        - wing mean thickness
-        - altitude [ft]
+        - vehicle - dictionary containing aircraft parameters
+        - maximum_takeoff_weight
+        - mach - mach number
+        - altitude
     Outputs:
         - wing mass [kg]
     """
@@ -136,16 +119,15 @@ def wing_mass(vehicle, maximum_takeoff_weight, mach, altitude):
 
 def horizontal_tail_mass(V_dive, vehicle):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 74, eq. 5.19
+    Description: 
         - Calculates the horizontal tail mass in lb, but the result is converted to kg
+    Reference: 
+        - Methodology from Roskam-Torenbeek, pag. 74, eq. 5.19
     Inputs:
-        - dive speed [ktas]
-        - horizontal tail area [m2]
-        - horizontal tail sweep c/2 [deg]
+        - V_dive
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - horizontal tail mass [kg]
-    TODO's:
-        - 
     """
     horizontal_tail = vehicle['horizontal_tail']
 
@@ -165,20 +147,17 @@ def horizontal_tail_mass(V_dive, vehicle):
 
 def vertical_tail_mass(V_dive, vehicle):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 74, eq. 5.20
+    Description: 
         - Calculates the vertical tail mass in lb, but the result is converted to kg
+    Reference: 
+        - Methodology from Roskam-Torenbeek, pag. 74, eq. 5.20
     Inputs:
-        - dive speed [keas]
-        - horizontal tail area [m2]
-        - z distance horizontal tail [m]
-        - vertical tail area [m2]
-        - vertical tail span [m]
-        - vertical tail sweep c/2 [deg]
+        - V_dive
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - vertical tail mass [kg]
-    TODO's:
-        - 
     """
+
     horizontal_tail = vehicle['horizontal_tail']
     vertical_tail = vehicle['vertical_tail']
 
@@ -196,33 +175,17 @@ def vertical_tail_mass(V_dive, vehicle):
     return (k_v*(vertical_tail['area']*m2_to_ft2)*((aux_1/aux_2) - 0.287))*lb_to_kg
 
 
-def fuselage_mass(V_dive,
-                  vehicle
-                  ):
+def fuselage_mass(V_dive, vehicle):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 77, eq. 5.27
+    Description: 
         - Calculates the fuselage mass in lb, but the result is converted to kg
+    Reference: 
+        - Methodology from Roskam-Torenbeek, pag. 77, eq. 5.27
     Inputs:
-        - V dive [keas]
-        - fuselage width [m]
-        - fuselage height [m]
-        - fuselage length [m]
-        - fuselage wetted area [m2]
-        - engine position
-        - horizontal_tail['center_chord'] [m]
-        - horizontal_tail_mean_aerodynamic_chord_yposition [m]
-        - horizontal_tail_sweep_leading_edge [deg]
-        - horizontal_tail_mean_aerodynamic_chord [m]
-        - vertical_tail_center_chord [m]
-        - vertical_tail_span [m]
-        - vertical_tail_sweep_leading_edge [deg]
-        - wing_aerodynamic_center_xposition [m]
-
-
+        - V_dive
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - fuselage mass [kg]
-    TODO's:
-        - 
     """
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
@@ -270,18 +233,16 @@ def fuselage_mass(V_dive,
 
 def nacelle_mass(vehicle):
     """
-    Description: Methodology from Roskam-GD, pag. 79, eq. 5.35
+    Description: 
         - Calculates the nacelle mass in lb, but the result is converted to kg
+    Reference: 
+        - Methodology from Roskam-GD, pag. 79, eq. 5.35
     Inputs:
-        - engine fan diameter [m]
-        - engines number
-        - engine length [m]
-        - engine maximum static pressure at compressor [pascal???]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - nacelle mass [kg]
-    TODO's:
-        - Check dimensions
     """
+
     engine = vehicle['engine']
     engine_inlet_area = (np.pi*engine['fan_diameter']**2)/4
     aircraft = vehicle['aircraft']
@@ -290,14 +251,15 @@ def nacelle_mass(vehicle):
 
 def main_landig_gear_mass(maximum_takeoff_weight, vehicle):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
+    Description: 
         - Calculates the main landing gear mass in lb, but the result is converted to kg
+    Reference: 
+        - Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
     Inputs:
-        - maximum_takeoff_weight [kg]
+        - maximum_takeoff_weight
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - main landing gear mass [kg]
-    TODO's:
-        -
     """
     wing = vehicle['wing']
 
@@ -316,16 +278,16 @@ def main_landig_gear_mass(maximum_takeoff_weight, vehicle):
 
 def nose_landig_gear_mass(maximum_takeoff_weight, vehicle):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
+    Description: 
         - Calculates the nose landing gear mass in lb, but the result is converted to kg
+    Reference: 
+        - Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
     Inputs:
-        - maximum_takeoff_weight [kg]
+        - maximum_takeoff_weight
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - nose landing gear mass [kg]
-    TODO's:
-        -
     """
-
     wing = vehicle['wing']
 
     if wing['position'] == 1:
@@ -342,16 +304,17 @@ def nose_landig_gear_mass(maximum_takeoff_weight, vehicle):
 
 
 def engine_mass(engine_static_thrust, vehicle):
-    '''
-    Methodology from 
+    """
+    Description: 
+        - Calculates the engine mass in kg
+    Reference: 
+
     Inputs:
-        - engine static thrust [N]
-        - engines number 
+        - engine_static_thrust
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
         - engine mass [kg]
-    TODO's:
-        -
-    '''
+    """
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
     return (0.084 * ((engine_static_thrust*N_to_lbf)**1.1)*np.exp(-0.045*engine['bypass']))*lb_to_kg
@@ -359,17 +322,17 @@ def engine_mass(engine_static_thrust, vehicle):
 
 def fuel_system_mass(vehicle):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 92, eq. 6.24
+    Description: 
         - Calculates the fuel system mass in lb, but the result is converted to kg
+    Reference:
+        - Methodology from Roskam-Torenbeek, pag. 92, eq. 6.24
+
     Inputs:
-        - wing fuel capacity [kg]
-        - engines number
-        - range distace [nm]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        -
-    TODO's:
-        -
+        - fuel system mass [kg]
     """
+
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
     performance = vehicle['performance']
@@ -393,19 +356,16 @@ def fuel_system_mass(vehicle):
 
 def propulsion_system_mass(vehicle, engine_weight):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 93, eq. 6.28 - 6.41
+    Description: 
         - Calculates the nose landing gear mass in lb, but the result is converted to kg
+    Reference:
+        - Methodology from Roskam-Torenbeek, pag. 93, eq. 6.28 - 6.41
+
     Inputs:
-        - engines number
-        - engine position
-        - fuselage length [m]
-        - wing span [m]
-        - engine mass [kg] 
+        - vehicle - dictionary containing aircraft parameters
+        - engine_weight
     Outputs:
-        -
-    TODO's:
-        - In Prof. Bento code the summatory multiplies the number of engines. Ask if that is right, 
-        because engines number is considered in the equations.
+        - propulsion system mass [kg]
     """
     aircraft = vehicle['aircraft']
     engine = vehicle['engine']
@@ -439,14 +399,15 @@ def propulsion_system_mass(vehicle, engine_weight):
 
 def flight_control_system_mass(maximum_takeoff_weight):
     """
-    Description: Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
-        - Calculates the nose landing gear mass in lb, but the result is converted to kg
+    Description: 
+        - Calculates the flight control system mass
+    Reference:
+        - Methodology from Roskam-Torenbeek, pag. 82, eq. 5.42
+
     Inputs:
-        - maximum takeoff weight
+        - maximum_takeoff_weight
     Outputs:
-        - flight control syste mass
-    TODO's:
-        -
+        - flight control system mass [kg]
     """
     powered_flight_controls = 1
 
@@ -462,25 +423,18 @@ def flight_control_system_mass(maximum_takeoff_weight):
 
 def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
     """
-    Description: Methodology from Raymer, pag. 459, eq. 15.25 - 15.45 and Roskam-Torenbeek, pag. 105, eq. 7.31 - 7.45
+    Description: 
         - Calculates the fixed equipment mass in lb, but the result is converted to kg
-    Inputs:
-        - fuselage lenght [m]
-        - fuselage['cabine_length'] [m]
-        - wing span [m]
-        - wing area [m2]
-        - engine position
-        - engines number
-        - lh - distance between wing and tail ac [m]
-        - pax_number
-        - maximum_takeoff_weight [kg]
-        - fuel weight [kg]
-    Outputs:
-        -
-    TODO's:
-        -
-    """
+    Reference:
+        - Methodology from Raymer, pag. 459, eq. 15.25 - 15.45 and Roskam-Torenbeek, pag. 105, eq. 7.31 - 7.45
 
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+        - maximum_takeoff_weight
+        - fuel_weight
+    Outputs:
+        - fixed equiped mass [kg]
+    """
     aircraft = vehicle['aircraft']
     fuselage = vehicle['fuselage']
     wing = vehicle['wing']
@@ -569,14 +523,20 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
 
 def aircraft_empty_weight(vehicle, maximum_takeoff_weight, fuel_mass, engine_static_thrust, mach, altitude):
     """
-    Description: Methodology from Raymer, pag. 459, eq. 15.25 - 15.45 and Roskam-Torenbeek, pag. 105, eq. 7.31 - 7.45
-        - Calculates the fixed equipment mass in lb, but the result is converted to kg
+    Description: 
+        - Calculates the aircraft empty weight
+    Reference:
+        -
+
     Inputs:
-        -
+        - vehicle - dictionary containing aircraft parameters
+        - maximum_takeoff_weight
+        - fuel_mass
+        - engine_static_thrust
+        - mach - mach number
+        - altitude
     Outputs:
-        -
-    TODO's:
-        -
+        - vehicle - dictionary containing aircraft parameters
     """
     aircraft = vehicle['aircraft']
 

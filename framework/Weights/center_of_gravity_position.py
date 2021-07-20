@@ -1,20 +1,22 @@
 """
-File name : Center of gravity position function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : January/2021
-Last edit : January/2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module computes the center of gravity x position
-Inputs:
-    - Vehicle
-Outputs:
-    - direct operational cost
+
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -33,6 +35,14 @@ GRAVITY = 9.80665
 
 
 def center_of_gravity(vehicle):
+    """
+    Description:
+        - This mfunction computes the center of gravity x position
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+    """
     # == wing ==
     # Wing mean aerodynamic chord 37 - 42 percent
 
