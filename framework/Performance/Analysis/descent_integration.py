@@ -1,30 +1,22 @@
 """
-File name : Descent to altitude function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This module calculates the aircraft performance during descent by integrating
-    in time the point mass equations of movement. 
-Inputs:
-    - initial mass [kg]
-    - mach_climb
-    - climb_V_cas [knots]
-    - delta_ISA [C deg]
-    - final_altitude [ft]
-    - initial_altitude [ft]
-    - vehicle dictionary
-Outputs:
-    - final_distance [ft]
-    - total_climb_time [min]
-    - total_burned_fuel [kg]
-    - final_altitude [ft]
+    - This function calculates the aircraft performance during descent by integrating
+        in time the point mass equations of movement. 
+
+Reference:
+    -
+
 TODO's:
-    - Include a better description of this module
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -55,6 +47,24 @@ kghr_to_kgmin = 0.01667
 
 
 def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_altitude, initial_altitude, vehicle):
+    """
+    Description:
+        - This function calculates the aircraft performance during climb by integrating
+        in time the point mass equations of movement. 
+    Inputs:
+        - initial mass [kg]
+        - mach - mach number_climb
+        - climb_V_cas - calibrated airspeed during climb [kt]
+        - delta_ISA - ISA temperature deviation [deg C] [C deg]
+        - final_altitude [ft]
+        - initial_altitude [ft]
+        - vehicle - dictionary containing aircraft parameters dictionary
+    Outputs:
+        - final_distance [ft]
+        - total_climb_time [min]
+        - total_burned_fuel [kg]
+        - final_altitude [ft]
+    """
     rate_of_descent = -500
 
     time_descent1 = 0
@@ -103,7 +113,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
             initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 0, mach_descent, delta_ISA, vehicle)
        
         delta_distance = 0
-        delta_time = 0
+        delta_time - increase in time [s] = 0
         delta_altitude = 0
         delta_fuel = 0
 
@@ -130,7 +140,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
         final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
             initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, descent_V_cas, 0, delta_ISA, vehicle)
 
-        delta_distance, delta_time, delta_altitude, delta_fuel = decelaration_to_250(
+        delta_distance, delta_time - increase in time [s], delta_altitude, delta_fuel = decelaration_to_250(
             rate_of_descent, descent_V_cas, delta_ISA, vehicle)
 
         burned_fuel = initial_block_mass - final_block_mass
@@ -158,7 +168,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
             initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 250, 0, delta_ISA, vehicle)
 
         delta_distance = 0
-        delta_time = 0
+        delta_time - increase in time [s] = 0
         delta_altitude = 0
         delta_fuel = 0
 
@@ -173,12 +183,31 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
 
     final_distance = final_block_distance + delta_distance
     total_burned_fuel = sum(total_burned_fuel) + delta_fuel
-    total_descent_time = sum(total_descent_time) + delta_time
+    total_descent_time = sum(total_descent_time) + delta_time - increase in time [s]
 
     return final_distance, total_descent_time, total_burned_fuel, final_altitude
 
-def descent_integration_datadriven(mass, mach_descent, descent_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
-    
+def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
+    """
+    Description:
+        - This function calculates the aircraft performance during climb by integrating
+        in time the point mass equations of movement. 
+    Inputs:
+        - initial mass [kg]
+        - mach - mach number_climb
+        - descent_V_cas [knots]
+        - delta_ISA - ISA temperature deviation [deg C] [C deg]
+        - altitude_vec - vector containing altitude [m] [ft]
+        - speeds_vec [kt]
+        - mach - mach number_vec
+        - initial_altitude
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - final_distance
+        - total_descent_time
+        - total_burned_fuel
+        - final_altitude
+    """
     rate_of_descent = -500
 
     transition_altitude = crossover_altitude(
@@ -230,7 +259,25 @@ def descent_integration_datadriven(mass, mach_descent, descent_V_cas, delta_ISA,
     return final_distance, total_descent_time, total_burned_fuel, final_altitude
 
 def climb_integrator(initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle):
-
+    """
+    Description:
+        - This function sets the integration parameters. 
+    Inputs:
+        - initial_block_distance
+        - initial_block_altitude
+        - initial_block_mass
+        - initial_block_time
+        - final_block_altitude
+        - climb_V_cas - calibrated airspeed during climb [kt]
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - final_block_distance
+        - final_block_altitude
+        - final_block_mass
+        - final_block_time
+    """
     Tsim = initial_block_time + 40
     stop_condition.terminal = True
 
@@ -256,7 +303,20 @@ def stop_condition(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop
 
 
 def climb(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria):
-
+    """
+    Description:
+        - This function uses the mass-point equations of motion to evaluate the sates in time. 
+    Inputs:
+        - time
+        - state
+        - climb_V_cas - calibrated airspeed during climb [kt]
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
+        - stop_criteria
+    Outputs:
+        - dout - derivatives of the state variables
+    """
     aircraft = vehicle['aircraft']
     distance = state[0]
     altitude = state[1]
@@ -271,7 +331,7 @@ def climb(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria
     #     return
 
     _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
-    throttle_position = 0.3
+    throttle_position = 0.4
 
     if climb_V_cas > 0:
         mach = V_cas_to_mach(climb_V_cas, altitude, delta_ISA)

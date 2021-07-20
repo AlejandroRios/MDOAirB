@@ -1,26 +1,24 @@
 """
-File name : Cruise performance function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
+
 Description:
     - This module calculates the cruise performance using the Breguet equations
-Inputs:
-    - Cruise altitude [ft]
-    - Delta ISA [C deg]
-    - Mach number
-    - Mass at top of climb
-    - Cruise distance [mn]
-    - Vehicle dictionary
-Outputs:
-    - Cruise time [min]
-    - Mass at top of descent [kg]
+
+Reference:
+    - 
+
 TODO's:
-    - Rename variables 
+    - Review and rename variables
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
+
 # =============================================================================
 # IMPORTS
 # =============================================================================
@@ -48,6 +46,20 @@ GRAVITY = 9.80665
 ft_to_m = 0.3048
 
 def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle):
+    """
+    Description:
+        - This function sets the division of segments to perform the cruise calculation
+    Inputs:
+        - altitude
+        - delta_ISA - ISA temperature deviation [deg C]
+        - mach - mach number
+        - mass - aircraft mass [kg]
+        - distance_cruise - cruise distance [nm]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - time_cruise - time spent during cruise phase [min]
+        - final_mass - aircraft mass at the end of cruise [kg]
+    """
     n = 10
     step_cruise = distance_cruise/n
     distance = 0
@@ -75,6 +87,20 @@ def cruise_performance(altitude, delta_ISA, mach, mass, distance_cruise, vehicle
     return time_cruise, final_mass
 
 def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, vehicle):
+    """
+    Description:
+        - This function calculates the cruise performance based on Breguet equations. 
+    Inputs:
+        - altitude - [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - mach - mach number
+        - mass - aircraft mass [kg]
+        - distance_cruise - cruise distance [nm]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - time_cruise - time spent during cruise phase [min]
+        - final_mass - aircraft mass at the end of cruise [kg]
+    """
     n = 4
     step_cruise = distance_cruise/n
     distance = 0
@@ -85,7 +111,6 @@ def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, 
     # if distance_cruise < 0:
     #     print('duhh')
     
-
     V_tas = mach_to_V_tas(mach, altitude, delta_ISA)
 
     for i in range(n):
@@ -108,7 +133,21 @@ def cruise_performance_simple(altitude, delta_ISA, mach, mass, distance_cruise, 
 
 
 def specific_fuel_consumption(vehicle, mach, altitude, delta_ISA, mass):
-
+    """
+    Description:
+        - This function calculates the specific fuel consumption during cruise segment
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+        - mach - mach number
+        - altitude - [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - mass - aircraft mass [kg]
+    Outputs:
+        - TSFC - thrust specific fuel consumption [(kg/hr)/N] 
+        - L_over_D - lift to drag ratio
+        - fuel_flow - engine fuel flow [kg/hr]
+        - throttle_position - throttle position [1.0 = 100%]
+    """
     knots_to_meters_second = 0.514444
 
     aircraft = vehicle['aircraft']
@@ -163,6 +202,19 @@ def specific_fuel_consumption(vehicle, mach, altitude, delta_ISA, mass):
 
 
 def mission_segment(mass_0, step_cruise, L_over_D, TSFC, V_tas):
+    """
+    Description:
+        - This function calculates the mission segment fuel burn
+    Inputs:
+        - mass_0 - initial mass [kg]
+        - step_cruise - number of segments in which the cruise phase is divided
+        - L_over_D - lift over drag ratio 
+        - TSFC - thrust specific fuel consumption [(kg/hr)/N] 
+        - V_tas - true airspeed [kt]
+    Outputs:
+        - mass_fuel - fuel mass [kg]
+        - time - time [min]
+    """
     knots_to_meters_second = 0.514444
     second_to_miniute = 0.01667
     fixedW = mass_0  # [kg]
@@ -187,7 +239,20 @@ def mission_segment(mass_0, step_cruise, L_over_D, TSFC, V_tas):
 
 
 def breguet(type, task, E_R_or_frac, LD, SFC, V, eta_p):
-
+    """
+    Description:
+        - This function calculates the Breguet equation
+    Inputs:
+        - type - type of analysis
+        - task - task analysis
+        - E_R_or_frac
+        - LD - lift over drag ratio
+        - SFC - specific fuel consumption [(kg/hr)/N]
+        - V - aircraft speed
+        - eta_p
+    Outputs:
+        - varargout
+    """
     if V == "False":
         V = 'NaN'
 
@@ -210,10 +275,24 @@ def breguet(type, task, E_R_or_frac, LD, SFC, V, eta_p):
     else:
         print('Unknown mission segment type and/or task string')
     
-    # print(varargout)
     return(varargout)
 
 def breguet_simple(altitude, delta_ISA, mach, LD, SFC,step_cruise,W0):
+    """
+    Description:
+        - This function calculates the simplified Breguet equation
+    Inputs:
+        - altitude - [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - mach - mach number
+        - LD - lift over drag ratio
+        - SFC - specific fuel consumption [(kg/hr)/N]
+        - step_cruise 
+        - W0 - initial weight [N]
+    Outputs:
+        - mass_fuel - fuel mass [kg]
+        - time - time [min]
+    """
     second_to_miniute = 0.01667
     _, _, _, _, _, _, _, a = atmosphere_ISA_deviation(altitude, delta_ISA)
     V=mach*a
@@ -229,6 +308,18 @@ def breguet_simple(altitude, delta_ISA, mach, LD, SFC,step_cruise,W0):
     return float(mass_fuel), float(time)
 
 def fuelfractionsizing(sf, fixedW, FF, tol, maxW):
+    """
+    Description:
+        - This function calculates the fuel fraction
+    Inputs:
+        - sf
+        - fixedW
+        - FF
+        - tol
+        - maxW
+    Outputs:
+        - W0
+    """
 
     if isfunction(sf) is not True:
         if len(sf) == 1:
@@ -283,6 +374,14 @@ def fuelfractionsizing(sf, fixedW, FF, tol, maxW):
 
 
 def missionfuelburn(varargin):
+    """
+    Description:
+        - This function calculates misison fuel burn
+    Inputs:
+        - varargin
+    Outputs:
+        - FF
+    """
     n = len(varargin)
     fracs = [0]*(n+1)
     fracs[0] = 1

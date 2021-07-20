@@ -1,20 +1,21 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module calculates the holding fuel spent. 
+
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -32,6 +33,17 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_
 
 
 def holding_fuel(altitude, delta_ISA, holding_time, vehicle):
+    """
+    Description:
+        - This function calculates the fuel spent during holding
+    Inputs:
+        - altitude - [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - holding_time [min]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - fuel_mass_holding [kg]
+    """
 
     altitude = altitude + 1500
     _, _, fuel_flow_holding = best_holding_speed(altitude, delta_ISA, vehicle)
@@ -44,15 +56,17 @@ def holding_fuel(altitude, delta_ISA, holding_time, vehicle):
 def best_holding_speed(altitude, delta_ISA, vehicle):
     """
     Description:
-        -
+        - This function calculates the best holding speed.
     Inputs:
-        -
+        - altitude - [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        -
-    TODO's:
-    - Specify reference for this module
-    - Change variable naming
+        - V_hold_kt - hold velocity [kt]
+        - CL_to_CD - lift to drag ration
+        - fuel_flow_holding - fuel flow spent during holding [kg]
     """
+
     kt_to_ms = 0.514444
     ft_to_m = 0.3048
     aircraft = vehicle['aircraft']

@@ -1,27 +1,30 @@
 """
-File name : Mission function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : January/2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function performs the mission analysis of the aircraft. It takes the
-    mission distance as input an computes the DOC.
-Inputs:
-    - origin-destination distance
-Outputs:
-    - direct operational cost
+    - This module performs the mission analysis of the aircraft for alternate airport.
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
-import math
+
 # =============================================================================
 # IMPORTS
 # =============================================================================
+import math
 import numpy as np
+
 from framework.Attributes.Airspeed.airspeed import (V_cas_to_mach,
                                                     crossover_altitude,
                                                     mach_to_V_cas)
@@ -58,6 +61,16 @@ gallon_to_liter = 3.7852
 feet_to_nautical_miles = 0.000164579
 
 def mission_alternative(vehicle,landing_weight):
+    """
+    Description:
+        - This function performs the mission analysis of the aircraft for alternate airport.
+ 
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+        - landing_weight - [kg]
+    Outputs:
+        - total_mission_burned_fuel - [kg]
+    """
 
     performance = vehicle['performance']
 

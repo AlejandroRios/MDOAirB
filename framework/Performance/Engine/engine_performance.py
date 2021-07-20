@@ -1,25 +1,21 @@
 """
-File name : Engine performance
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function caculates the turbofan performance based in EngineSim from NASA
-Inputs:
-    - Altitude [ft]
-    - Mach number
-    - Throttle position [0 to 1]
-    - Vehicle dictionary
-Outputs:
-    - Thrust force [N] 
-    - Fuel flow [kg/hr]
+    - This module caculates the turbofan performance based in EngineSim from NASA
+
+Reference:
+    - EngineSim, NASA
+
 TODO's:
-    - Change all comments
-    - Change variable naming
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -31,7 +27,7 @@ import math
 
 # from framework.Attributes.Atmosphere.atmosphere import atmosphere
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
-from framework.Attributes.Atmosphere.fair import FAIR
+from framework.Attributes.Atmosphere.temperature_dependent_air_properties import FAIR
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -42,7 +38,19 @@ from framework.Attributes.Atmosphere.fair import FAIR
 
 
 def turbofan(altitude, mach, throttle_position, vehicle):
-
+    """
+    Description:
+        - This functioncaculates the turbofan performance based in EngineSim from NASA
+    Inputs:
+        - altitude - [ft]
+        - mach - mach number
+        - throttle_position - throttle position [1.0 = 100%]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - force - [N]
+        - fuel_flow - [kg/hr]
+        - vehicle - dictionary containing aircraft parameters
+    """
     engine = vehicle['engine']
 
     fan_pressure_ratio = engine['fan_pressure_ratio']

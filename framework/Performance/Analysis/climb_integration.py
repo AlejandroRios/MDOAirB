@@ -1,30 +1,22 @@
 """
-File name : Climb integration
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : November/2020
-Last edit : November/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module calculates the aircraft performance during climb by integrating
-    in time the point mass equations of movement. 
-Inputs:
-    - initial mass [kg]
-    - mach_climb
-    - climb_V_cas [knots]
-    - delta_ISA [C deg]
-    - final_altitude [ft]
-    - initial_altitude [ft]
-    - vehicle dictionary
-Outputs:
-    - final_distance [ft]
-    - total_climb_time [min]
-    - total_burned_fuel [kg]
-    - final_altitude [ft]
+        in time the point mass equations of movement. 
+
+Reference:
+    -
+
 TODO's:
-    - Include a better description of this module
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -53,11 +45,26 @@ global GRAVITY
 GRAVITY = 9.8067
 kghr_to_kgmin = 0.01667
 kghr_to_kgsec = 0.000277778
-feet_to_nautical_miles = 0.000164579
-
 
 def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, final_altitude, initial_altitude, vehicle):
-
+    """
+    Description:
+        - This function calculates the aircraft performance during climb by integrating
+        in time the point mass equations of movement. 
+    Inputs:
+        - initial mass [kg]
+        - mach - mach number_climb
+        - climb_V_cas - calibrated airspeed during climb [kt] [knots]
+        - delta_ISA - ISA temperature deviation [deg C] [C deg]
+        - final_altitude [ft]
+        - initial_altitude [ft]
+        - vehicle - dictionary containing aircraft parameters dictionary
+    Outputs:
+        - final_distance [ft]
+        - total_climb_time [min]
+        - total_burned_fuel [kg]
+        - final_altitude [ft]
+    """
     rate_of_climb = 500
 
     time_climb1 = 0
@@ -165,8 +172,65 @@ def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, final_altitude, 
 
     return final_distance, total_climb_time, total_burned_fuel, final_altitude
 
-def climb_integration_datadriven(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
 
+def climb_integrator(initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle):
+    """
+    Description:
+        - This function sets the integration parameters. 
+    Inputs:
+        - initial_block_distance
+        - initial_block_altitude
+        - initial_block_mass
+        - initial_block_time
+        - final_block_altitude
+        - climb_V_cas - calibrated airspeed during climb [kt]
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - final_block_distance
+        - final_block_altitude
+        - final_block_mass
+        - final_block_time
+    """
+    Tsim = initial_block_time + 40
+    stop_condition.terminal = True
+
+    stop_criteria = final_block_altitude
+    sol = solve_ivp(climb, [initial_block_time, Tsim], [initial_block_distance, initial_block_altitude, initial_block_mass],
+            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria))
+
+    distance = sol.y[0]
+    altitude = sol.y[1]
+    mass = sol.y[2]
+    time = sol.t
+
+    final_block_distance = distance[-1]
+    final_block_altitude = altitude[-1]
+    final_block_mass = mass[-1]
+    final_block_time = time[-1]
+    return final_block_distance, final_block_altitude, final_block_mass, final_block_time
+
+def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
+    """
+    Description:
+        - This function sets the integration parameters. 
+    Inputs:
+        - mass
+        - mach - mach number_climb
+        - climb_V_cas - calibrated airspeed during climb [kt]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - altitude_vec - vector containing altitude [m]
+        - speed_vec
+        - mach - mach number_vec
+        - initial_altitude
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - final_distance
+        - total_climb_time
+        - total_burned_fuel
+        - final_altitude
+    """
     rate_of_climb = 500
 
     transition_altitude = crossover_altitude(
@@ -225,32 +289,26 @@ def climb_integration_datadriven(mass, mach_climb, climb_V_cas, delta_ISA, altit
 
     return final_distance, total_climb_time, total_burned_fuel, final_altitude
 
-def climb_integrator(initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle):
-   
-    Tsim = initial_block_time + 40
-    stop_condition.terminal = True
-
-    stop_criteria = final_block_altitude
-    sol = solve_ivp(climb, [initial_block_time, Tsim], [initial_block_distance, initial_block_altitude, initial_block_mass],
-            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria))
-
-    distance = sol.y[0]
-    altitude = sol.y[1]
-    mass = sol.y[2]
-    time = sol.t
-
-    final_block_distance = distance[-1]
-    final_block_altitude = altitude[-1]
-    final_block_mass = mass[-1]
-    final_block_time = time[-1]
-    return final_block_distance, final_block_altitude, final_block_mass, final_block_time
 
 def stop_condition(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria):
     H = state[1]
     return 0 if H>stop_criteria else 1
 
 def climb(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria):
-
+    """
+    Description:
+        - This function uses the mass-point equations of motion to evaluate the sates in time. 
+    Inputs:
+        - time
+        - state
+        - climb_V_cas - calibrated airspeed during climb [kt]
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
+        - stop_criteria
+    Outputs:
+        - dout
+    """
     aircraft = vehicle['aircraft']
 
     distance = state[0]
