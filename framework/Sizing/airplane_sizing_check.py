@@ -1,28 +1,25 @@
 """
-File name : Airplane sizing check function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : January 2021
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB: MDO 
 
 Description:
-    - This function performs the sizing and checks of the aicraft. It start calculationg the wetted area of the indivudual,
+    - This module performs the sizing and checks of the aicraft. It start calculationg the wetted area of the indivudual,
     then calculates the wing structural layout which provide the wing fuel capacity. A while loop is executed to iterate the 
     dimensions of the tail to adjust the máximum takeoff weight considering the mission with the máximum range. Finally, the 
     regulated takeoff and landing weight is calculated. In order to pass for the next step of the framework, the aircraft 
     should pass the checks of the regulated weights as well as the fuel capacity check.
-    
-    
-Inputs:
-    - Design variables vector [x]
-    - Vehicle dictionary
-Outputs:
-    - Checks status 
-    - Update vehicle dictionary
+
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -72,10 +69,21 @@ lbf_to_N = 4.448
 
 
 def airplane_sizing(vehicle,x=None):
+    """
+    Description:
+        - This function performs the sizing and checks of the aicraft.
+    Inputs:
+        - x - design variables vector
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - status - flag check status: 0 = passed all checks | 1 = one or more checks not passed
+        - flags - flags corresponding to performance and noise constraints
+        - vehicle - dictionary containing aircraft parameters
+    """
     log.info('---- Start aircraft sizing module ----')
 
-    # if type(x) != 'list':
-    #     x = x.tolist()
+    if type(x) != 'list':
+        x = x.tolist()
     
 
     # Load nested dictionary vehicle
@@ -444,11 +452,11 @@ def airplane_sizing(vehicle,x=None):
 
 
     # Landing field length check
-    landing_field_length_required = airport_destination['lda']
+    landing_field_length_required = airport_destination['landing_field_length']
 
     k_L = 0.107
 
-    WtoS_landing = (k_L*airport_destination['lda']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
+    WtoS_landing = (k_L*airport_destination['landing_field_length']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
 
     if WtoS_landing < WoS:
         flag_landing = 1
@@ -459,7 +467,7 @@ def airplane_sizing(vehicle,x=None):
     # Takeoff field length check
     k_TO = 2.34
 
-    ToW_takeoff = (k_TO/(airport_departure['tora']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
+    ToW_takeoff = (k_TO/(airport_departure['takeoff_field_length']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
 
     if ToW_takeoff > ToW:
         flag_takeoff = 1
@@ -555,6 +563,23 @@ def airplane_sizing(vehicle,x=None):
 #      1400, 13, 44, 4, 1500, 41000, 0.78, 1, 1, 1, 1]
 
 
-# status = airplane_sizing(x, vehicle)
+# 
 
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+# vehicle = initialize_aircraft_parameters()
+# # x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1]
+# x =  [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1] # 144 seat
+
+# # x = [ 1.04013290e+02,  8.71272735e+01,  3.42639119e+01,  2.12550036e+01,
+# #        -3.42824373e+00,  4.12149389e+01,  4.98606638e+01,  1.47169661e+01,
+# #         2.87241618e+01,  1.36584947e+03,  2.09763441e+01,  1.61607474e+02,
+# #         5.55661531e+00,  1.27054142e+03,  4.10000000e+04,  7.80000000e+01,
+# #                    1,             1,             1,             1]
+
+# # x = [ 1.12263381e+02,  8.61725966e+01,  2.93528075e+01,  2.46586854e+01,
+# #        -4.93747382e+00,  3.25432550e+01,  5.01969998e+01,  1.37762699e+01,  
+# #         2.82079270e+01,  1.38790020e+03,  1.66990988e+01,  1.51508520e+02,  
+# #         5.54040212e+00,  1.11221036e+03,  4.10000000e+04,  7.80000000e+01,  
+# #                    1,             1,             1,             1]
+# status = airplane_sizing(vehicle,x)
 

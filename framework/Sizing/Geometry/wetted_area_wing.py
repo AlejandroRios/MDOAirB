@@ -1,39 +1,52 @@
-"""" 
-Title     : Wetted area wing
-Written by: Alejandro Rios
-Date      : 13/11/19
-Language  : Python
-Aeronautical Institute of Technology
-
-
-Inputs:
-MTOW
-
-Outputs:
-Cap_Sal
-FO_Sal
 """
+MDOAirB
 
-########################################################################################
-"""Importing Modules"""
-########################################################################################
+Description:
+    - This module calculates the wetted area of the wing.
+Reference:
+    -
 
-########################################################################################
-"""Constants declaration"""
-########################################################################################
+TODO's:
+    -
 
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
-
-
+"""
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import numpy as np
 import pandas as pd
 from scipy import interpolate
-from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
 # from framework.Sizing.Geometry.airfoil_preprocessing import airfoil_preprocessing
 import matplotlib.pyplot as plt
 
-def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
+from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
 
+# =============================================================================
+# CLASSES
+# =============================================================================
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
+def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
+    """
+    Description:
+        - This is the main function for the wing wetted area calculation.
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+        - fileToRead1 - root airfoil name (without .dat extension) [string]
+        - fileToRead2 - kink airfoil name (without .dat extension) [string]
+        - fileToRead3 - tip airfoil name (without .dat extension) [string]
+    Outputs:
+        - total_area - wing wetted area [m2]
+    """
     wing = vehicle['wing']
     fuselage = vehicle['fuselage']
     engine = vehicle['engine']
@@ -50,7 +63,7 @@ def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
     airfoil_chords = [wing['root_chord'], wing['kink_chord'], wing['tip_chord']]
 
     ########################################################################################
-    """Pre-processing airfoils"""
+    # Pre-processing airfoils
     ########################################################################################
     airfoils = {1: {},
                 2: {},
@@ -69,7 +82,7 @@ def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
     #     airfoil_preprocessing(airfoil_name, panel_number)
 
     ########################################################################################
-    """Importing Data"""
+    # Importing Data
     ########################################################################################
     # Load airfoil coordinates
     df = pd.read_csv(
@@ -334,6 +347,16 @@ def wetted_area_wing(vehicle, fileToRead1, fileToRead2, fileToRead3):
 
 
 def calcareawet(xistosXper, xistosYper, xistosZper):
+    """
+    Description:
+        - This function calculates the wetted area of the wing.
+    Inputs:
+        - xistosXper
+        - xistosYper
+        - xistosZper
+    Outputs:
+        - total_area
+    """
     # Calcula área exposta da asa (m2)
     [m, n] = (xistosXper.shape)
 
@@ -389,8 +412,22 @@ def calcareawet(xistosXper, xistosYper, xistosZper):
 
 
 def tri3darea(x1, y1, z1, x2, y2, z2, x3, y3, z3):
-    # Calcula area de um triangulo a partir das coordendas dos vertices
-
+    """
+    Description:
+        - This function calculates area if the triangle from its vertex
+    Inputs:
+        - x1
+        - y1
+        - z1
+        - x2
+        - y2
+        - z2
+        - x3
+        - y3
+        - z3
+    Outputs:
+        - Stri
+    """
     a1 = x1-x2
     a2 = y1-y2
     a3 = z1-z2

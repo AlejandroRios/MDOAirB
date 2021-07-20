@@ -1,26 +1,28 @@
 """
-File name : Sizing landing gear
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : January 2021
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module performs the landing gear sizing.
-Inputs:
-    - Vehicle dictionary
-Outputs:
-    - Vehicle dictionary with landing gear information updated
+
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import numpy as np
+
 from framework.Sizing.Geometry.landig_gear_position import landig_gear_position
 from framework.Sizing.Geometry.landing_gear_layout import landing_gear_layout
 # =============================================================================
@@ -33,7 +35,14 @@ from framework.Sizing.Geometry.landing_gear_layout import landing_gear_layout
 
 
 def sizing_landing_gear(vehicle):
-
+    """
+    Description:
+        - This function performs the landing gear sizing.
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+    """
     fuselage = vehicle['fuselage']
     wing = vehicle['wing']
     horizontal_tail = vehicle['horizontal_tail']
@@ -75,10 +84,6 @@ def sizing_landing_gear(vehicle):
 
         main_landing_gear['tyre_width'] = wm_max
         main_landing_gear['piston_diameter'] = ds_m
-
-        
-
-        
 
     return vehicle
 # =============================================================================

@@ -1,30 +1,30 @@
 """
-File name : Wetted area function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : Dezember 2019
-Last edit : January 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function calculates the wetted area of the principal components of the 
+    - This module calculates the wetted area of the principal components of the 
     aircraft.
-Inputs:
-    - Vehicle dictionaty
-Outputs:
-    - Updated vehicle dictionary
-    - x and y coordinates of wing chords 
+Reference:
+    -
+
 TODO's:
     - Split this function into functions for each component
     - Rename engine variables
     - x and y coordinates output into vehicle dictionary
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import numpy as np
+import os
 from framework.Sizing.Geometry.pax_cabine_length import pax_cabine_length
 from framework.Sizing.Geometry.tailcone_sizing import tailcone_sizing
 from framework.Sizing.Geometry.wetted_area_fuselage import *
@@ -32,6 +32,9 @@ from framework.Sizing.Geometry.wetted_area_wing import *
 from framework.Sizing.Geometry.sizing_horizontal_tail import *
 from framework.Performance.Engine.engine_performance import turbofan
 from framework.utilities.logger import get_logger
+
+from framework.CPACS_update.cpacsfunctions import *
+# import cpacsfunctions as cpsf
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -47,6 +50,32 @@ N_to_lbf = 0.2248089431
 
 
 def wetted_area(vehicle):
+    """
+    Description:
+        - This function calculates the wetted area of the principal aircraft components
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+        - xutip - upper surface x tip chord coordinate
+        - yutip - upper surface y tip chord coordinate
+        - xltip - lower surface x tip chord coordinate
+        - yltip - lower surface y tip chord coordinate
+        - xubreak - upper surface x break chord coordinate
+        - yubreak - upper surface y break chord coordinate
+        - xlbreak - lower surface x break chord coordinate
+        - ylbreak - lower surface y break chord coordinate
+        - xuraiz - upper surface x root chord coordinate
+        - yuraiz - upper surface y root chord coordinate
+        - xlraiz - lower surface x root chord coordinate
+        - ylraiz - lower surface y root chord coordinate
+    """
+
+    MODULE_DIR = 'c:/Users/aarc8/Documents/github\MDOAirB/framework/CPACS_update'
+    cpacs_path = os.path.join(MODULE_DIR, 'ToolInput', 'Aircraft_In.xml')
+    cpacs_out_path = os.path.join(MODULE_DIR, 'ToolOutput', 'Aircraft_Out.xml')
+    tixi = open_tixi(cpacs_out_path)
+    tigl = open_tigl(tixi)
 
     log.info('---- Start wetted area module ----')
 
@@ -114,6 +143,31 @@ def wetted_area(vehicle):
     # Sera feito mais adiante
     fuselage['wetted_area'] = fuselage_wetted_area_forward + \
         fusealge_wetted_area_pax_cabine+fuselage_wetted_area_tailcone
+
+    tixi_out = open_tixi(cpacs_out_path)
+
+    fuselage_xpath = '/cpacs/vehicles/aircraft/model/fuselages/fuselage[1]/'
+    
+    # Update leading edge position
+    tixi_out.updateDoubleElement(fuselage_xpath+'positionings/positioning[8]/length',fuselage['cabine_length']/4, '%g')
+    tixi_out.updateDoubleElement(fuselage_xpath+'positionings/positioning[9]/length',fuselage['cabine_length']/4, '%g')
+    tixi_out.updateDoubleElement(fuselage_xpath+'positionings/positioning[10]/length',fuselage['cabine_length']/4, '%g')
+    tixi_out.updateDoubleElement(fuselage_xpath+'positionings/positioning[11]/length',fuselage['cabine_length']/4, '%g')
+
+    tixi_out.updateDoubleElement(fuselage_xpath+'positionings/positioning[12]/length',fuselage['tail_length']/2, '%g')
+    tixi_out.updateDoubleElement(fuselage_xpath+'positionings/positioning[13]/length',fuselage['tail_length']/2, '%g')
+    
+    nominal_diameter = 2.0705*2
+
+
+    scale_factor = fuselage['diameter']/nominal_diameter
+
+
+    tixi_out.updateDoubleElement(fuselage_xpath+'transformation/scaling/y',scale_factor, '%g')
+    tixi_out.updateDoubleElement(fuselage_xpath+'transformation/scaling/z',scale_factor, '%g')
+
+    
+    tixi_out = close_tixi(tixi_out, cpacs_out_path)
 
     # -----------------------------------------------------------------------------
 
@@ -216,6 +270,46 @@ def wetted_area(vehicle):
                                                                                                                                            wing['sweep_leading_edge'])+(wing['span']/2-(0.75*wing['span']/2))*np.tan(deg_to_rad*wing['sweep_trailing_edge']))  # corda no aileron
     wing['aileron_surface'] = (wing['root_chord']+wing['kink_chord'])*(wing['kink_chord_yposition']-wing['root_chord_yposition'])+(wing['kink_chord'] +
                                                                                                                                    wing['aileron_chord'])*((0.75*wing['span']/2)-wing['kink_chord_yposition'])  # area exposta com flap
+    
+
+    tixi_out = open_tixi(cpacs_out_path)
+
+    wing_xpath = '/cpacs/vehicles/aircraft/model/wings/wing[1]/'
+    
+    # Update leading edge position
+    tixi_out.updateDoubleElement(wing_xpath+'transformation/translation/x', wing['leading_edge_xposition'], '%g')
+    # Update center chord 
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[1]/elements/element/transformation/scaling/x', wing['center_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[1]/elements/element/transformation/scaling/y', wing['center_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[1]/elements/element/transformation/scaling/z', wing['center_chord'], '%g')
+    # Update root chord 
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[2]/elements/element/transformation/scaling/x', wing['root_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[2]/elements/element/transformation/scaling/y', wing['root_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[2]/elements/element/transformation/scaling/z', wing['root_chord'], '%g')
+
+    tixi_out.updateDoubleElement(wing_xpath+'positionings/positioning[2]/length',wing['root_chord_yposition'], '%g')
+
+    # Update kink chord 
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[3]/elements/element/transformation/scaling/x', wing['kink_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[3]/elements/element/transformation/scaling/y', wing['kink_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[3]/elements/element/transformation/scaling/z', wing['kink_chord'], '%g')
+
+    tixi_out.updateDoubleElement(wing_xpath+'positionings/positioning[3]/length',wing['kink_chord_yposition'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'positionings/positioning[3]/sweepAngle',wing['sweep_leading_edge'], '%g')
+
+    # Update tip chord 
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[4]/elements/element/transformation/scaling/x', wing['tip_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[4]/elements/element/transformation/scaling/y', wing['tip_chord'], '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'sections/section[4]/elements/element/transformation/scaling/z', wing['tip_chord'], '%g')
+
+    tixi_out.updateDoubleElement(wing_xpath+'positionings/positioning[4]/length',wing['span']/2, '%g')
+    tixi_out.updateDoubleElement(wing_xpath+'positionings/positioning[4]/sweepAngle',wing['sweep_leading_edge'], '%g')
+
+
+    tixi_out = close_tixi(tixi_out, cpacs_out_path)
+
+
+
 
     ############################# WING WETTED AREA ############################
     wing['semi_span'] = wing['span']/2
@@ -287,6 +381,7 @@ def wetted_area(vehicle):
     # lv=lh - 0.25*ht.ct - vertical_tail['span'] * tan(deg_to_rad*vertical_tail['sweep_leading_edge']) + 0.25*vertical_tail['center_chord'] + vertical_tail['mean_aerodynamic_chord'] *tan(deg_to_rad*vertical_tail['sweep_c_4']) # braco da EV
     # vt.v=vertical_tail['area']*lv/(wingref.S*wing['span']) # volume de cauda
 
+
     ############################# VT wetted area ######################################
     vertical_tail_mean_chord_thickness = (
         vertical_tail['thickness_ratio'][0]+3*vertical_tail['thickness_ratio'][1])/4  # [#]espessura media
@@ -310,13 +405,68 @@ def wetted_area(vehicle):
     yvt = df_pvt.y
     area_root_vt = PolyArea(
         xvt*vertical_tail['root_chord'], yvt*vertical_tail['root_chord'])
+
+    vertical_tail['aerodynamic_center_xposition'] = 0.95*fuselage['length'] - vertical_tail['center_chord'] + vertical_tail['mean_aerodynamic_chord_yposition'] * \
+        np.tan(vertical_tail['sweep_leading_edge']*deg_to_rad) + \
+        vertical_tail['aerodynamic_center_ref'] * \
+        vertical_tail['mean_aerodynamic_chord']
+
+    vertical_tail_xle_position = vertical_tail['aerodynamic_center_xposition'] - vertical_tail['center_chord']*0.25
     # Desconta area da intersecao VT-fuselagem da area molhada da fuselagem
     fuselage['wetted_area'] = fuselage['wetted_area'] - area_root_vt
+
+
+    tixi_out = open_tixi(cpacs_out_path)
+
+    vertical_tail_xpath = '/cpacs/vehicles/aircraft/model/wings/wing[3]/'
+    
+
+    # Update leading edge position
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'transformation/translation/x', vertical_tail_xle_position, '%g')
+    # Update center chord 
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[1]/elements/element/transformation/scaling/x', vertical_tail['center_chord'], '%g')
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[1]/elements/element/transformation/scaling/y', vertical_tail['center_chord'], '%g')
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[1]/elements/element/transformation/scaling/z', vertical_tail['center_chord'], '%g')
+
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[2]/elements/element/transformation/scaling/x', vertical_tail['tip_chord'], '%g')
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[2]/elements/element/transformation/scaling/y', vertical_tail['tip_chord'], '%g')
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[2]/elements/element/transformation/scaling/z', vertical_tail['tip_chord'], '%g')
+    # Update root chord 
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'positionings/positioning[2]/length',vertical_tail['span'], '%g')
+    tixi_out.updateDoubleElement(vertical_tail_xpath+'positionings/positioning[2]/sweepAngle',vertical_tail['sweep_leading_edge'], '%g')
+
+    tixi_out = close_tixi(tixi_out, cpacs_out_path)
     # -----------------------------------------------------------------------------
     ##############################HORIZONTAL TAIL##############################
     ###########################################################################
     vehicle = sizing_horizontal_tail(
         vehicle, operations['mach_cruise']+0.05, operations['max_ceiling'])
+
+
+    horizontal_tail_xle_position = horizontal_tail['aerodynamic_center'] - horizontal_tail['center_chord']*0.25
+
+    tixi_out = open_tixi(cpacs_out_path)
+
+    horizontal_thail_xpath = '/cpacs/vehicles/aircraft/model/wings/wing[2]/'
+    
+
+    # Update leading edge position
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'transformation/translation/x', horizontal_tail_xle_position, '%g')
+    # Update center chord 
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[1]/elements/element/transformation/scaling/x', horizontal_tail['center_chord'], '%g')
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[1]/elements/element/transformation/scaling/y', horizontal_tail['center_chord'], '%g')
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[1]/elements/element/transformation/scaling/z', horizontal_tail['center_chord'], '%g')
+
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[2]/elements/element/transformation/scaling/x', horizontal_tail['tip_chord'], '%g')
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[2]/elements/element/transformation/scaling/y', horizontal_tail['tip_chord'], '%g')
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[2]/elements/element/transformation/scaling/z', horizontal_tail['tip_chord'], '%g')
+    # Update root chord 
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'positionings/positioning[2]/length',horizontal_tail['span']/2, '%g')
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'positionings/positioning[2]/sweepAngle',horizontal_tail['sweep_leading_edge'], '%g')
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'positionings/positioning[1]/dihedralAngle',horizontal_tail['dihedral'], '%g')
+    tixi_out.updateDoubleElement(horizontal_thail_xpath+'positionings/positioning[2]/dihedralAngle',horizontal_tail['dihedral'], '%g')
+
+    tixi_out = close_tixi(tixi_out, cpacs_out_path)
     ###########################################################################
     ###################################ENGINE##################################
     ###########################################################################

@@ -1,21 +1,21 @@
 """
-File name :
-Authors   :
-Email     : aarc.88@gmail.com
-Date      :
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function calculates the cabine dimensions
-    - Reference PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the cabine dimensions.
+
+Reference:
+    - PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -33,7 +33,14 @@ import numpy as np
 in_to_m = 0.0254
 
 def fuselage_cross_section(vehicle):
-
+    """
+    Description:
+        - This function calculates the cabine dimensions
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+    """
     fuselage = vehicle['fuselage']
     cabine = vehicle['cabine']
     # Seat dimensions economy class
@@ -44,7 +51,7 @@ def fuselage_cross_section(vehicle):
     armrest_bottom_height = armrest_bottom*in_to_m
 
     seat_cushion_thickness_YC = cabine['seat_cushion_thickness_YC'] # [m] YC - economy class
-    seat_cushion_width_YC = cabine['seat_width']
+    seat_cushion_width_YC = cabine['seat_width']  
     double_container = 'no'
     backrest_height = cabine['backrest_height'] # [m]
     floor_thickness = cabine['floor_thickness']  # [m]

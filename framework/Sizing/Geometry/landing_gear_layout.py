@@ -1,34 +1,24 @@
 """
-File name : Landing gear layout function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : January 2021
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
-Description: This function creates the landing gear layout.
-References:
+Description:
+    - This module creates the landing gear layout.
+
+Reference:
     - ROSKAM, J. Airplane Design vol. IV - Layout of landing gear and systems. DARCorp, 2010.
       TORENBEEK, E. Synthesis of subsonic airplane design. DUP / Kluwer, 1982.
-Inputs:
-    - Vehicle dictionary
-Outputs:
-    - Vehicle dictionary updated
-    - Min angle main gear to cg [deg]
-    - Pneu number by strut 
-    - Pneu main gear diameter [m]
-    - Pneu main gear length [m]
-    - Min psiton length [m]
-    - Main gear shock absorber diameter [m]
-    - Nose gear piston length [m]
-    - Nose gear shock absorber diameter [m]
-    - Pneu nose gear length [m]
-    - Pneu nose gear diameter [m]
+
 TODO's:
     - Rename variables
     - Update comments
     - Update format to PEP8
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -54,6 +44,24 @@ rad_to_deg = 180/np.pi
 
 
 def landing_gear_layout(vehicle):
+    """
+    Description:
+        - This function creates the landing gear layout.
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+        - min_angle_main_gear_to_cg - [deg]
+        - pneu_number_by_strut
+        - pneu_main_gear_diameter - [m]
+        - pneu_main_gear_length - [m]
+        - min_piston_length - [m]
+        - main_gear_shock_absorber_diameter - [m]
+        - nose_gear_piston_length - [m]
+        - nose_gear_shock_absorber_diameter - [m]
+        - pneu_nose_gear_length - [m]
+        - pneu_nose_gear_diameter - [m]
+    """
 
     nose_landing_gear = vehicle['nose_landing_gear']
     main_landing_gear = vehicle['main_landing_gear']
@@ -193,9 +201,9 @@ def landing_gear_layout(vehicle):
     # Diâmetro, shock absorber, tdp principal [m]
     main_gear_shock_absorber_diameter = (0.041+0.0025*(Pm/0.4535)**0.5)/3.28
     # MIL-L-8552 - Minimum piston length [m]
-    min_psiton_length = Ss_m + 2.75*main_gear_shock_absorber_diameter
-    main_landing_gear['piston_length'] = min_psiton_length
-    # fprintf('\n Main landing gear Minimum piston length: #5.2f m \n',min_psiton_length)
+    min_piston_length = Ss_m + 2.75*main_gear_shock_absorber_diameter
+    main_landing_gear['piston_length'] = min_piston_length
+    # fprintf('\n Main landing gear Minimum piston length: #5.2f m \n',min_piston_length)
     # ÂNGULOS
     # A (entre a vertical do tdp principal e o cg)
     # valor para A mínimo [deg]
@@ -208,7 +216,7 @@ def landing_gear_layout(vehicle):
 
     main_landing_gear['unit_wheels_number'] = pneu_number_by_strut
 
-    return vehicle, min_angle_main_gear_to_cg, pneu_number_by_strut, pneu_main_gear_diameter, pneu_main_gear_length, min_psiton_length, main_gear_shock_absorber_diameter, nose_gear_piston_length, nose_gear_shock_absorber_diameter, pneu_nose_gear_length, pneu_nose_gear_diameter
+    return vehicle, min_angle_main_gear_to_cg, pneu_number_by_strut, pneu_main_gear_diameter, pneu_main_gear_length, min_piston_length, main_gear_shock_absorber_diameter, nose_gear_piston_length, nose_gear_shock_absorber_diameter, pneu_nose_gear_length, pneu_nose_gear_diameter
 # =============================================================================
 # MAIN
 # =============================================================================

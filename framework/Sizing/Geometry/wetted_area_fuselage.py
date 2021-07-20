@@ -1,38 +1,46 @@
 """
-Function  : wetted_area_fuselage.py
-Title     : Wetted area fuselage
-Written by: Alejandro Rios
-Date      : November/2019
-Last edit : August/2020
-Language  : Python
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This module calculates the wetted area of the fuselage
+    - This module calculates the wetted area of the fuselage.
+Reference:
+    -
 
-Future implementations:
-    - 
+TODO's:
+    -
 
-Inputs:
-    - Fuselage height
-    - Fuselage width
-    - Length front nose fuselage ???
-Outputs:
-    - Total fuselage area
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
-########################################################################################
-"""Importing Modules"""
-########################################################################################
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import numpy as np
-from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
-########################################################################################
-"""Function definition"""
-########################################################################################
+from stl import mesh
 
+from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
+# =============================================================================
+# CLASSES
+# =============================================================================
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
 
 def wetted_area_forward_fuselage(vehicle):
-    from stl import mesh
-    # import meshio
+    """
+    Description:
+        - This function calculates the wetted area of the forward part of the fuselage.
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - total_area - [m2]
+    """
 
     fuselage = vehicle['fuselage']
 
@@ -88,7 +96,14 @@ def wetted_area_forward_fuselage(vehicle):
 
 
 def wetted_area_tailcone_fuselage(vehicle):
-
+    """
+    Description:
+        - This function calculates the wetted area of the tailcone of the fuselage.
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - total_area
+    """
     fuselage = vehicle['fuselage']
 
     ai = fuselage['width']/2
@@ -174,3 +189,11 @@ def wetted_area_tailcone_fuselage(vehicle):
 
     total_area = 2*(sum(areas))
     return total_area
+
+# =============================================================================
+# MAIN
+# =============================================================================
+
+# =============================================================================
+# TEST
+# =============================================================================
