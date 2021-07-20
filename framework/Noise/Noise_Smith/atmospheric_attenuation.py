@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -36,16 +36,16 @@ def atmospheric_attenuation(T_source,noise_parameters,R,f):
     Description:
         - This function is used to estimate the atmospheric attenuation
     Inputs:
-        - T_source
-        - noise_parameters
-        - R
-        - f
+        - T_source - ambient temperature [deg C]
+        - noise_parameters - noise constant parameters
+        - R - distance [m]
+        - f - frequencies [Hz]
     Outputs:
-        - ft
-        - alfaamortt
-        - amorttott
+        - ft - frequencies [Hz]
+        - alfaamortt -
+        - amorttott 
         - amortatmt
-        - SPLrt
+        - SPLrt - noise atennuation
     """
     HR = noise_parameters['relative_humidity']   
     T                   = T_source                                                   # temperatura para avaliação da atenuação [ºC]

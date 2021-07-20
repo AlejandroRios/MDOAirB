@@ -1,20 +1,21 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module is used to convert SPL to NOY's
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -31,6 +32,16 @@ from numba import jit
 # =============================================================================
 
 def calculate_NOY(f, SPL):
+    """
+    Description:
+        - This function is used to convert SPL to NOY's
+    Inputs:
+        - f - standard frequencies [Hz]
+        - SPL - noise level in relation to reference [dB]
+    Outputs:
+        - f - standard frequencies [Hz]
+        - NOY - noise [NOY]
+    """
 
     ## CORPO DA FUNÇÃO ##
     ## Tabelas para cálculo ##
@@ -84,6 +95,15 @@ def calculate_NOY(f, SPL):
 
 @jit(nopython=True)
 def calculate_PNL(f,NOY):
+    """
+    Description:
+        - This function is used to calculate the Perceived Noise Levels
+    Inputs:
+        - f - standard frequencies [Hz]
+        - NOY - noise [NOY]
+    Outputs:
+        -PNL - perceived noise level [PNdB]
+    """
     ## CORPO DA FUNÇÃO ##
     ## Definições dos loops ##
     a1       = max(np.shape(f))
@@ -106,6 +126,15 @@ def calculate_PNL(f,NOY):
 
 @jit(nopython=True)
 def calculate_PNLT(f,SPL):
+    """
+    Description:
+        - This function is used to calculate the perceived noise level, tone corrected
+    Inputs:
+        - f - standard frequencies [Hz]
+        - SPL - noise level in relation to reference [dB]
+    Outputs:
+        - Cfin - noise correction [dB]
+    """
     #step 1
     s = np.zeros(24)
     # s = np.array([])
@@ -220,6 +249,15 @@ def calculate_PNLT(f,SPL):
     return Cfin
 @jit(nopython=True)
 def calculate_EPNdB(tempo,PNLT):
+    """
+    Description:
+        - This function is used to calculate the effective prerceibed noise (EPNdB)
+    Inputs:
+        - tempo
+        -PNL - perceived noise level [PNdB]
+    Outputs:
+        - EPNdB - effectively perceived noise [EPNdB]
+    """
 
     ## CORPO DA FUNÇÃO ##
     PNLTM               = max(PNLT)                                            # Determinação do PNLT máximo

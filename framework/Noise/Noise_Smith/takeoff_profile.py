@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -64,22 +64,22 @@ def takeoff_profile(takeoff_parameters,landing_parameters,aircraft_parameters,ru
     Description:
         - Performs the simulation of the takeoff and provides vectors containing the output information
     Inputs:
-        - takeoff_parameters
+        - takeoff_parameters - takeoff constant parameters
         - landing_parameters
         - aircraft_parameters
         - runaway_parameters
-        - engine_parameters
-        - vehicle
+        - engine_parameters - engine constant parameters
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - time_vec
-        - velocity_vec
-        - distance_vec
-        - velocity_horizontal_vec
-        - altitude_vec
-        - velocity_vertical_vec
-        - trajectory_angle_vec
-        - fan_rotation_vec
-        - compressor_rotation_vec
+        - time_vec - vector containing time [s]
+        - velocity_vec - vector containing speed [m/s]
+        - distance_vec - vector containing distances [m]
+        - velocity_horizontal_vec - vector containing horizontal speed [m/s]
+        - altitude_vec - vector containing altitude [m]
+        - velocity_vertical_vec - vector containing horizontal speed [m/s]
+        - trajectory_angle_vec - vector containing the trajectory angle [deg]
+        - fan_rotation_vec - vector containing the fan rotation [rpm]
+        - compressor_rotation_vec - vector containing the compressor rotation speed [rpm]
     """
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']

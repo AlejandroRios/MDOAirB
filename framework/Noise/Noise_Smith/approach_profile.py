@@ -9,12 +9,12 @@ Reference:
     - 
 
 TODO's:
-    -
+    - Rename variables
 
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -38,18 +38,18 @@ def approach_profile(takeoff_parameters,landing_parameters,aircraft_parameters,v
     Description:
         - Performs the simulation of the approach and provides vectors containing the output information
     Inputs:
-        - takeoff_parameters
-        - landing_parameters
-        - aircraft_parameters
-        - vehicle
+        - takeoff_parameters - takeoff constant parameters
+        - landing_parameters - landing constant parameters
+        - aircraft_parameters - dictionary containing aircraft constant parameters
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        - t
-        - d
-        - h
-        - FN
-        - CD
-        - CL
-        - VT
+        - t - time in [s]
+        - d - distance [m]
+        - h - altitude [m]
+        - FN - required thrust [N]
+        - CD - drag coefficient
+        - CL - lift coefficient
+        - VT - true airspeed [m/s]
     """
 
     GRAVITY = 9.81

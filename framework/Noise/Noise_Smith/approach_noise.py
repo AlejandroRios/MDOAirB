@@ -14,7 +14,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -39,22 +39,22 @@ def approach_noise(time_vec,velocity_vec,distance_vec,altitude_vec,landing_param
         -This function calculates the noise during approach
 
     Inputs:
-        - time_vec
-        - velocity_vec
-        - distance_vec
-        - altitude_vec
-        - landing_parameters
-        - noise_parameters
-        - aircraft_geometry
-        - vehicle
+        - time_vec - vector containing time [s]
+        - velocity_vec - vector containing speed [m/s]
+        - distance_vec - vector containing distances [m]
+        - altitude_vec - vector containing altitude [m]
+        - landing_parameters - landing constant parameters
+        - noise_parameters - noise constant parameters
+        - aircraft_geometry - dictionary containing aircraft constant parameters
+        - vehicle - dictionary containing aircraft parameters
 
     Outputs:
-        - f
-        - OASPLhistory
-        - tetaout
-        - time_vec
-        - distance_vec
-        - altitude_vec
+        - f - frequencies
+        - OASPLhistory - noise history [dB]
+        - tetaout - noise direction related to the receptor [deg]
+        - time_vec - vectort containing time [s]
+        - distance_vec - vector containing distances [m]
+        - altitude_vec - vector containing altitude [m]
     """
     aircraft = vehicle['aircraft']
 

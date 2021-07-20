@@ -2,7 +2,7 @@
 MDOAirB
 
 Description:
-    - This module computes airplane noise during takeoff and landing
+    - This module computes airplane noise during approach
 
 Reference:
     - Smith
@@ -13,7 +13,7 @@ TODO's:
 | Authors: Alejandro Rios
 | Email: aarc.88@gmail.com
 | Creation: January 2021
-| Last modification: February 2021
+| Last modification: July 2021
 | Language  : Python 3.8 or >
 | Aeronautical Institute of Technology - Airbus Brazil
 
@@ -33,6 +33,23 @@ import numpy as np
 # =============================================================================
 
 def approach_EPNdB(time_vec,velocity_vec,distance_vec,altitude_vec,landing_parameters,noise_parameters,aircraft_geometry,vehicle):
+    """
+    Description:
+        -This function calculates the airplane effective percibed noise during approach
+
+    Inputs:
+        - time_vec - vector containing time [s]
+        - velocity_vec - vector containing speed [m/s]
+        - distance_vec - vector containing distances [m]
+        - altitude_vec - vector containing altitude [m]
+        - landing_parameters - landing constant parameters
+        - noise_parameters - noise constant parameters
+        - aircraft_geometry - dictionary containing aircraft constant parameters
+        - vehicle - dictionary containing aircraft parameters
+
+    Outputs:
+        - LDEPNdB - aircraft noise during approach [EPNdB]
+    """
     f, SPL, tetaout, time_vec, distance_vec, altitude_vec = approach_noise(time_vec,velocity_vec,distance_vec,altitude_vec,landing_parameters,noise_parameters,aircraft_geometry,vehicle)
 
     f,NOY = calculate_NOY(f,SPL)
