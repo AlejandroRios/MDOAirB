@@ -95,15 +95,14 @@ def acceleration_to_250(rate_of_climb, climb_V_cas, delta_ISA, vehicle):
         average_fuel_flow = (fuel_flow_1+fuel_flow_2)/2  # [kg/hr]
 
         delta_distance = ((V_2**2 - V_1**2)/(2*average_a))*m_to_ft  # [ft]
-        delta_time - increase in time [s] = ((V_2-V_1)/average_a)/60  # [min]
+        delta_time = ((V_2-V_1)/average_a)/60  # [min]
         delta_altitude = (rate_of_climb/fpm_to_mps)*delta_time  # [ft]
         delta_fuel = aircraft['number_of_engines'] * \
             (average_fuel_flow/60)*delta_time  # [kg]
         delta_error = np.abs(delta_altitude-delta_altitude_initial)
         delta_altitude_initial = delta_altitude
 
-    return delta_distance, delta_time - increase in time [s], delta_altitude, delta_fuel
-
+    return delta_distance, delta_time, delta_altitude, delta_fuel
 
 # =============================================================================
 # MAIN

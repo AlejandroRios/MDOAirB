@@ -140,8 +140,8 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
         final_block_distance, final_block_altitude, final_block_mass, final_block_time = climb_integrator(
             initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, descent_V_cas, 0, delta_ISA, vehicle)
 
-        delta_distance, delta_time - increase in time [s], delta_altitude, delta_fuel = decelaration_to_250(
-            rate_of_descent, descent_V_cas, delta_ISA, vehicle)
+        delta_distance, delta_time, delta_altitude, delta_fuel = decelaration_to_250(
+                    rate_of_descent, descent_V_cas, delta_ISA, vehicle)
 
         burned_fuel = initial_block_mass - final_block_mass
         descent_time = final_block_time - initial_block_time
