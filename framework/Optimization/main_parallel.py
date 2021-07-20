@@ -1,37 +1,38 @@
 """
-File name : Optimization function
-Authors   : Alejandro Rios
-            Lionel Guerin
-Email     : aarc.88@gmail.com
-Date      : Dezember 2020
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function configurate the genetic algorithm for the aircraft and
+    - This module configurate the genetic algorithm for the aircraft and
     network optimization. 
-Inputs:
-    -
-Outputs:
-    -
+
+Reference: 
+    - Reference: ROSKAM
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
-import copy
-import getopt
-import haversine
+import multiprocessing
+
+
 import json
 import jsonschema
-import multiprocessing
+import linecache
+
 import numpy as np
 import os
 import random
-import sys
+import subprocess
 
 from deap import algorithms
 from deap import base
