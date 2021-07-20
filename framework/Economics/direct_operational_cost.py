@@ -1,31 +1,22 @@
 """
-File name : Direct Operational Cost
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : October/2019
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
-Description: 
+Description:
     - This module calculates the direct operational cost using the
     Roskam formulation
 
-Inputs:
-    -Time block
-    -Cons_block
-    -weitght_empty_kg
-    -total_mission_distance
-    -max_engine_thrust
-    -engines_number
-    -weitght_engine_kg
-    -max_takeoff_mass
-
-Outputs:
-    - DOC [USD]
+Reference: 
+    - Reference: ROSKAM
 
 TODO's:
-    - Rename variables
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -42,10 +33,8 @@ from framework.Economics.crew_salary import crew_salary
 # CLASSES
 # =============================================================================
 
-
 class structtype():
     pass
-
 
 salary = structtype()
 var = structtype()
@@ -66,7 +55,24 @@ def direct_operational_cost(
     engines_weight,
     max_takeoff_mass,
     vehicle
-):
+    ):
+    """
+    Description:
+        - DOC calculation
+    Inputs:
+        - time_between_overhaul - [hr]
+        - total_mission_flight_time - [min]
+        - fuel_mass - [kg]
+        - operational_empty_weight - [kg]
+        - total_mission_distance - [nm]
+        - max_engine_thrust - maximum engine thrust [kg]
+        - engines_number
+        - engines_weight - [kg]
+        - max_takeoff_mass - maximum takeoff weight [kg]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - DOC [US$]
+    """
 
     # Constants
     operations = vehicle['operations']
