@@ -1,20 +1,22 @@
 """
-File name :
-Authors   : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module contains functions for the creation of output files for
+    the evaluated aicraft
+
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >v
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -34,7 +36,18 @@ from framework.utilities.logger import get_logger
 # =============================================================================
 log = get_logger(__file__.split('.')[0])
 
-def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, vehicle, kpi_df2, airplanes_ik):
+def write_optimal_results(profit, DOC_ik, vehicle, kpi_df2):
+    """
+    Description:
+        - This function create a txt file containing principal results
+    Inputs:
+        - profit - [US$]
+        - DOC_ik - doc matrix [US$]
+        - vehicle - dictionary containing aircraft parameters
+        - kpi_df2 - dictionary containing network oprimization parameters
+    Outputs:
+        - txt file - output information text file
+    """
 
     log.info('==== Start writing aircraft results ====')
 
@@ -406,15 +419,26 @@ def write_optimal_results(airports_keys, distances, demands, profit, DOC_ik, veh
     return
 
 
-def write_kml_results(airports, profit, airplanes_ik):
+def write_kml_results(arrivals, departures, profit, vehicle):
+    """
+    Description:
+        - This function create a kml file containing the optimal network
+    Inputs:
+        - arrivals - list containing the ICAO code for all the cosidered airports
+        - departures - list containing the ICAO code for all the cosidered airports
+        - profit - [US$]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - kml file - kml file to be open in google earth showing the network connections
+    """
     log.info('==== Start writing klm results ====')
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
-    # departures = departures
-    # arrivals = arrivals
+    departures = departures
+    arrivals = arrivals
 
-    # data_airports = pd.read_csv("Database/Airports/airports.csv")
-    # frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+    frequencies_db = np.load('Database/Network/frequencies.npy',allow_pickle='TRUE').item()
     with open(r'Database/Results/Kml/acft_' + str(profit) + '_' + str(start_time) +'.kml','w') as output:
     # with open(r'Database/Results/Klm/acft_' + str(profit) + '.kml','w') as output:
 
@@ -431,17 +455,16 @@ def write_kml_results(airports, profit, airplanes_ik):
         # output.write('      <Placemark>\n')
 
         n = 0
-        airports_keys = list(airports.keys())
-        for i in range(len(airports)):
-            for k in range(len(airports)):
-                if (i != k) and (airplanes_ik[(airports_keys[i],airports_keys[k])] > 0):
+        for i in departures:
+            for k in arrivals:
+                if (i != k) and (frequencies_db[(i,k)] > 0):
                     output.write('      <Placemark>\n')
                     output.write('             <LineString>\n')
 
-                    dep_latitude = airports[airports_keys[i]]['latitude']
-                    dep_longitude = airports[airports_keys[i]]['longitude']
-                    des_latitude = airports[airports_keys[k]]['latitude']
-                    des_longitude = airports[airports_keys[k]]['longitude']
+                    dep_latitude = data_airports.loc[data_airports['APT2'] == i, 'LAT'].iloc[0]
+                    dep_longitude = data_airports.loc[data_airports['APT2'] == i, 'LON'].iloc[0]
+                    des_latitude = data_airports.loc[data_airports['APT2'] == k, 'LAT'].iloc[0]
+                    des_longitude = data_airports.loc[data_airports['APT2'] == k, 'LON'].iloc[0]
                     output.write('                <coordinates>' + str("{:.2f},".format(dep_longitude)) + str("{:.2f},".format(dep_latitude)) + '0,' + str("{:.2f},".format(des_longitude)) + str("{:.2f},".format(des_latitude))+ '0' +'</coordinates>\n')
                     output.write('             </LineString>\n')
                     output.write('     	</Placemark>\n')
@@ -457,16 +480,16 @@ def write_kml_results(airports, profit, airplanes_ik):
 
 
 def write_newtork_results(profit,dataframe01,dataframe02):
-
-    start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
-
-    dataframe01.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'01.csv')
-    dataframe02.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'02.csv')
-
-    return
-
-def write_newtork_results(profit,dataframe01,dataframe02):
-
+    """
+    Description:
+        - This function create csv files relating to network results
+    Inputs:
+        - profit - [US$]
+        - dataframe01 - dictionary containg network optimization results
+        - dataframe02- dictionary containg network optimization results
+    Outputs:
+        - csv files - csv containing network results
+    """
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     dataframe01.to_csv(r'Database/Results/Network/acft_' + str(profit) + '_' + str(start_time) +'01.csv')
@@ -475,6 +498,16 @@ def write_newtork_results(profit,dataframe01,dataframe02):
     return
 
 def write_unfeasible_results(flags,x=None):
+    """
+    Description:
+        - This function a txt file with the results of unfeasible aircrafts (aircrafts
+        that didt pass the performance and noise checks)
+    Inputs:
+        - flags
+        - x - vector defining the design variables of the aircraft
+    Outputs:
+        - txt file
+    """
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     with open(r'Database/Results/Aircrafts_unfeasible/acft_' + str(start_time) +'.txt','w') as output:
@@ -493,6 +526,16 @@ def write_unfeasible_results(flags,x=None):
 
 
 def write_bad_results(error,x=None):
+    """
+    Description:
+        - This function a txt file with the results of aircraft that produced
+        any kind of error
+    Inputs:
+        - error
+        - x - vector defining the design variables of the aircraft
+    Outputs:
+        - txt file
+    """
     start_time = datetime.today().strftime('%Y-%m-%d-%H%M')
 
     with open(r'Database/Results/Aircrafts_with_error/acft_' + str(start_time) +'.txt','w') as output:
