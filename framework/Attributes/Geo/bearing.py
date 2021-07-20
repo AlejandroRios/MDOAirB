@@ -1,24 +1,47 @@
+"""
+MDOAirB
 
+Description:
+    - This module calculates the compass bearig
+
+TODO's:
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
+"""
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import math
 import pandas as pd
 import numpy as np
+# =============================================================================
+# CLASSES
+# =============================================================================
 
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
 def calculate_bearing(pointA, pointB):
-    """
+    '''
+    Description:
     Calculates the bearing between two points.
     The formulae used is the following:
         θ = atan2(sin(Δlong).cos(lat2),
                   cos(lat1).sin(lat2) − sin(lat1).cos(lat2).cos(Δlong))
-    :Parameters:
-      - `pointA: The tuple representing the latitude/longitude for the
-        first point. Latitude and longitude must be in decimal degrees
-      - `pointB: The tuple representing the latitude/longitude for the
-        second point. Latitude and longitude must be in decimal degrees
-    :Returns:
-      The bearing in degrees
-    :Returns Type:
-      float
-    """
+    - Input:
+        - pointA - latitude and longitude from initial point 
+        - pointB - latitude and longitude from final point
+    - Outputs:
+        - compass_bearing [deg]
+    '''
+
     if (type(pointA) != tuple) or (type(pointB) != tuple):
         raise TypeError("Only tuples are supported as arguments")
 

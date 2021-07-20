@@ -1,4 +1,31 @@
-from framework.Attributes.Airspeed.airspeed import mach_to_V_cas
+"""
+MDOAirB
+
+Description:
+    - This module takes the information of the missions obtained from
+    ADS-B database (Database/Routes) and tranform them into vectors that
+    are used as inputs for the climb and descent integration.
+    - The calaculation of the actual horizontal distance from lat and lot
+    is performed as well
+
+Reference: 
+    - 
+
+TODO's:
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
+"""
+# =============================================================================
+# IMPORTS
+# =============================================================================
+
 import os, fnmatch
 from types import new_class
 import pandas as pd
@@ -8,8 +35,25 @@ from scipy import interpolate
 import haversine
 from haversine import haversine, Unit
 import matplotlib.pyplot as plt
-from framework.Attributes.Airspeed.airspeed import V_tas_to_V_cas
+
+from framework.Attributes.Airspeed.airspeed import mach_to_V_cas
+# =============================================================================
+# CLASSES
+# =============================================================================
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
 def actual_mission_range(departure,arrival):
+    """
+    Description:
+        - This function calculates the mission range based in actual lat lon flight data
+    Inputs:
+        - departure - departure airport IATA name
+        - arrival - arrival airport IATA name
+    Outputs:
+        - distance - actual distance [nm]
+    """
     listOfFiles = os.listdir('Database/Routes/'+ departure+'_'+arrival+'/.')  
     pattern = "*.csv"
 
@@ -20,28 +64,11 @@ def actual_mission_range(departure,arrival):
             just_name = os.path.splitext(entry)[0]
             list_of_altitudes.append(just_name)
 
-
     sorted_altitudes = sorted(list_of_altitudes,reverse=True)
     flight = pd.read_csv('Database/Routes/'+ departure+'_'+arrival+'/'+sorted_altitudes[0]+'.csv', header=0, delimiter=',')
     climb_flight = flight.query('flight_phase == "CL" & alt >= 1500')
 
-
     chunk_size = 100
-    # time= climb_flight['times']
-    # xtime= np.arange(time.size)
-    # new_xtime = np.linspace(xtime.min(), xtime.max(), chunk_size)
-    # time_rz_1 = sp.interpolate.interp1d(xtime, time, kind='linear')(new_xtime)
-    # time_rz = time_rz_1
-
-    # alt = climb_flight['alt']
-    # xalt = np.arange(alt.size)
-    # new_xalt = np.linspace(xalt.min(), xalt.max(), chunk_size)
-    # alt_rz = sp.interpolate.interp1d(xalt, alt, kind='linear')(new_xalt)
-
-    # spds= climb_flight['speed']
-    # xspds= np.arange(spds.size)
-    # new_xspds = np.linspace(xspds.min(), xspds.max(), chunk_size)
-    # spds_rz = sp.interpolate.interp1d(xspds, spds, kind='linear')(new_xspds)
 
     # # Resizing vector of flights lat, lon and alt
     lat = flight['lat']
@@ -54,7 +81,6 @@ def actual_mission_range(departure,arrival):
     xlon = np.arange(lon.size)
     new_xlon = np.linspace(xlon.min(), xlon.max(), chunk_size)
     lon_rz = sp.interpolate.interp1d(xlon, lon, kind='linear')(new_xlon)
-
 
     distances_pp = []
     distances_pp_f = []
@@ -72,6 +98,20 @@ def actual_mission_range(departure,arrival):
     return distance
 
 def climb_altitudes_vector(departure,arrival,max_altitude):
+    """
+    Description:
+        - This function take actual information of fligth (ADS-B) and create a vector
+        that will be used into the climb mission integration function 
+    Inputs:
+        - departure - departure airport IATA name
+        - arrival - arrival airport IATA name
+        - max_altitude - maximum computed flight altitude [ft]
+    Outputs:
+        - alt_rz - vector containing altitudes [ft]
+        - cas_spds_rz - vectort containing calibrated airspeed [kt]
+        - mach_rz - vectort containing mach numbers
+        - time_rz - vector containing times [s]
+    """
     listOfFiles = os.listdir('Database/Routes/'+ departure+'_'+arrival+'/.')  
     pattern = "*.csv"
 
@@ -146,6 +186,20 @@ def climb_altitudes_vector(departure,arrival,max_altitude):
     return alt_rz,cas_spds_rz,mach_rz,time_rz
 
 def descent_altitudes_vector(departure,arrival,max_altitude):
+    """
+    Description:
+        - This function take actual information of fligth (ADS-B) and create a vector
+        that will be used into the descent mission integration function 
+    Inputs:
+        - departure - departure airport IATA name
+        - arrival - arrival airport IATA name
+        - max_altitude - maximum computed flight altitude [ft]
+    Outputs:
+        - alt_rz - vector containing altitudes [ft]
+        - cas_spds_rz - vectort containing calibrated airspeed [kt]
+        - mach_rz - vectort containing mach numbers
+        - time_rz - vector containing times [s]
+    """
     listOfFiles = os.listdir('Database/Routes/'+ departure+'_'+arrival+'/.')  
     pattern = "*.csv"
 
@@ -221,6 +275,13 @@ def descent_altitudes_vector(departure,arrival,max_altitude):
 
     return alt_rz,cas_spds_rz,mach_rz,time_rz
 
+# =============================================================================
+# MAIN
+# =============================================================================
+
+# =============================================================================
+# TEST
+# =============================================================================
 
 # max_altitude = 37000
 

@@ -1,28 +1,24 @@
 """
-File name : Atmosphere functions ISA deviation
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - International Standard Atmosphere (ISA) based in:
-    - Reference: Blake, BOEING CO. Flight Operations Engineering - Jet
+
+Reference: 
+    - Blake, BOEING CO. Flight Operations Engineering - Jet
     Transport Performance Methods. 7th ed. Boeing Co., Everett,
     Estados Unidos, 1989
     - Chapter 4, page 4-1
-Inputs:
-    - Altitude [ft]
-    - Delta ISA [deg C]
-Outputs:
-    - T = temperature [K]
-    - p = pressure [Pascal]
-    - rho = density [kg/m3]
-    - a = sound speed [kts]
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -39,6 +35,16 @@ import numpy as np
 
 
 def atmosphere_ISA_deviation(h, delta_ISA):
+    """
+    Description:
+        - Obtains the atmosphere properties considering ISA deviation
+    Inputs:
+        - mach - mach number
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+    Outputs:
+        - Calibated airspeed [knots]
+    """
 
     h = h  # ft
     h1 = 11  # Troposphere max altitude[km]
@@ -90,5 +96,5 @@ def atmosphere_ISA_deviation(h, delta_ISA):
 # =============================================================================
 # h = 32808.4
 # delta_ISA = 0
-# # delta_ISA = airport_departure['tref']
+# # delta_ISA = airport_departure['delta_ISA']
 # print(atmosphere_ISA_deviation(h, delta_ISA))
