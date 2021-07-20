@@ -1,19 +1,22 @@
 """
-File name : Baseline aircraft
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function descrive baseline aircraft properties which are used to test other modules
-Inputs:
-    -
+    - This function descrive baseline aircraft properties which is used to pass
+    information of the aircraft and operations through modules
+
 Outputs:
-    - 
+    - vehicle - dictionary containing aircraft parameters
+
 TODO's:
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -26,7 +29,6 @@ import numpy as np
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-
 
 def initialize_aircraft_parameters():
     aircraft = {}
@@ -157,7 +159,7 @@ def initialize_aircraft_parameters():
 
     horizontal_tail = {}
     horizontal_tail['position'] = 1
-    horizontal_tail['area'] = 23.35  # [m2]
+    horizontal_tail['area'] = 35  # [m2]
     horizontal_tail['aspect_ratio'] = 4.35
     horizontal_tail['taper_ratio'] = 0.4
     horizontal_tail['sweep_c_4']  = 1
@@ -189,7 +191,7 @@ def initialize_aircraft_parameters():
 
 
     vertical_tail = {}
-    vertical_tail['area'] = 16.2  # [m2]
+    vertical_tail['area'] = 25  # [m2]
     vertical_tail['aspect_ratio'] = 1.2
     vertical_tail['taper_ratio'] = 0.5
     vertical_tail['sweep_c_4']  = 41
@@ -379,7 +381,6 @@ def initialize_aircraft_parameters():
 
     operations = {}
     operations['computation_mode'] = 0
-    operations['route_computation_mode'] = 0
     operations['takeoff_field_length'] = 2000
     operations['landing_field_length'] = 1500
     operations['descent_altitude'] = 1500
@@ -419,8 +420,6 @@ def initialize_aircraft_parameters():
     operations['maximum_daily_utilization'] = 13
     operations['flight_planning_delta_ISA'] = 0  # [deg C]
 
-    operations['average_departure_delay'] = 28
-    operations['average_arrival_delay'] = 29.9
 
     noise = {}
     noise['takeoff_lambda'] = 0
@@ -478,17 +477,22 @@ def initialize_aircraft_parameters():
     noise['landing_longitudinal_distance_mic'] = 2000
     noise['sideline_longitudinal_distance_mic'] = 0
     noise['takeoff_longitudinal_distance_mic'] = 6500
- 
+
+
     airport_departure = {}
+    airport_departure['takeoff_field_length'] = 2500  # [m]
+    airport_departure['landing_field_length'] = 2000  # [m]
     airport_departure['elevation'] = 0*3.28084  # [m]
-    airport_departure['tora'] = 2500  # [m]
-    airport_departure['tref'] = 0  # [deg C]
- 
+    airport_departure['delta_ISA'] = 0  # [deg C]
+    airport_departure['avg_delay'] = 0  # [deg C]
+
     airport_destination = {}
+    airport_destination['takeoff_field_length'] = 2500  # [m]
+    airport_destination['landing_field_length'] = 2000  # [m]
     airport_destination['elevation'] = 0*3.28084  # [m]
-    airport_destination['lda'] = 2000  # [m]
-    airport_destination['tref'] = 0  # [deg C]
- 
+    airport_destination['delta_ISA'] = 0  # [deg C]
+    airport_destination['avg_delay'] = 0
+
     aircraft['maximum_engine_thrust'] = 67189  # Rolls-Royce Tay 650 Thrust[N]
     aircraft['average_thrust'] = 67189
 
