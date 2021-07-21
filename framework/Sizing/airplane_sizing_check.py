@@ -389,7 +389,7 @@ def airplane_sizing(vehicle,x=None):
         # Mission evaluation and tail sizing
     # try:
         vehicle, MTOW_calculated, fuel_mass, landing_weight = mission_sizing(
-            vehicle)
+            vehicle, airport_departure, airport_destination)
     # except:
         # log.error("Error at mission_sizing", exc_info = True)
     # end_time = datetime.now()
@@ -451,11 +451,11 @@ def airplane_sizing(vehicle,x=None):
 
 
     # Landing field length check
-    landing_field_length_required = airport_destination['landing_field_length']
+    landing_field_length_required = airport_destination['lda']
 
     k_L = 0.107
 
-    WtoS_landing = (k_L*airport_destination['landing_field_length']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
+    WtoS_landing = (k_L*airport_destination['lda']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
 
     if WtoS_landing < WoS:
         flag_landing = 1
@@ -466,7 +466,7 @@ def airplane_sizing(vehicle,x=None):
     # Takeoff field length check
     k_TO = 2.34
 
-    ToW_takeoff = (k_TO/(airport_departure['takeoff_field_length']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
+    ToW_takeoff = (k_TO/(airport_departure['tora']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
 
     if ToW_takeoff > ToW:
         flag_takeoff = 1
@@ -475,7 +475,7 @@ def airplane_sizing(vehicle,x=None):
     
         
     # Climb gradient in the Second segment check
-    ToW_second_segment =     second_segment_climb(vehicle, aircraft['maximum_takeoff_weight']*GRAVITY)
+    ToW_second_segment = second_segment_climb(vehicle, airport_departure, aircraft['maximum_takeoff_weight']*GRAVITY)
 
 
     if ToW_second_segment > ToW:
@@ -485,7 +485,7 @@ def airplane_sizing(vehicle,x=None):
 
     
     # Climb gradient during missed approach check
-    ToW_missed_approach = missed_approach_climb_OEI(vehicle, aircraft['maximum_takeoff_weight']*GRAVITY,aircraft['maximum_takeoff_weight']*GRAVITY)
+    ToW_missed_approach = missed_approach_climb_OEI(vehicle, airport_destination, aircraft['maximum_takeoff_weight']*GRAVITY,aircraft['maximum_takeoff_weight']*GRAVITY)
 
     if ToW_missed_approach > ToW:
         flag_missed_approach = 1
@@ -498,7 +498,7 @@ def airplane_sizing(vehicle,x=None):
     engine_cruise_thrust, _ , vehicle = turbofan(
         ceiling,operations['mach_cruise'], 0.98, vehicle)
 
-    ToW_cruise = residual_rate_of_climb(vehicle,aircraft['maximum_takeoff_weight']*GRAVITY,engine_cruise_thrust)
+    ToW_cruise = residual_rate_of_climb(vehicle, airport_departure, aircraft['maximum_takeoff_weight']*GRAVITY,engine_cruise_thrust)
 
     if ToW_cruise > ToW:
         flag_cruise = 1
@@ -517,7 +517,7 @@ def airplane_sizing(vehicle,x=None):
     aircraft['CD0_landing'] = CD0_landing
 
 # try:
-    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle)
+    takeoff_noise, sideline_noise, landing_noise = noise_calculation(vehicle, airport_departure)
 # except:
 #         log.error("Error at noise_calculation", exc_info = True)
 

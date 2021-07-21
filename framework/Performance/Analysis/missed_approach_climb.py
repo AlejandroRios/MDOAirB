@@ -39,12 +39,13 @@ from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coef
 # =============================================================================
 
 
-def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
+def missed_approach_climb_OEI(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
     """
     Description:
         - This function calculates the missed approach thrust to weight ratio with one enfine inoperative
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        -airport_destination
         - maximum_takeoff_weight - maximum takeoff weight[kg]
         - weight_landing - maximum landing weight [kg]
     Outputs:
@@ -54,13 +55,12 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
-    airport_destination = vehicle['airport_destination']
 
     maximum_landing_weight = weight_landing
     CL_maximum_landing = aircraft['CL_maximum_landing']
     wing_surface = wing['area']
     airfield_elevation = airport_destination['elevation']
-    airfield_delta_ISA = airport_destination['delta_ISA']
+    airfield_delta_ISA = airport_destination['tref']
     phase = 'climb'
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(
@@ -100,12 +100,13 @@ def missed_approach_climb_OEI(vehicle, maximum_takeoff_weight, weight_landing):
     return thrust_to_weight_landing
 
 
-def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
+def missed_approach_climb_AEO(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
     """
     Description:
         - This function calculates the missed approach thrust to weight ratio with all engines operative
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_destination
         - maximum_takeoff_weight - maximum landing weight [kg]
         - weight_landing - landing weight [kg]
     Outputs:
@@ -115,7 +116,6 @@ def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
     kt_to_ms = 0.514444
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
-    airport_destination = vehicle['airport_destination']
 
     maximum_landing_weight = weight_landing
 
@@ -123,7 +123,7 @@ def missed_approach_climb_AEO(vehicle, maximum_takeoff_weight, weight_landing):
     wing_surface = wing['area']
 
     airfield_elevation = airport_destination ['elevation']
-    airfield_delta_ISA = airport_destination ['delta_ISA']
+    airfield_delta_ISA = airport_destination ['tref']
     phase = 'descent'
 
     _, _, _, _, _, rho, _, a = atmosphere_ISA_deviation(

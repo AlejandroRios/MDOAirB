@@ -183,7 +183,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
 
     final_distance = final_block_distance + delta_distance
     total_burned_fuel = sum(total_burned_fuel) + delta_fuel
-    total_descent_time = sum(total_descent_time) + delta_time - increase in time [s]
+    total_descent_time = sum(total_descent_time) + delta_time
 
     return final_distance, total_descent_time, total_burned_fuel, final_altitude
 

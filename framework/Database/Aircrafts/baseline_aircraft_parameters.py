@@ -381,6 +381,7 @@ def initialize_aircraft_parameters():
 
     operations = {}
     operations['computation_mode'] = 0
+    operations['route_computation_mode'] = 0
     operations['takeoff_field_length'] = 2000
     operations['landing_field_length'] = 1500
     operations['descent_altitude'] = 1500
@@ -420,6 +421,8 @@ def initialize_aircraft_parameters():
     operations['maximum_daily_utilization'] = 13
     operations['flight_planning_delta_ISA'] = 0  # [deg C]
 
+    operations['average_departure_delay'] = 28
+    operations['average_arrival_delay'] = 29.9
 
     noise = {}
     noise['takeoff_lambda'] = 0
@@ -478,20 +481,15 @@ def initialize_aircraft_parameters():
     noise['sideline_longitudinal_distance_mic'] = 0
     noise['takeoff_longitudinal_distance_mic'] = 6500
 
-
     airport_departure = {}
-    airport_departure['takeoff_field_length'] = 2500  # [m]
-    airport_departure['landing_field_length'] = 2000  # [m]
     airport_departure['elevation'] = 0*3.28084  # [m]
-    airport_departure['delta_ISA'] = 0  # [deg C]
-    airport_departure['avg_delay'] = 0  # [deg C]
-
+    airport_departure['tora'] = 2500  # [m]
+    airport_departure['tref'] = 0  # [deg C]
+ 
     airport_destination = {}
-    airport_destination['takeoff_field_length'] = 2500  # [m]
-    airport_destination['landing_field_length'] = 2000  # [m]
     airport_destination['elevation'] = 0*3.28084  # [m]
-    airport_destination['delta_ISA'] = 0  # [deg C]
-    airport_destination['avg_delay'] = 0
+    airport_destination['lda'] = 2000  # [m]
+    airport_destination['tref'] = 0  # [deg C]
 
     aircraft['maximum_engine_thrust'] = 67189  # Rolls-Royce Tay 650 Thrust[N]
     aircraft['average_thrust'] = 67189

@@ -33,7 +33,7 @@ import numpy as np
 # =============================================================================
 
 
-def balanced_field_length(vehicle, weight_takeoff,gamma_2):
+def balanced_field_length(vehicle, airport_departure, weight_takeoff,gamma_2):
     '''
     Description:
         - This function performs the evaluation of the balanced field length
@@ -53,7 +53,6 @@ def balanced_field_length(vehicle, weight_takeoff,gamma_2):
 
     wing = vehicle['wing']
     aircraft = vehicle['aircraft']
-    airport_departure = vehicle['airport_departure']
     engine = vehicle['engine']
 
 

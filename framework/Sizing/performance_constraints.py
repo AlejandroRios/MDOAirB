@@ -40,12 +40,14 @@ GRAVITY = 9.80665
 lb_to_kg = 0.453592
 
 
-def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
+def takeoff_field_length_check(vehicle, airport_departure, takeoff_runway, weight_takeoff,gamma_2):
     """
     Description:
         - This function performs the takeoff field length check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_departure
+        - takeoff_runway - selected takeoff runway
         - weight_takeoff - takeoff weight [N]
         - gamma_2 - second segment climb gradient
     Outputs:
@@ -53,16 +55,15 @@ def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
     """
 
     aircraft = vehicle['aircraft']
-    airport_departure = vehicle['airport_departure']
 
-    takeoff_field_length_required = airport_departure['takeoff_field_length']
+    takeoff_field_length_required = takeoff_runway['tora']
     # weight_takeoff = aircraft['maximum_takeoff_weight']
 
     flag = 0
     while flag == 0:
 
         takeoff_field_length_computed = balanced_field_length(
-            vehicle, weight_takeoff,gamma_2)
+            vehicle, airport_departure, weight_takeoff,gamma_2)
 
         if takeoff_field_length_computed > takeoff_field_length_required:
             weight_takeoff = weight_takeoff - (10*GRAVITY)
@@ -71,12 +72,13 @@ def takeoff_field_length_check(vehicle, weight_takeoff,gamma_2):
     return weight_takeoff
 
 
-def second_segment_climb_check(vehicle, weight_takeoff):
+def second_segment_climb_check(vehicle, airport_departure, weight_takeoff):
     """
     Description:
         - This function performs the second segment climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_departure
         - weight_takeoff - takeoff weight [N]
     Outputs:
         - weight_takeoff - takeoff weight [N]
@@ -92,7 +94,7 @@ def second_segment_climb_check(vehicle, weight_takeoff):
     flag = 0
     while flag == 0:
         thrust_to_weight_takeoff_required = second_segment_climb(
-            vehicle, weight_takeoff)
+            vehicle, airport_departure, weight_takeoff)
         thrust_to_weight_takeoff =(engines_number*thrust_takeoff)/weight_takeoff  # Second segment climb shouldnt use only one engine?
 
         if thrust_to_weight_takeoff < thrust_to_weight_takeoff_required:
@@ -102,12 +104,14 @@ def second_segment_climb_check(vehicle, weight_takeoff):
     return weight_takeoff, thrust_to_weight_takeoff
 
 
-def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
+def landing_field_length_check(vehicle, airport_destination, landing_runway, maximum_takeoff_weight, weight_landing):
     """
     Description:
         - This function performs the landing field length check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_destination
+        - landing_runway
         - maximum_takeoff_weight - [N]
         - weight_landing - [N]
     Outputs:
@@ -116,16 +120,15 @@ def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
 
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
-    airport_destination = vehicle['airport_destination']
 
-    landing_field_length_required = airport_destination['landing_field_length']
+    landing_field_length_required = landing_runway['lda']
     wing_surface = wing['area']
 
     flag = 0
     while flag == 0:
         # aircraft['maximum_landing_weight'] = weight_landing
         landing_field_length_computed = landing_field_length(
-            vehicle, weight_landing)
+            vehicle, airport_destination, weight_landing)
 
         maximum_takeoff_mass = maximum_takeoff_weight/GRAVITY
         maximum_landing_mass = weight_landing/GRAVITY
@@ -142,12 +145,13 @@ def landing_field_length_check(vehicle, maximum_takeoff_weight, weight_landing):
     return weight_landing
 
 
-def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
+def landing_climb_check(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
     """
     Description:
         - This function performs the landing climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_destination
         - maximum_takeoff_weight - [N]
         - weight_landing [N]
     Outputs:
@@ -163,7 +167,7 @@ def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
     flag = 0
     while flag == 0:
         thrust_to_weight_landing_required = missed_approach_climb_AEO(
-            vehicle, maximum_takeoff_weight, weight_landing)
+            vehicle, airport_destination, maximum_takeoff_weight, weight_landing)
         thrust_to_weight_landing = (thrust_landing*engines_number)/weight_landing
 
         if thrust_to_weight_landing < thrust_to_weight_landing_required:
@@ -173,12 +177,13 @@ def landing_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
     return weight_landing
 
 
-def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing):
+def missed_approach_climb_check(vehicle, airport_destination, maximum_takeoff_weight, weight_landing):
     """
     Description:
         - This function performs the missed approach climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_destination
         - maximum_takeoff_weight - [N]
         - weight_landing - [N]
     Outputs:
@@ -194,7 +199,7 @@ def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing)
     flag = 0
     while flag == 0:
         thrust_to_weight_landing_required = missed_approach_climb_OEI(
-            vehicle, maximum_takeoff_weight, weight_landing)
+            vehicle, airport_destination, maximum_takeoff_weight, weight_landing)
         thrust_to_weight_landing = (thrust_landing*engines_number)/weight_landing
 
         if thrust_to_weight_landing < thrust_to_weight_landing_required:
@@ -206,12 +211,13 @@ def missed_approach_climb_check(vehicle, maximum_takeoff_weight, weight_landing)
     
 
 
-def residual_rate_of_climb_check(vehicle, weight_takeoff,engine_cruise_thrust):
+def residual_rate_of_climb_check(vehicle, airport_departure, weight_takeoff,engine_cruise_thrust):
     """
     Description:
         - This function performs the residual rate of climb check
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_destination
         - weight_takeoff - takeoff weight [N]
         - engine_cruise_thrust
     Outputs:
@@ -228,7 +234,7 @@ def residual_rate_of_climb_check(vehicle, weight_takeoff,engine_cruise_thrust):
     flag = 0
     while flag == 0:
         thrust_to_weight_takeoff_required = residual_rate_of_climb(
-            vehicle, weight_takeoff,engine_cruise_thrust)
+            vehicle, airport_departure, weight_takeoff,engine_cruise_thrust)
         thrust_to_weight_takeoff =(engines_number*thrust_takeoff)/weight_takeoff  # Second segment climb shouldnt use only one engine?
 
         if thrust_to_weight_takeoff < thrust_to_weight_takeoff_required:
@@ -250,27 +256,28 @@ def drag_divergence_check():
     return
 
 
-def regulated_takeoff_weight(vehicle):
+def regulated_takeoff_weight(vehicle, airport_departure, takeoff_runway):
     """
     Description:
         - This function performs the calculation of the regulated takeoff weight
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_departure
+        - takeoff_runway
     Outputs:
         - regulated takeoff weight - [kg]
     """
 
     aircraft = vehicle['aircraft']
-    airport_departure = vehicle['airport_departure']
 
     weight_takeoff = aircraft['maximum_takeoff_weight']*GRAVITY
 
 
     second_segment_climb_weight,gamma_2 = second_segment_climb_check(
-        vehicle, weight_takeoff)
+        vehicle, airport_departure, weight_takeoff)
 
     takeoff_field_length_weight = takeoff_field_length_check(
-        vehicle, weight_takeoff,gamma_2)
+        vehicle, airport_departure, takeoff_runway, weight_takeoff,gamma_2)
 
 
 
@@ -279,12 +286,14 @@ def regulated_takeoff_weight(vehicle):
     return maximum_takeoff_weight/GRAVITY  # [Kg]
 
 
-def regulated_landing_weight(vehicle):
+def regulated_landing_weight(vehicle, airport_destination, landing_runway):
     """
     Description:
         - This function performs the calculation of the regulated landing weight
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_destination
+        - landing_runway
     Outputs:
         - regulated landing weight - [kg]
     """
@@ -295,13 +304,13 @@ def regulated_landing_weight(vehicle):
     maximum_takeoff_weight = aircraft['maximum_takeoff_weight']*GRAVITY
 
     landing_field_length_weight = landing_field_length_check(
-        vehicle, maximum_takeoff_weight, weight_landing)
+        vehicle, airport_destination, landing_runway, maximum_takeoff_weight, weight_landing)
 
     landing_climb = landing_climb_check(
-        vehicle, maximum_takeoff_weight, weight_landing)
+        vehicle, airport_destination, maximum_takeoff_weight, weight_landing)
 
     missed_approach = missed_approach_climb_check(
-        vehicle, maximum_takeoff_weight, weight_landing)
+        vehicle, airport_destination, maximum_takeoff_weight, weight_landing)
 
     maximum_landing_weight = min(
         landing_field_length_weight, landing_climb, missed_approach)

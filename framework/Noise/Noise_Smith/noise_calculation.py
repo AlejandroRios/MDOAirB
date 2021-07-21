@@ -84,7 +84,7 @@ def aircraft_noise(takeoff_parameters, landing_parameters,aircraft_parameters,ai
 
     return takeoff_noise, sideline_noise, landing_noise
 
-def noise_calculation(vehicle):
+def noise_calculation(vehicle, airport_departure):
     """
     Description:
         - This is the main function that calculates the noise of the aircraft
@@ -99,7 +99,6 @@ def noise_calculation(vehicle):
     GRAVITY = 9.8065
 
     aircraft = vehicle['aircraft']
-    airport_departure = vehicle['airport_departure']
     engine = vehicle['engine']
     wing = vehicle['wing']
     noise = vehicle['noise']
@@ -155,7 +154,7 @@ def noise_calculation(vehicle):
     aircraft_geometry['main_landing_gear_position'] = noise['aircraft_geometry_main_landing_gear_position']
     aircraft_geometry['nose_landing_gear_position'] = noise['aircraft_geometry_nose_landing_gear_position']
     aircraft_geometry['altitude_retracted'] = noise['aircraft_geometry_altitude_retracted']
-    aircraft_geometry['delta_ISA_retracted'] =airport_departure['delta_ISA']
+    aircraft_geometry['delta_ISA_retracted'] =airport_departure['tref']
 
     engine_parameters = {}
     engine_parameters['throttle_position'] = noise['engine_parameters_throttle_position']

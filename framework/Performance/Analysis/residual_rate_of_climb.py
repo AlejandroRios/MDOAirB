@@ -35,12 +35,13 @@ from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coef
 # =============================================================================
 ft_to_m = 0.3048
 kt_to_ms = 0.514444
-def residual_rate_of_climb(vehicle, weight_takeoff, engine_cruise_thrust):
+def residual_rate_of_climb(vehicle, airport_departure, weight_takeoff,engine_cruise_thrust):
     """
     Description:
         - This function calculates the residual rate of climb
     Inputs:
         - vehicle - dictionary containing aircraft parameters
+        - airport_departure
         - weight_takeoff - takeoff weight [N]
         - engine_cruise_thrust - [N]
     Outputs:
@@ -49,7 +50,6 @@ def residual_rate_of_climb(vehicle, weight_takeoff, engine_cruise_thrust):
 
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
-    airport_departure = vehicle['airport_departure']
     engine = vehicle['engine']
 
     CL_maximum_takeoff = aircraft['CL_maximum_takeoff']
@@ -57,7 +57,7 @@ def residual_rate_of_climb(vehicle, weight_takeoff, engine_cruise_thrust):
     maximum_takeoff_weight = weight_takeoff  # [N]
 
     airfield_elevation = airport_departure['elevation']
-    airfield_delta_ISA = airport_departure['delta_ISA']
+    airfield_delta_ISA = airport_departure['tref']
     
     thrust_takeoff = engine['maximum_thrust']*0.98
 
