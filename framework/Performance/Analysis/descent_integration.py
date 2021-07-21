@@ -187,7 +187,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
 
     return final_distance, total_descent_time, total_burned_fuel, final_altitude
 
-def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
+def descent_integration_datadriven(mass, mach_descent, descent_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
     """
     Description:
         - This function calculates the aircraft performance during climb by integrating
