@@ -113,7 +113,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
             initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 0, mach_descent, delta_ISA, vehicle)
        
         delta_distance = 0
-        delta_time - increase in time [s] = 0
+        delta_time = 0
         delta_altitude = 0
         delta_fuel = 0
 
@@ -168,7 +168,7 @@ def descent_integration(mass, mach_descent, descent_V_cas, delta_ISA, final_alti
             initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, 250, 0, delta_ISA, vehicle)
 
         delta_distance = 0
-        delta_time - increase in time [s] = 0
+        delta_time = 0
         delta_altitude = 0
         delta_fuel = 0
 
