@@ -21,7 +21,6 @@ TODO's:
 # IMPORTS
 # =============================================================================
 import numpy as np
-from stl import mesh
 
 from framework.Sizing.Geometry.area_triangle_3d import area_triangle_3d
 # =============================================================================
@@ -41,6 +40,7 @@ def wetted_area_forward_fuselage(vehicle):
     Outputs:
         - total_area - [m2]
     """
+    from stl import mesh
 
     fuselage = vehicle['fuselage']
 
