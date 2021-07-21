@@ -123,7 +123,7 @@ def acceleration_factor_calculation(h, delta_ISA, mach):
     lambda_rate = 0.0019812
     tropopause = (71.5 + delta_ISA)/lambda_rate
 
-    _, _, _, T_ISA, _, _, _, _ = atmosphere_ISA_deviation(0,0)
+    _, _, _, T, _, _, _, _ = atmosphere_ISA_deviation(0,0)
     _, _, _, T_ISA, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
 
     if h < tropopause:
