@@ -1,0 +1,22 @@
+2021-07-21 15:51:04,725 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+---
+202021-07-21 15:51:04,729 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+Traceback (most recent call last):
+  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 81, in objective_function
+    status, flags, vehicle = airplane_sizing(vehicle,x)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 254, in airplane_sizing
+    ylroot) = wetted_area(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area.py", line 131, in wetted_area
+    fuselage_wetted_area_forward = wetted_area_forward_fuselage(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area_fuselage.py", line 47, in wetted_area_forward_fuselage
+    mesh = mesh.Mesh.from_file('Database/Fuselage/forwardfus_short.stl')
+UnboundLocalError: local variable 'mesh' referenced before assignment
+2021-07-21 15:51:04,743 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 92, in objective_function
+    if status == 0:
+UnboundLocalError: local variable 'status' referenced before assignment
+2021-07-21 15:51:04,745 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-21 15:51:04,745 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-21 15:51:04,747 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:09.739566
+2021-07-21 15:51:04,747 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====

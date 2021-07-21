@@ -82,9 +82,8 @@ def airplane_sizing(vehicle,x=None):
     """
     log.info('---- Start aircraft sizing module ----')
 
-    if type(x) != 'list':
+    if not isinstance(x, list):
         x = x.tolist()
-    
 
     # Load nested dictionary vehicle
     aircraft = vehicle['aircraft']
