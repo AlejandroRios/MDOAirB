@@ -28,7 +28,6 @@ TODO's:
 import numpy as np
 
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
-from framework.Attributes.Atmosphere.atmosphere import atmosphere
 from framework.Attributes.Airspeed.airspeed import mach_to_V_tas
 # from framework.Aerodynamics.aerodynamic_coefficients import zero_fidelity_drag_coefficient
 from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coefficients_ANN
