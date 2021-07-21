@@ -172,46 +172,7 @@ def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, final_altitude, 
 
     return final_distance, total_climb_time, total_burned_fuel, final_altitude
 
-
-def climb_integrator(initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle):
-    """
-    Description:
-        - This function sets the integration parameters. 
-    Inputs:
-        - initial_block_distance
-        - initial_block_altitude
-        - initial_block_mass
-        - initial_block_time
-        - final_block_altitude
-        - climb_V_cas - calibrated airspeed during climb [kt]
-        - mach - mach number_climb
-        - delta_ISA - ISA temperature deviation [deg C]
-        - vehicle - dictionary containing aircraft parameters
-    Outputs:
-        - final_block_distance
-        - final_block_altitude
-        - final_block_mass
-        - final_block_time
-    """
-    Tsim = initial_block_time + 40
-    stop_condition.terminal = True
-
-    stop_criteria = final_block_altitude
-    sol = solve_ivp(climb, [initial_block_time, Tsim], [initial_block_distance, initial_block_altitude, initial_block_mass],
-            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria))
-
-    distance = sol.y[0]
-    altitude = sol.y[1]
-    mass = sol.y[2]
-    time = sol.t
-
-    final_block_distance = distance[-1]
-    final_block_altitude = altitude[-1]
-    final_block_mass = mass[-1]
-    final_block_time = time[-1]
-    return final_block_distance, final_block_altitude, final_block_mass, final_block_time
-
-def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
+def climb_integration_datadriven(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, speed_vec, mach_vec, initial_altitude, vehicle):
     """
     Description:
         - This function sets the integration parameters. 
@@ -289,6 +250,43 @@ def climb_integration(mass, mach_climb, climb_V_cas, delta_ISA, altitude_vec, sp
 
     return final_distance, total_climb_time, total_burned_fuel, final_altitude
 
+def climb_integrator(initial_block_distance, initial_block_altitude, initial_block_mass, initial_block_time, final_block_altitude, climb_V_cas, mach_climb, delta_ISA, vehicle):
+    """
+    Description:
+        - This function sets the integration parameters. 
+    Inputs:
+        - initial_block_distance
+        - initial_block_altitude
+        - initial_block_mass
+        - initial_block_time
+        - final_block_altitude
+        - climb_V_cas - calibrated airspeed during climb [kt]
+        - mach - mach number_climb
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - final_block_distance
+        - final_block_altitude
+        - final_block_mass
+        - final_block_time
+    """
+    Tsim = initial_block_time + 40
+    stop_condition.terminal = True
+
+    stop_criteria = final_block_altitude
+    sol = solve_ivp(climb, [initial_block_time, Tsim], [initial_block_distance, initial_block_altitude, initial_block_mass],
+            events = stop_condition, method='LSODA',args = (climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria))
+
+    distance = sol.y[0]
+    altitude = sol.y[1]
+    mass = sol.y[2]
+    time = sol.t
+
+    final_block_distance = distance[-1]
+    final_block_altitude = altitude[-1]
+    final_block_mass = mass[-1]
+    final_block_time = time[-1]
+    return final_block_distance, final_block_altitude, final_block_mass, final_block_time
 
 def stop_condition(time, state, climb_V_cas, mach_climb, delta_ISA, vehicle,stop_criteria):
     H = state[1]

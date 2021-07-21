@@ -1,5 +1,5 @@
-2021-07-21 15:54:13,798 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
-2021-072021-07-21 15:54:25,278 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+2021-07-21 16:00:45,202 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-072021-07-21 16:00:54,453 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
 Traceback (most recent call last):
   File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 81, in objective_function
     status, flags, vehicle = airplane_sizing(vehicle,x)
@@ -7,13 +7,19 @@ Traceback (most recent call last):
     vehicle)
   File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Mission\mission_sizing.py", line 243, in mission_sizing
     vehicle
-TypeError: climb_integration() missing 2 required positional arguments: 'initial_altitude' and 'vehicle'
-2021-07-21 15:54:25,284 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_integration.py", line 120, in climb_integration
+    rate_of_climb, climb_V_cas, delta_ISA, vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\climb_acceleration.py", line 81, in acceleration_to_250
+    10000+delta_altitude_initial, delta_ISA, mach_1)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Performance\Analysis\descent_to_altitude.py", line 131, in acceleration_factor_calculation
+    T, _, _, _ = atmosphere(h)
+NameError: name 'atmosphere' is not defined
+2021-07-21 16:00:54,458 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
 Traceback (most recent call last):
   File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 92, in objective_function
     if status == 0:
 UnboundLocalError: local variable 'status' referenced before assignment
-2021-07-21 15:54:25,285 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
-2021-07-21 15:54:25,286 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
-2021-07-21 15:54:25,287 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:14.545567
-2021-07-21 15:54:25,289 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+2021-07-21 16:00:54,459 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-21 16:00:54,460 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-21 16:00:54,462 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:09.557239
+2021-07-21 16:00:54,463 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
