@@ -1,0 +1,71 @@
+2021-07-23 15:17:05,604 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+202021-07-23 15:17:05,611 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing
+Traceback (most recent call last):
+  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 65, in objective_function_0
+    status, flags, vehicle = airplane_sizing(vehicle,x)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check.py", line 219, in airplane_sizing
+    vehicle = airfoil_parameters(vehicle)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\airfoil_parameters.py", line 233, in airfoil_parameters
+    r0_aux, t_c_aux, phi_aux, X_tcmax_aux, theta_aux, epsilon_aux, Ycmax_aux, YCtcmax_aux, X_Ycmax_aux, _, _,_ = airfoil_sobieski_coefficients(i)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\Aerodynamics\airfoil_parameters.py", line 118, in airfoil_sobieski_coefficients
+    airfoil_names[0] + '.dat', sep=',', delimiter=None, header=None, skiprows=[0])
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 2010, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Airfoils/PR1.dat'
+2021-07-23 15:17:05,618 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< objective_function
+Traceback (most recent call last):
+  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 75, in objective_function_0
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 2010, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Airports/airports.csv'
+2021-07-23 15:17:05,621 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Exception ocurred during calculations
+2021-07-23 15:17:05,623 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Aircraft not passed sizing and checks, profit: 0
+2021-07-23 15:17:05,623 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - ERROR - >>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results
+Traceback (most recent call last):
+  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 75, in objective_function_0
+    data_airports = pd.read_csv("Database/Airports/airports.csv")
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 688, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 454, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 948, in __init__
+    self._make_engine(self.engine)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 1180, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\Users\aarc8\.conda\envs\MDOAirB\lib\site-packages\pandas\io\parsers.py", line 2010, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Airports/airports.csv'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function.py", line 326, in objective_function_0
+    write_bad_results(error,x)
+  File "c:\users\aarc8\documents\github\mdoairb\framework\utilities\output.py", line 497, in write_bad_results
+    with open(r'Database/Results/Aircrafts_with_error/acft_' + str(start_time) +'.txt','w') as output:
+FileNotFoundError: [Errno 2] No such file or directory: 'Database/Results/Aircrafts_with_error/acft_2021-07-23-1517.txt'
+2021-07-23 15:17:05,630 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:00:00.025963
+2021-07-23 15:17:05,631 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
