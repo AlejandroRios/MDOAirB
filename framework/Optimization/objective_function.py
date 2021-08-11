@@ -1,11 +1,5 @@
 """
-File name : Network profit function
-Authors   : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : July 2020
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module calculates the network profit following the following steps:
@@ -14,14 +8,17 @@ Description:
         - Direct operational cost calculation (mission)
         - Profit calculation (network_optimization)
 
-Inputs:
-    - Optimization variables (array x)
-    - Mutable dictionary with aircraft, perfomance, operations and airports
-    departure and destiny information
-Outputs:
-    - Profit wich is the objective function
 TODO's:
-    -
+
+| Authors: Alejandro Rios
+           Lionel Guerin
+           
+  
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================

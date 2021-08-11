@@ -1,3 +1,23 @@
+"""
+MDOAirB
+
+Description:
+    - This module runs the fixed aircraft case
+
+TODO's:
+
+| Authors: Lionel Guerin
+           Alejandro Rios
+  
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
+"""
+
+
 import os
 import json
 import jsonschema

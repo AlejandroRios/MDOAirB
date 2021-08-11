@@ -5,13 +5,11 @@ Description:
     - This module configurate the genetic algorithm for the aircraft and
     network optimization. 
 
-Reference: 
-    - Reference: ROSKAM
-
 TODO's:
-    -
 
 | Authors: Alejandro Rios
+           Lionel Guerin
+  
 | Email: aarc.88@gmail.com
 | Creation: January 2021
 | Last modification: July 2021
