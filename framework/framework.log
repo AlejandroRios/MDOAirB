@@ -1,4 +1,2 @@
-2021-08-30 14:02:18,164 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
-2021-08-30 14:03:19,777 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 762.9527470227512
-2021-08-30 14:03:19,778 - c:\users\aarc8\documents\github\mdoairb\framework\S2021-08-30 14:03:19,956 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
-2021-08-30 14:06:24,393 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+2021-08-30 15:28:18,447 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start aircraft sizing module ----
+2021-08-30 15:28:18,448 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - Current individual vairables: [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1]
