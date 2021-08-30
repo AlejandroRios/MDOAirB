@@ -145,7 +145,7 @@ def sizing_tail(vehicle, mach, altitude):
 
         vehicle = center_of_gravity(vehicle)
 
-        horizontal_tail_xle_position = horizontal_tail['aerodynamic_center'] - horizontal_tail['center_chord']*0.25
+        horizontal_tail['leading_edge_xposition'] = horizontal_tail['aerodynamic_center'] - horizontal_tail['center_chord']*0.25
 
         tixi_out = open_tixi(cpacs_out_path)
 
@@ -153,7 +153,7 @@ def sizing_tail(vehicle, mach, altitude):
         
 
         # Update leading edge position
-        tixi_out.updateDoubleElement(horizontal_thail_xpath+'transformation/translation/x', horizontal_tail_xle_position, '%g')
+        tixi_out.updateDoubleElement(horizontal_thail_xpath+'transformation/translation/x', horizontal_tail['leading_edge_xposition'], '%g')
         # Update center chord 
         tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[1]/elements/element/transformation/scaling/x', horizontal_tail['center_chord'], '%g')
         tixi_out.updateDoubleElement(horizontal_thail_xpath+'sections/section[1]/elements/element/transformation/scaling/y', horizontal_tail['center_chord'], '%g')
@@ -173,11 +173,11 @@ def sizing_tail(vehicle, mach, altitude):
         tixi_out = open_tixi(cpacs_out_path)
 
         vertical_tail_xpath = '/cpacs/vehicles/aircraft/model/wings/wing[3]/'
-        vertical_tail_xle_position = vertical_tail['aerodynamic_center_xposition'] - vertical_tail['center_chord']*0.25
+        vertical_tail['leading_edge_xposition'] = vertical_tail['aerodynamic_center_xposition'] - vertical_tail['center_chord']*0.25
         
 
         # Update leading edge position
-        tixi_out.updateDoubleElement(vertical_tail_xpath+'transformation/translation/x', vertical_tail_xle_position, '%g')
+        tixi_out.updateDoubleElement(vertical_tail_xpath+'transformation/translation/x', vertical_tail['leading_edge_xposition'], '%g')
         # Update center chord 
         tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[1]/elements/element/transformation/scaling/x', vertical_tail['center_chord'], '%g')
         tixi_out.updateDoubleElement(vertical_tail_xpath+'sections/section[1]/elements/element/transformation/scaling/y', vertical_tail['center_chord'], '%g')
@@ -192,6 +192,7 @@ def sizing_tail(vehicle, mach, altitude):
 
         tixi_out = close_tixi(tixi_out, cpacs_out_path)
 
+        
 
     return vehicle
 

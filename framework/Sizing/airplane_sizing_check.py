@@ -41,6 +41,8 @@ from framework.Performance.Analysis.residual_rate_of_climb import residual_rate_
 from framework.Sizing.Geometry.sizing_landing_gear import sizing_landing_gear
 from framework.Sizing.performance_constraints import *
 from framework.Noise.Noise_Smith.noise_calculation import noise_calculation
+from framework.utilities.plot_simple_aircraft import plot3d
+from framework.utilities.plot_tigl_aircraft import plot3d_tigl
 from framework.utilities.logger import get_logger
 
 from datetime import datetime
@@ -433,6 +435,11 @@ def airplane_sizing(vehicle,x=None):
         else:
             flag_fuel = 0
 
+
+    # Simple plot check
+    # plot3d(vehicle)
+    plot3d_tigl(vehicle)
+
     # Regulated takeoff and landing checks
     maximum_takeoff_weight = aircraft['maximum_takeoff_weight']
     maximum_landing_weight = landing_weight
@@ -440,6 +447,9 @@ def airplane_sizing(vehicle,x=None):
 
     # engine['maximum_thrust'] = (
     #     aircraft['number_of_engines']*engine['maximum_thrust']*lb_to_kg)*GRAVITY  # Test this
+
+
+
 
 
 

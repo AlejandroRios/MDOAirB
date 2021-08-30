@@ -77,56 +77,21 @@ def initialize_aircraft_parameters():
     aircraft['year_of_technology'] = 2017
 
     wing = {}
-    wing['position'] = 1
-    wing['leading_edge_xposition'] = 0
     wing['area'] = 100
     wing['aspect_ratio'] = 12  # Fokker = 8.43
-    wing['span'] = 30.3579
-    wing['semi_span'] = 0
-    wing['taper_ratio'] = 0.38
-    wing['sweep_c_4'] = 22.6  # [deg]
-    wing['sweep_leading_edge'] = 22.6  # [deg]
-    wing['sweep_c_2'] = 22.6  # [deg]
-    wing['dihedral'] = 3  # [deg]
-    wing['root_incidence'] = 2  # [deg]
-    wing['kink_incidence'] = 0  # [deg]
-    wing['tip_incidence'] = -2.5  # [deg]
-    wing['twist'] = 0
-
-    wing['semi_span_kink'] = 0.34
-    wing['leading_edge_radius'] = [0.0153, 0.0150, 0.0150]
-    wing['thickness_ratio'] = [0.12, 0.12, 0.12]
-    wing['thickness_line_angle_trailing_edge'] = [-0.0799, -0.1025, -0.1553]
-    wing['maximum_thickness_chordwise_position'] = [0.3738, 0.3585, 0.3590]
+    wing['aerodynamic_center_xposition'] = 0
+    wing['aerodynamic_center_ref'] = 0.25
+    wing['aileron_chord'] = 0
+    wing['aileron_surface'] = 0
+    wing['aileron_position'] = 0
+    wing['center_chord'] = 3.53
     wing['camber_line_angle_leading_edge'] = [0.0787, -0.0295, 0.1000]
     wing['camber_line_angle_trailing_edge'] = [-0.0549, -0.2101, -0.0258]
-    wing['maximum_camber'] = [-0.0004, 0.0185, 0.0104]
     wing['camber_at_maximum_thickness_chordwise_position'] = [-0.0006, 0.0028, 0.0109]
-    wing['maximum_camber_chordwise_position'] = [0.6188, 0.7870, 0.5567]
-    wing['thickness_to_chord_average_ratio'] = 0.11
-    wing['trunnion_xposition'] = 0.75
-    wing['trunnion_length'] = 0
-    wing['rear_spar_ref'] = 0.75
-    # yc_trunnion
-    wing['tank_center_of_gravity_xposition'] = 0
-    wing['fuel_capacity'] = 0  # [kg]
     wing['center_of_gravity_xposition'] = 0
-    wing['root_thickness'] = 0
-
-    wing['root_chord_yposition'] = 0
-    wing['kink_chord_yposition'] = 0
-
-    wing['center_chord'] = 3.53
-    wing['root_chord'] = 3.53
-    wing['kink_chord'] = 3.53
-    wing['tip_chord'] = 3.53
-    wing['pylon_position_chord'] = 0
+    wing['dihedral'] = 3  # [deg]
     wing['engine_position_chord'] = 0
-
-
-    wing['mean_aerodynamic_chord'] = 3.53
-    wing['wetted_area'] = 168.6500  # [m2]
-
+    wing['friction_coefficient'] = 0.003
     wing['flap_deflection_takeoff'] = 35  # [deg]
     wing['flap_deflection_landing'] = 45  # [deg]
     wing['flap_deflection_approach'] =  15  # [deg]
@@ -134,27 +99,51 @@ def initialize_aircraft_parameters():
     wing['flap_area'] = 0
     wing['flap_chord'] = 0
     wing['flap_slots_number'] = 2
-
+    wing['fuel_capacity'] = 0  # [kg]
+    wing['kink_chord'] = 3.53
+    wing['kink_chord_yposition'] = 0
+    wing['kink_incidence'] = 0  # [deg]
+    wing['leading_edge_xposition'] = 0
+    wing['leading_edge_radius'] = [0.0153, 0.0150, 0.0150]
+    wing['mean_aerodynamic_chord_yposition'] = 0
+    wing['maximum_thickness_chordwise_position'] = [0.3738, 0.3585, 0.3590]
+    wing['maximum_camber'] = [-0.0004, 0.0185, 0.0104]
+    wing['maximum_camber_chordwise_position'] = [0.6188, 0.7870, 0.5567]
+    wing['mean_aerodynamic_chord'] = 3.53
+    wing['mean_thickness'] = 0.11
+    wing['max_2D_lift_coefficient'] = 1.9
+    wing['position'] = 1
+    wing['pylon_position_chord'] = 0
+    wing['root_chord'] = 3.53
+    wing['root_incidence'] = 2  # [deg]
+    wing['root_thickness'] = 0
+    wing['rear_spar_ref'] = 0.75
+    wing['root_chord_yposition'] = 0
+    wing['ribs_spacing'] = 22
+    wing['span'] = 30.3579
+    wing['semi_span'] = 0
+    wing['sweep_c_4'] = 22.6  # [deg]
+    wing['sweep_leading_edge'] = 22.6  # [deg]
+    wing['sweep_c_2'] = 22.6  # [deg]
+    wing['sweep_trailing_edge'] = 22.6  # [deg]
+    wing['semi_span_kink'] = 0.34
+    wing['tip_chord'] = 3.53
+    wing['taper_ratio'] = 0.38
+    wing['tip_incidence'] = -2.5  # [deg]
+    wing['thickness_ratio'] = [0.12, 0.12, 0.12]
+    wing['thickness_line_angle_trailing_edge'] = [-0.0799, -0.1025, -0.1553]
+    wing['thickness_to_chord_average_ratio'] = 0.11
+    wing['trunnion_xposition'] = 0.75
+    wing['trunnion_length'] = 0
+    wing['twist'] = 0
+    # yc_trunnion
+    wing['tank_center_of_gravity_xposition'] = 0
     wing['slat_span'] = 0.75
     wing['slat_area'] = 0
     wing['slat_chord'] = 0
     wing['slat_slots_number'] = 1
-
-    wing['mean_aerodynamic_chord_yposition'] = 0
+    wing['wetted_area'] = 168.6500  # [m2]
     wing['weight'] = 0
-    wing['mean_thickness'] = 0.11
-
-
-    wing['aerodynamic_center_xposition'] = 0
-    wing['aerodynamic_center_ref'] = 0.25
-    wing['aileron_chord'] = 0
-    wing['aileron_surface'] = 0
-    wing['aileron_position'] = 0
-
-    wing['max_2D_lift_coefficient'] = 1.9
-    wing['ribs_spacing'] = 22
-
-    wing['friction_coefficient'] = 0.003
 
 
     horizontal_tail = {}
@@ -188,6 +177,7 @@ def initialize_aircraft_parameters():
     horizontal_tail['weight'] = 0
     horizontal_tail['wetted_area'] = 0 
     horizontal_tail['center_of_gravity_xposition'] = 0
+    horizontal_tail['leading_edge_xposition'] = 0
 
 
     vertical_tail = {}
@@ -217,6 +207,7 @@ def initialize_aircraft_parameters():
     vertical_tail['mean_aerodynamic_chord_yposition'] = 0
     vertical_tail['mean_thickness'] = 0
     vertical_tail['center_of_gravity_xposition'] = 0
+    vertical_tail['leading_edge_xposition'] = 0
 
     winglet = {}
     winglet['aspect_ratio'] = 2.75
