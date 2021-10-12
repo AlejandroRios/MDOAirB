@@ -629,6 +629,7 @@ def objective_function_1(vehicle,x=None):
         except:
             log.error(">>>>>>>>>> Error at <<<<<<<<<<<< write_bad_results", exc_info = True)
     
+<<<<<<< Updated upstream
     else:
         print("Final individual results is:", profit)
     finally:
@@ -662,6 +663,72 @@ def objective_function(vehicle,x=None):
 
 
 from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+=======
+	return computation_mode, route_computation_mode, airports, distances, demands, design_variables, fixed_parameters, fixed_aircraft
+
+def update_vehicle(vehicle, fixed_parameters):
+    for key in fixed_parameters:
+        if (key in vehicle):
+            vehicle[key].update(fixed_parameters[key])
+    return vehicle
+
+def usage():
+	print("This is the usage function")
+	print(f"Usage: {sys.argv[0]} -f <custom inputs file>")
+
+def readArgv(argv):
+	customInputsfile = ""
+	try:                                
+		opts, _ = getopt.getopt(argv, "hf:", ["help", "file="])
+	except getopt.GetoptError:          
+		usage()                         
+		sys.exit(2)                     
+	for opt, arg in opts:
+		if opt in ("-h", "--help"):
+			usage()                     
+			sys.exit()                  
+		elif opt in ("-f", "--file"):
+			customInputsfile = arg               
+	return customInputsfile
+
+def main(argv):
+	fixed_parameters = {}
+	fixed_aircraft = {}
+	customInputsfile = readArgv(argv)
+	if not customInputsfile or not os.path.isfile(customInputsfile):
+		print(f"Custom file {customInputsfile} does not exist")
+		sys.exit(1)
+
+	try:
+		computation_mode, route_computation_mode, airports, distances, demands, _, fixed_parameters, fixed_aircraft = read_custom_inputs(CUSTOM_INPUTS_SCHEMA, customInputsfile)
+	except Exception as err:
+		print(f"Exception ocurred while playing custom inputs file {customInputsfile}")
+		print(f"Error: {err}")
+		sys.exit(1)
+
+	# x = [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1]
+    # x = [104,  87, 34, 21, -3.4, 41, 50, 15, 29, 1365, 21, 161, 5.5, 1270, 41000, 78, 1, 1, 1, 1]
+	# x   = [ 1.12263381e+02,  8.61725966e+01,  2.93528075e+01,  2.46586854e+01,
+    #    -4.93747382e+00,  3.25432550e+01,  5.01969998e+01,  1.37762699e+01,  
+    #     2.82079270e+01,  1.38790020e+03,  1.66990988e+01,  1.51508520e+02,  
+    #     5.54040212e+00,  1.11221036e+03,  4.10000000e+04,  7.80000000e+01,  
+                #    1,             1,             1,             1]
+	x = [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1] 
+
+	# x = [1.04013290e+02,  8.71272735e+01, -3.42639119e+01,  2.12550036e+01,
+    #    -3.42824373e+00,  4.12149389e+01,  4.98606638e+01,  1.47169661e+01,
+    #     2.87241618e+01,  1.36584947e+03,  2.09763441e+01,  1.61607474e+02,
+    #     5.55661531e+00,  1.27054142e+03,  4.10000000e+04,  7.80000000e+01,
+    #                1,            1,             1,            1]
+    
+	distances = {'FRA': {'FRA': 0, 'LHR': 355, 'CDG': 243, 'AMS': 198, 'MAD': 768, 'BCN': 591, 'FCO': 517, 'DUB': 589, 'VIE': 336, 'ZRH': 154}, 'LHR': {'FRA': 355, 'LHR': 0, 'CDG': 188, 'AMS': 200, 'MAD': 672, 'BCN': 620, 'FCO': 781, 'DUB': 243, 'VIE': 690, 'ZRH': 427}, 'CDG': {'FRA': 243, 'LHR': 188, 'CDG': 0, 'AMS': 215, 'MAD': 574, 'BCN': 463, 'FCO': 595, 'DUB': 425, 'VIE': 561, 'ZRH': 258}, 'AMS': {'FRA': 198, 'LHR': 200, 'CDG': 215, 'AMS': 0, 'MAD': 788, 'BCN': 670, 'FCO': 700, 'DUB': 406, 'VIE': 519, 'ZRH': 326}, 'MAD': {'FRA': 768, 'LHR': 672, 'CDG': 574, 'AMS': 788, 'MAD': 0, 'BCN': 261, 'FCO': 720, 'DUB': 784, 'VIE': 977, 'ZRH': 670}, 'BCN': {'FRA': 591, 'LHR': 620, 'CDG': 463, 'AMS': 670, 'MAD': 261, 'BCN': 0, 'FCO': 459, 'DUB': 802, 'VIE': 741, 'ZRH': 463}, 'FCO': {'FRA': 517, 'LHR': 781, 'CDG': 595, 'AMS': 700, 'MAD': 720, 'BCN': 459, 'FCO': 0, 'DUB': 1020, 'VIE': 421, 'ZRH': 375}, 'DUB': {'FRA': 589, 'LHR': 243, 'CDG': 425, 'AMS': 406, 'MAD': 784, 'BCN': 802, 'FCO': 1020, 'DUB': 0, 'VIE': 922, 'ZRH': 670}, 'VIE': {'FRA': 336, 'LHR': 690, 'CDG': 561, 'AMS': 519, 'MAD': 977, 'BCN': 741, 'FCO': 421, 'DUB': 922, 'VIE': 0, 'ZRH': 327}, 'ZRH': {'FRA': 154, 'LHR': 427, 'CDG': 258, 'AMS': 326, 'MAD': 670, 'BCN': 463, 'FCO': 375, 'DUB': 670, 'VIE': 327, 'ZRH': 0}}
+
+	if not fixed_aircraft:
+		objective_function(x, fixed_parameters, computation_mode, route_computation_mode, airports, distances, demands)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
+>>>>>>> Stashed changes
 
 # # # # x = [130, 8.204561481970153, 0.3229876327660606, 31, -4, 0.3896951781733875, 4.826332970409506, 1.0650795018081771, 27, 1485, 1.6, 101, 4, 2185, 41000, 0.78, 1, 1, 1, 1]
 # # # # # x = [73, 8.210260198894748, 0.34131954092766925, 28, -5, 0.32042307969643524, 5.000456116634125, 1.337333818504011, 27, 1442, 1.6, 106, 6, 1979, 41000, 0.78, 1, 1, 1, 1]

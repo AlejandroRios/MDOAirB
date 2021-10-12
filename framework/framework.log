@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 2021-07-23 16:03:22,459 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing aircraft results ====
 2021-07-23 16:03:22,525 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== End writing aircraft results ====
 2021-07-23 16:03:22,526 - c:\users\aarc8\documents\github\mdoairb\framework\utilities\output     - INFO - ==== Start writing klm results ====
@@ -9,3 +10,9 @@
 2021-07-23 16:03:22,268 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit [$USD]: 1355366
 2021-07-23 16:03:22,659 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - Network profit excecution time: 0:45:23.296275
 2021-07-23 16:03:22,659 - c:\Users\aarc8\Documents\github\MDOAirB\framework\Optimization\objective_function     - INFO - ==== End network profit module ====
+=======
+2021-09-01 16:06:01,448 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2021-09-01 16:06:07,432 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 789.527566740251
+2021-09-01 16:06:07,432 - c:\users\aarc8\documents\github\mdoairb\framework\S2021-09-01 16:06:07,603 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2021-09-01 16:09:29,294 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----
+>>>>>>> Stashed changes

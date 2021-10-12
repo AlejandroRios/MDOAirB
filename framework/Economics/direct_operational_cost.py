@@ -281,7 +281,9 @@ def direct_operational_cost(
 # =============================================================================
 # TEST
 # =============================================================================
-# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
+from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+vehicle = initialize_aircraft_parameters()
+
 # print(direct_operational_cost(
 #     2500,
 #     62,

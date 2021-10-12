@@ -426,6 +426,14 @@ def airplane_sizing(vehicle,x=None):
         else:
             flag_fuel = 0
 
+<<<<<<< Updated upstream
+=======
+
+    # Simple plot check
+    plot3d(vehicle)
+    plot3d_tigl(vehicle)
+
+>>>>>>> Stashed changes
     # Regulated takeoff and landing checks
     maximum_takeoff_weight = aircraft['maximum_takeoff_weight']
     maximum_landing_weight = landing_weight
