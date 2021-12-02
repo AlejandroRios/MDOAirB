@@ -101,8 +101,8 @@
             <transformation uID="D150Fuselage1ID_transformation1">
               <scaling uID="D150Fuselage1ID_transformation1_scaling1">
                 <x>1.0</x>
-                <y>1.02389</y>
-                <z>1.02389</z>
+                <y>0.980112</y>
+                <z>0.980112</z>
               </scaling>
               <rotation uID="D150Fuselage1ID_transformation1_rotation1">
                 <x>0.0</x>
@@ -734,7 +734,7 @@
               </positioning>
               <positioning uID="D150_Fuselage_1Positioning22ID">
                 <name>D150_Fuselage_1Positioning22</name>
-                <length>5.8686</length>
+                <length>7.0878</length>
                 <sweepAngle>90</sweepAngle>
                 <dihedralAngle>0</dihedralAngle>
                 <fromSectionUID>D150_Fuselage_1Section20ID</fromSectionUID>
@@ -742,7 +742,7 @@
               </positioning>
               <positioning uID="D150_Fuselage_1Positioning25ID">
                 <name>D150_Fuselage_1Positioning25</name>
-                <length>5.8686</length>
+                <length>7.0878</length>
                 <sweepAngle>90</sweepAngle>
                 <dihedralAngle>0</dihedralAngle>
                 <fromSectionUID>D150_Fuselage_1Section22ID</fromSectionUID>
@@ -750,7 +750,7 @@
               </positioning>
               <positioning uID="D150_Fuselage_1Positioning30ID">
                 <name>D150_Fuselage_1Positioning30</name>
-                <length>5.8686</length>
+                <length>7.0878</length>
                 <sweepAngle>90</sweepAngle>
                 <dihedralAngle>0</dihedralAngle>
                 <fromSectionUID>D150_Fuselage_1Section25ID</fromSectionUID>
@@ -758,7 +758,7 @@
               </positioning>
               <positioning uID="D150_Fuselage_1Positioning35ID">
                 <name>D150_Fuselage_1Positioning35</name>
-                <length>5.8686</length>
+                <length>7.0878</length>
                 <sweepAngle>90</sweepAngle>
                 <dihedralAngle>0</dihedralAngle>
                 <fromSectionUID>D150_Fuselage_1Section30ID</fromSectionUID>
@@ -766,7 +766,7 @@
               </positioning>
               <positioning uID="D150_Fuselage_1Positioning45ID">
                 <name>D150_Fuselage_1Positioning45</name>
-                <length>3.64913</length>
+                <length>3.49324</length>
                 <sweepAngle>90</sweepAngle>
                 <dihedralAngle>0</dihedralAngle>
                 <fromSectionUID>D150_Fuselage_1Section35ID</fromSectionUID>
@@ -774,7 +774,7 @@
               </positioning>
               <positioning uID="D150_Fuselage_1Positioning58ID">
                 <name>D150_Fuselage_1Positioning58</name>
-                <length>3.64913</length>
+                <length>3.49324</length>
                 <sweepAngle>90</sweepAngle>
                 <dihedralAngle>0</dihedralAngle>
                 <fromSectionUID>D150_Fuselage_1Section45ID</fromSectionUID>
@@ -862,9 +862,9 @@
                 <z>0</z>
               </rotation>
               <translation refType="absLocal" uID="D150_wing_1ID_transformation1_translation1">
-                <x>12.4315</x>
+                <x>14.6925</x>
                 <y>0</y>
-                <z>-1.05998</z>
+                <z>-1.01466</z>
               </translation>
             </transformation>
             <sections>
@@ -893,9 +893,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section1IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section1IDElement1_transformation1_scaling1">
-                        <x>6.08277</x>
-                        <y>6.08277</y>
-                        <z>6.08277</z>
+                        <x>5.61067</x>
+                        <y>5.61067</y>
+                        <z>5.61067</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section1IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -936,9 +936,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section2IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section2IDElement1_transformation1_scaling1">
-                        <x>6.08277</x>
-                        <y>6.08277</y>
-                        <z>6.08277</z>
+                        <x>5.61067</x>
+                        <y>5.61067</y>
+                        <z>5.61067</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section2IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -979,9 +979,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section3IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section3IDElement1_transformation1_scaling1">
-                        <x>3.81972</x>
-                        <y>3.81972</y>
-                        <z>3.81972</z>
+                        <x>3.75238</x>
+                        <y>3.75238</y>
+                        <z>3.75238</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section3IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -1022,9 +1022,9 @@
                     <airfoilUID>Profile_wing_1</airfoilUID>
                     <transformation uID="D150_wing_1Section4IDElement1_transformation1">
                       <scaling uID="D150_wing_1Section4IDElement1_transformation1_scaling1">
-                        <x>1.38526</x>
-                        <y>1.38526</y>
-                        <z>1.38526</z>
+                        <x>1.7635</x>
+                        <y>1.7635</y>
+                        <z>1.7635</z>
                       </scaling>
                       <rotation uID="D150_wing_1Section4IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -1051,7 +1051,7 @@
               </positioning>
               <positioning uID="D150_wing_1Positioning2ID">
                 <name>D150_wing_1Positioning2</name>
-                <length>2.38627</length>
+                <length>2.22132</length>
                 <sweepAngle>0</sweepAngle>
                 <dihedralAngle>0.0</dihedralAngle>
                 <fromSectionUID>D150_wing_1Section1ID</fromSectionUID>
@@ -1059,16 +1059,16 @@
               </positioning>
               <positioning uID="D150_wing_1Positioning3ID">
                 <name>D150_wing_1Positioning3</name>
-                <length>4.92972</length>
-                <sweepAngle>27.3267</sweepAngle>
+                <length>4.56926</length>
+                <sweepAngle>23.9974</sweepAngle>
                 <dihedralAngle>5.0</dihedralAngle>
                 <fromSectionUID>D150_wing_1Section2ID</fromSectionUID>
                 <toSectionUID>D150_wing_1Section3ID</toSectionUID>
               </positioning>
               <positioning uID="D150_wing_1Positioning4ID">
                 <name>D150_wing_1Positioning4</name>
-                <length>13.5868</length>
-                <sweepAngle>27.3267</sweepAngle>
+                <length>9.68544</length>
+                <sweepAngle>23.9974</sweepAngle>
                 <dihedralAngle>5.0</dihedralAngle>
                 <fromSectionUID>D150_wing_1Section3ID</fromSectionUID>
                 <toSectionUID>D150_wing_1Section4ID</toSectionUID>
@@ -4283,9 +4283,9 @@
                 <z>0</z>
               </rotation>
               <translation refType="absLocal" uID="D150_HTP_1ID_transformation1_translation1">
-                <x>29.3677</x>
+                <x>33.7584</x>
                 <y>0</y>
-                <z>1.01758</z>
+                <z>0.974075</z>
               </translation>
             </transformation>
             <sections>
@@ -4314,9 +4314,9 @@
                     <airfoilUID>Profile_HTP_1</airfoilUID>
                     <transformation uID="D150_HTP_1Section1IDElement1_transformation1">
                       <scaling uID="D150_HTP_1Section1IDElement1_transformation1_scaling1">
-                        <x>3.67717</x>
-                        <y>3.67717</y>
-                        <z>3.67717</z>
+                        <x>3.11511</x>
+                        <y>3.11511</y>
+                        <z>3.11511</z>
                       </scaling>
                       <rotation uID="D150_HTP_1Section1IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -4357,9 +4357,9 @@
                     <airfoilUID>Profile_HTP_1</airfoilUID>
                     <transformation uID="D150_HTP_1Section2IDElement1_transformation1">
                       <scaling uID="D150_HTP_1Section2IDElement1_transformation1_scaling1">
-                        <x>1.47087</x>
-                        <y>1.47087</y>
-                        <z>1.47087</z>
+                        <x>1.24604</x>
+                        <y>1.24604</y>
+                        <z>1.24604</z>
                       </scaling>
                       <rotation uID="D150_HTP_1Section2IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -4386,8 +4386,8 @@
               </positioning>
               <positioning uID="D150_HTP_1Positioning2ID">
                 <name>D150_HTP_1Positioning2</name>
-                <length>6.68589</length>
-                <sweepAngle>33.1378</sweepAngle>
+                <length>5.45972</length>
+                <sweepAngle>29.6944</sweepAngle>
                 <dihedralAngle>3</dihedralAngle>
                 <fromSectionUID>D150_HTP_1Section1ID</fromSectionUID>
                 <toSectionUID>D150_HTP_1Section2ID</toSectionUID>
@@ -5086,9 +5086,9 @@
                 <z>0.0</z>
               </rotation>
               <translation refType="absLocal" uID="D150_VTP_1ID_transformation1_translation1">
-                <x>28.8183</x>
+                <x>34.175</x>
                 <y>0</y>
-                <z>2.07757</z>
+                <z>1.98874</z>
               </translation>
             </transformation>
             <sections>
@@ -5117,9 +5117,9 @@
                     <airfoilUID>NACA0012</airfoilUID>
                     <transformation uID="D150_VTP_1Section1IDElement1_transformation1">
                       <scaling uID="D150_VTP_1Section1IDElement1_transformation1_scaling1">
-                        <x>6.58736</x>
-                        <y>6.58736</y>
-                        <z>6.58736</z>
+                        <x>4.8791</x>
+                        <y>4.8791</y>
+                        <z>4.8791</z>
                       </scaling>
                       <rotation uID="D150_VTP_1Section1IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -5160,9 +5160,9 @@
                     <airfoilUID>NACA0012</airfoilUID>
                     <transformation uID="D150_VTP_1Section2IDElement1_transformation1">
                       <scaling uID="D150_VTP_1Section2IDElement1_transformation1_scaling1">
-                        <x>3.29368</x>
-                        <y>3.29368</y>
-                        <z>3.29368</z>
+                        <x>2.43955</x>
+                        <y>2.43955</y>
+                        <z>2.43955</z>
                       </scaling>
                       <rotation uID="D150_VTP_1Section2IDElement1_transformation1_rotation1">
                         <x>0.0</x>
@@ -5189,7 +5189,7 @@
               </positioning>
               <positioning uID="D150_VTP_1Positioning2ID">
                 <name>D150_VTP_1Positioning2</name>
-                <length>9.02195</length>
+                <length>6.68234</length>
                 <sweepAngle>48.9184</sweepAngle>
                 <dihedralAngle>0.0</dihedralAngle>
                 <fromSectionUID>D150_VTP_1Section1ID</fromSectionUID>
