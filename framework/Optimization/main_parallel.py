@@ -31,7 +31,7 @@ import numpy as np
 import os
 import random
 import subprocess
-
+import getopt 
 from deap import algorithms
 from deap import base
 from deap import creator
@@ -51,7 +51,7 @@ from haversine import haversine, Unit
 from jsonschema import validate
 
 from smt.sampling_methods import LHS
-
+import sys
 # =============================================================================
 # CLASSES
 # =============================================================================

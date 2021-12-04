@@ -529,6 +529,15 @@ def readArgv(argv):
 			customInputsfile = arg               
 	return customInputsfile
 
+#IMPORTS
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from pymoo.factory import get_sampling
+from pymoo.interface import sample
+from aux_tools import corrdot
+
 def main(argv):
 	fixed_parameters = {}
 	fixed_aircraft = {}
@@ -539,18 +548,102 @@ def main(argv):
 
 	try:
 		computation_mode, route_computation_mode, airports, distances, demands, _, fixed_parameters, fixed_aircraft = read_custom_inputs(CUSTOM_INPUTS_SCHEMA, customInputsfile)
+		n_inputs = 16
+		
+		# Lower and upeer bounds of each input variable
+		#     0   | 1   | 2   |  3     |   4    |   5      | 6     | 7     |  8     |   9   | 10    | 11    |   12     | 13    | 14          |  15
+		#    Areaw| ARw | TRw | Sweepw | Twistw | b/2kinkw | bypass| Ediam | PRcomp |  Tin  | PRfan | PAX   | seat abr | range | design pres | mach
+		lb = [72,  75 ,  25,     15,      -5,       32,       45,    10,      27,      1350,   14,     70,     4,        1000,     39000,       78]
+		ub = [130, 120,  50,     30,      -2,       45,       65,    15,      30,      1500,   25,     220,    6,        3500,     43000,       82]
+		# Desired number of samples
+		n_samples = 200
+		
+		# Sampling type
+		#sampling_type = 'real_random'
+		sampling_type = 'int_lhs'
+		
+		# Plot type (0-simple, 1-complete)
+		plot_type = 1
+		#=========================================
+		
+		# EXECUTION
+		
+		# Set random seed to make results repeatable
+		np.random.seed(321)
+		
+		# Initialize sampler
+		sampling = get_sampling(sampling_type)
+		
+		# Draw samples
+		X = sample(sampling, n_samples, n_inputs)
+		
+		
+		
+		vehicle = initialize_aircraft_parameters()
+		
+		# Samples are originally between 0 and 1,
+		# so we need to scale them to the desired interval
+		for ii in range(n_inputs):
+		    X[:,ii] = lb[ii] + (ub[ii] - lb[ii])*X[:,ii]
+		
+		# Execute all cases and store outputs
+		y1_samples = []
+		# y2_samples = []
+		for ii in range(n_samples):
+		
+		    # Evaluate sample
+		    # (y1)= objective_function(vehicle,X[ii,:])
+		    (y1) = objective_function(X[ii,:], fixed_parameters, computation_mode, route_computation_mode, airports, distances, demands)
+		    # Store the relevant information
+		    y1_samples.append(y1)
+		# y2_samples.append(y2)
+		
+		# Create a pandas dataframe with all the information
+		df = pd.DataFrame({'x1' : X[:,0],
+		                'x2' : X[:,1],
+		                'x3' : X[:,2],
+		                'x4' : X[:,3],
+		                'x5' : X[:,4],
+		                'x6' : X[:,5],
+		                'x7' : X[:,6],
+		                'x8' : X[:,7],
+		                'x9' : X[:,8],
+		                'x10' : X[:,9],
+		                'x11' : X[:,10],
+		                'x12' : X[:,11],
+		                'x13' :X[:,12],
+		                'x14' :X[:,13],
+		                'x15' :X[:,14],
+		                'x16' :X[:,15],
+		                'y1' : y1_samples})
+		# Plot the correlation matrix
+		sns.set(style='white', font_scale=1.4)
+		
+		if plot_type == 0:
+		
+		    # Simple plot
+		    fig = sns.pairplot(df,corner=True)
+		
+		elif plot_type == 1:
+		
+		    # Complete plot
+		    # based on: https://stackoverflow.com/questions/48139899/correlation-matrix-plot-with-coefficients-on-one-side-scatterplots-on-another
+		    fig = sns.PairGrid(df, diag_sharey=False)
+		    fig.map_lower(sns.regplot, lowess=True, line_kws={'color': 'black'})
+		    fig.map_diag(sns.histplot)
+		    fig.map_upper(corrdot)
+		
+		# Plot window
+		plt.tight_layout()
+		plt.show()
 	except Exception as err:
 		print(f"Exception ocurred while playing custom inputs file {customInputsfile}")
 		print(f"Error: {err}")
 		sys.exit(1)
 
-	# x = [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1]
-	# x = [1.04013290e+02,  8.71272735e+01,  3.42639119e+01,  2.12550036e+01,
-    #    -3.42824373e+00,  4.12149389e+01,  4.98606638e+01,  1.47169661e+01,
-    #     2.87241618e+01,  1.36584947e+03,  2.09763441e+01,  1.61607474e+02,
-    #     5.55661531e+00,  1.27054142e+03,  4.10000000e+04,  7.80000000e+01,
-    #                1,            1,             1,            1]
-	# x =  [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1]
+
+
+
 	distances = {'FRA': {'FRA': 0, 'LHR': 355, 'CDG': 243, 'AMS': 198, 'MAD': 768, 'BCN': 591, 'FCO': 517, 'DUB': 589, 'VIE': 336, 'ZRH': 154}, 'LHR': {'FRA': 355, 'LHR': 0, 'CDG': 188, 'AMS': 200, 'MAD': 672, 'BCN': 620, 'FCO': 781, 'DUB': 243, 'VIE': 690, 'ZRH': 427}, 'CDG': {'FRA': 243, 'LHR': 188, 'CDG': 0, 'AMS': 215, 'MAD': 574, 'BCN': 463, 'FCO': 595, 'DUB': 425, 'VIE': 561, 'ZRH': 258}, 'AMS': {'FRA': 198, 'LHR': 200, 'CDG': 215, 'AMS': 0, 'MAD': 788, 'BCN': 670, 'FCO': 700, 'DUB': 406, 'VIE': 519, 'ZRH': 326}, 'MAD': {'FRA': 768, 'LHR': 672, 'CDG': 574, 'AMS': 788, 'MAD': 0, 'BCN': 261, 'FCO': 720, 'DUB': 784, 'VIE': 977, 'ZRH': 670}, 'BCN': {'FRA': 591, 'LHR': 620, 'CDG': 463, 'AMS': 670, 'MAD': 261, 'BCN': 0, 'FCO': 459, 'DUB': 802, 'VIE': 741, 'ZRH': 463}, 'FCO': {'FRA': 517, 'LHR': 781, 'CDG': 595, 'AMS': 700, 'MAD': 720, 'BCN': 459, 'FCO': 0, 'DUB': 1020, 'VIE': 421, 'ZRH': 375}, 'DUB': {'FRA': 589, 'LHR': 243, 'CDG': 425, 'AMS': 406, 'MAD': 784, 'BCN': 802, 'FCO': 1020, 'DUB': 0, 'VIE': 922, 'ZRH': 670}, 'VIE': {'FRA': 336, 'LHR': 690, 'CDG': 561, 'AMS': 519, 'MAD': 977, 'BCN': 741, 'FCO': 421, 'DUB': 922, 'VIE': 0, 'ZRH': 327}, 'ZRH': {'FRA': 154, 'LHR': 427, 'CDG': 258, 'AMS': 326, 'MAD': 670, 'BCN': 463, 'FCO': 375, 'DUB': 670, 'VIE': 327, 'ZRH': 0}}
 
 	if not fixed_aircraft:
