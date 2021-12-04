@@ -159,6 +159,7 @@ def mission_sizing(vehicle):
         mach_climb,
         delta_ISA
     )
+    operations['optimal_altitude_cruise'] = optim_altitude
     # end_time = datetime.now()
     # print('opt alt calculation time: {}'.format(end_time - start_time))
 
@@ -440,14 +441,14 @@ def mission_sizing(vehicle):
 
     # Calculate best cruise mach
     mass_at_top_of_climb = max_alternative_mass - total_burned_fuel0
-    operations['mach_cruise'] = maximum_range_mach(
+    operations['mach_cruise_alternative'] = maximum_range_mach(
         mass_at_top_of_climb,
         final_altitude,
         delta_ISA,
         vehicle
     )
-    mach_climb = operations['mach_cruise']
-    mach_descent = operations['mach_cruise']
+    mach_climb = operations['mach_cruise_alternative']
+    mach_descent = operations['mach_cruise_alternative']
 
     # Recalculate climb with new mach
     final_distance, total_climb_time, total_burned_fuel, final_altitude = climb_integration(
@@ -479,7 +480,7 @@ def mission_sizing(vehicle):
     while flag == 1 and iteration <100:
 
         transition_altitude = crossover_altitude(
-            operations['mach_cruise'],
+            operations['mach_cruise_alternative'],
             cruise_V_cas,
             delta_ISA
         )
@@ -495,7 +496,7 @@ def mission_sizing(vehicle):
             mach = V_cas_to_mach(cruise_V_cas, altitude, delta_ISA)
 
         if altitude > transition_altitude:
-            mach = operations['mach_cruise']
+            mach = operations['mach_cruise_alternative']
 
         # Breguet calculation type for cruise performance
         total_cruise_time, final_cruise_mass = cruise_performance_simple(

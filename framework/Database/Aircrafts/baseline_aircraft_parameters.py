@@ -417,6 +417,7 @@ def initialize_aircraft_parameters():
     operations['turn_around_time'] = 45
     operations['maximum_daily_utilization'] = 13
     operations['flight_planning_delta_ISA'] = 0  # [deg C]
+    operations['optimal_altitude_cruise'] = 40000
 
 
     noise = {}
