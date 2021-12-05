@@ -68,13 +68,16 @@ def buffet_altitude(vehicle, mass, altitude, limit_altitude, mach_climb):
     CL_constraint = ((2)/(gamma*P_ISA*mach_climb**2))*wing_loading_constraint
 
     CL = 0.1
-
-    while CL < CL_constraint:
+    max_count = 10000
+    count = 0
+    while (CL < CL_constraint) and (count < max_count):
         theta, delta, sigma, T_ISA, P_ISA, rho_ISA, _, a = atmosphere_ISA_deviation(
             altitude, delta_ISA)
         CL = ((2*load_factor)/(gamma*P_ISA*mach_climb*mach_climb)) * \
             (mass*GRAVITY/wing_surface)
         altitude = altitude+step
+
+        count = count + 1
 
     return altitude
 
