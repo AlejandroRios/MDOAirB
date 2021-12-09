@@ -1,0 +1,9 @@
+======== Aircraft parameters ========
+
+
+ ----- Aircraft parameters ----- 
+[  130   120    25    15    -5    32    65    15    30  1500    14   220
+     6  1000 43000    82]
+
+ ----- Error message ----- 
+<class 'UnboundLocalError'>

@@ -348,7 +348,7 @@ def network_optimization(arrivals, departures, distances, demand, active_airport
 
     # ax.set_title("Network frequencies for optimum aircraft (112 seats)")
     fig.tight_layout()
-    plt.show()
+    # plt.show()
 
 
 

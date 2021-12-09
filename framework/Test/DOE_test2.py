@@ -28,7 +28,7 @@ TODO's:
 # IMPORTS
 # =============================================================================
 
-from framework.Performance.Mission.mission_real import mission
+from framework.Performance.Mission.mission import mission
 from framework.Network.network_optimization import network_optimization,network_optimization_fix
 from framework.Economics.revenue import revenue
 from framework.Sizing.airplane_sizing_check import airplane_sizing
@@ -61,12 +61,8 @@ def objective_function_0(vehicle,x=None):
     try:
         # =============================================================================
         # Airplane sizing and checks
-
         try:
             status, flags, vehicle = airplane_sizing(vehicle,x)
-
-            # status = 0
-            # flags = [0,0,0]
         except:
             log.error(">>>>>>>>>> Error at <<<<<<<<<<<< airplane_sizing", exc_info = True)
 
@@ -125,7 +121,6 @@ def objective_function_0(vehicle,x=None):
             # The DOC is estimated for each city pair and stored in the DOC dictionary
             city_matrix_size = len(departures)*len(arrivals)
             DOC_ik = {}
-            distances_ik = {}
             DOC_nd = {}
             fuel_mass = {}
             total_mission_flight_time = {}
@@ -137,7 +132,6 @@ def objective_function_0(vehicle,x=None):
                 for i in range(len(departures)):
 
                     DOC_ik[departures[i]] = {}
-                    distances_ik[departures[i]] = {}
                     DOC_nd[departures[i]] = {}
                     fuel_mass[departures[i]] = {}
                     total_mission_flight_time[departures[i]] = {}
@@ -164,7 +158,7 @@ def objective_function_0(vehicle,x=None):
                             airport_departure['landing_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                         == departures[i], 'LDA'].iloc[0]
                             airport_destination['landing_field_length'] = data_airports.loc[data_airports['APT2']
-                                                                                        == departures[k], 'LDA'].iloc[0]                                                                                            
+                                                                                        == departures[k], 'LDA'].iloc[0]
                             # Average delay:
                             airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == departures[i], 'AVD'].iloc[0]
@@ -183,15 +177,10 @@ def objective_function_0(vehicle,x=None):
                                 heading = heading + 360
 
                             # Calculate DOC and mission parameters for origin-destination airports pair:                        
-
-                            # mission_range = distances[departures[i]][arrivals[k]]
-                            departures_in = data_airports.loc[data_airports['APT2'] == departures[i], 'APT'].iloc[0]
-                            arrivals_in = data_airports.loc[data_airports['APT2'] == arrivals[k], 'APT'].iloc[0]
-
-                            fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC ,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]], mission_range= mission(departures_in,arrivals_in,heading,vehicle)
+                            mission_range = distances[departures[i]][arrivals[k]]
+                            fuel_mass[departures[i]][arrivals[k]], total_mission_flight_time[departures[i]][arrivals[k]], DOC,mach[departures[i]][arrivals[k]],passenger_capacity[departures[i]][arrivals[k]], SAR[departures[i]][arrivals[k]] = mission(mission_range,heading,vehicle)
                             DOC_nd[departures[i]][arrivals[k]] = DOC
-                            DOC_ik[departures[i]][arrivals[k]] = int(DOC*distances[departures[i]][arrivals[k]])
-                            distances_ik[departures[i]][arrivals[k]] = int(mission_range)
+                            DOC_ik[departures[i]][arrivals[k]] = int(DOC*distances[departures[i]][arrivals[k]])                       
 
                         else:
                             DOC_nd[departures[i]][arrivals[k]] = 0
@@ -224,7 +213,7 @@ def objective_function_0(vehicle,x=None):
             # Network optimization that maximizes the network profit
             try:
                 profit, vehicle, kpi_df1, kpi_df2 = network_optimization(
-                        arrivals, departures, distances_ik, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
+                        arrivals, departures, distances, demand,active_airports ,DOC_ik, pax_capacity, vehicle)
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< network_optimization", exc_info = True)
                 profit = 0
@@ -454,6 +443,13 @@ def objective_function_1(vehicle,x=None):
                                                                                         == departures[i], 'TORA'].iloc[0]
                             airport_destination['takeoff_field_length'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[k], 'TORA'].iloc[0]
+                            
+                            # Landing field length
+                            airport_departure['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[i], 'LDA'].iloc[0]
+                            airport_destination['landing_field_length'] = data_airports.loc[data_airports['APT2']
+                                                                                        == departures[k], 'LDA'].iloc[0]
+                
                             # Average delay:
                             airport_departure['avg_delay'] = data_airports.loc[data_airports['APT2']
                                                                                             == arrivals[i], 'AVD'].iloc[0]
@@ -664,56 +660,151 @@ def objective_function(vehicle,x=None):
 # num_Alejandro = 100000000000000000000000
 # global NN_induced, NN_wave, NN_cd0, NN_CL
 
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from pymoo.factory import get_sampling
+from pymoo.interface import sample
+from aux_tools import corrdot
+from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 
-# from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
+# # # # x = [130, 8.204561481970153, 0.3229876327660606, 31, -4, 0.3896951781733875, 4.826332970409506, 1.0650795018081771, 27, 1485, 1.6, 101, 4, 2185, 41000, 0.78, 1, 1, 1, 1]
+# # # # # x = [73, 8.210260198894748, 0.34131954092766925, 28, -5, 0.32042307969643524, 5.000456116634125, 1.337333818504011, 27, 1442, 1.6, 106, 6, 1979, 41000, 0.78, 1, 1, 1, 1]
+# # # # # x = [106, 9.208279852593964, 0.4714790814543369, 16, -3, 0.34987438995033143, 6.420120321538892, 1.7349297171205607, 29, 1461, 1.6, 74, 6, 1079, 41000, 0.78, 1, 1, 1, 1]
 
-# # # # # x = [130, 8.204561481970153, 0.3229876327660606, 31, -4, 0.3896951781733875, 4.826332970409506, 1.0650795018081771, 27, 1485, 1.6, 101, 4, 2185, 41000, 0.78, 1, 1, 1, 1]
-# # # # # # x = [73, 8.210260198894748, 0.34131954092766925, 28, -5, 0.32042307969643524, 5.000456116634125, 1.337333818504011, 27, 1442, 1.6, 106, 6, 1979, 41000, 0.78, 1, 1, 1, 1]
-# # # # # # x = [106, 9.208279852593964, 0.4714790814543369, 16, -3, 0.34987438995033143, 6.420120321538892, 1.7349297171205607, 29, 1461, 1.6, 74, 6, 1079, 41000, 0.78, 1, 1, 1, 1]
+# # # print(result)
+# # # x =[0, 77, 35, 19, -3, 33, 63, 17, 29, 1396, 25, 120, 6, 2280, 41000, 78]
 
-# # # # print(result)
-# # # # x =[0, 77, 35, 19, -3, 33, 63, 17, 29, 1396, 25, 120, 6, 2280, 41000, 78]
+# # # result = objective_function(x, vehicle)
 
-# # # # result = objective_function(x, vehicle)
-
-# # # # x = [103, 81, 40, 16, -4, 34, 59, 14, 29, 1370, 18, 114, 6, 1118]
+# # # x = [103, 81, 40, 16, -4, 34, 59, 14, 29, 1370, 18, 114, 6, 1118]
 
 
-# # # # x = [9.700e+01,9.900e+01,4.400e+01,1.800e+01,-2.000e+00,3.200e+01, 4.800e+01,1.400e+01,3.000e+01,1.462e+03,1.700e+01,6.000e+01, 6.000e+00,1.525e+03]
-# # # # # x = [7.300e+01,8.600e+01,2.900e+01,1.600e+01,-5.000e+00,3.400e+01, 4.600e+01,2.000e+01,2.700e+01,1.372e+03,1.800e+01,1.160e+02, 4.000e+00,2.425e+03]
-# # # # # x = [1.210e+02,9.600e+01,4.100e+01,2.600e+01,-3.000e+00,3.600e+01, 6.200e+01,1.800e+01,2.900e+01,1.478e+03,1.800e+01,6.800e+01, 5.000e+00,1.975e+03]
-# # # # # x = [7.900e+01,9.400e+01,3.100e+01,2.000e+01,-4.000e+00,3.700e+01, 5.600e+01,1.000e+01,2.900e+01,1.448e+03,1.600e+01,8.200e+01, 5.000e+00,1.825e+03]
-# # # # # x = [1.270e+02,7.600e+01,3.600e+01,2.800e+01,-4.000e+00,3.800e+01, 6.000e+01,1.800e+01,3.000e+01,1.432e+03,1.700e+01,8.800e+01, 5.000e+00,1.225e+03]
-# # # # # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03]
-# # # # # x = [1.090e+02,8.100e+01,2.600e+01,2.400e+01,-5.000e+00,4.000e+01, 5.200e+01,1.600e+01,2.700e+01,1.402e+03,1.400e+01,7.400e+01, 4.000e+00,2.125e+03]
-# # # # # x = [9.100e+01,8.900e+01,3.400e+01,3.000e+01,-3.000e+00,3.900e+01, 6.400e+01,1.200e+01,2.800e+01,1.358e+03,2.000e+01,9.600e+01, 5.000e+00,1.675e+03]
-# # # # # x = [8.500e+01,9.100e+01,3.900e+01,3.400e+01,-3.000e+00,3.300e+01, 5.800e+01,1.200e+01,2.800e+01,1.418e+03,1.600e+01,1.020e+02, 6.000e+00,2.275e+03]
-# # # # # x = [1.030e+02,7.900e+01,4.600e+01,2.200e+01,-4.000e+00,3.500e+01, 5.400e+01,1.600e+01,2.900e+01,1.388e+03,1.500e+01,5.400e+01, 6.000e+00,1.075e+03]
+# # # x = [9.700e+01,9.900e+01,4.400e+01,1.800e+01,-2.000e+00,3.200e+01, 4.800e+01,1.400e+01,3.000e+01,1.462e+03,1.700e+01,6.000e+01, 6.000e+00,1.525e+03]
+# # # # x = [7.300e+01,8.600e+01,2.900e+01,1.600e+01,-5.000e+00,3.400e+01, 4.600e+01,2.000e+01,2.700e+01,1.372e+03,1.800e+01,1.160e+02, 4.000e+00,2.425e+03]
+# # # # x = [1.210e+02,9.600e+01,4.100e+01,2.600e+01,-3.000e+00,3.600e+01, 6.200e+01,1.800e+01,2.900e+01,1.478e+03,1.800e+01,6.800e+01, 5.000e+00,1.975e+03]
+# # # # x = [7.900e+01,9.400e+01,3.100e+01,2.000e+01,-4.000e+00,3.700e+01, 5.600e+01,1.000e+01,2.900e+01,1.448e+03,1.600e+01,8.200e+01, 5.000e+00,1.825e+03]
+# # # # x = [1.270e+02,7.600e+01,3.600e+01,2.800e+01,-4.000e+00,3.800e+01, 6.000e+01,1.800e+01,3.000e+01,1.432e+03,1.700e+01,8.800e+01, 5.000e+00,1.225e+03]
+# # # # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03]
+# # # # x = [1.090e+02,8.100e+01,2.600e+01,2.400e+01,-5.000e+00,4.000e+01, 5.200e+01,1.600e+01,2.700e+01,1.402e+03,1.400e+01,7.400e+01, 4.000e+00,2.125e+03]
+# # # # x = [9.100e+01,8.900e+01,3.400e+01,3.000e+01,-3.000e+00,3.900e+01, 6.400e+01,1.200e+01,2.800e+01,1.358e+03,2.000e+01,9.600e+01, 5.000e+00,1.675e+03]
+# # # # x = [8.500e+01,9.100e+01,3.900e+01,3.400e+01,-3.000e+00,3.300e+01, 5.800e+01,1.200e+01,2.800e+01,1.418e+03,1.600e+01,1.020e+02, 6.000e+00,2.275e+03]
+# # # # x = [1.030e+02,7.900e+01,4.600e+01,2.200e+01,-4.000e+00,3.500e+01, 5.400e+01,1.600e+01,2.900e+01,1.388e+03,1.500e+01,5.400e+01, 6.000e+00,1.075e+03]
 
-# # # # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03,41000, 78, 1, 1, 1, 1] # Prifit ok
-# # # # x =  [127, 82, 46, 22, -2, 44, 48, 21, 27, 1358, 22,  92, 5, 2875, 41200, 82, 1, 1, 1, 1]
-# # # # x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] #good one
-# x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
+# # # x = [1.150e+02,8.400e+01,4.900e+01,3.200e+01,-2.000e+00,3.600e+01, 5.000e+01,1.400e+01,2.800e+01,1.492e+03,1.900e+01,1.100e+02, 4.000e+00,1.375e+03,41000, 78, 1, 1, 1, 1] # Prifit ok
+# # # x =  [127, 82, 46, 22, -2, 44, 48, 21, 27, 1358, 22,  92, 5, 2875, 41200, 82, 1, 1, 1, 1]
+# # # x =  [115, 84, 49, 32, -2, 36, 50, 14, 28, 1492, 19, 110, 4, 1375, 41000, 78, 1, 1, 1, 1] #good one
+# # x =  [72, 86, 28, 26, -5, 34, 50, 13, 28, 1450, 14, 70, 4, 1600, 41000, 78, 1, 1, 1, 1] # Baseline
 
-# # x =  [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1] # 144 seat
-# # x =  [121, 80, 40, 18, -2, 40, 52, 13, 28, 1358, 15, 108, 4, 1875, 41000, 82, 1, 1, 1, 1] # Baseline2
-# # # # # # # x = [int(x) for x in x]
-# # # # # # # print(x)
+# x =  [130, 91, 38, 29, -4.5, 33, 62, 17, 30, 1480, 18, 144, 6, 1900, 41000, 78, 1, 1, 1, 1] # 144 seat
+# # # x =  [121, 80, 40, 18, -2, 40, 52, 13, 28, 1358, 15, 108, 4, 1875, 41000, 82, 1, 1, 1, 1] # Baseline2
+# # # # # # x = [int(x) for x in x]
+# # # # # # print(x)
 
-# # x =  [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1] # Optim_Jose
+# x =  [121, 114, 27, 25, -4.0, 35, 50, 14, 29, 1430, 23, 142, 6, 1171, 41000, 78, 1, 1, 1, 1] # Optim_Jose
 
-# # # # # # x = [76, 118, 46, 23, -3, 33, 55, 19, 30, 1357, 18, 86, 6, 2412, 42260, 79, 1, 1, 1, 1]
-# # # # # # x = [91, 108, 50, 29, -3, 34, 52, 12, 27, 1366, 19, 204, 4, 1812, 39260, 80, 1, 1, 1, 1]
-# # # x = [110, 82, 34, 25, -5, 38, 52, 11, 30, 1462, 19, 92, 4, 1375, 39600, 80, 1, 1, 1, 1]
-# # # # # vehicle = initialize_aircraft_parameters()
+# # # # # x = [76, 118, 46, 23, -3, 33, 55, 19, 30, 1357, 18, 86, 6, 2412, 42260, 79, 1, 1, 1, 1]
+# # # # # x = [91, 108, 50, 29, -3, 34, 52, 12, 27, 1366, 19, 204, 4, 1812, 39260, 80, 1, 1, 1, 1]
+# # x = [110, 82, 34, 25, -5, 38, 52, 11, 30, 1462, 19, 92, 4, 1375, 39600, 80, 1, 1, 1, 1]
+# # # # vehicle = initialize_aircraft_parameters()
 
-# # # x =[98,78,31,16,-4,40,61,20,28,1418,17,98,4,2005,41000,78,1,1,1,1]
-# vehicle = initialize_aircraft_parameters()
-# # # # start_time = datetime.now()
+# # x =[98,78,31,16,-4,40,61,20,28,1418,17,98,4,2005,41000,78,1,1,1,1]
+vehicle = initialize_aircraft_parameters()
+# # # start_time = datetime.now()
 
 # result = objective_function(vehicle,x)
 
-# # end_time = datetime.now()
+# end_time = datetime.now()
 # print(result)
 
 
+n_inputs = 16
+
+# Lower and upeer bounds of each input variable
+#     0   | 1   | 2   |  3     |   4    |   5      | 6     | 7     |  8     |   9   | 10    | 11    |   12     | 13    | 14          |  15
+#    Areaw| ARw | TRw | Sweepw | Twistw | b/2kinkw | bypass| Ediam | PRcomp |  Tin  | PRfan | PAX   | seat abr | range | design pres | mach
+lb = [72,  75 ,  25,     15,      -5,       32,       45,    10,      27,      1350,   14,     70,     4,        1000,     39000,       78]
+ub = [130, 120,  50,     30,      -2,       45,       65,    15,      30,      1500,   25,     220,    6,        3500,     43000,       82]
+# Desired number of samples
+n_samples = 100
+
+# Sampling type
+#sampling_type = 'real_random'
+sampling_type = 'int_lhs'
+
+# Plot type (0-simple, 1-complete)
+plot_type = 1
+#=========================================
+
+# EXECUTION
+
+# Set random seed to make results repeatable
+np.random.seed(321)
+
+# Initialize sampler
+sampling = get_sampling(sampling_type)
+
+# Draw samples
+X = sample(sampling, n_samples, n_inputs)
+
+
+
+vehicle = initialize_aircraft_parameters()
+
+# Samples are originally between 0 and 1,
+# so we need to scale them to the desired interval
+for ii in range(n_inputs):
+    X[:,ii] = lb[ii] + (ub[ii] - lb[ii])*X[:,ii]
+
+# Execute all cases and store outputs
+y1_samples = []
+# y2_samples = []
+for ii in range(n_samples):
+
+    # Evaluate sample
+    # (y1)= objective_function(vehicle,X[ii,:])
+    (y1)  = objective_function(vehicle,X[ii,:])
+    # (y1) = objective_function(X[ii,:], fixed_parameters, computation_mode, route_computation_mode, airports, distances, demands)
+    # Store the relevant information
+    y1_samples.append(y1)
+# y2_samples.append(y2)
+
+# Create a pandas dataframe with all the information
+df = pd.DataFrame({'x1' : X[:,0],
+                'x2' : X[:,1],
+                'x3' : X[:,2],
+                'x4' : X[:,3],
+                'x5' : X[:,4],
+                'x6' : X[:,5],
+                'x7' : X[:,6],
+                'x8' : X[:,7],
+                'x9' : X[:,8],
+                'x10' : X[:,9],
+                'x11' : X[:,10],
+                'x12' : X[:,11],
+                'x13' :X[:,12],
+                'x14' :X[:,13],
+                'x15' :X[:,14],
+                'x16' :X[:,15],
+                'y1' : y1_samples})
+# Plot the correlation matrix
+sns.set(style='white', font_scale=1.4)
+
+if plot_type == 0:
+
+    # Simple plot
+    fig = sns.pairplot(df,corner=True)
+
+elif plot_type == 1:
+
+    # Complete plot
+    # based on: https://stackoverflow.com/questions/48139899/correlation-matrix-plot-with-coefficients-on-one-side-scatterplots-on-another
+    fig = sns.PairGrid(df, diag_sharey=False)
+    fig.map_lower(sns.regplot, lowess=True, line_kws={'color': 'black'})
+    fig.map_diag(sns.histplot)
+    fig.map_upper(corrdot)
+
+# Plot window
+plt.tight_layout()
+plt.show()

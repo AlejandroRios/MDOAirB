@@ -288,7 +288,7 @@ def objective_function_0(vehicle,x=None):
                 # Total cost
                 kpi_df2['total_cost'] = kpi_df2['aircraft_number']*kpi_df2['doc']
                 results['network_density'] = results['arcs_number']/(results['nodes_number']*results['nodes_number']-results['nodes_number'])
-                kpi_df2['total_time'] = kpi_df2['aircraft_number']*kpi_df2['time']
+                kpi_df2['total_time'] = kpi_df2['aircraft_number']*kpi_df3['time']
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< writting dataframes", exc_info = True)
 
@@ -589,7 +589,7 @@ def objective_function_1(vehicle,x=None):
 
                 results['network_density'] = results['arcs_number']/(results['nodes_number']*results['nodes_number']-results['nodes_number'])
 
-                kpi_df2['total_time'] = kpi_df2['aircraft_number']*kpi_df2['time']
+                kpi_df2['total_time'] = kpi_df2['aircraft_number']*kpi_df3['time']
             except:
                 log.error(">>>>>>>>>> Error at <<<<<<<<<<<< writting dataframes", exc_info = True)
 
