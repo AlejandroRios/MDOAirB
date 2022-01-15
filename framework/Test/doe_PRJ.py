@@ -80,7 +80,7 @@ y1_samples = []
 for ii in range(n_samples):
 
     # Evaluate sample
-    (y1)= objective_function(vehicle,X[ii,:])
+    y1= objective_function(vehicle,X[ii,:])
 
     # Store the relevant information
     y1_samples.append(y1)
