@@ -1,3 +1,4 @@
+LICENSE
 README.md
 setup.py
 PhD_Optimization_Framework.egg-info/PKG-INFO
@@ -119,6 +120,7 @@ framework/Sizing/Geometry/area_triangle_3d.py
 framework/Sizing/Geometry/fuselage_sizing.py
 framework/Sizing/Geometry/landig_gear_position.py
 framework/Sizing/Geometry/landing_gear_layout.py
+framework/Sizing/Geometry/nose_fuselage_lateral_view.py
 framework/Sizing/Geometry/nose_landig_gear_sizing.py
 framework/Sizing/Geometry/pax_cabine_length.py
 framework/Sizing/Geometry/sizing_horizontal_tail.py
@@ -132,6 +134,7 @@ framework/Sizing/Geometry/wetted_area_fuselage.py
 framework/Sizing/Geometry/wetted_area_wing.py
 framework/Sizing/Geometry/wing_structural_layout_fuel_storage.py
 framework/Stability/__init__.py
+framework/Test/DOE_test2.py
 framework/Test/Test_heading.py
 framework/Test/__init__.py
 framework/Test/climb_integration_V0.py
@@ -168,3 +171,5 @@ framework/Weights/weights.py
 framework/utilities/__init__.py
 framework/utilities/logger.py
 framework/utilities/output.py
+framework/utilities/payload_range_diagram.py
+framework/utilities/plot_tigl_aircraft.py
