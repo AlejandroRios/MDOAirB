@@ -263,12 +263,12 @@ print("--- %s seconds ---" % (time.time() - start_time))
 
 print('\n =========================================================================')
 print(
-    '\n Uninstalled power specific fuel consumption #i[Kg/J] #i  [lb/(hp h)] #i [Kg/(KW.hr)]', S_P_TO, S_P_TO*5.918e6, S_P_TO*3.6e6)
-print('\n Power #i [kW] #i [hp] ', (P_TO/1000), (P_TO*0.001341))
-print('\n Thrust #i  #i [N]', (F))
-print('\n Overall Pressure Ratio #i', (Prt3_Prt2))
-print('\n Compressor mass flow #i', (Prt3_Prt2))
-print('\n T turbine [K] #i', (Tt4))
+    '\n Uninstalled power specific fuel consumption [Kg/J]  [lb/(hp h)] [Kg/(KW.hr)]', S_P_TO, S_P_TO*5.918e6, S_P_TO*3.6e6)
+print('\n Power  [kW] [hp] ', (P_TO/1000), (P_TO*0.001341))
+print('\n Thrust [N]', (F))
+print('\n Overall Pressure Ratio ', (Prt3_Prt2))
+print('\n Compressor mass flow ', (Prt3_Prt2))
+print('\n T turbine [K] ', (Tt4))
 
 P_TO_ref = 1566
 ESFC_TO_ref = 0.485
@@ -279,5 +279,5 @@ ESFC_TO = S_P_TO*5.918e6
 P_TO_error = abs(P_TO - P_TO_ref)/P_TO_ref
 ESFC_TO_error = abs(ESFC_TO - ESFC_TO_ref)/ESFC_TO_ref
 
-print('\n Error P #i', (P_TO_error*100))
-print('\n Error SFC #i', (ESFC_TO_error*100))
+print('\n Error P ', (P_TO_error*100))
+print('\n Error SFC', (ESFC_TO_error*100))
