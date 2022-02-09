@@ -245,7 +245,7 @@ start_time = time.time()
  tau_cL, tau_cH, tau_tH, tau_tL, tau_lambda,
  tau_m1, tau_m2, f, M8, M9,
  Tt4,
- T_vec_TO, P_vec_TO) = performance_analysis(h, M0,
+ T_vec_TO, P_vec_TO) = performance_analysis(h, fuel_flow, M0,
                                             Tt4,
                                             pi_dmax, pi_b, pi_n,
                                             eta_cL, eta_cH, eta_tH, eta_tL, eta_tF, eta_b, eta_mL, eta_mH, eta_mPL, eta_mPH, eta_propmax, eta_g,
@@ -281,3 +281,38 @@ ESFC_TO_error = abs(ESFC_TO - ESFC_TO_ref)/ESFC_TO_ref
 
 print('\n Error P ', (P_TO_error*100))
 print('\n Error SFC', (ESFC_TO_error*100))
+
+
+h = 25000
+M0 = 0.7
+
+(F, P_TO, m0_dot, S, S_P_TO, f0, eta_P, eta_TH, eta_O, C_c, C_prop,
+ V9_a0, Pt9_P9, P9_P0, T9_T0,
+ pi_cL, pi_cH, pi_tH, pi_tL,
+ tau_cL, tau_cH, tau_tH, tau_tL, tau_lambda,
+ tau_m1, tau_m2, f, M8, M9,
+ Tt4,
+ T_vec_TO, P_vec_TO) = performance_analysis(h, M0,
+                                            Tt4,
+                                            pi_dmax, pi_b, pi_n,
+                                            eta_cL, eta_cH, eta_tH, eta_tL, eta_tF, eta_b, eta_mL, eta_mH, eta_mPL, eta_mPH, eta_propmax, eta_g,
+                                            A4_A4_5, A4_5_A5, A5_A8,
+                                            beta, epsilon1, epsilon2, h_PR, P_TOL, P_TOH,
+                                            M0_R, T0_R, P0_R,
+                                            pi_cL_R, pi_cH_R, pi_tH_R, pi_tL_R, pi_r_R, pi_d_R,
+                                            tau_cL_R, tau_cH_R, tau_tH_R, tau_tL_R, tau_tF_R,
+                                            Tt4_R, tau_m1_R, tau_m2_R, f_R, M8_R, C_TOL_R, C_TOH_R,
+                                            F_R, m0_dot_R, S_R, MFP4_R, h0_R, tau_r_R,
+                                            pi_c_max, Tt3_max, Pt3_max, NL_percent, NH_percent)
+
+print("--- %s seconds ---" % (time.time() - start_time))
+
+
+print('\n =========================================================================')
+print(
+    '\n Uninstalled power specific fuel consumption [Kg/J]  [lb/(hp h)] [Kg/(KW.hr)]', S_P_TO, S_P_TO*5.918e6, S_P_TO*3.6e6)
+print('\n Power  [kW] [hp] ', (P_TO/1000), (P_TO*0.001341))
+print('\n Thrust [N]', (F))
+print('\n Overall Pressure Ratio ', (Prt3_Prt2))
+print('\n Compressor mass flow ', (Prt3_Prt2))
+print('\n T turbine [K] ', (Tt4))

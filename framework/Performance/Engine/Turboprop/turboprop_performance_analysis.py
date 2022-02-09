@@ -36,7 +36,7 @@ import numpy as np
 # =============================================================================
 
 
-def performance_analysis(h, M0,
+def performance_analysis(h, M0, 
                          Tt4,
                          pi_dmax, pi_b, pi_n,
                          eta_cL, eta_cH, eta_tH, eta_tL, eta_tF, eta_b, eta_mL, eta_mH, eta_mPL, eta_mPH, eta_propmax, eta_g,
@@ -317,7 +317,7 @@ def performance_analysis(h, M0,
 
         V9 = M9*a9  # m/s
 
-        f0 = f*(1-beta-epsilon1-epsilon2)
+        f0 = f*(1-beta-epsilon1-epsilon2) 
 
         C_TOL = C_TOL_R*(m0_dot_R/m0_dot)*(h0_R/h0)
         C_TOH = C_TOL_R*(m0_dot_R/m0_dot)*(h0_R/h0)
@@ -343,15 +343,22 @@ def performance_analysis(h, M0,
         # S_P = 1e6*(S_P) # mg/W.s
 
         # Uninstalled equivalent specific thrust:
-        F_m0_dot = (C_TOTAL*h0)/V0  # J.s/Kg.m
+        F_m0_dot = (C_TOTAL*h0)/V0  # J.s/Kg.m > m/s
 
         # Thrust force:
         F = F_m0_dot*m0_dot  # N
 
         # Uninstalled thrust specific fuel consumption:
-        # S = f0*V0/(C_TOTAL*h0) # Kg.m/J.s
-        S = (f0/(F_m0_dot))  # Kg.m/J.s
+        # S11 = f0*V0/(C_TOTAL*h0) # Kg.m/J.s 
+        S = (f0/(F_m0_dot))  # Kg.m/J.s > Kg/N*s
         # S_mg = S*1e6  # mg/N-s
+
+        # S2 = f0/(F/m0_dot)
+
+        # print(S*3600) # Kg/N*hr
+        # print((S*3600)*F) # kg/hr
+
+        fuel_flow = (S*3600)*F
 
         # Propulsive efficiency:
         eta_P = C_TOTAL/((C_prop/eta_prop) + ((gamma0-1)/2)
@@ -406,7 +413,7 @@ def performance_analysis(h, M0,
         else:
             break
 
-    return (F, P, m0_dot, S, S_P, f0, eta_P, eta_TH, eta_O, C_c, C_prop,
+    return (F, fuel_flow, P, m0_dot, S, S_P, f0, eta_P, eta_TH, eta_O, C_c, C_prop,
             V9_a0, Pt9_P9, P9_P0, T9_T0,
             pi_cL, pi_cH, pi_tH, pi_tL,
             tau_cL, tau_cH, tau_tH, tau_tL, tau_lambda,
