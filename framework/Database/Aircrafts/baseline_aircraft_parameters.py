@@ -296,7 +296,7 @@ def initialize_aircraft_parameters():
     engine['T1'] = 0
     engine['T2'] = 0
 
-    engine['performance_parameters'] = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])
+    engine['performance_parameters'] = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0,0])
     engine['total_pressures'] = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])
     engine['total_temperatures'] = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])
     engine['exit_areas'] = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])

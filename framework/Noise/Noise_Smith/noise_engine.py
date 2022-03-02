@@ -750,7 +750,7 @@ def nozzle(altitude,delta_ISA,noise_parameters,vairp,theta,fi,R,plug,coaxial,ACJ
         SDL_f = interpolate.interp2d(tetatab,logStab,SDLtab, kind='cubic')
         SDL = SDL_f(tetainterp,logS.T)
     else:
-        SDL             = ones(len(logStab))
+        SDL             = np.ones(len(logStab))
 
 
     SPLcoaxial          = OASPL90plug*(plug==1)+OASPL90circ*(plug==0)+SDL-cdf 

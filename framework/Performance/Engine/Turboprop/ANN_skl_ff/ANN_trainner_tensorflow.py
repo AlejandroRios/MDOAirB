@@ -8,8 +8,8 @@ from sklearn.model_selection import train_test_split
 
 # -----------------------------------------------------------------------
 # Load data and
-X_data = np.load('X_data.npy')
-y_data = np.load('y1_data.npy')
+X_data = np.load('X_data2.npy')
+y_data = np.load('y1_data2.npy')
 
 
 x_train, x_test, y_train, y_test = train_test_split(X_data, y_data, test_size=0.1, random_state=42)
@@ -62,7 +62,7 @@ yp =models.predict(x_test)
 
 # print(models.predict(scaler.transform([(0,400000)])))
 
-rmse =np.sqrt(mean_squared_error(y_test,yp))
+rmse =mean_squared_error(y_test,yp)
 
 print('Method: ReLU')
 print('RMSE on the data: %.4f' %rmse)

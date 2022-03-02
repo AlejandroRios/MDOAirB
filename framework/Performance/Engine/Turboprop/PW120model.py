@@ -142,14 +142,14 @@ def PW120model(altitude, mach, throttle_position):
                                                                                 pi_cL, pi_cH, tau_t, Tt4,
                                                                                 m0_dot)
 
-    print('\n =========================================================================')
-    print(
-        '\n Uninstalled power specific fuel consumption [Kg/J]  [lb/(hp h)] [Kg/(KW.hr)]', S_P, S_P*5.918e6, S_P*3.6e6)
-    print('\n Power [kW] [hp] ', (P_R/1000), (P_R*0.001341))
-    print('\n Thrust   [N]', (F_R))
-    print('\n Overall Pressure Ratio ', (Prt3_Prt2))
-    print('\n Compressor mass flow ', (Prt3_Prt2))
-    print('\n T turbine [K]', (Tt4))
+    # print('\n =========================================================================')
+    # print(
+    #     '\n Uninstalled power specific fuel consumption [Kg/J]  [lb/(hp h)] [Kg/(KW.hr)]', S_P, S_P*5.918e6, S_P*3.6e6)
+    # print('\n Power [kW] [hp] ', (P_R/1000), (P_R*0.001341))
+    # print('\n Thrust   [N]', (F_R))
+    # print('\n Overall Pressure Ratio ', (Prt3_Prt2))
+    # print('\n Compressor mass flow ', (Prt3_Prt2))
+    # print('\n T turbine [K]', (Tt4))
 
 
     # =========================================================================
@@ -264,17 +264,17 @@ def PW120model(altitude, mach, throttle_position):
                                                 F_R, m0_dot_R, S_R, MFP4_R, h0_R, tau_r_R,
                                                 pi_c_max, Tt3_max, Pt3_max, NL_percent, NH_percent)
 
-    print("--- %s seconds ---" % (time.time() - start_time))
+    # print("--- %s seconds ---" % (time.time() - start_time))
 
 
-    print('\n =========================================================================')
-    print(
-        '\n Uninstalled power specific fuel consumption [Kg/J]  [lb/(hp h)] [Kg/(KW.hr)]', S_P_TO, S_P_TO*5.918e6, S_P_TO*3.6e6)
-    print('\n Power  [kW] [hp] ', (P_TO/1000), (P_TO*0.001341))
-    print('\n Thrust [N]', (F))
-    print('\n Overall Pressure Ratio ', (Prt3_Prt2))
-    print('\n Compressor mass flow ', (Prt3_Prt2))
-    print('\n T turbine [K] ', (Tt4))
+    # print('\n =========================================================================')
+    # print(
+    #     '\n Uninstalled power specific fuel consumption [Kg/J]  [lb/(hp h)] [Kg/(KW.hr)]', S_P_TO, S_P_TO*5.918e6, S_P_TO*3.6e6)
+    # print('\n Power  [kW] [hp] ', (P_TO/1000), (P_TO*0.001341))
+    # print('\n Thrust [N]', (F))
+    # print('\n Overall Pressure Ratio ', (Prt3_Prt2))
+    # print('\n Compressor mass flow ', (Prt3_Prt2))
+    # print('\n T turbine [K] ', (Tt4))
 
     P_TO_ref = 1566
     ESFC_TO_ref = 0.485
@@ -285,8 +285,8 @@ def PW120model(altitude, mach, throttle_position):
     P_TO_error = abs(P_TO - P_TO_ref)/P_TO_ref
     ESFC_TO_error = abs(ESFC_TO - ESFC_TO_ref)/ESFC_TO_ref
 
-    print('\n Error P ', (P_TO_error*100))
-    print('\n Error SFC', (ESFC_TO_error*100))
+    # print('\n Error P ', (P_TO_error*100))
+    # print('\n Error SFC', (ESFC_TO_error*100))
 
     return F , fuel_flow
 

@@ -1,10 +1,12 @@
 from matplotlib import projections
 import numpy as np
 
+from tqdm import trange, tqdm
+
 from framework.Performance.Engine.Turboprop.PW120model import PW120model
-M0 = np.linspace(0.01,0.7,31)
-altitude = np.linspace(0,35000,31)
-throttle_position = np.linspace(0.1,1,31)
+M0 = np.linspace(0.01,0.7,21)
+altitude = np.linspace(0,35000,21)
+throttle_position = np.linspace(0.1,1,11)
 
 F, fuel_flow = PW120model(25000,0.5,0.8)
 
@@ -16,7 +18,10 @@ X_data = [[i, j, k] for i in altitude for j in M0 for k in throttle_position]
 X_data = np.asarray(X_data)
 # print(X_data[0:,0])
 
-for i in X_data:
+print(len(X_data))
+# for j in trange(len(X_data)):
+for i in tqdm(X_data):
+    # print('i=',i)
     F, fuel_flow = PW120model(i[0], i[1], i[2])
     
     F_vec.append(F)

@@ -1,6 +1,3 @@
-
-
-from tkinter import X
 from joblib import dump, load
 import numpy as np
 
@@ -11,14 +8,14 @@ nn_unit = load('nn_force_PW120.joblib')
 
 
 test = nn_unit.predict(scaler.transform([(0,0.1,1)]))
-test = scaler2.inverse_transform(test)
+test = scaler2.inverse_transform(np.reshape((test),(-1,1)))
 
 print(test)
 
 
 M0 = np.linspace(0.01,0.7,51)
-altitude = np.linspace(0,35000,11)
-throttle_position = np.linspace(0.1,1,11)
+altitude = np.linspace(0,35000,51)
+throttle_position = np.linspace(0.01,1,11)
 
 
 
@@ -33,13 +30,13 @@ X_data = np.asarray(X_data)
 
 for i in X_data:
     
-    test = nn_unit.predict(scaler.transform([(5000, i[0], 1)]))
-    test = scaler2.inverse_transform(test)
+    test = nn_unit.predict(scaler.transform([(0, i[0], 1)]))
+    test = scaler2.inverse_transform(np.reshape((test),(-1,1)))
 
     # F, fuel_flow = PW120model(25000, i[0], 1)
 
     F_vec.append(float(test))
-    # fuel_flow_vec.append(fuel_flow)
+    # fuel_flow_vec.append(fuel_flow) 
 
 F_vec = np.asarray(F_vec)
 y1 = np.asarray(F_vec)
@@ -55,11 +52,11 @@ x = np.load("X_datat.npy")
 
 import matplotlib.pyplot as plt
 
-x = np.load("X_data.npy")
-y1 = np.load("y1_data.npy")
-y2 = np.load("y2_data.npy")
+x = np.load("X_data2.npy")
+y1 = np.load("y1_data2.npy")
+y2 = np.load("y2_data2.npy")
 
-
+y2 = np.where(y2<0, 0, y2)
 
 plt.plot(M0,F_vec,'x')
 plt.plot(x[0:,1],y1,'o')

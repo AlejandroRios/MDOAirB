@@ -375,7 +375,7 @@ def turbofan(altitude, mach, throttle_position, vehicle):
     fuel_flow = 1.15*fuel_air*mdot*3600
 
 
-    engine['performance_parameters'] = np.array([force, fuel_flow, 0, 0, 0, 0, 0, 0, weight],dtype=object)
+    engine['performance_parameters'] = np.array([force, fuel_flow, 0, 0, 0, 0, 0, 0, weight,fgros],dtype=object)
     engine['total_pressures'] = np.array([P0_0, P0_1, P0_2, P0_3, P0_4, P0_5, P0_8, P0_13, P0_15],dtype=object)
     engine['total_temperatures'] = np.array([T0_0, T0_1, T0_2, T0_3, T0_4, T0_5, T0_8, T0_13, T0_15],dtype=object)
     engine['exit_areas'] = np.array([acore, a8, a8*bypass_ratio, 0, 0, 0, 0, 0, 0],dtype=object)

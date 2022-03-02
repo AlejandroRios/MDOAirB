@@ -299,7 +299,7 @@ def airplane_sizing(vehicle,x=None):
 
     # engine['diameter'] = engine['fan_diameter']*1.1
     engine['maximum_thrust'], _ , vehicle = turbofan(
-        0, 0, 1, vehicle)
+        0, 0.01, 1, vehicle)
     
     engine_static_trhust = engine['maximum_thrust']*0.95
 
@@ -428,7 +428,7 @@ def airplane_sizing(vehicle,x=None):
     # except:
     #     log.error("Error at sizing_landing_gear", exc_info = True)
         # fuel deficit
-        delta_fuel = wing['fuel_capacity'] - 1.005*fuel_mass
+        delta_fuel = wing['fuel_capacity']*1 - 1*fuel_mass
 
         if delta_fuel < 0:
             flag_fuel = 1
@@ -465,7 +465,8 @@ def airplane_sizing(vehicle,x=None):
 
     k_L = 0.107
 
-    WtoS_landing = (k_L*airport_destination['lda']*aircraft['CL_maximum_landing'])/(aircraft['maximum_takeoff_weight']/aircraft['maximum_takeoff_weight'])
+    WtoS_landing = (k_L*airport_destination['lda']*aircraft['CL_maximum_landing'])/(aircraft['maximum_landing_weight']/aircraft['maximum_takeoff_weight'])
+
 
     if WtoS_landing < WoS:
         flag_landing = 1
@@ -476,7 +477,7 @@ def airplane_sizing(vehicle,x=None):
     # Takeoff field length check
     k_TO = 2.34
 
-    ToW_takeoff = (k_TO/(airport_departure['tora']*aircraft['CL_maximum_takeoff']))*(aircraft['maximum_takeoff_weight']/wing['area'])
+    ToW_takeoff = (k_TO/(airport_departure['tora']*aircraft['CL_maximum_takeoff']))*WtoS_landing
 
     if ToW_takeoff > ToW:
         flag_takeoff = 1
@@ -533,7 +534,7 @@ def airplane_sizing(vehicle,x=None):
 
     total_noise = takeoff_noise + sideline_noise + landing_noise
 
-    if total_noise > 270:
+    if total_noise > 280:
         flag_noise = 1
     else:
         flag_noise = 0

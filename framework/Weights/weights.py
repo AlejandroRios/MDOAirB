@@ -21,8 +21,10 @@ TODO's:
 # =============================================================================
 # IMPORTS
 # =============================================================================
+from framework.Database.Aircrafts.baseline_aircraft_parameters import initialize_aircraft_parameters
 import numpy as np
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
+from framework.Performance.Engine.engine_performance import turbofan
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -64,13 +66,13 @@ def wing_mass(vehicle, maximum_takeoff_weight, mach, altitude):
     epsilon_w = 1.5
     Chi_w = 1.1
     rho_sls_g = 0.125
-    
+
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
 
     landing_gear_position = wing['position']
     spoilers = aircraft['spoiler_presence']
-    
+
     _, _, _, _, _, _, _, a = atmosphere_ISA_deviation(
         altitude, 0)
 
@@ -131,7 +133,6 @@ def horizontal_tail_mass(V_dive, vehicle):
     """
     horizontal_tail = vehicle['horizontal_tail']
 
-
     fin = 'trimmable'  # This should be an input in the future
 
     fin = 'trimmable'
@@ -161,17 +162,17 @@ def vertical_tail_mass(V_dive, vehicle):
     horizontal_tail = vehicle['horizontal_tail']
     vertical_tail = vehicle['vertical_tail']
 
-    horizontal_tail['position']  = 1
+    horizontal_tail['position'] = 1
 
-    if horizontal_tail['position']  == 1:
+    if horizontal_tail['position'] == 1:
         k_v = 1
-    if horizontal_tail['position']  == 0:
+    if horizontal_tail['position'] == 0:
         z_h = 0.95
         k_v = 1 + 0.15*(((horizontal_tail['area']*m2_to_ft2)*z_h) /
                         ((vertical_tail['area']*m2_to_ft2)*(vertical_tail['span']*m_to_ft)))
 
     aux_1 = (3.81*((vertical_tail['area']*m2_to_ft2)**0.2))*V_dive
-    aux_2 = 1000*np.sqrt(np.cos(vertical_tail['sweep_c_2'] *deg_to_rad))
+    aux_2 = 1000*np.sqrt(np.cos(vertical_tail['sweep_c_2'] * deg_to_rad))
     return (k_v*(vertical_tail['area']*m2_to_ft2)*((aux_1/aux_2) - 0.287))*lb_to_kg
 
 
@@ -210,23 +211,24 @@ def fuselage_mass(V_dive, vehicle):
     else:
         k_e = 1.0
 
-    if horizontal_tail['position']  == 1:
-        horizontal_tail['aerodynamic_center_xposition']  = 0.98*fuselage['length'] - horizontal_tail['center_chord'] + \
-            horizontal_tail['mean_aerodynamic_chord_yposition']  * \
+    if horizontal_tail['position'] == 1:
+        horizontal_tail['aerodynamic_center_xposition'] = 0.98*fuselage['length'] - horizontal_tail['center_chord'] + \
+            horizontal_tail['mean_aerodynamic_chord_yposition'] * \
             np.tan(horizontal_tail['sweep_leading_edge']*deg_to_rad) + \
             0.25*horizontal_tail['mean_aerodynamic_chord']
     else:
-        horizontal_tail['aerodynamic_center_xposition']  = 0.98*fuselage['length'] - vertical_tail['center_chord'] + vertical_tail['span'] * \
+        horizontal_tail['aerodynamic_center_xposition'] = 0.98*fuselage['length'] - vertical_tail['center_chord'] + vertical_tail['span'] * \
             np.tan(vertical_tail['sweep_leading_edge']*deg_to_rad) + 0.25*horizontal_tail['mean_aerodynamic_chord'] + \
-            horizontal_tail['mean_aerodynamic_chord_yposition']  * \
+            horizontal_tail['mean_aerodynamic_chord_yposition'] * \
             np.tan(horizontal_tail['sweep_leading_edge']*deg_to_rad)
 
-    wing['aerodynamic_center_xposition'] = wing['leading_edge_xposition'] + wing['mean_aerodynamic_chord_yposition']*np.tan(wing['sweep_leading_edge']*deg_to_rad) + 0.25*wing['mean_aerodynamic_chord']
+    wing['aerodynamic_center_xposition'] = wing['leading_edge_xposition'] + wing['mean_aerodynamic_chord_yposition'] * \
+        np.tan(wing['sweep_leading_edge']*deg_to_rad) + \
+        0.25*wing['mean_aerodynamic_chord']
 
     # arm between wing aerodynamic center an hotizontal tail aerodynamic center
-    aircraft['aerodynamic_centers_arm_wing_horizontal'] = horizontal_tail['aerodynamic_center_xposition']  - \
+    aircraft['aerodynamic_centers_arm_wing_horizontal'] = horizontal_tail['aerodynamic_center_xposition'] - \
         wing['aerodynamic_center_xposition']
-
 
     return (0.021*k_f*k_e * np.sqrt((V_dive*(aircraft['aerodynamic_centers_arm_wing_horizontal']*m_to_ft))/((fuselage['height']*m_to_ft)+(fuselage['width']*m_to_ft))) * (fuselage['wetted_area']*m2_to_ft2)**1.2)*lb_to_kg
 
@@ -246,7 +248,7 @@ def nacelle_mass(vehicle):
     engine = vehicle['engine']
     engine_inlet_area = (np.pi*engine['fan_diameter']**2)/4
     aircraft = vehicle['aircraft']
-    return (7.435*aircraft['number_of_engines'] *(((engine_inlet_area*m2_to_ft2)**0.5)*(engine['length']*m_to_ft)*engine['compressor_pressure_ratio'])**0.731)*lb_to_kg
+    return (7.435*aircraft['number_of_engines'] * (((engine_inlet_area*m2_to_ft2)**0.5)*(engine['length']*m_to_ft)*engine['compressor_pressure_ratio'])**0.731)*lb_to_kg
 
 
 def main_landig_gear_mass(maximum_takeoff_weight, vehicle):
@@ -320,6 +322,65 @@ def engine_mass(engine_static_thrust, vehicle):
     return (0.084 * ((engine_static_thrust*N_to_lbf)**1.1)*np.exp(-0.045*engine['bypass']))*lb_to_kg
 
 
+def engine_mass_bento(engine_static_thrust, vehicle):
+    """
+    Description: 
+        - Calculates the engine mass in kg
+    Reference: 
+
+    Inputs:
+        - engine_static_thrust
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - engine mass [kg]
+    """
+    aircraft = vehicle['aircraft']
+    engine = vehicle['engine']
+
+    fan_pressure_ratio = engine['fan_pressure_ratio']
+    compressor_pressure_ratio = engine['compressor_pressure_ratio']
+    bypass_ratio = engine['bypass']
+    fan_diameter = engine['fan_diameter']
+    turbine_inlet_temperature = engine['turbine_inlet_temperature']
+    _, _, vehicle = turbofan(
+        0, 0.01, 1, vehicle)
+
+    engine = vehicle['engine']
+    mdots = engine['fuel_flows']
+    mdot = mdots[0]
+    engine_performance_parameters = engine['performance_parameters']
+    fgros = engine_performance_parameters[-1]
+    BPR = engine['bypass']
+    DIA = engine['fan_diameter']
+    OPR = engine['compressor_pressure_ratio']
+    THR = fgros*mdot/1000
+    LEN = engine['length']
+    FLO = mdot*(1+BPR)
+
+    BPR0 = 4.6024
+    D0 = 1.7316
+    OPR0 = 24.8588
+    T0 = 129.5858
+    L0 = 3.1988
+    FL0 = 426.2471
+
+    A = 2637.9004
+    B = 47.8549
+    C = 127.9729
+    a = -0.181
+    b = -0.0746
+    c = 1.0270
+    d = 0.1905
+    e = -0.2920
+    f = -0.1250
+
+    weight_kg = C+B*((BPR/BPR0))*((OPR/OPR0))*((THR/T0))*((DIA/D0))*((LEN/L0))*((FLO/FL0)) + \
+        A*((BPR/BPR0)**a)*((OPR/OPR0)**b)*((THR/T0)**c) * \
+        ((DIA/D0)**d)*((LEN/L0)**e)*((FLO/FL0)**f)
+
+    return weight_kg
+
+
 def fuel_system_mass(vehicle):
     """
     Description: 
@@ -348,10 +409,10 @@ def fuel_system_mass(vehicle):
 
     tanks_number = 3
 
-    if performance['range'] > 2000 or aircraft['number_of_engines']  > 2:
+    if performance['range'] > 2000 or aircraft['number_of_engines'] > 2:
         tanks_number = 6
 
-    return (80*(aircraft['number_of_engines']  + tanks_number - 1) + 15*(tanks_number**0.5) * ((wing['fuel_capacity']*kg_to_lb)/k_fsp)**0.333)*lb_to_kg
+    return (80*(aircraft['number_of_engines'] + tanks_number - 1) + 15*(tanks_number**0.5) * ((wing['fuel_capacity']*kg_to_lb)/k_fsp)**0.333)*lb_to_kg
 
 
 def propulsion_system_mass(vehicle, engine_weight):
@@ -380,10 +441,11 @@ def propulsion_system_mass(vehicle, engine_weight):
 
     if engine['position'] == 2 or engine['position'] == 3:
         engine_controls = k_ec * \
-            ((fuselage['length']*m_to_ft)*aircraft['number_of_engines'] )**0.792
+            ((fuselage['length']*m_to_ft)*aircraft['number_of_engines'])**0.792
     else:
         engine_controls = 88.46 * \
-            (((fuselage['length'] + wing['span'])*m_to_ft)*(aircraft['number_of_engines'] /100))**0.294
+            (((fuselage['length'] + wing['span'])*m_to_ft)
+             * (aircraft['number_of_engines'] / 100))**0.294
 
     engine_starting_system = 38.93*((engine['weight']*kg_to_lb)/1000)**0.918
 
@@ -447,7 +509,7 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
     hydraulic_system_mass = (0.2673*number_of_functions_performed_by_controls *
                              ((fuselage['length'] + wing['span'])*m_to_ft)**0.937)
 
-    systems['hydraulic_weight'] = hydraulic_system_mass *lb_to_kg
+    systems['hydraulic_weight'] = hydraulic_system_mass * lb_to_kg
 
     # Electrical system
     system_electrical_rating = 60  # [kV]
@@ -455,10 +517,12 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
     if engine['position'] == 1 or engine['position'] == 4:
         electrical_routing_distance = fuselage['length']*m_to_ft
     else:
-        electrical_routing_distance = (fuselage['length'] - aircraft['aerodynamic_centers_arm_wing_horizontal'])*m_to_ft
+        electrical_routing_distance = (
+            fuselage['length'] - aircraft['aerodynamic_centers_arm_wing_horizontal'])*m_to_ft
 
     electrical_system_mass = 7.291*system_electrical_rating**0.782 * \
-        electrical_routing_distance**0.346 * aircraft['number_of_engines'] **0.1
+        electrical_routing_distance**0.346 * \
+        aircraft['number_of_engines'] ** 0.1
 
     systems['electrical_weight'] = electrical_system_mass*lb_to_kg
 
@@ -472,10 +536,10 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
     air_ice_pressure_system_mass = 6.75 * \
         ((fuselage['cabine_length']*m_to_ft)**1.28)
 
-    systems['air_weight'] = air_ice_pressure_system_mass *lb_to_kg
+    systems['air_weight'] = air_ice_pressure_system_mass * lb_to_kg
 
     # Oxygen system
-    oxygen_system_mass = 30 + 1.2*aircraft['passenger_capacity'] 
+    oxygen_system_mass = 30 + 1.2*aircraft['passenger_capacity']
 
     systems['oxygen_weight'] = oxygen_system_mass*lb_to_kg
 
@@ -486,12 +550,12 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
     # Furnishing
     furnishing_mass = 0.211 * \
         ((maximum_takeoff_weight - fuel_weight)*kg_to_lb)**0.91
-    
+
     systems['furnishing_weight'] = furnishing_mass*lb_to_kg
 
     # Paint
     paint_mass = 0.0045*maximum_takeoff_weight*kg_to_lb
-     
+
     systems['paint_weight'] = paint_mass*lb_to_kg
 
     # Safety equipment - pag 141 Jenkinson
@@ -499,7 +563,6 @@ def fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_weight):
         value = 3.4
     else:
         value = 0.9
-
 
     systems['safety'] = 0.0003*maximum_takeoff_weight*kg_to_lb
 
@@ -556,10 +619,10 @@ def aircraft_empty_weight(vehicle, maximum_takeoff_weight, fuel_mass, engine_sta
 
     V_cruise = mach*a
     V_cruise_keas = V_cruise*sigma**0.5
-    V_dive= 1.25*V_cruise_keas
+    V_dive = 1.25*V_cruise_keas
 
     # Structural weight
-    wing['weight']  = wing_mass(vehicle, maximum_takeoff_weight, mach, altitude)
+    wing['weight'] = wing_mass(vehicle, maximum_takeoff_weight, mach, altitude)
 
     horizontal_tail['weight'] = horizontal_tail_mass(
         V_dive, vehicle)
@@ -568,36 +631,44 @@ def aircraft_empty_weight(vehicle, maximum_takeoff_weight, fuel_mass, engine_sta
         V_dive, vehicle)
 
     fuselage['weight'] = fuselage_mass(V_dive,
-                             vehicle)
+                                       vehicle)
 
     nacelle['weight'] = nacelle_mass(vehicle)
 
-    main_landing_gear['weight'] = main_landig_gear_mass(maximum_takeoff_weight, vehicle)
+    main_landing_gear['weight'] = main_landig_gear_mass(
+        maximum_takeoff_weight, vehicle)
 
-    nose_landing_gear['weight'] = nose_landig_gear_mass(maximum_takeoff_weight, vehicle)
+    nose_landing_gear['weight'] = nose_landig_gear_mass(
+        maximum_takeoff_weight, vehicle)
 
-    aircraft['structural_weight'] = wing['weight']  + horizontal_tail['weight'] + vertical_tail['weight'] + \
-        fuselage['weight'] + nacelle['weight'] + main_landing_gear['weight'] + nose_landing_gear['weight']
+    aircraft['structural_weight'] = wing['weight'] + horizontal_tail['weight'] + vertical_tail['weight'] + \
+        fuselage['weight'] + nacelle['weight'] + \
+        main_landing_gear['weight'] + nose_landing_gear['weight']
 
     # Power plant weight
     engine['weight'] = engine_mass(engine_static_thrust, vehicle)
 
-    systems['fuel_weight']  = fuel_system_mass(vehicle)
+    systems['fuel_weight'] = fuel_system_mass(vehicle)
 
     systems['propulsion_weight'] = propulsion_system_mass(
         vehicle, engine['weight'])
 
-    aircraft['power_plant_weight'] = aircraft['number_of_engines']*engine['weight'] + systems['fuel_weight']  + systems['propulsion_weight']
+    aircraft['power_plant_weight'] = aircraft['number_of_engines'] * \
+        engine['weight'] + systems['fuel_weight'] + \
+        systems['propulsion_weight']
 
     # Fixed equionet weight
-    systems['flight_control_weight']  = flight_control_system_mass(maximum_takeoff_weight)
+    systems['flight_control_weight'] = flight_control_system_mass(
+        maximum_takeoff_weight)
 
-    systems['fixed_equipment_weight'] = fixed_equipment_mass(vehicle, maximum_takeoff_weight, fuel_mass)
-    
-    aircraft['fixed_equipment_weight'] = systems['flight_control_weight'] + systems['fixed_equipment_weight']
+    systems['fixed_equipment_weight'] = fixed_equipment_mass(
+        vehicle, maximum_takeoff_weight, fuel_mass)
 
-    aircraft['operational_empty_weight'] = aircraft['structural_weight'] +  aircraft['power_plant_weight'] + aircraft['fixed_equipment_weight']
-    
+    aircraft['fixed_equipment_weight'] = systems['flight_control_weight'] + \
+        systems['fixed_equipment_weight']
+
+    aircraft['operational_empty_weight'] = aircraft['structural_weight'] + \
+        aircraft['power_plant_weight'] + aircraft['fixed_equipment_weight']
 
     return vehicle
 
@@ -605,10 +676,11 @@ def aircraft_empty_weight(vehicle, maximum_takeoff_weight, fuel_mass, engine_sta
 # MAIN
 # =============================================================================
 
+
 # =============================================================================
 # TEST
 # =============================================================================
-# from framework.baseline_aircraft_parameters import *
+vehicle = initialize_aircraft_parameters()
 # maximum_takeoff_weight = 43718
 # mach = 0.8
 # altitude = 41000
@@ -626,3 +698,39 @@ def aircraft_empty_weight(vehicle, maximum_takeoff_weight, fuel_mass, engine_sta
 # print(horizontal_tail_mass(V_dive, vehicle))
 
 # print(vertical_tail_mass(V_dive, vehicle))
+engine_static_thrust = 191798
+engine = vehicle['engine']
+engine['length'] = 2.995
+
+
+engine['fan_pressure_ratio'] = 1.5
+engine['compressor_pressure_ratio'] = 25.8
+engine['bypass'] = 4.3
+engine['fan_diameter'] = 1.882
+engine['turbine_inlet_temperature'] = 1115
+
+
+print(engine_mass_bento(engine_static_thrust, vehicle))
+
+print(engine_mass(engine_static_thrust, vehicle))
+
+a,b,c =turbofan(0, 0.01, 1, vehicle)
+print(a,b)
+
+engine_static_thrust = 104533
+engine = vehicle['engine']
+engine['length'] = 2.362
+
+engine['fan_pressure_ratio'] = 1.1
+engine['compressor_pressure_ratio'] = 30.6
+engine['bypass'] = 4.8
+engine['fan_diameter'] = 1.524
+engine['turbine_inlet_temperature'] = 1706
+
+print(engine_mass_bento(engine_static_thrust, vehicle))
+
+print(engine_mass(engine_static_thrust, vehicle))
+
+
+a,b,c =turbofan(0, 0.01, 1, vehicle)
+print(a,b)

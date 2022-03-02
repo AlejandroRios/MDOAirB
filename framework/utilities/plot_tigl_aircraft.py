@@ -220,6 +220,8 @@ def plot3d_tigl(vehicle):
     Swet = tigl.wingGetWettedArea(tigl.wingGetUID(1))
     b    = tigl.wingGetSpan(tigl.wingGetUID(1))
 
+    # tank_volume = tigl.wingGetVolume(1)
+
     print(Cref)
     print(2*Sref)
     print(2*Swet)
