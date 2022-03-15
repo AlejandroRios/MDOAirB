@@ -1,0 +1,4 @@
+2022-03-14 16:34:46,294 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - ---- Start wetted area module ----
+2022-03-14 16:34:49,418 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\Geometry\wetted_area     - INFO - Individual wetted area [m2]: 789.527566740251
+2022-03-14 16:34:49,418 - c:\users\aarc8\documents\github\mdoairb\framework\S2022-03-14 16:34:49,494 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- Start sizing loop for tail sizing ----
+2022-03-14 16:35:54,162 - c:\users\aarc8\documents\github\mdoairb\framework\Sizing\airplane_sizing_check     - INFO - ---- End sizing loop for tail sizing ----

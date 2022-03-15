@@ -29,6 +29,7 @@ import numpy as np
 from framework.Sizing.Geometry.wing_structural_layout_fuel_storage import wing_structural_layout
 from framework.Sizing.Geometry.fuselage_sizing import fuselage_cross_section
 from framework.Sizing.Geometry.wetted_area import wetted_area
+from framework.Sizing.Geometry.fuel_capacity_zero_fidelity import zero_fidelity_fuel_capacity
 from framework.Aerodynamics.aerodynamic_coefficients_ANN import aerodynamic_coefficients_ANN
 from framework.Aerodynamics.drag_coefficient_flap import drag_coefficient_flap
 from framework.Aerodynamics.drag_coefficient_landing_gear import drag_coefficient_landing_gear
@@ -430,10 +431,12 @@ def airplane_sizing(vehicle,x=None):
         # fuel deficit
         delta_fuel = wing['fuel_capacity']*1 - 1*fuel_mass
 
-        if delta_fuel < 0:
-            flag_fuel = 1
-        else:
-            flag_fuel = 0
+    if delta_fuel < 0:
+        flag_fuel = 1
+    else:
+        flag_fuel = 0
+
+    print(zero_fidelity_fuel_capacity(vehicle))
 
 
     # Simple plot check
