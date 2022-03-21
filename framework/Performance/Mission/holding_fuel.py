@@ -1,20 +1,21 @@
 """
-File name :
-Author    : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module calculates the holding fuel spent. 
+
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -32,6 +33,17 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_
 
 
 def holding_fuel(altitude, delta_ISA, holding_time, vehicle):
+    """
+    Description:
+        - This function calculates the fuel spent during holding
+    Inputs:
+        - altitude - [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - holding_time [min]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - fuel_mass_holding [kg]
+    """
 
     altitude = altitude + 1500
     _, _, fuel_flow_holding = best_holding_speed(altitude, delta_ISA, vehicle)
@@ -44,22 +56,26 @@ def holding_fuel(altitude, delta_ISA, holding_time, vehicle):
 def best_holding_speed(altitude, delta_ISA, vehicle):
     """
     Description:
-        -
+        - This function calculates the best holding speed.
     Inputs:
-        -
+        - altitude - [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
     Outputs:
-        -
-    TODO's:
-    - Specify reference for this module
-    - Change variable naming
+        - V_hold_kt - hold velocity [kt]
+        - CL_to_CD - lift to drag ration
+        - fuel_flow_holding - fuel flow spent during holding [kg]
     """
+
+    kt_to_ms = 0.514444
+    ft_to_m = 0.3048
     aircraft = vehicle['aircraft']
     wing = vehicle['wing']
 
     race_track_factor = 1.05
     bank_angle = 40
 
-    _, _, _, _, _, rho_ISA, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
+    _, _, _, _, _, rho_ISA, _, _ = atmosphere_ISA_deviation(altitude, delta_ISA)
 
     mach_initial = 0.10
     step = 0.001
@@ -80,9 +96,9 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
         switch_neural_network = 0
         alpha_deg = 1
         CD_wing, _ = aerodynamic_coefficients_ANN(
-            vehicle, h, mach, CL, alpha_deg, switch_neural_network)
+            vehicle, h*ft_to_m, mach, CL, alpha_deg, switch_neural_network)
 
-        friction_coefficient = 0.003
+        friction_coefficient = wing['friction_coefficient']
         CD_ubrige = friction_coefficient * \
             (aircraft['wetted_area'] - wing['wetted_area']) / \
             wing['area']
@@ -119,7 +135,7 @@ def best_holding_speed(altitude, delta_ISA, vehicle):
     total_thrust_force = 0
 
     while (total_thrust_force < FnR and throttle_position <= 1):
-        thrust_force, fuel_flow = turbofan(
+        thrust_force, fuel_flow , vehicle = turbofan(
             altitude, mach, throttle_position, vehicle)  # force [N], fuel flow [kg/hr]
         TSFC = (fuel_flow*GRAVITY)/thrust_force
         total_thrust_force = aircraft['number_of_engines'] * thrust_force

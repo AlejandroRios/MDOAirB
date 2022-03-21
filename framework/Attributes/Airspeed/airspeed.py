@@ -1,35 +1,36 @@
 """
-File name : Airspeed conversor function
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : January/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module performs speed transformations.
+
+Reference: 
     - Reference: Gudmundsson, General Aviation Aircraft Design: Applied Methods
     and Procedures, 2013
     - pag 770
-    - Reference: Blake, BOEING CO. Flight Operations Engineering -
+    - Blake, BOEING CO. Flight Operations Engineering -
     Jet Transport Performance Methods. 7th ed. Boeing Co., Everett,
     Estados Unidos, 1989
     - Chapter 6, page 6-12
     - Chapter 30, page 30-2
-Inputs:
-    - Altitude [m]
-    - Delta ISA [deg C]
-Outputs:
-    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
-from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 import numpy as np
+
+from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -38,19 +39,18 @@ import numpy as np
 # FUNCTIONS
 # =============================================================================
 
-
 def mach_to_V_cas(mach, h, delta_ISA):
     """
     Description:
-        - Converts mach number to Calibrated Air Speed
+        - Converts mach number to Calibrated AirSpeed
     Inputs:
-        - Mach number
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - mach - mach number
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
         - Calibated airspeed [knots]
     """
-    _, delta, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+    _, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
 
     speed_of_sound = 661.4786  # sea level [knots]
     aux1 = ((0.2 * (mach**2) + 1)**3.5) - 1
@@ -63,13 +63,13 @@ def mach_to_V_tas(mach, h, delta_ISA):
     Description:
         -  Converts mach number to True Air Speed
     Inputs:
-        - Mach number
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - mach - mach number
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
         - True airspeed [knots]
     """
-    theta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+    theta, _, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
     speed_of_sound = 661.4786  # sea level [knots]
     return speed_of_sound * mach * np.sqrt(theta)
 
@@ -79,18 +79,38 @@ def V_cas_to_V_tas(V_cas, h, delta_ISA):
     Description:
         -  Converts Calibrated Air Speed to True Air Speed
     Inputs:
-        - Calibrated air speed [knots]
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - V_cas - calibrated airspeed [kt]
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - True airspeed [knots]
+        - True airspeed [kt]
     """
     speed_of_sound = 661.4786  # sea level [knots]
-    theta, delta, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+    theta, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
     aux1 = (1 + 0.2 * (V_cas/speed_of_sound)**2)**3.5
     aux2 = ((1/delta)*(aux1 - 1) + 1)**(1/3.5)
     aux3 = np.sqrt(theta*(aux2 - 1))
     return 1479.1 * aux3
+
+def V_tas_to_V_cas(V_tas, h, delta_ISA):
+    """
+    Description:
+        -  Converts True Air Speed to Calibrated Air Speed
+    Inputs:
+        - V_tas - true airspeed [kt]
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
+    Outputs:
+        - Calibrated airspeed [kt]
+    """
+    speed_of_sound = 661.4786  # sea level [knots]
+    theta, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+
+    aux1 = (1 + (1/theta)*(V_tas/1479.1)**2)**3.5
+    aux2 = (delta*(aux1-1)+1)**(1/3.5)
+    aux3 = 1479.1*np.sqrt(aux2-1)
+
+    return aux3
 
 
 def V_cas_to_mach(V_cas, h, delta_ISA):
@@ -98,13 +118,13 @@ def V_cas_to_mach(V_cas, h, delta_ISA):
     Description:
         - Converts calibrated air speed to mach
     Inputs:
-        - Calibrated air speed [knots]
-        - Altitude [ft]
-        - Delta ISA [deg C]
+        - V_cas - calibrated airspeed [kt]
+        - h - altitude [ft]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        - Mach number
+        - mach - mach number
     """
-    _, delta, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+    _, delta, _, _, _, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
     speed_of_sound = 661.4786  # sea level [knots]
     aux1 = ((1 + 0.2*((V_cas/speed_of_sound)**2))**3.5) - 1
     aux2 = ((1/delta)*aux1 + 1)**((1.4-1)/1.4)
@@ -120,13 +140,11 @@ def crossover_altitude(mach, V_cas, delta_ISA):
         The curves for constant CAS and constant Mach intersect at this
         point. Above this altitude the Mach number is used to reference speeds.
     Inputs:
-        - Mach
-        - Calibrated air speed [knots]
-        - Delta ISA [deg C]
+        - mach - mach number
+        - V_cas - calibrated airspeed [kt]
+        - delta_ISA - ISA temperature deviation [deg C]
     Outputs:
-        -
-    TODO's:
-        -
+        - crossover_altitude [ft]
     """
     flag = 0
     h = 0
@@ -144,4 +162,7 @@ def crossover_altitude(mach, V_cas, delta_ISA):
 # =============================================================================
 # TEST
 # =============================================================================
-# print(V_cas_to_V_tas(340-10, 41000, 0))
+# print(V_cas_to_V_tas(200, 10000, 0))
+# print(crossover_altitude(0.75, 340, 0))
+
+# print(V_tas_to_V_cas(328.19232653, 10900.10822041, 0))

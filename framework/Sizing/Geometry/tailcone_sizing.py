@@ -1,26 +1,21 @@
 """
-Function  : tailcone_sizing.py
-Title     : Tail cone sizing
-Written by: Alejandro Rios
-Date      : November/2019
-Last edit : August/2020
-Language  : Python
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This module performs the tailcone sizing
+    - This module performs the tailcone sizing.
+Reference:
+    -
 
-Future implementations:
-    - 
+TODO's:
+    -
 
-Inputs:
-    - Number of pax
-    - Engine position
-    - Fuselage height
-    - Fuselage width
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
-Outputs:
-    - tailcone length
 """
 ########################################################################################
 """Importing Modules"""
@@ -29,12 +24,19 @@ Outputs:
 """Function definition"""
 ########################################################################################
 
-
-
-
 import numpy as np
-import os
 def tailcone_sizing(NPax, PEng, fuse_height, fuse_width):
+    """
+    Description:
+        - This function performs the tailcone sizing.
+    Inputs:
+        - NPax - number of passengers
+        - PEng - engine position
+        - fuse_height - fuselage height [m]
+        - fuse_width - fuselage width [m]
+    Outputs:
+        - ltail - tail length [m]
+    """
     #  Provide a sizing of the tailcone
     fusext = 0
     if NPax <= 50:
@@ -48,4 +50,4 @@ def tailcone_sizing(NPax, PEng, fuse_height, fuse_width):
 
     ltail = ltail_df*fuse_width+fusext
 
-    return(ltail)
+    return ltail

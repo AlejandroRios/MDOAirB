@@ -1,32 +1,29 @@
 """
-File name : Pax cabine length
-Written by: Alejandro Rios
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : Octobe 2019
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This module calculates the pax cabine length
+    - This module calculates the pax cabine length.
 
-Inputs:
-    - Vehicle dictionary
-
-Outputs:
-    - pax cabine lenght [m]
+Reference:
+    - PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
 
 TODO's:
     - Clean code
     - Rename variables
+    - Review this code
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import numpy as np
-import os
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -37,12 +34,21 @@ import os
 
 
 def pax_cabine_length(vehicle):
+    """
+    Description:
+        - This module calculates the pax cabine length
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - LenFus - fuselage length - [m]
+    """
     aircraft = vehicle['aircraft']
     fuselage = vehicle['fuselage']
+    cabine = vehicle['cabine']
 
-    GalleyProf = 1.1
-    ToilletProf = 1.5
-    SeatProf = 0.48  # [m]
+    GalleyProf = cabine['seat_prof']
+    ToilletProf = cabine['toillet_prof']
+    SeatProf = cabine['seat_prof']  # [m]
 
     # ---------------------------------- BEGIN -------------------------
     DeltaSeats = fuselage['seat_pitch'] - SeatProf
@@ -54,27 +60,27 @@ def pax_cabine_length(vehicle):
 
     x0 = 1.7  # entrance area
     for j in range(Nrow):
-        seattop_fileira(x0, fuselage, SeatProf)
+        # seattop_fileira(x0, fuselage, SeatProf,vehicle)
         x0 = x0+SeatProf+DeltaSeats
     # **** Desenha Toillet
     # Descobre lado de maior largura
     Naux1 = round(fuselage['seat_abreast_number']/2)
     Naux2 = fuselage['seat_abreast_number']/2 - Naux1
     if Naux2 > 0:
-        fuselage['seat_abreast_number'] = Naux1 + 1
+        NseatG = Naux1 + 1
     else:
-        fuselage['seat_abreast_number'] = Naux1
+        NseatG= Naux1
 
     x0T = x0 - DeltaSeats + 0.1
     #LenFus = x0T
     x = []
     y = []
     x.append(x0T)
-    y.append(Naux1*fuselage['seat_width'] + fuselage['aisle_width'])
+    y.append(Naux1*cabine['seat_width'] + fuselage['aisle_width'])
     x.append(x[0] + ToilletProf)
     y.append(y[0])
     x.append(x[1])
-    y.append(y[1] + fuselage['seat_abreast_number']*fuselage['seat_width'])
+    y.append(y[1] + NseatG*cabine['seat_width'])
     x.append(x[0])
     y.append(y[2])
 
@@ -84,7 +90,19 @@ def pax_cabine_length(vehicle):
     return(LenFus)
 
 
-def seattop_fileira(x0, fuselage, SeatProf):
+def seattop_fileira(x0, fuselage, SeatProf,vehicle):
+    """
+    Description:
+        - This function calcute the seat top row
+    Inputs:
+        - x0
+        - fuselage
+        -  SeatProf
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - ???
+    """
+    cabine = vehicle['cabine']
 
     Naux1 = round(fuselage['seat_abreast_number']/2)
     Naux2 = fuselage['seat_abreast_number']/2 - Naux1
@@ -94,24 +112,24 @@ def seattop_fileira(x0, fuselage, SeatProf):
         y = []
         for i in range(1, Naux1):
             x.append(x0)
-            y.append(y0 + (i-1)*fuselage['seat_width'])
+            y.append(y0 + (i-1)*cabine['seat_width'])
             x.append(x[0]+SeatProf)
             y.append(y[0])
             x.append(x[1])
-            y.append(y[1]+fuselage['seat_width'])
+            y.append(y[1]+cabine['seat_width'])
             x.append(x[0])
             y.append(y[2])
             # fill(x,y,'r')
             # hold on
 
-        y0 = Naux1*fuselage['seat_width'] + fuselage['aisle_width']
+        y0 = Naux1*cabine['seat_width'] + fuselage['aisle_width']
         for i in range(1, (fuselage['seat_abreast_number']-Naux1)):
             x.append(x0)
-            y.append(y0 + (i-1)*fuselage['seat_width'])
+            y.append(y0 + (i-1)*cabine['seat_width'])
             x.append(x[0]+SeatProf)
             y.append(y[0])
             x.append(x[1])
-            y.append(y[1]+fuselage['seat_width'])
+            y.append(y[1]+cabine['seat_width'])
             x.append(x[0])
             y.append(y[2])
             # fill(x,y,'r')
@@ -123,26 +141,26 @@ def seattop_fileira(x0, fuselage, SeatProf):
         y0 = 0
         for i in range(1, int(fuselage['seat_abreast_number']/2)):
             x.append(x0)
-            y.append(y0 + (i-1)*fuselage['seat_width'])
+            y.append(y0 + (i-1)*cabine['seat_width'])
             x.append(x[0]+SeatProf)
             y.append(y[0])
             x.append(x[1])
-            y.append(y[1]+fuselage['seat_width'])
+            y.append(y[1]+cabine['seat_width'])
             x.append(x[0])
             y.append(y[2])
             # fill(x,y,'r')
             # hold on
 
         y0 = (fuselage['seat_abreast_number']/2) * \
-            fuselage['seat_width'] + fuselage['aisle_width']
+            cabine['seat_width'] + fuselage['aisle_width']
         for i in range(1, int(fuselage['seat_abreast_number']/2)):
             x.append(x0)
 
-            y.append(y0 + (i-1)*fuselage['seat_width'])
+            y.append(y0 + (i-1)*cabine['seat_width'])
             x.append(x[0]+SeatProf)
             y.append(y[0])
             x.append(x[1])
-            y.append(y[1]+fuselage['seat_width'])
+            y.append(y[1]+cabine['seat_width'])
             x.append(x[0])
             y.append(y[2])
 

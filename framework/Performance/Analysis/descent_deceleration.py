@@ -1,20 +1,21 @@
 """
-File name :
-Author    : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module estimate the descent deceleration
+
+Reference:
+    - 
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -41,6 +42,22 @@ m_to_nm = 0.000539957
 m_to_ft = 3.281
 
 def decelaration_to_250(rate_of_climb, descent_V_cas, delta_ISA, vehicle):
+    '''
+    Description:
+        - This function performs the evaluation of the desceleration to 250 kt
+
+    Inputs:
+        - rate_of_climb - aircraft rate of climb [ft/min]
+        - descent_V_cas
+        - delta_ISA - ISA temperature deviation [deg C]
+        - vehicle - dictionary containing aircraft parameters
+
+    Outputs:
+        - delta_distance - increase in distances [m],
+        - delta_time - increase in time [s]
+        - delta_altitude - increase in altitude [ft]
+        - delta_fuel - decrease in fuel [kg]
+    '''
     aircraft = vehicle['aircraft']
 
     delta_altitude_initial = 1500
@@ -49,9 +66,9 @@ def decelaration_to_250(rate_of_climb, descent_V_cas, delta_ISA, vehicle):
     rate_of_climb = rate_of_climb*fpm_to_mps
 
     while delta_error > 100:
-        _, _, _, _, _, _, a_1 = atmosphere_ISA_deviation(
+        _, _, _, _, _, _, _, a_1 = atmosphere_ISA_deviation(
             10000, delta_ISA)
-        _, _, _, _, _, _, a_2 = atmosphere_ISA_deviation(
+        _, _, _, _, _, _, _, a_2 = atmosphere_ISA_deviation(
             10000, delta_ISA)
 
         mach_1 = V_cas_to_mach(descent_V_cas, 10000, delta_ISA)
@@ -66,9 +83,9 @@ def decelaration_to_250(rate_of_climb, descent_V_cas, delta_ISA, vehicle):
             10000+delta_altitude_initial, delta_ISA, mach_2)
 
         # force [N], fuel flow [kg/hr]
-        _, fuel_flow_1 = turbofan(10000, mach_1, 0.4, vehicle)
+        _, fuel_flow_1 , vehicle = turbofan(10000, mach_1, 0.4, vehicle)
         # force [N], fuel flow [kg/hr]
-        _, fuel_flow_2 = turbofan(
+        _, fuel_flow_2 , vehicle = turbofan(
             10000+delta_altitude_initial, mach_2, 0.4, vehicle)
 
         a_1 = GRAVITY*(rate_of_climb*(1+acceleration_factor_V_CAS_1))/V_1  # [m/s2]
@@ -87,7 +104,6 @@ def decelaration_to_250(rate_of_climb, descent_V_cas, delta_ISA, vehicle):
 
 
     return delta_distance, delta_time, delta_altitude, delta_fuel
-
 
 # =============================================================================
 # MAIN

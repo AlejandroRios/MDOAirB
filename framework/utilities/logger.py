@@ -1,18 +1,22 @@
 """
-File name : Data logger
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB: MDO 
 
 Description:
-    - 
-Inputs:
+    - This module defines the functions for the logs
+
+Reference:
     -
-Outputs:
-    - 
+
+TODO's:
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -27,13 +31,15 @@ import logging
 # =============================================================================
 
 def get_logger(name):
-    """ Function to create a logger
-    Function 'get_logger' create a logger, it sets the format and the level of
+    """
+    Description:
+        - Function 'get_logger' create a logger, it sets the format and the level of
     the logfile and console log.
-    Args:
-        name (str): Logger name
-    Returns:
-        logger (logger): Logger
+    Inputs:
+        - x - design variables vector
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - logger
     """
 
     logger = logging.getLogger(name)

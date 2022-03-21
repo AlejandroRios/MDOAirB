@@ -1,22 +1,22 @@
 """
-File name : Net present value
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This functions calculates the net present value. Methodology from Fregnani 2020
-    - ROSKAM
+
+Reference: 
+    - Reference: Roskam
+
 TODO's:
-    - Exclude baseline_aircraft function, substitute by the one in main folder
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - Finish and include this function
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -31,39 +31,14 @@ import matplotlib.pyplot as plt
 # FUNCTIONS
 # =============================================================================
 
-
-def baseline_aircraft():
-    '''
-    Methodology from Airbus price list (Narrow Bodies, 1 aisle) 2018
-    Inputs:
-        - MTOW
-    Outputs:
-        -
-    TODO's:
-        - what is KVA?
-    '''
-    MTOW_baseline = 22010
-    wing_surface_baseline = 52
-    engine_diameter_baseline = 1.52
-    pax_number_baseline = 50
-    thrust_maximum_baseline = 8895
-    KVA_baseline = 75
-    MTOW_factor = MTOW/MTOW_baseline
-    thrust_factor = thrust_maximum/thrust_maximum_baseline
-    wing_surface_ft2 = wing_surface*3.28**2
-    engine_diameter_in = engine_diameter*39.37
-
-    return MTOW_factor, thrust_factor
-
-
 def aircraft_price():
     '''
     Methodology from Airbus price list (Narrow Bodies, 1 aisle) 2018
     Inputs:
-        - MTOW
-        - share
+        - MTOW - maximum takeoff weight - [kg]
+        - share - market share [%]
     Outputs:
-        - price
+        - price - [US$]
     TODO's:
         - ask for more especification of WTADJ_price - weight adjusted price
     '''

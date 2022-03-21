@@ -1,27 +1,20 @@
 """
-File name : aerodynamic coefficients
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
     - This module computes the wing aerodynamic coefficients using a neural network.
 
-Inputs:
-    - Vehicle dictionary
-    - Altitude [ft]
-    - Mach number
-    - CL or alpha_deg
-    - switch_neural_network - 0 for CL | 1 for alpha input
-Outputs:
-    - CD - Drag coefficient
-    - CL - Lift coefficient
 TODO's:
     - Rename variables
     - Check issue with dtype object
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
 """
 # =============================================================================
 # IMPORTS
@@ -30,6 +23,7 @@ import numpy as np
 import array
 import scipy.io as spio
 from sklearn.preprocessing import normalize
+np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
 # =============================================================================
 # CLASSES
 # =============================================================================
@@ -41,10 +35,11 @@ from sklearn.preprocessing import normalize
 
 def loadmat(filename):
     '''
-    this function should be called instead of direct snp.pio.loadmat
-    as it cures the problem of not properly recovering python dictionaries
-    from mat files. It calls the function check keys to cure all entries
-    which are still mat-objects
+    Description:
+        this function should be called instead of direct snp.pio.loadmat
+        as it cures the problem of not properly recovering python dictionaries
+        from mat files. It calls the function check keys to cure all entries
+        which are still mat-objects
     '''
     data = spio.loadmat(filename, struct_as_record=False, squeeze_me=True)
     return _check_keys(data)
@@ -52,8 +47,9 @@ def loadmat(filename):
 
 def _check_keys(dict):
     '''
-    checks if entries in dictionary are mat-objects. If yes
-    todict is called to change them to nested dictionaries
+    Description:
+        checks if entries in dictionary are mat-objects. If yes
+        todict is called to change them to nested dictionaries
     '''
     for key in dict:
         if isinstance(dict[key], spio.matlab.mio5_params.mat_struct):
@@ -63,7 +59,8 @@ def _check_keys(dict):
 
 def _todict(matobj):
     '''
-    A recursive function which constructs from matobjects nested dictionaries
+    Description:
+        A recursive function which constructs from matobjects nested dictionaries
     '''
     dict = {}
     for strg in matobj._fieldnames:
@@ -84,6 +81,20 @@ def logical(varin):
 
 
 def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_neural_network):
+    '''
+    Description:
+        Update neural network parammeters to be used in ANN_aerodynamics_main
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters - directory with all relevant information from aircraft
+        - altitude - [ft]
+        - mach - mach number - mach - mach number number
+        - CL - lift coefficient
+        - alpha - angle of attack [deg]
+        - switch_neural_network - switch to define analysis: 0 for CL | 1 for alpha input
+    Outputs:
+        - CD - drag coefficient
+        - CL - lift coefficient
+    '''
     CL_input = CL
 
     aircraft = vehicle['aircraft']
@@ -106,7 +117,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'root_airfoil_leading_edge_radius': wing['leading_edge_radius'][0],
         'root_airfoil_thickness_ratio': wing['thickness_ratio'][0],
         'root_airfoil_thickness_line_angle_trailing_edge': wing['thickness_line_angle_trailing_edge'][0],
-        'root_airfoil_thickness_to_chord_maximum_ratio': wing['thickness_to_chord_maximum_ratio'][0],
+        'root_airfoil_maximum_thickness_chordwise_position': wing['maximum_thickness_chordwise_position'][0],
         'root_airfoil_camber_line_angle_leading_edge': wing['camber_line_angle_leading_edge'][0],
         'root_airfoil_camber_line_angle_trailing_edge': wing['camber_line_angle_trailing_edge'][0],
         'root_airfoil_maximum_camber': wing['maximum_camber'][0],
@@ -115,7 +126,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'break_airfoil_leading_edge_radius': wing['leading_edge_radius'][1],
         'break_airfoil_thickness_ratio': wing['thickness_ratio'][1],
         'break_airfoil_thickness_line_angle_trailing_edge': wing['thickness_line_angle_trailing_edge'][1],
-        'break_airfoil_maximum_thickness_chordwise_position': wing['thickness_to_chord_maximum_ratio'][1],
+        'break_airfoil_maximum_thickness_chordwise_position': wing['maximum_thickness_chordwise_position'][1],
         'break_airfoil_camber_line_angle_leading_edge': wing['camber_line_angle_leading_edge'][1],
         'break_airfoil_camber_line_angle_trailing_edge': wing['camber_line_angle_trailing_edge'][1],
         'break_airfoil_maximum_camber': wing['maximum_camber'][1],
@@ -124,7 +135,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'tip_airfoil_leading_edge_radius': wing['leading_edge_radius'][2],
         'tip_airfoil_thickness_ratio': wing['thickness_ratio'][2],
         'tip_airfoil_thickness_line_angle_trailing_edge': wing['thickness_line_angle_trailing_edge'][2],
-        'tip_airfoil_maximum_thickness_chordwise_position': wing['thickness_to_chord_maximum_ratio'][2],
+        'tip_airfoil_maximum_thickness_chordwise_position': wing['maximum_thickness_chordwise_position'][2],
         'tip_airfoil_camber_line_angle_leading_edge': wing['camber_line_angle_leading_edge'][2],
         'tip_airfoil_camber_line_angle_trailing_edge': wing['camber_line_angle_trailing_edge'][2],
         'tip_airfoil_maximum_camber': wing['maximum_camber'][2],
@@ -132,6 +143,9 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         'tip_airfoil_maximum_camber_chordwise_position ': wing['maximum_camber_chordwise_position'][2]
     }
 
+    '''
+    If a new network is to be used from matlab database uncomment lines realted to .mat extensions
+    '''
     # NN_induced = loadmat('Aerodynamics/NN_CDind.mat')
     # np.save('NN_induced.npy', NN_induced)
     # NN_wave = loadmat('Aerodynamics/NN_CDwave.mat')
@@ -141,6 +155,7 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
     # NN_CL = loadmat('Aerodynamics/NN_CL.mat')
     # np.save('NN_CL.npy', NN_CL)
 
+    # Load the neural network weights for each of the NN
     NN_induced = np.load('Database/Neural_Network/NN_induced.npy',
                          allow_pickle=True).item()
     NN_wave = np.load('Database/Neural_Network/NN_wave.npy', allow_pickle=True).item()
@@ -156,7 +171,8 @@ def aerodynamic_coefficients_ANN(vehicle, altitude, mach, CL, alpha_deg,switch_n
         NN_cd0,
         NN_CL
     )
-
+    
+    # Total wing drag sum
     CDfp = 1.04*CDfp
     CDwing = CDfp + CDwave + CDind
 
@@ -171,9 +187,34 @@ def ANN_aerodynamics_main(
     NN_wave,
     NN_cd0,
     NN_CL,
-):
-    #  Soure: Ney Rafael Seccô and Bento Mattos
-    #  Aeronautical Institute of Technology
+    ):
+    '''
+    Description:
+        This function calculate the aerodynamic coefficients related to the NN's
+    Inputs:
+        - CL_input - lift coefficient
+        - inputs_neural_network - dictionary defining inputs for analysis
+        - switch_neural_network - switch to define analysis: 0 for CL | 1 for alpha input
+        - NN_ind - induced drag neural network weights
+        - NN_wave - wave drag neural network weights
+        - NN_cd0 - parasite drag neural network weights
+        - NN_CL - lift coefficient neural network weights
+    Outputs:
+        - CL - lift coefficient
+        - alpha - angle of attack [deg]
+        - CD_fp - parasite drag coefficient
+        - CD_wave - wave drag coefficient
+        - CD_ind - indiced drag coefficient
+        - grad_CL - gradient of lift coefficient
+        - grad_CD_fp - gradient of parasite drag coefficient
+        - grad_CD_wave - gradientt of wave drag coefficient
+        - grad_CD_ind - gradient of induced drag coefficient
+
+    Translated to python from Matlab.    
+    | Soure: Ney Rafael Seccô and Bento Mattos
+    | Aeronautical Institute of Technology
+    '''
+
 
     sizes = len(inputs_neural_network)
     # if sizes != 40 :

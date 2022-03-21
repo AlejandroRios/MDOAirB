@@ -48,7 +48,7 @@ def parametric_analysis(h, M0,
     # =========================================================================
     # --------------Flight and Atmosphere-------------------------
     delta_ISA = 0
-    _, _, _, T0, P0, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
+    _, _, _, T0, P0, _, _, _ = atmosphere_ISA_deviation(h, delta_ISA)
     # Flight parametres
     P0 = P0       # Pa
     T0 = T0            # K
@@ -232,14 +232,16 @@ def parametric_analysis(h, M0,
     # S_P = 1e6*(S_P) # mg/W.s
 
     # Uninstalled equivalent specific thrust:
-    F_m0_dot = (C_TOTAL*h0)/V0  # J.s/Kg.m
+    F_m0_dot = (C_TOTAL*h0)/V0  # J.s/Kg.m > m/s
     # Thrust
     F = F_m0_dot*m0_dot  # N
 
     # Uninstalled thrust specific fuel consumption:
-    # S = f0*V0/(C_TOTAL*h0) # Kg.m/J.s
+    # S_1 = f0*V0/(C_TOTAL*h0) # Kg.m/J.s > s/m
     S = (f0/(F_m0_dot))  # Kg.m/J.s
-    S_mg = S*1e6  # mg/N-s
+    # S_mg = S*1e6  # mg/N-s
+
+    # S = f0/(F/m0_dot)
 
     # Propulsive efficiency:
     eta_P = C_TOTAL/((C_prop/eta_prop) + ((gamma0-1)/2)

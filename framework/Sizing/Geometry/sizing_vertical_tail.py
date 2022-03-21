@@ -1,26 +1,27 @@
 """
-File name :
-Author    : 
-Email     : aarc.88@gmail.com
-Date      : 
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
+    - This module performs the sizing of the horizontal tail.
+Reference:
     -
-Inputs:
-    -
-Outputs:
-    -
+
 TODO's:
     - Review final results - the equations are in lb or kg?
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import numpy as np
+
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
 # =============================================================================
 # CLASSES
@@ -32,11 +33,22 @@ from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_
 global deg_to_rad
 deg_to_rad = np.pi/180
 kg_to_lb = 2.20462
-kts_to_m_s = 0.514444
+kt_to_ms = 0.514444
+
 def sizing_vertical_tail(vehicle,
     mach,
     altitude):
-
+    """
+    Description:
+        - This function performs the sizing of the vertical tail.
+ 
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+        - mach - mach number
+        - altitude - [ft]
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+    """
     vertical_tail = vehicle['vertical_tail']
     horizontal_tail = vehicle['horizontal_tail']
 
@@ -72,10 +84,10 @@ def sizing_vertical_tail(vehicle,
         zh = 0.95*vertical_tail['span']
         kv = 1 + 0.15*((horizontal_tail['area']*zh)/(vertical_tail['area']*vertical_tail['span']))
 
-    theta, delta, sigma, T_ISA, P_ISA, rho_ISA, a = atmosphere_ISA_deviation(
+    theta, delta, sigma, T_ISA, P_ISA, rho_ISA, _, a = atmosphere_ISA_deviation(
         altitude, 0)
 
-    V_dive = (mach*a)*kts_to_m_s
+    V_dive = (mach*a)*kt_to_ms
     aux_1 = (vertical_tail['area']**0.2 * V_dive)/(1000*np.sqrt(np.cos(vertical_tail['sweep_c_2']*deg_to_rad)))
     vertical_tail['weight'] = kv*vertical_tail['area']*(62*aux_1 - 2.5)
     # print('vt_weight:',vertical_tail['weight'] )

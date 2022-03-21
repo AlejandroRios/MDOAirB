@@ -1,20 +1,21 @@
 """
-File name : Compressible function
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : September/2020
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the compressible flow parameters. 
+
+Reference:
+    - Aircraft Engine Design, 2003,  Jack Mattingly, William H. Heiser, David T. Pratt
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -33,8 +34,24 @@ from framework.Performance.Engine.mass_flow_parameter import MASSFP
 
 
 def RGCOMPR(item=None, Tt=None, M=None, f=None, TtdT=None, PtdP=None, MFP=None):
-    # Inputs: Item, Tt, f, and one of the following: M, Tt/T, Pt/P, and MFP
-    # Outputs: M, Tt/T, Pt/P, and MFP
+    """
+    Description:
+        - This function calculates the compressible flow parameters. 
+    Inputs:
+        - item - computation mode
+        - Tt - Total temperature [K]
+        - M - Mach number
+        - f - fuel/air ratio
+        - TtdT - temperature ratio
+        - PtdP - pressure ratio
+        - MFP - mass flow parameter
+    Outputs:
+        - M - Mach number
+        - TtdT - temperature ratio
+        - PtdP - pressure ratio
+        - MFP - mass flow parameter
+    """
+
     BTU_to_ft_lb = 780
     g_c = 1
 

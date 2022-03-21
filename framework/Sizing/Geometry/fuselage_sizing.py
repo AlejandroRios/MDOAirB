@@ -1,21 +1,21 @@
 """
-File name :
-Author    :
-Email     : aarc.88@gmail.com
-Date      :
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This function calculates the cabine dimensions
-    - Reference PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the cabine dimensions.
+
+Reference:
+    - PreSTO-Cabin - https://www.fzt.haw-hamburg.de/pers/Scholz/PreSTo/PreSTo-Cabin_Documentation_10-11-15.pdf
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -33,35 +33,43 @@ import numpy as np
 in_to_m = 0.0254
 
 def fuselage_cross_section(vehicle):
-
+    """
+    Description:
+        - This function calculates the cabine dimensions
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+    """
     fuselage = vehicle['fuselage']
+    cabine = vehicle['cabine']
     # Seat dimensions economy class
-    armrest_top = 22  # [inch]
-    armrest_bottom = 7    # [inch]
-    armrest_width = 2*in_to_m  # armrest width
+    armrest_top = cabine['armrest_top']  # [inch]
+    armrest_bottom = cabine['armrest_bottom']    # [inch]
+    armrest_width = cabine['armrest_width']*in_to_m  # armrest width
     armrest_top_height = armrest_top*in_to_m
     armrest_bottom_height = armrest_bottom*in_to_m
 
-    seat_cushion_thickness_YC = 0.14  # [m] YC - economy class
-    seat_cushion_width_YC = fuselage['seat_width']
+    seat_cushion_thickness_YC = cabine['seat_cushion_thickness_YC'] # [m] YC - economy class
+    seat_cushion_width_YC = cabine['seat_width']  
     double_container = 'no'
-    backrest_height = 0.59  # [m]
-    floor_thickness = 0.117  # [m]
+    backrest_height = cabine['backrest_height'] # [m]
+    floor_thickness = cabine['floor_thickness']  # [m]
     aux = ((armrest_top_height-armrest_bottom_height) -
            seat_cushion_thickness_YC)/2
     seat_cushion_height = aux + armrest_bottom_height
 
     # Default values (95% american male)
-    pax_distance_head_wall = 0.06  # [m]
-    pax_distance_shoulder_wall = 0.04  # [m]
-    pax_shoulder_breadth = 0.53  # [m]
-    pax_eye_height = 0.87  # [m]
-    pax_midshoulder_height = 0.70  # [m]
+    pax_distance_head_wall = cabine['pax_distance_head_wall']  # [m]
+    pax_distance_shoulder_wall = cabine['pax_distance_shoulder_wall']  # [m]
+    pax_shoulder_breadth = cabine['pax_shoulder_breadth']  # [m]
+    pax_eye_height = cabine['pax_eye_height']  # [m]
+    pax_midshoulder_height = cabine['pax_midshoulder_height']  # [m]
 
-    delta_z_symmetry_inferior = -1
-    delta_z_symmetry_superior = 2
+    delta_z_symmetry_inferior = cabine['delta_z_symmetry_inferior']
+    delta_z_symmetry_superior = cabine['delta_z_symmetry_superior']
+    seat_delta_width_floor = cabine['seat_delta_width_floor']
     points_number = 20
-    seat_delta_width_floor = 0.025
 
     iterations = 12
     if double_container == 'no':
@@ -189,12 +197,12 @@ def fuselage_cross_section(vehicle):
 
     if fuselage['aisles_number'] == 1:
         seats_number = max(fuselage['seat_abreast_number'], 2)  # minor number of rows == 3
-        seats_number = min(fuselage['seat_abreast_number'], 6)  # major number of rows == 9
+        seats_number = min(seats_number, 6)  # major number of rows == 9
     elif fuselage['aisles_number'] == 2:
         seats_number = max(fuselage['seat_abreast_number'], 6)  # minor number of rows == 3
-        seats_number = min(fuselage['seat_abreast_number'], 9)  # major number of rows == 9
+        seats_number = min(seats_number, 9)  # major number of rows == 9
 
-    fuselage['seat_abreast_number'] = seats_number
+    # fuselage['seat_abreast_number'] = seats_number
 
     if fuselage['aisles_number'] == 1:
         left_fuselage_seats = math.ceil(fuselage['seat_abreast_number']/2)

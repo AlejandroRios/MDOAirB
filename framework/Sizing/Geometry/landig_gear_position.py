@@ -1,21 +1,21 @@
 """
-File name : Landing gear position function
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : January 2021
-Last edit : February 2021
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    - This module performs the calculation of the main landing gear position
-Inputs:
-    - Vehicle dictionary
-Outputs:
-    - Vehicle dictionary with landing gear information updated
-    - y position trunnion
+    - This module performs the calculation of the main landing gear position.
+
+Reference:
+    -
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -34,11 +34,19 @@ deg_to_rad = np.pi/180
 
 
 def landig_gear_position(vehicle):
-
+    """
+    Description:
+        - This function performs the calculation of the main landing gear position
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+        - yc_trunnion - y trunnion position along the wing semi-span [m]
+    """
     engine = vehicle['engine']
     wing = vehicle['wing']
-    nose_landing_gear = vehicle['nose_langing_gear']
-    main_landing_gear = vehicle['main_langing_gear']
+    nose_landing_gear = vehicle['nose_landing_gear']
+    main_landing_gear = vehicle['main_landing_gear']
 
     wing['semi_span'] = wing['span']/2
     wing['root_thickness'] = wing['thickness_ratio'][0]*wing['root_chord']
@@ -89,29 +97,6 @@ def landig_gear_position(vehicle):
     main_landing_gear['xpostion']  = 0.50*(x075trunnion_front+xtrunnion_front)-0.10
 
     return vehicle, yc_trunnion
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-    return
 # =============================================================================
 # MAIN
 # =============================================================================

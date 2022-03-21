@@ -1,33 +1,46 @@
-"""" 
-Title     : Size Horizontal Tail 
-Written by: Alejandro Rios
-Date      : 30/10/19
-Language  : Python
-Aeronautical Institute of Technology
-
-
-Inputs:
-MTOW
-
-Outputs:
-Cap_Sal
-FO_Sal
 """
+MDOAirB
 
-########################################################################################
-"""Importing Modules"""
-########################################################################################
-########################################################################################
-"""Constants declaration"""
-########################################################################################
+Description:
+    - This module performs the sizing of the horizontal tail.
+Reference:
+    -
 
-########################################################################################
+TODO's:
+    -
 
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
+
+"""
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import numpy as np
 from framework.Attributes.Atmosphere.atmosphere_ISA_deviation import atmosphere_ISA_deviation
+# =============================================================================
+# CLASSES
+# =============================================================================
 
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
 
 def sizing_horizontal_tail(vehicle, mach, ceiling):
+    """
+    Description:
+        - This function performs the sizing of the horizontal tail.
+    Inputs:
+        - vehicle - dictionary containing aircraft parameters
+        - mach - mach number
+        - ceiling - [ft]
+    Outputs:
+        - vehicle - dictionary containing aircraft parameters
+    """
     deg_to_rad = np.pi/180
     m2_to_ft2 = (1/0.3048)**2
     kt_to_ms = 1/1.943844   # [kt] para [m/s]
@@ -43,9 +56,7 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
     horizontal_tail['sweep_c_4'] = wing['sweep_c_4'] + 4
     horizontal_tail['aspect_ratio'] = horizontal_tail['aspect_ratio']  # alongamento EH
     horizontal_tail['taper_ratio'] = horizontal_tail['taper_ratio']  # Afilamento EH
-    horizontal_tail['root_chord'] = 0.10  # [#]espessura relativa raiz
-    horizontal_tail['tip_chord']  = 0.10  # [#]espessura relativa ponta
-    horizontal_tail['mean_chord'] = (horizontal_tail['root_chord']+horizontal_tail['tip_chord'] )/2  # [#]espessura media
+    horizontal_tail['mean_chord_thickness'] = (horizontal_tail['thickness_root_chord']+horizontal_tail['thickness_tip_chord'])/2  # [#]espessura media
     horizontal_tail['tail_to_wing_area_ratio']  = horizontal_tail['area']/wing['area']  # rela�ao de areas
     horizontal_tail['twist']  = 0  # torcao EH
 
@@ -89,10 +100,10 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
     horizontal_tail['mean_aerodynamic_chord_yposition']  = horizontal_tail['span']/6*(1+2*horizontal_tail['taper_ratio'])/(1+horizontal_tail['taper_ratio'])
     #
     ######################### HT Wetted area ######################################
-    horizontal_tail['tau'] = horizontal_tail['root_chord']/horizontal_tail['tip_chord'] 
+    horizontal_tail['tau'] = horizontal_tail['center_chord']/horizontal_tail['tip_chord'] 
     #ht.thicknessavg = horizontal_tail['mean_chord']*0.50*(horizontal_tail['center_chord']+horizontal_tail['tip_chord'])
     horizontal_tail['wetted_area'] = 2.*horizontal_tail['area'] * \
-        (1+0.25*horizontal_tail['root_chord']*(1+(horizontal_tail['tau'] * horizontal_tail['taper_ratio']))/(1+horizontal_tail['taper_ratio']))  # [m2]
+        (1+0.25*horizontal_tail['thickness_root_chord']*(1+(horizontal_tail['tau'] * horizontal_tail['taper_ratio']))/(1+horizontal_tail['taper_ratio']))  # [m2]
     # HT aerodynamic center
     if horizontal_tail['position']  == 1:
         horizontal_tail['aerodynamic_center'] = (0.92*fuselage['length'] - horizontal_tail['center_chord'] + horizontal_tail['mean_aerodynamic_chord_yposition'] *np.tan(deg_to_rad*horizontal_tail['sweep_leading_edge']) +
@@ -103,7 +114,7 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
             horizontal_tail['mean_aerodynamic_chord']+horizontal_tail['mean_aerodynamic_chord_yposition'] *np.tan(deg_to_rad*horizontal_tail['sweep_leading_edge'])
 
     # EMPENAGEM HORIZONTAL (HORIZONTAL TAIL)
-    theta, delta, sigma, T_ISA, P_ISA, rho_ISA, a = atmosphere_ISA_deviation(
+    theta, delta, sigma, T_ISA, P_ISA, rho_ISA, _, a = atmosphere_ISA_deviation(
         ceiling, 0)                                 # propriedades da atmosfera
     va = a                                         # velocidade do som [m/s]
     sigma = sigma
@@ -123,3 +134,11 @@ def sizing_horizontal_tail(vehicle, mach, ceiling):
     # print('ht weight',horizontal_tail['weight'])
 
     return vehicle
+
+# =============================================================================
+# MAIN
+# =============================================================================
+
+# =============================================================================
+# TEST
+# =============================================================================

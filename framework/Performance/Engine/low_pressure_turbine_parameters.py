@@ -1,21 +1,21 @@
 """
-Function  :low_pressure_turbine_parameters.py
-Title     :
-Written by:
-Email     : aarc.88@gmail.com
-Date      :
-Last edit :
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
 Description:
-    -
-Inputs:
-    -
-Outputs:
-    -
+    - This module calculates the low pressure turbine parameters. 
+
+Reference:
+    - Aircraft Engine Design, 2003,  Jack Mattingly, William H. Heiser, David T. Pratt
+
 TODO's:
     -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -34,8 +34,22 @@ from framework.Performance.Engine.mass_flow_parameter import MASSFP
 
 
 def TURB(Tti, f, AidAe, Mi, Me, eta_ti, TteR):
-    # Inputs: Tti, f, (Ai /Ae), Mi, Me, eta_t, TteR
-    # Outputs: pi_t, Tau_t, Tte
+    """
+    Description:
+        - This function calculates the low pressure turbine parameters. 
+    Inputs:
+        - Tti - total temperature at station i
+        - f - fuel/air ratio
+        - AidAe - in/exit area ratio
+        - Mi - entry mach number
+        - Me - exist mach number 
+        - eta_ti - engine termal efficiency
+        - TteR - exit reference total temperature [K]
+    Outputs:
+        - pi_t - total pressure ratio low pressure turbine
+        - Tau_t - total enthalpy ration low pressure turbine
+        - T_te - total temperature at turbine exit
+    """
 
     _, hti, Prti, phiti, cpti, Rti, gammati, ati = FAIR(item=1, f=f, T=Tti)
     Ti, _, MFPi = MASSFP(Tt=Tti, f=f, M=Mi)

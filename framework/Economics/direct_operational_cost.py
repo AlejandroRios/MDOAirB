@@ -1,31 +1,22 @@
 """
-File name : Direct Operational Cost
-Author    : Alejandro Rios
-Email     : aarc.88@gmail.com
-Date      : October/2019
-Last edit : September/2020
-Language  : Python 3.8 or >
-Aeronautical Institute of Technology - Airbus Brazil
+MDOAirB
 
-Description: 
+Description:
     - This module calculates the direct operational cost using the
     Roskam formulation
 
-Inputs:
-    -Time block
-    -Cons_block
-    -weitght_empty_kg
-    -total_mission_distance
-    -max_engine_thrust
-    -engines_number
-    -weitght_engine_kg
-    -max_takeoff_mass
-
-Outputs:
-    - DOC [USD]
+Reference: 
+    - Reference: ROSKAM
 
 TODO's:
-    - Rename variables
+    -
+
+| Authors: Alejandro Rios
+| Email: aarc.88@gmail.com
+| Creation: January 2021
+| Last modification: July 2021
+| Language  : Python 3.8 or >
+| Aeronautical Institute of Technology - Airbus Brazil
 
 """
 # =============================================================================
@@ -42,10 +33,8 @@ from framework.Economics.crew_salary import crew_salary
 # CLASSES
 # =============================================================================
 
-
 class structtype():
     pass
-
 
 salary = structtype()
 var = structtype()
@@ -64,14 +53,35 @@ def direct_operational_cost(
     max_engine_thrust,
     engines_number,
     engines_weight,
-    max_takeoff_mass
-):
+    max_takeoff_mass,
+    vehicle
+    ):
+    """
+    Description:
+        - DOC calculation
+    Inputs:
+        - time_between_overhaul - [hr]
+        - total_mission_flight_time - [min]
+        - fuel_mass - [kg]
+        - operational_empty_weight - [kg]
+        - total_mission_distance - [nm]
+        - max_engine_thrust - maximum engine thrust [kg]
+        - engines_number
+        - engines_weight - [kg]
+        - max_takeoff_mass - maximum takeoff weight [kg]
+        - vehicle - dictionary containing aircraft parameters
+    Outputs:
+        - DOC [US$]
+    """
 
     # Constants
+    operations = vehicle['operations']
     kg2lb = 2.20462262
+    kg_l_to_lb_gal = 8.3454
+    N_to_lbf = 0.224809
     var.Range = total_mission_distance
     salary.Captain, salary.FO, _ = crew_salary(max_takeoff_mass)
-    Fuel_price = 2.8039
+    Fuel_price = operations['fuel_price_per_kg']
 
     # =============================================================================
     # Mision data
@@ -106,8 +116,8 @@ def direct_operational_cost(
                                                             ((1 + kj)/vbl)*(SAL2/AH2) + (TEF2/vbl))  # [USD/NM] EQ 5.21 PAG 109
 
     # 2) FUEL AND OIL COST -> Cpol (PAG 148)
-    pfuel = Fuel_price  # PRICE [USD/GALLON]
-    dfuel = 6.74  # DENSITY [LBS/GALLON]
+    pfuel = Fuel_price*1.08  # PRICE [USD/GALLON]
+    dfuel = operations['fuel_density']*kg_l_to_lb_gal  # DENSITY [LBS/GALLON]
     Wfbl = fuel_mass*kg2lb  # [LBS] OPERATIONAL MISSION FUEL
     Cpol = 1.05*(Wfbl/Block_Range)*(pfuel/dfuel)  # EQ 5.30 PAG 116 5# DO DOC
 
@@ -134,7 +144,7 @@ def direct_operational_cost(
 
     # 2) MAINTENANCE LABOR COST FOR ENGINES -> Clab_eng  (PAG 149)
     # BPR = razao de passagem
-    Tto = engines_number*max_engine_thrust  # lbf
+    Tto = engines_number*max_engine_thrust*N_to_lbf  # lbf
     Tto_Ne = Tto / engines_number  # [LBS] TAKE-OFF THRUST PER ENGINE
     Hem = time_between_overhaul  # [HRS] OVERHAUL PERIOD
     Rleng = Rlap
@@ -277,3 +287,40 @@ def direct_operational_cost(
 # =============================================================================
 # TEST
 # =============================================================================
+# from framework.Database.Aircrafts.baseline_aircraft_parameters import *
+# print(direct_operational_cost(
+#     2500,
+#     62,
+#     1403,
+#     29105,
+#     358,
+#     69350,
+#     2,
+#     6789,
+#     34022,
+#     vehicle))
+
+# print(direct_operational_cost(
+#     2500,
+#     62,
+#     1403,
+#     29105,
+#     358,
+#     169350,
+#     2,
+#     10186,
+#     51552,
+#     vehicle))
+
+#     def direct_operational_cost(
+#     time_between_overhaul,
+#     total_mission_flight_time,
+#     fuel_mass,
+#     operational_empty_weight,
+#     total_mission_distance,
+#     max_engine_thrust,
+#     engines_number,
+#     engines_weight,
+#     max_takeoff_mass,
+#     vehicle
+# ):
