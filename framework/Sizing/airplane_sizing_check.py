@@ -26,6 +26,7 @@ TODO's:
 # IMPORTS
 # =============================================================================
 import numpy as np
+import pandas as pd
 from framework.Sizing.Geometry.wing_structural_layout_fuel_storage import wing_structural_layout
 from framework.Sizing.Geometry.fuselage_sizing import fuselage_cross_section
 from framework.Sizing.Geometry.wetted_area import wetted_area
@@ -85,6 +86,22 @@ def airplane_sizing(vehicle,x=None):
     """
     log.info('---- Start aircraft sizing module ----')
 
+    if int(x[9]) <= 44:
+        df = pd.read_pickle("engines.pkl")
+        index = int(x[9] )
+
+        de = df.loc[index, 'De (m)']
+        bpr = df.loc[index, 'BPR']
+        fpr = df.loc[index, 'FPR']
+        opr = df.loc[index, 'OPR']
+        tit = df.loc[index, 'TIT (K)']
+    
+    else:
+        a =1 
+
+
+
+
     if not isinstance(x, list):
         x = x.tolist()
 
@@ -115,9 +132,9 @@ def airplane_sizing(vehicle,x=None):
         wing['sweep_c_4'] = x[3]
         wing['twist'] = x[4]
         wing['semi_span_kink'] = x[5]/100
-        aircraft['passenger_capacity'] = x[11]
-        fuselage['seat_abreast_number'] = x[12]
-        performance['range'] = x[13]
+        aircraft['passenger_capacity'] = x[6]
+        fuselage['seat_abreast_number'] = x[7]
+        performance['range'] = x[8]
         # aircraft['winglet_presence'] = x[17]
         aircraft['winglet_presence'] = 1
         # aircraft['slat_presence'] = x[18]
@@ -125,13 +142,12 @@ def airplane_sizing(vehicle,x=None):
         # horizontal_tail['position'] = x[19]
         horizontal_tail['position'] = 1
 
-        engine['bypass'] = x[6]/10
-        engine['diameter'] = x[7]/10
-        engine['compressor_pressure_ratio'] = x[8]
-        engine['turbine_inlet_temperature'] = x[9]
-        engine['fan_pressure_ratio'] = x[10]/10
-        engine['design_point_pressure'] = x[14]
-        engine['design_point_mach'] = x[15]/100
+        engine['bypass'] = bpr
+        engine['diameter'] = de
+        engine['compressor_pressure_ratio'] = opr
+        engine['turbine_inlet_temperature'] = tit
+        engine['fan_pressure_ratio'] = fpr
+
         # engine['position'] = x[16]
         engine['position'] = 1
     else:
@@ -156,8 +172,7 @@ def airplane_sizing(vehicle,x=None):
         engine['compressor_pressure_ratio'] = engine['compressor_pressure_ratio']
         engine['turbine_inlet_temperature'] = engine['turbine_inlet_temperature'] 
         engine['fan_pressure_ratio'] = engine['fan_pressure_ratio']/10
-        engine['design_point_pressure'] = engine['design_point_pressure']
-        engine['design_point_mach'] = engine['design_point_mach']/100
+
         engine['position'] = engine['position']
 
     
@@ -429,14 +444,15 @@ def airplane_sizing(vehicle,x=None):
     # except:
     #     log.error("Error at sizing_landing_gear", exc_info = True)
         # fuel deficit
-        delta_fuel = wing['fuel_capacity']*1 - 1*fuel_mass
+
+        other_elements_fuel = zero_fidelity_fuel_capacity(vehicle)
+        delta_fuel = (other_elements_fuel + wing['fuel_capacity']) - 1.005*fuel_mass
 
     if delta_fuel < 0:
         flag_fuel = 1
     else:
         flag_fuel = 0
 
-    print(zero_fidelity_fuel_capacity(vehicle))
 
 
     # Simple plot check
@@ -456,7 +472,7 @@ def airplane_sizing(vehicle,x=None):
 
 
 
-    ToW = (aircraft['number_of_engines']*engine['maximum_thrust']*0.98)/(aircraft['maximum_takeoff_weight']*GRAVITY)
+    ToW = (aircraft['number_of_engines']*engine['maximum_thrust'])/(aircraft['maximum_takeoff_weight']*GRAVITY)
     WoS = aircraft['maximum_takeoff_weight']/wing['area']
 
     # regulated_takeoff_weight_required = regulated_takeoff_weight(vehicle)
@@ -471,7 +487,7 @@ def airplane_sizing(vehicle,x=None):
     WtoS_landing = (k_L*airport_destination['lda']*aircraft['CL_maximum_landing'])/(aircraft['maximum_landing_weight']/aircraft['maximum_takeoff_weight'])
 
 
-    if WtoS_landing < WoS:
+    if  WoS > WtoS_landing:
         flag_landing = 1
     else:
         flag_landing = 0
@@ -482,7 +498,7 @@ def airplane_sizing(vehicle,x=None):
 
     ToW_takeoff = (k_TO/(airport_departure['tora']*aircraft['CL_maximum_takeoff']))*WtoS_landing
 
-    if ToW_takeoff > ToW:
+    if ToW < ToW_takeoff :
         flag_takeoff = 1
     else:
         flag_takeoff = 0
@@ -492,7 +508,7 @@ def airplane_sizing(vehicle,x=None):
     ToW_second_segment = second_segment_climb(vehicle, airport_departure, aircraft['maximum_takeoff_weight']*GRAVITY)
 
 
-    if ToW_second_segment > ToW:
+    if ToW < ToW_second_segment: 
         flag_climb_second_segment = 1
     else:
         flag_climb_second_segment = 0
@@ -501,7 +517,7 @@ def airplane_sizing(vehicle,x=None):
     # Climb gradient during missed approach check
     ToW_missed_approach = missed_approach_climb_OEI(vehicle, airport_destination, aircraft['maximum_takeoff_weight']*GRAVITY,aircraft['maximum_takeoff_weight']*GRAVITY)
 
-    if ToW_missed_approach > ToW:
+    if ToW < ToW_missed_approach:
         flag_missed_approach = 1
     else:
         flag_missed_approach = 0
@@ -514,7 +530,7 @@ def airplane_sizing(vehicle,x=None):
 
     ToW_cruise = residual_rate_of_climb(vehicle, airport_departure, aircraft['maximum_takeoff_weight']*GRAVITY,engine_cruise_thrust)
 
-    if ToW_cruise > ToW:
+    if ToW < ToW_cruise:
         flag_cruise = 1
     else:
         flag_cruise = 0

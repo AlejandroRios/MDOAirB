@@ -5,7 +5,7 @@ import numpy as np
 # FUNCTIONS
 # =============================================================================
 
-
+kg_l_to_kg_m3 = 1000
 def zero_fidelity_fuel_capacity(vehicle):
     aircraft = vehicle['aircraft']
     fuselage = vehicle['fuselage']
@@ -52,11 +52,11 @@ def zero_fidelity_fuel_capacity(vehicle):
 
     HtpFuel = (0.08 * HtpArea) 
 
-    MFW = (FusFuel + WingCTkFuel + WingFuel + HtpFuel) * operations['fuel_density']
+    MFW = (FusFuel + WingCTkFuel + HtpFuel) * operations['fuel_density']*kg_l_to_kg_m3
 
-    return (FusFuel + WingCTkFuel + WingFuel + HtpFuel)
+    return MFW
 
 
 
-vehicle = initialize_aircraft_parameters()
-print(zero_fidelity_fuel_capacity(vehicle))
+# vehicle = initialize_aircraft_parameters()
+# print(zero_fidelity_fuel_capacity(vehicle))

@@ -13,7 +13,22 @@ from matplotlib.offsetbox import AnchoredText
 
 # 'De (m)' 'BPR' 'FPR' 'OPR' 'TIT (K)' 'T (N)' 'FC (kg/hr)'
 df = pd.read_pickle("engines.pkl")
-print(df.head())
+# df =df.reset_index(drop=True)
+# df = df.drop('index', 1)
+
+# df = df.reset_index(level=0)
+
+print(df)
 print(df.shape[0])
 
 
+
+
+x = 44
+
+# print(df.iloc[[2],['De (m)']])
+
+print(df.loc[x, 'De (m)'])
+
+
+# df.to_pickle("engines.pkl")  
