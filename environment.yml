@@ -7,10 +7,12 @@
 #
 # See also: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 
-name: MDOAirB
+name: MDOAirB_base
 
 channels:
- - defaults
+  - dlr-sc  # See: https://anaconda.org/DLR-SC/repo
+  - conda-forge
+  - defaults
 
 # List all explicitly imported/used packages
 # ------------------------------------------
@@ -49,13 +51,13 @@ dependencies:
   - glpk>=0.4
   - numba>=0.5
   - smt>=1.0.0
-  - haversine>=2.3.1
   - jsonschema>=3.2.0
   # Testing
   - flake8
   - pytest>=5.0.1
   - pytest-cov
   - codecov==2.0.15
+  - haversine>=0.4.5
 
   # Documentation
   - sphinx=3.0.3
